@@ -182,7 +182,7 @@ const HorizontalLayout = (props: LayoutProps) => {
         </ContentWrapper>
 
         {/* Footer */}
-        <Footer {...props} footerStyles={footerProps?.sx} footerContent={footerProps?.content} />
+        {/* <Footer {...props} footerStyles={footerProps?.sx} footerContent={footerProps?.content} /> */}
 
         {/* Customizer */}
         {themeConfig.disableCustomizer || hidden ? null : <Customizer />}
