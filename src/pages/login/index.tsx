@@ -256,7 +256,7 @@ const LoginPage = () => {
               </Typography>
             </Box>
             <Box sx={{ mb: 6 }}>
-              <TypographyStyled variant='h5'>{`Welcome to ${themeConfig.templateName}! 👋🏻`}</TypographyStyled>
+              <TypographyStyled variant='h5'>{`Welcome to Holocruxe! 👋🏻`}</TypographyStyled>
               <Typography variant='body2'>Please sign-in to your account and start the adventure</Typography>
             </Box>
             <Alert icon={false} sx={{ py: 3, mb: 6, ...bgColors.primaryLight, '& .MuiAlert-message': { p: 0 } }}>
@@ -375,14 +375,14 @@ const LoginPage = () => {
                 >
                   <Icon icon='mdi:twitter' />
                 </IconButton>
-                <IconButton
+                {/* <IconButton
                   href='/'
                   component={Link}
                   onClick={(e: MouseEvent<HTMLElement>) => e.preventDefault()}
                   sx={{ color: theme => (theme.palette.mode === 'light' ? '#272727' : 'grey.300') }}
                 >
                   <Icon icon='mdi:github' />
-                </IconButton>
+                </IconButton> */}
                 <IconButton
                   href='/'
                   component={Link}
