@@ -16,7 +16,9 @@ import { LayoutProps } from 'src/@core/layouts/types'
 
 // ** Components
 import Customizer from 'src/@core/components/customizer'
-import Footer from './components/shared-components/footer'
+
+// ** import Footer from './components/shared-components/footer'
+
 import Navigation from './components/horizontal/navigation'
 import ScrollToTop from 'src/@core/components/scroll-to-top'
 import AppBarContent from './components/horizontal/app-bar-content'
@@ -69,7 +71,9 @@ const HorizontalLayout = (props: LayoutProps) => {
     children,
     settings,
     scrollToTop,
-    footerProps,
+
+    // ** footerProps,
+    
     saveSettings,
     contentHeightFixed,
     horizontalLayoutProps
