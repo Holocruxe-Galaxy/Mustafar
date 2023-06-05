@@ -7,27 +7,32 @@ const StepperWrapper = styled(Box)<BoxProps>(({ theme }) => {
     [theme.breakpoints.down('md')]: {
       '& .MuiStepper-horizontal:not(.MuiStepper-alternativeLabel)': {
         flexDirection: 'column',
-        alignItems: 'flex-start'
+        alignItems: 'flex-start',
       }
     },
     '& .MuiStep-root': {
       '& .step-label': {
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        marginTop: 30
+
       },
       '& .step-number': {
         fontWeight: 600,
         letterSpacing: 0.25,
         fontSize: '2.125rem',
         marginRight: theme.spacing(2.5),
-        color: theme.palette.text.primary
+        color: theme.palette.text.primary,
+        
+        
       },
       '& .step-title': {
         fontWeight: 500,
         fontSize: '0.875rem',
         letterSpacing: '0.1px',
-        color: theme.palette.text.primary
+        color: theme.palette.text.primary,
+        
       },
       '& .step-subtitle': {
         fontWeight: 400,
@@ -49,11 +54,13 @@ const StepperWrapper = styled(Box)<BoxProps>(({ theme }) => {
     '& .MuiStepConnector-root': {
       '& .MuiStepConnector-line': {
         borderWidth: 3,
-        borderRadius: 3
+        borderRadius: 3,
+        marginTop: 30
       },
       '&.Mui-active, &.Mui-completed': {
         '& .MuiStepConnector-line': {
-          borderColor: theme.palette.primary.main
+          borderColor: theme.palette.primary.main,
+          
         }
       },
       '&.Mui-disabled .MuiStepConnector-line': {
