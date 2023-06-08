@@ -7,19 +7,29 @@ import Card from '@mui/material/Card'
 import Step from '@mui/material/Step'
 import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
+
 // import Select from '@mui/material/Select'
+
 import Divider from '@mui/material/Divider'
 import Stepper from '@mui/material/Stepper'
+
 // import MenuItem from '@mui/material/MenuItem'
+
 import StepLabel from '@mui/material/StepLabel'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
+
 // import InputLabel from '@mui/material/InputLabel'
+
 // import IconButton from '@mui/material/IconButton'
+
 import CardContent from '@mui/material/CardContent'
 import FormControl from '@mui/material/FormControl'
+
 // import OutlinedInput from '@mui/material/OutlinedInput'
+
 import FormHelperText from '@mui/material/FormHelperText'
+
 // import InputAdornment from '@mui/material/InputAdornment'
 
 // ** Third Party Imports
@@ -48,23 +58,32 @@ import StepperWrapper from 'src/@core/styles/mui/stepper'
 const steps = [
   {
     title: 'Información personal',
+
     // subtitle: 'Ingresá tus datos'
   },
+
   // {
-  //   title: 'Información educativa',
-  //   // subtitle: 'Setup Information'
-  // },
+
+  //  title: 'Información educativa',
+  //  // subtitle: 'Setup Information'
+
+  //  ** },
   {
     title: 'Información de contacto',
+
     // subtitle: 'Add Social Links'
   },
   {
     title: 'Ubicación greográfica',
-    // subtitle: 'Add Social Links'
+
+    //  subtitle: 'Add Social Links'
   },
-  // {
-  //   title: 'Información de entretenimiento',
-  //   // subtitle: 'Add Social Links'
+
+  //  {
+
+  //  title: 'Información de entretenimiento',
+
+    // subtitle: 'Add Social Links'
   // },
   // {
   //   title: 'Historial de compras',
@@ -78,24 +97,29 @@ const steps = [
   //   title: 'Preferencias de comunicación',
   //   // subtitle: 'Add Social Links'
   // }
-  
+
 ]
 
 const defaultPersonalValues = {
   'first-name': '',
   'last-name': '',
-  gender: '', 
+  gender: '',
   'date-of-birth': '',
   'marital-status': ''
+
   // phone: '',
+
   // language: [],
 }
-// const defaultEducationValues = {
+
+//  const defaultEducationValues = {
+
 //   history: '',
 //   schools: '',
 //   grades: '',
 //   dates: ''
 // }
+
 const defaultContactValues = {
   mail: '',
   'alternative-mail': '',
@@ -143,8 +167,10 @@ const personalSchema = yup.object().shape({
   gender: yup.string().required(),
   'date-of-birth': yup.string().required(),
   'marital-status': yup.string().required(),
+
   // language: yup.array().min(1).required()
 })
+
 // const educationSchema = yup.object().shape({
 //   history: yup.string().required(),
 //   schools: yup.string().required(),
@@ -170,7 +196,9 @@ const locationSchema = yup.object().shape({
   address: yup.string().required(),
   'post-code': yup.string().required()
 })
+
 // const entertainmentSchema = yup.object().shape({
+
 //   'game-matches': yup.string().required(),
 //   'live-events': yup.string().required(),
 //   theathers: yup.string().required(),
@@ -197,6 +225,7 @@ const locationSchema = yup.object().shape({
 const Register = () => {
   // ** States
   const [activeStep, setActiveStep] = useState<number>(0)
+
   // const [state, setState] = useState<State>({
   //   password: '',
   //   password2: '',
@@ -214,6 +243,7 @@ const Register = () => {
     defaultValues: defaultPersonalValues,
     resolver: yupResolver(personalSchema)
   })
+
 //   const {
 //     reset: educationReset,
 //     control: educationControl,
@@ -241,6 +271,7 @@ const Register = () => {
     defaultValues: defaultLocationValues,
     resolver: yupResolver(locationSchema)
   })
+
   // const {
   //   reset: entertainmentReset,
   //   control: entertainmentControl,
@@ -287,6 +318,7 @@ const Register = () => {
     personalReset({ 'last-name': '', 'first-name': '', gender: '', 'date-of-birth': '', 'marital-status': '' })
     contactReset({ mail: '', 'alternative-mail': '', phone: '', 'post-code': '' })
     locationReset({ country: '', province: '', city: '', address: '', 'post-code': '' })
+
     // educationReset({ history: '', schools: '', grades: '', dates: '' })
     // entertainmentReset({ 'games-matches': '', 'live-events': '', theathers: '', museums: '' })
     // shoppingReset({ apps: '', 'orders-history': '', 'billing-history': '', 'delivery-preference': '' })
@@ -357,7 +389,9 @@ const Register = () => {
                     rules={{ required: true }}
                     render={({ field: { value, onChange } }) => (
                       <TextField
+
                         // type='email'
+
                         value={value}
                         label='Apellido'
                         onChange={onChange}
@@ -382,6 +416,7 @@ const Register = () => {
                     rules={{ required: true }}
                     render={({ field: { value, onChange } }) => (
                       <TextField
+
                         // type='email'
                         value={value}
                         label='Género'
@@ -407,6 +442,7 @@ const Register = () => {
                     rules={{ required: true }}
                     render={({ field: { value, onChange } }) => (
                       <TextField
+
                         // type='email'
                         value={value}
                         label='Fecha de Nacimiento'
@@ -432,6 +468,7 @@ const Register = () => {
                     rules={{ required: true }}
                     render={({ field: { value, onChange } }) => (
                       <TextField
+
                         // type='email'
                         value={value}
                         label='Estado Civil'
@@ -803,6 +840,7 @@ const Register = () => {
           </Grid>
         </form>
         )
+
         // case 3:
         // return (
         //   <form key={3} onSubmit={handleEducationSubmit(onSubmit)}>
@@ -1408,7 +1446,7 @@ const Register = () => {
                   activeStep === 0
                 ) {
                   labelProps.error = true
-                } 
+                }
                  else if (
                   (contactErrors.mail ||
                      contactErrors['alternative-mail'] ||
@@ -1426,7 +1464,8 @@ const Register = () => {
                     activeStep === 2
                 ) {
                   labelProps.error = true
-                } 
+                }
+
                 // else if (
                 //   (educationErrors.history ||
                 //     educationErrors.grades ||
@@ -1437,13 +1476,13 @@ const Register = () => {
                 //   labelProps.error = true
                 // }
                 // else if (
-                //   (entertainmentErrors['games-matches'] || 
-                //   entertainmentErrors['live-events'] || entertainmentErrors.theathers || 
+                //   (entertainmentErrors['games-matches'] ||
+                //   entertainmentErrors['live-events'] || entertainmentErrors.theathers ||
                 //   entertainmentErrors.museums) &&
                 //   activeStep === 4
                 //   ) {
                 //     labelProps.error = true
-                //   } 
+                //   }
                 //   else if (
                 //     (shoppingErrors.apps ||
                 //        shoppingErrors['orders-history'] ||
@@ -1494,6 +1533,9 @@ const Register = () => {
       <Divider sx={{ m: '0 !important' }} />
 
       <CardContent>{renderContent()}</CardContent>
+
+
+
     </Card>
   )
 }
