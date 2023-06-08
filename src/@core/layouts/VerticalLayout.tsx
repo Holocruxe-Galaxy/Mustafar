@@ -19,7 +19,9 @@ import { LayoutProps } from 'src/@core/layouts/types'
 import AppBar from './components/vertical/appBar'
 import Customizer from 'src/@core/components/customizer'
 import Navigation from './components/vertical/navigation'
-import Footer from './components/shared-components/footer'
+
+// ** import Footer from './components/shared-components/footer'
+
 import ScrollToTop from 'src/@core/components/scroll-to-top'
 
 const VerticalLayoutWrapper = styled('div')({
@@ -48,7 +50,9 @@ const ContentWrapper = styled('main')(({ theme }) => ({
 
 const VerticalLayout = (props: LayoutProps) => {
   // ** Props
-  const { hidden, settings, children, scrollToTop, footerProps, contentHeightFixed, verticalLayoutProps } = props
+  const { hidden, settings, children, scrollToTop, 
+    // ** footerProps, 
+    contentHeightFixed, verticalLayoutProps } = props
 
   // ** Vars
   const { skin, navHidden, contentWidth } = settings

@@ -7,6 +7,8 @@ const navigation = (): VerticalNavItemsType => {
       title: 'Dashboards',
       icon: 'mdi:home-outline',
       path: '/home'
+
+      // **
       // badgeContent: 'new',
       // badgeColor: 'error',
       // children: [
@@ -23,6 +25,7 @@ const navigation = (): VerticalNavItemsType => {
       //     path: '/dashboards/ecommerce'
       //   }
       // ]
+
     },
     {
       sectionTitle: 'Apps & Pages'
@@ -77,6 +80,8 @@ const navigation = (): VerticalNavItemsType => {
       icon: 'mdi:calendar-blank-outline',
       path: '/apps/calendar'
     },
+
+    // **
     // {
     //   title: 'Invoice',
     //   icon: 'mdi:file-document-outline',
@@ -99,7 +104,7 @@ const navigation = (): VerticalNavItemsType => {
     //     }
     //   ]
     // },
-    
+
     {
       title: 'Roles & Permissions',
       icon: 'mdi:shield-outline',
@@ -337,7 +342,9 @@ const navigation = (): VerticalNavItemsType => {
       icon: 'mdi:vector-arrange-below',
       title: 'Dialog Examples',
       path: '/pages/dialog-examples'
-    },
+    }
+
+    // **
     // {
     //   sectionTitle: 'User Interface'
     // },
@@ -625,6 +632,7 @@ const navigation = (): VerticalNavItemsType => {
     //     }
     //   ]
     // }
+    
   ]
 }
 
