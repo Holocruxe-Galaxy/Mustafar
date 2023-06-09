@@ -325,12 +325,13 @@ const Register = () => {
     // medicReset({ 'relevant-info': '', allergies: '', 'chronic-conditions': '', medicines: '' })
     // comunicationReset({ languages: '', 'comunication-frecuency': '', 'fav-type-of-content': '' })
   }
-  const onSubmit = (data) => {
+  const onSubmit = () => {
     setActiveStep(activeStep + 1)
     if (activeStep === steps.length - 1) {
       toast.success('Form Submitted')
     }
-    console.log(data)
+    
+    // console.log(data)
   }
 
   // // Handle Password

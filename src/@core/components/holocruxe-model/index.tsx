@@ -61,9 +61,9 @@ export default function sphere_with_waves() {
   // const waterAmbientOcclusion = textureLoader.load("./textures/water/Water_002_OCC.jpg");
 
   // PLANE
-  const geometry = new THREE.SphereBufferGeometry(6, 128, 128);
+  const geometry = new THREE.SphereGeometry(6, 128, 128);
   const sphere = new THREE.Mesh(geometry,
-    
+
       // new THREE.MeshStandardMaterial({
       //     map: waterBaseColor,
       //     normalMap: waterNormalMap,
