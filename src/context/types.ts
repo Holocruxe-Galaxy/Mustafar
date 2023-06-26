@@ -1,3 +1,5 @@
+import { AnyListenerPredicate } from '@reduxjs/toolkit'
+
 export type ErrCallbackType = (err: { [key: string]: string }) => void
 
 export type LoginParams = {
@@ -7,13 +9,12 @@ export type LoginParams = {
 }
 
 export type UserDataType = {
-  id: number
-  role: string
-  email: string
-  fullName: string
-  username: string
-  name: string
-  password: string
+  id: any
+  role: any
+  email: any
+  fullName: any
+  username: any
+  name: any
   avatar?: string | null
   // "name": "Alexander",
   // "lastname": "Cañete",

@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, ReactNode, MouseEvent } from 'react'
+import { useState, ReactNode, MouseEvent, useEffect } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
@@ -43,7 +43,8 @@ import BlankLayout from 'src/@core/layouts/BlankLayout'
 
 // ** Demo Imports
 import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
-
+// ** Auth0 Imports
+import { useAuth0 } from '@auth0/auth0-react'
 // ** Styled Components
 const LoginIllustrationWrapper = styled(Box)<BoxProps>(({ theme }) => ({
   padding: theme.spacing(20),
@@ -112,7 +113,7 @@ interface FormData {
 const LoginPage = () => {
   const [rememberMe, setRememberMe] = useState<boolean>(true)
   const [showPassword, setShowPassword] = useState<boolean>(false)
-
+  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0()
   // ** Hooks
   const auth = useAuth()
   const theme = useTheme()
@@ -145,7 +146,9 @@ const LoginPage = () => {
   }
 
   const imageSource = skin === 'bordered' ? 'auth-v2-login-illustration-bordered' : 'auth-v2-login-illustration'
-
+  useEffect(() => {
+    console.log(user)
+  }, [isAuthenticated, user])
   return (
     <Box className='content-right'>
       {!hidden ? (
@@ -370,7 +373,10 @@ const LoginPage = () => {
                   href='/'
                   component={Link}
                   sx={{ color: '#db4437' }}
-                  onClick={(e: MouseEvent<HTMLElement>) => e.preventDefault()}
+                  onClick={(e: MouseEvent<HTMLElement>) => {
+                    e.preventDefault()
+                    loginWithRedirect()
+                  }}
                 >
                   <Icon icon='mdi:google' />
                 </IconButton>
