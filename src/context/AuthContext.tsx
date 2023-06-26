@@ -128,6 +128,7 @@ const AuthProvider = ({ children }: Props) => {
       })
         .then(res => res.json())
         .then(res => res)
+      console.log(response)
 
       if (response.username) {
         //si el inicio de sesión es correcto
@@ -136,18 +137,18 @@ const AuthProvider = ({ children }: Props) => {
 
         const token = jwt.sign(data, secretKey, { expiresIn: '3h' })
 
-        window.localStorage.setItem('jwtToken', token)
+        // window.localStorage.setItem('jwtToken', token)
 
-        setLoading(true)
-        setLoading(false)
-        setUser({
-          id: 129,
-          role: 'admin',
-          email: userAuth?.email,
-          fullName: userAuth?.name,
-          username: userAuth?.nickname,
-          avatar: userAuth?.picture
-        })
+        // setLoading(true)
+        // setLoading(false)
+        // setUser({
+        //   id: 129,
+        //   role: 'admin',
+        //   email: userAuth?.email,
+        //   fullName: userAuth?.name,
+        //   username: userAuth?.nickname,
+        //   avatar: userAuth?.picture
+        // })
         // router.replace('/home')
       } else {
         logout()

@@ -22,9 +22,9 @@ const GuestGuard = (props: GuestGuardProps) => {
       return
     }
 
-    if (window.localStorage.getItem('jwtToken')) {
-      //
-    }
+    // if (window.localStorage.getItem('jwtToken')) {
+    //   //
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.route])
 
