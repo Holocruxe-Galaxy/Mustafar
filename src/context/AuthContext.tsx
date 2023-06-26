@@ -42,7 +42,20 @@ const AuthProvider = ({ children }: Props) => {
 
   useEffect(() => {
     const initAuth = async () => {
-      const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
+      const storedToken = window.localStorage.getItem('jwtToken')
+
+      // if (storedToken) {
+      //   setLoading(true)
+      //   setLoading(false)
+      //   setUser({
+      //     id: 129,
+      //     role: 'Admin',
+      //     email: userAuth?.email,
+      //     fullName: userAuth?.name,
+      //     username: userAuth?.nickname,
+      //     avatar: userAuth?.picture
+      //   })
+      // }
 
       if (storedToken) {
         setLoading(true)
@@ -124,7 +137,18 @@ const AuthProvider = ({ children }: Props) => {
         const token = jwt.sign(data, secretKey, { expiresIn: '3h' })
 
         window.localStorage.setItem('jwtToken', token)
-        router.replace('/home')
+
+        setLoading(true)
+        setLoading(false)
+        setUser({
+          id: 129,
+          role: 'admin',
+          email: userAuth?.email,
+          fullName: userAuth?.name,
+          username: userAuth?.nickname,
+          avatar: userAuth?.picture
+        })
+        // router.replace('/home')
       } else {
         logout()
         window.alert(response.message)
@@ -137,8 +161,7 @@ const AuthProvider = ({ children }: Props) => {
   const handleLogout = () => {
     setUser(null)
     window.localStorage.removeItem('jwtToken')
-
-    // router.push('/login')
+    router.push('/login')
   }
 
   const values = {

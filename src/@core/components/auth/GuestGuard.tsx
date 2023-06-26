@@ -22,13 +22,13 @@ const GuestGuard = (props: GuestGuardProps) => {
       return
     }
 
-    if (window.localStorage.getItem('userData')) {
-      router.replace('/')
+    if (window.localStorage.getItem('jwtToken')) {
+      //
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.route])
 
-  if (auth.loading || (!auth.loading && auth.user !== null)) {
+  if (false) {
     return fallback
   }
 
