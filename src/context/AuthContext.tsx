@@ -38,10 +38,9 @@ const AuthProvider = ({ children }: Props) => {
   const router = useRouter()
 
   useEffect(() => {
-    const initAuth = async (): Promise<void> => {
+    const initAuth = async () => {
       const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)!
       if (storedToken) {
-        setLoading(true)
         await axios
           .get(authConfig.meEndpoint, {
             headers: {

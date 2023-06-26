@@ -12,8 +12,13 @@ export type UserDataType = {
   email: string
   fullName: string
   username: string
+  name: string
   password: string
   avatar?: string | null
+  // "name": "Alexander",
+  // "lastname": "Cañete",
+  // "email": "alexander1@gmail.com",
+  // "birthdate": "2023-06-12"
 }
 
 export type AuthValuesType = {
