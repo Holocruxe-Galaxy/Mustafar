@@ -1,57 +1,61 @@
 // ** React Imports
-import { useState, ReactNode, MouseEvent } from 'react';
+import { useState, ReactNode, MouseEvent, useEffect } from 'react'
 
 // ** Next Imports
-import Link from 'next/link';
-
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 // ** MUI Components
-import Alert from '@mui/material/Alert';
-import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
-import Checkbox from '@mui/material/Checkbox';
-import TextField from '@mui/material/TextField';
-import InputLabel from '@mui/material/InputLabel';
-import IconButton from '@mui/material/IconButton';
-import Box, { BoxProps } from '@mui/material/Box';
-import FormControl from '@mui/material/FormControl';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import { styled, useTheme } from '@mui/material/styles';
-import FormHelperText from '@mui/material/FormHelperText';
-import InputAdornment from '@mui/material/InputAdornment';
-import Typography, { TypographyProps } from '@mui/material/Typography';
-import MuiFormControlLabel, { FormControlLabelProps } from '@mui/material/FormControlLabel';
+import Alert from '@mui/material/Alert'
+import Button from '@mui/material/Button'
+import Divider from '@mui/material/Divider'
+import Checkbox from '@mui/material/Checkbox'
+import TextField from '@mui/material/TextField'
+import InputLabel from '@mui/material/InputLabel'
+import IconButton from '@mui/material/IconButton'
+import Box, { BoxProps } from '@mui/material/Box'
+import FormControl from '@mui/material/FormControl'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import OutlinedInput from '@mui/material/OutlinedInput'
+import { styled, useTheme } from '@mui/material/styles'
+import FormHelperText from '@mui/material/FormHelperText'
+import InputAdornment from '@mui/material/InputAdornment'
+import Typography, { TypographyProps } from '@mui/material/Typography'
+import MuiFormControlLabel, { FormControlLabelProps } from '@mui/material/FormControlLabel'
 
 // ** Icon Imports
-import Icon from 'src/@core/components/icon';
+import Icon from 'src/@core/components/icon'
 
 // ** Third Party Imports
-import * as yup from 'yup';
-import { useForm, Controller } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup'
+import { useForm, Controller } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 // ** Hooks
-import { useAuth } from 'src/hooks/useAuth';
-import useBgColor from 'src/@core/hooks/useBgColor';
-import { useSettings } from 'src/@core/hooks/useSettings';
+import { useAuth } from 'src/hooks/useAuth'
+import useBgColor from 'src/@core/hooks/useBgColor'
+import { useSettings } from 'src/@core/hooks/useSettings'
 
 // ** Configs
 // ** import themeConfig from 'src/configs/themeConfig'
 
 // ** Layout Import
-import BlankLayout from 'src/@core/layouts/BlankLayout';
+import BlankLayout from 'src/@core/layouts/BlankLayout'
 
 // ** Demo Imports
-import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2';
+import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
+
+// ** Auth0 props
+import { useAuth0 } from '@auth0/auth0-react'
 
 // ** Styled Components
+
 const LoginIllustrationWrapper = styled(Box)<BoxProps>(({ theme }) => ({
   padding: theme.spacing(20),
   paddingRight: '0 !important',
   [theme.breakpoints.down('lg')]: {
     padding: theme.spacing(10)
   }
-}));
+}))
 
 const LoginIllustration = styled('img')(({ theme }) => ({
   maxWidth: '48rem',
@@ -61,7 +65,7 @@ const LoginIllustration = styled('img')(({ theme }) => ({
   [theme.breakpoints.down('lg')]: {
     maxWidth: '30rem'
   }
-}));
+}))
 
 const RightWrapper = styled(Box)<BoxProps>(({ theme }) => ({
   width: '100%',
@@ -71,57 +75,59 @@ const RightWrapper = styled(Box)<BoxProps>(({ theme }) => ({
   [theme.breakpoints.up('lg')]: {
     maxWidth: 450
   }
-}));
+}))
 
 const BoxWrapper = styled(Box)<BoxProps>(({ theme }) => ({
   width: '100%',
   [theme.breakpoints.down('md')]: {
     maxWidth: 400
   }
-}));
+}))
 
 const TypographyStyled = styled(Typography)<TypographyProps>(({ theme }) => ({
   fontWeight: 600,
   letterSpacing: '0.18px',
   marginBottom: theme.spacing(1.5),
   [theme.breakpoints.down('md')]: { marginTop: theme.spacing(8) }
-}));
+}))
 
 const FormControlLabel = styled(MuiFormControlLabel)<FormControlLabelProps>(({ theme }) => ({
   '& .MuiFormControlLabel-label': {
     fontSize: '0.875rem',
     color: theme.palette.text.secondary
   }
-}));
+}))
 
 const schema = yup.object().shape({
   email: yup.string().email().required(),
   password: yup.string().min(5).required()
-});
+})
 
 const defaultValues = {
   password: 'admin',
   email: 'admin@materialize.com'
-};
+}
 
 interface FormData {
-  email: string;
-  password: string;
+  email: string
+  password: string
 }
 
 const LoginPage = () => {
-  const [rememberMe, setRememberMe] = useState<boolean>(true);
-  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const router = useRouter()
+  // const [rememberMe, setRememberMe] = useState<boolean>(true)
+  const [showPassword, setShowPassword] = useState<boolean>(false)
+  const { loginWithRedirect, logout, user, isAuthenticated, isLoading } = useAuth0()
 
   // ** Hooks
-  const auth = useAuth();
-  const theme = useTheme();
-  const bgColors = useBgColor();
-  const { settings } = useSettings();
-  const hidden = useMediaQuery(theme.breakpoints.down('md'));
+  const auth = useAuth()
+  const theme = useTheme()
+  const bgColors = useBgColor()
+  const { settings } = useSettings()
+  const hidden = useMediaQuery(theme.breakpoints.down('md'))
 
   // ** Vars
-  const { skin } = settings;
+  const { skin } = settings
 
   const {
     control,
@@ -132,20 +138,20 @@ const LoginPage = () => {
     defaultValues,
     mode: 'onBlur',
     resolver: yupResolver(schema)
-  });
+  })
 
-  const onSubmit = (data: FormData) => {
-    const { email, password } = data;
-    auth.login({ email, password, rememberMe }, () => {
-      setError('email', {
-        type: 'manual',
-        message: 'Email or Password is invalid'
-      });
-    });
-  };
+  const onSubmit = async () => {
+    if (!isAuthenticated || isLoading) {
+      loginWithRedirect()
+    }
+  }
 
-  const imageSource = skin === 'bordered' ? 'auth-v2-login-illustration-bordered' : 'auth-v2-login-illustration';
-
+  const imageSource = skin === 'bordered' ? 'auth-v2-login-illustration-bordered' : 'auth-v2-login-illustration'
+  useEffect(() => {
+    if (isAuthenticated) {
+      auth.login()
+    }
+  }, [user, isAuthenticated])
   return (
     <Box className='content-right'>
       {!hidden ? (
@@ -250,8 +256,8 @@ const LoginPage = () => {
                 Client: <strong>client@materialize.com</strong> / Pass: <strong>client</strong>
               </Typography>
             </Alert>
-            <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
-              <FormControl fullWidth sx={{ mb: 4 }}>
+            <form noValidate autoComplete='off'>
+              {/*   <FormControl fullWidth sx={{ mb: 4 }}>
                 <Controller
                   name='email'
                   control={control}
@@ -322,13 +328,20 @@ const LoginPage = () => {
                 >
                   Forgot Password?
                 </Typography>
-              </Box>
-              <Button fullWidth size='large' type='submit' variant='contained' sx={{ mb: 7 }}>
-                Login
+              </Box> */}
+              <Button type='submit' fullWidth size='large' variant='contained' sx={{ mb: 7 }}>
+                Register
+              </Button>{' '}
+              <Button onClick={() => logout()} fullWidth size='large' variant='contained' sx={{ mb: 7 }}>
+                Logout
               </Button>
               <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
                 <Typography sx={{ mr: 2, color: 'text.secondary' }}>Login with Auth0:</Typography>
-                <Typography href='/api/auth/login' component={Link} sx={{ color: 'primary.main', textDecoration: 'none' }}>
+                <Typography
+                  href='/api/auth/login'
+                  component={Link}
+                  sx={{ color: 'primary.main', textDecoration: 'none' }}
+                >
                   Click here!
                 </Typography>
               </Box>
@@ -373,10 +386,13 @@ const LoginPage = () => {
                   <Icon icon='mdi:github' />
                 </IconButton> */}
                 <IconButton
+                  onClick={e => {
+                    e.preventDefault()
+                    onSubmit()
+                  }}
                   href='/'
                   component={Link}
                   sx={{ color: '#db4437' }}
-                  onClick={(e: MouseEvent<HTMLElement>) => e.preventDefault()}
                 >
                   <Icon icon='mdi:google' />
                 </IconButton>
@@ -386,11 +402,11 @@ const LoginPage = () => {
         </Box>
       </RightWrapper>
     </Box>
-  );
-};
+  )
+}
 
-LoginPage.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>;
+LoginPage.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
 
-LoginPage.guestGuard = true;
+LoginPage.guestGuard = true
 
-export default LoginPage;
+export default LoginPage
