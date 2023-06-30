@@ -43,8 +43,10 @@ import BlankLayout from 'src/@core/layouts/BlankLayout'
 
 // ** Demo Imports
 import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
+
 // ** Auth0 Imports
 import { useAuth0 } from '@auth0/auth0-react'
+
 // ** Styled Components
 const LoginIllustrationWrapper = styled(Box)<BoxProps>(({ theme }) => ({
   padding: theme.spacing(20),
@@ -113,7 +115,8 @@ interface FormData {
 const LoginPage = () => {
   const [rememberMe, setRememberMe] = useState<boolean>(true)
   const [showPassword, setShowPassword] = useState<boolean>(false)
-  const { loginWithRedirect, logout, isAuthenticated, user, isLoading } = useAuth0()
+  const { loginWithRedirect, isAuthenticated, user, isLoading } = useAuth0()
+
   // ** Hooks
   const auth = useAuth()
   const theme = useTheme()
@@ -159,7 +162,8 @@ const LoginPage = () => {
         })
       })
     }
-  }, [isAuthenticated, user, isLoading])
+  }, [isAuthenticated, user, isLoading, auth, rememberMe, setError])
+
   return (
     <Box className='content-right'>
       {!hidden ? (

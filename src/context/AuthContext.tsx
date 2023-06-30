@@ -11,8 +11,7 @@ import axios from 'axios'
 import authConfig from 'src/configs/auth'
 
 // ** Types
-import { AuthValuesType, LoginParams, ErrCallbackType, UserDataType } from './types'
-import jwt from 'jsonwebtoken'
+import { AuthValuesType, LoginParams, UserDataType } from './types'
 import { useAuth0 } from '@auth0/auth0-react'
 
 // ** Defaults
@@ -34,9 +33,11 @@ type Props = {
 
 const AuthProvider = ({ children }: Props) => {
   // ** States
+
   const [user, setUser] = useState<UserDataType | null>(defaultProvider.user)
   const [loading, setLoading] = useState<boolean>(defaultProvider.loading)
   const { user: userAuht0, logout } = useAuth0()
+
   // ** Hooks
   const router = useRouter()
 
@@ -91,7 +92,7 @@ const AuthProvider = ({ children }: Props) => {
     const res = await response.json()
     const AuthorizationToken = response.headers.get('Authorization')
     if (AuthorizationToken !== null) {
-      window.sessionStorage.setItem('AuthorizationToken', AuthorizationToken)
+      window.localStorage.setItem('AuthorizationToken', AuthorizationToken)
     }
 
     if (response.status === 201) {
@@ -118,7 +119,7 @@ const AuthProvider = ({ children }: Props) => {
       logout()
     }
   }
-  const handleLogin = async (params: LoginParams, errorCallback?: ErrCallbackType) => {
+  const handleLogin = async (params: LoginParams) => {
     const options = {
       method: 'POST',
       headers: {
@@ -132,7 +133,7 @@ const AuthProvider = ({ children }: Props) => {
     const res = await response.json()
     const AuthorizationToken = response.headers.get('Authorization')
     if (AuthorizationToken !== null) {
-      window.sessionStorage.setItem('AuthorizationToken', AuthorizationToken)
+      window.localStorage.setItem('AuthorizationToken', AuthorizationToken)
     }
     if (response.status === 202) {
       const microservice_user: UserDataType = {
@@ -183,7 +184,7 @@ const AuthProvider = ({ children }: Props) => {
 
   const handleLogout = async () => {
     setUser(null)
-    window.sessionStorage.removeItem('AuthorizationToken')
+    window.localStorage.removeItem('AuthorizationToken')
     window.localStorage.removeItem('userData')
     window.localStorage.removeItem(authConfig.storageTokenKeyName)
     logout()
