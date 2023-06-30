@@ -155,6 +155,7 @@ const LoginPage = () => {
       window.localStorage.removeItem('createAccount')
       auth.handleRegister()
     } else if (isAuthenticated) {
+      console.log('login')
       auth.login({ rememberMe }, () => {
         setError('email', {
           type: 'manual',
