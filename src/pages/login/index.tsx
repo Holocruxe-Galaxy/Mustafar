@@ -113,7 +113,7 @@ interface FormData {
 const LoginPage = () => {
   const [rememberMe, setRememberMe] = useState<boolean>(true)
   const [showPassword, setShowPassword] = useState<boolean>(false)
-  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0()
+  const { loginWithRedirect, logout, isAuthenticated, user, isLoading } = useAuth0()
   // ** Hooks
   const auth = useAuth()
   const theme = useTheme()
@@ -147,8 +147,19 @@ const LoginPage = () => {
 
   const imageSource = skin === 'bordered' ? 'auth-v2-login-illustration-bordered' : 'auth-v2-login-illustration'
   useEffect(() => {
-    console.log(user)
-  }, [isAuthenticated, user])
+    if (window.localStorage.getItem('createAccount') === 'true' && isAuthenticated) {
+      console.log('uwu')
+      window.localStorage.removeItem('createAccount')
+      auth.handleRegister()
+    } else if (isAuthenticated) {
+      auth.login({ rememberMe }, () => {
+        setError('email', {
+          type: 'manual',
+          message: 'Email or Password is invalid'
+        })
+      })
+    }
+  }, [isAuthenticated, user, isLoading])
   return (
     <Box className='content-right'>
       {!hidden ? (
@@ -326,12 +337,18 @@ const LoginPage = () => {
                   Forgot Password?
                 </Typography>
               </Box>
-              <Button fullWidth size='large' type='submit' variant='contained' sx={{ mb: 7 }}>
+              <Button type='submit' fullWidth size='large' variant='contained' sx={{ mb: 7 }}>
                 Login
               </Button>
               <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
                 <Typography sx={{ mr: 2, color: 'text.secondary' }}>New on our platform?</Typography>
-                <Typography href='/register' component={Link} sx={{ color: 'primary.main', textDecoration: 'none' }}>
+                <Typography
+                  onClick={() => {
+                    window.localStorage.setItem('createAccount', 'true')
+                    loginWithRedirect()
+                  }}
+                  sx={{ color: 'primary.main', textDecoration: 'none' }}
+                >
                   Create an account
                 </Typography>
               </Box>

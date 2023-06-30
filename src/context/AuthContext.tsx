@@ -22,7 +22,8 @@ const defaultProvider: AuthValuesType = {
   setUser: () => null,
   setLoading: () => Boolean,
   login: () => Promise.resolve(),
-  logout: () => Promise.resolve()
+  logout: () => Promise.resolve(),
+  handleRegister: () => Promise.resolve()
 }
 
 const AuthContext = createContext(defaultProvider)
@@ -35,7 +36,7 @@ const AuthProvider = ({ children }: Props) => {
   // ** States
   const [user, setUser] = useState<UserDataType | null>(defaultProvider.user)
   const [loading, setLoading] = useState<boolean>(defaultProvider.loading)
-  const { user: userAuht0 } = useAuth0()
+  const { user: userAuht0, logout } = useAuth0()
   // ** Hooks
   const router = useRouter()
 
@@ -72,6 +73,51 @@ const AuthProvider = ({ children }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const handleRegister = async () => {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: userAuht0?.nickname,
+        name: userAuht0?.given_name,
+        lastname: userAuht0?.family_name,
+        email: userAuht0?.email
+      })
+    }
+    console.log(userAuht0?.email)
+    const response = await fetch('http://ec2-54-86-172-177.compute-1.amazonaws.com/users/register', options)
+    const res = await response.json()
+    const AuthorizationToken = response.headers.get('Authorization')
+    if (AuthorizationToken !== null) {
+      window.sessionStorage.setItem('AuthorizationToken', AuthorizationToken)
+    }
+
+    if (response.status === 201) {
+      const microservice_user: UserDataType = {
+        name: res.name,
+        email: res.id,
+        fullName: res.name,
+        id: res.id,
+        role: !res.admin ? 'admin' : 'client',
+        username: res.username
+      }
+      window.localStorage.setItem(
+        authConfig.storageTokenKeyName,
+        'eJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg3ODA3MDMzLCJleHAiOjE2ODc4MDczMzN9.CvgFyVYPaSCrVUdFi-EbLmlWV2yttExHcltc0ok7naE'
+      )
+      const returnUrl = router.query.returnUrl
+      setUser(microservice_user)
+      window.localStorage.removeItem('createAccount')
+      const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
+      router.replace(redirectURL as string)
+    } else {
+      window.alert(res.message)
+      window.localStorage.removeItem('createAccount')
+      logout()
+    }
+  }
   const handleLogin = async (params: LoginParams, errorCallback?: ErrCallbackType) => {
     const options = {
       method: 'POST',
@@ -84,30 +130,33 @@ const AuthProvider = ({ children }: Props) => {
     }
     const response = await fetch('http://ec2-54-86-172-177.compute-1.amazonaws.com/users/login', options)
     const res = await response.json()
-
-    const token = jwt.sign(res, '/jwt/register', {
-      expiresIn: '1h' // Tiempo de expiración del token (opcional)
-    })
-
-    const microservice_user: UserDataType = {
-      name: res.name,
-      email: res.id,
-      fullName: res.name,
-      id: res.id,
-      role: !res.admin ? 'admin' : 'client',
-      username: res.username
+    const AuthorizationToken = response.headers.get('Authorization')
+    if (AuthorizationToken !== null) {
+      window.sessionStorage.setItem('AuthorizationToken', AuthorizationToken)
     }
-    params.rememberMe
-      ? window.localStorage.setItem(
-          authConfig.storageTokenKeyName,
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg3ODA3MDMzLCJleHAiOjE2ODc4MDczMzN9.CvgFyVYPaSCrVUdFi-EbLmlWV2yttExHcltc0ok7naE'
-        )
-      : null
-    const returnUrl = router.query.returnUrl
-    setUser(microservice_user)
-    const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
-
-    router.replace(redirectURL as string)
+    if (response.status === 202) {
+      const microservice_user: UserDataType = {
+        name: res.name,
+        email: res.id,
+        fullName: res.name,
+        id: res.id,
+        role: !res.admin ? 'admin' : 'client',
+        username: res.username
+      }
+      params.rememberMe
+        ? window.localStorage.setItem(
+            authConfig.storageTokenKeyName,
+            'eJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg3ODA3MDMzLCJleHAiOjE2ODc4MDczMzN9.CvgFyVYPaSCrVUdFi-EbLmlWV2yttExHcltc0ok7naE'
+          )
+        : null
+      const returnUrl = router.query.returnUrl
+      setUser(microservice_user)
+      const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
+      router.replace(redirectURL as string)
+    } else {
+      window.alert(res.message)
+      logout()
+    }
 
     // await axios
     //   .post(authConfig.loginEndpoint, params)
@@ -132,10 +181,12 @@ const AuthProvider = ({ children }: Props) => {
     //   })
   }
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     setUser(null)
+    window.sessionStorage.removeItem('AuthorizationToken')
     window.localStorage.removeItem('userData')
     window.localStorage.removeItem(authConfig.storageTokenKeyName)
+    logout()
     router.push('/login')
   }
 
@@ -145,7 +196,8 @@ const AuthProvider = ({ children }: Props) => {
     setUser,
     setLoading,
     login: handleLogin,
-    logout: handleLogout
+    logout: handleLogout,
+    handleRegister
   }
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>
