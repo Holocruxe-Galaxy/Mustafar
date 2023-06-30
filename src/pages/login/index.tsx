@@ -150,6 +150,10 @@ const LoginPage = () => {
 
   const imageSource = skin === 'bordered' ? 'auth-v2-login-illustration-bordered' : 'auth-v2-login-illustration'
   useEffect(() => {
+    window.localStorage.setItem('prueba', 'uwu')
+    if (window.localStorage.getItem('prueba')) {
+      console.log(window.localStorage.getItem('prueba'))
+    }
     if (window.localStorage.getItem('createAccount') === 'true' && isAuthenticated) {
       console.log('uwu')
       window.localStorage.removeItem('createAccount')
