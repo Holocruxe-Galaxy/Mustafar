@@ -154,7 +154,9 @@ const LoginPage = () => {
       console.log('uwu')
       window.localStorage.removeItem('createAccount')
       auth.handleRegister()
-    } else if (isAuthenticated) {
+      return
+    }
+    if (isAuthenticated) {
       console.log('login')
       auth.login({ rememberMe }, () => {
         setError('email', {
