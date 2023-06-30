@@ -132,6 +132,7 @@ const AuthProvider = ({ children }: Props) => {
     const response = await fetch('http://localhost:3001/users/login', options)
     const res = await response.json()
     const AuthorizationToken = response.headers.get('Authorization')
+    console.log(res)
     if (AuthorizationToken !== null) {
       window.localStorage.setItem('AuthorizationToken', AuthorizationToken)
     }
