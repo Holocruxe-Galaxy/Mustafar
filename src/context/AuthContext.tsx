@@ -88,7 +88,7 @@ const AuthProvider = ({ children }: Props) => {
       })
     }
     console.log(userAuht0?.email)
-    const response = await fetch('http://ec2-54-86-172-177.compute-1.amazonaws.com/users/register', options)
+    const response = await fetch('http://localhost:3001/users/register', options)
     const res = await response.json()
     const AuthorizationToken = response.headers.get('Authorization')
     if (AuthorizationToken !== null) {
@@ -129,7 +129,7 @@ const AuthProvider = ({ children }: Props) => {
         email: userAuht0?.email
       })
     }
-    const response = await fetch('http://ec2-54-86-172-177.compute-1.amazonaws.com/users/login', options)
+    const response = await fetch('http://localhost:3001/users/login', options)
     const res = await response.json()
     const AuthorizationToken = response.headers.get('Authorization')
     if (AuthorizationToken !== null) {
