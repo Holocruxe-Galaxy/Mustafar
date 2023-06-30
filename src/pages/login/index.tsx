@@ -147,15 +147,23 @@ const LoginPage = () => {
       })
     })
   }
-
+  const datafetch = async () => {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: 'alexandercanete035@gmail.com'
+      })
+    }
+    const response = await fetch('http://localhost:3001/users/login', options)
+    const res = await response.json()
+    console.log(res)
+  }
   const imageSource = skin === 'bordered' ? 'auth-v2-login-illustration-bordered' : 'auth-v2-login-illustration'
   useEffect(() => {
-    window.localStorage.setItem('prueba', 'uwu')
-    if (window.localStorage.getItem('prueba')) {
-      console.log(window.localStorage.getItem('prueba'))
-    }
     if (window.localStorage.getItem('createAccount') === 'true' && isAuthenticated) {
-      console.log('uwu')
       window.localStorage.removeItem('createAccount')
       auth.handleRegister()
     } else if (isAuthenticated) {
@@ -345,7 +353,7 @@ const LoginPage = () => {
                   Forgot Password?
                 </Typography>
               </Box>
-              <Button type='submit' fullWidth size='large' variant='contained' sx={{ mb: 7 }}>
+              <Button onClick={() => datafetch()} fullWidth size='large' variant='contained' sx={{ mb: 7 }}>
                 Login
               </Button>
               <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
