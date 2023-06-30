@@ -1,5 +1,6 @@
 'use client'
 import { Auth0Provider } from '@auth0/auth0-react'
+
 const ProviderAuth0 = ({ children }: { children: React.ReactNode }) => {
   return (
     <Auth0Provider
