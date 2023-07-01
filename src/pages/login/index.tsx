@@ -150,14 +150,14 @@ const LoginPage = () => {
 
   const imageSource = skin === 'bordered' ? 'auth-v2-login-illustration-bordered' : 'auth-v2-login-illustration'
   useEffect(() => {
-    // if (window.localStorage.getItem('createAccount') === 'true' && isAuthenticated) {
-    //   console.log('uwu')
-    //   window.localStorage.removeItem('createAccount')
-    //   auth.handleRegister()
+    if (window.localStorage.getItem('createAccount') === 'true' && isAuthenticated) {
+      console.log('uwu')
+      window.localStorage.removeItem('createAccount')
+      auth.handleRegister()
 
-    //   return
-    // }
-    if (true) {
+      return
+    }
+    if (!isLoading && isAuthenticated && window.localStorage.getItem('createAccount') !== 'true') {
       console.log('login')
       auth.login({ rememberMe }, () => {
         setError('email', {
