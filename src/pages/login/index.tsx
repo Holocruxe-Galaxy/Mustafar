@@ -45,7 +45,7 @@ import BlankLayout from 'src/@core/layouts/BlankLayout'
 import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
 
 // ** Auth0 Imports
-import { useAuth0 } from '@auth0/auth0-react'
+import { useUser } from '@auth0/nextjs-auth0/client'
 
 // ** Styled Components
 const LoginIllustrationWrapper = styled(Box)<BoxProps>(({ theme }) => ({
@@ -115,7 +115,7 @@ interface FormData {
 const LoginPage = () => {
   const [rememberMe, setRememberMe] = useState<boolean>(true)
   const [showPassword, setShowPassword] = useState<boolean>(false)
-  const { loginWithRedirect, isAuthenticated, user, isLoading } = useAuth0()
+  const { user, isLoading } = useUser()
 
   // ** Hooks
   const auth = useAuth()
@@ -150,14 +150,15 @@ const LoginPage = () => {
 
   const imageSource = skin === 'bordered' ? 'auth-v2-login-illustration-bordered' : 'auth-v2-login-illustration'
   useEffect(() => {
-    if (window.localStorage.getItem('createAccount') === 'true' && isAuthenticated) {
+    console.log(user)
+    if (window.localStorage.getItem('createAccount') === 'true' && user) {
       console.log('uwu')
       window.localStorage.removeItem('createAccount')
       auth.handleRegister()
 
       return
     }
-    if (!isLoading && isAuthenticated && window.localStorage.getItem('createAccount') !== 'true') {
+    if (user) {
       console.log('login')
       auth.login({ rememberMe }, () => {
         setError('email', {
@@ -166,7 +167,7 @@ const LoginPage = () => {
         })
       })
     }
-  }, [isAuthenticated, user, isLoading, auth, rememberMe, setError])
+  }, [user, isLoading, auth, rememberMe, setError])
 
   return (
     <Box className='content-right'>
@@ -350,15 +351,15 @@ const LoginPage = () => {
               </Button>
               <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
                 <Typography sx={{ mr: 2, color: 'text.secondary' }}>New on our platform?</Typography>
-                <Typography
+                <Button
                   onClick={() => {
                     window.localStorage.setItem('createAccount', 'true')
-                    loginWithRedirect()
+                    window.location.href = '/api/auth/login'
                   }}
                   sx={{ color: 'primary.main', textDecoration: 'none' }}
                 >
                   Create an account
-                </Typography>
+                </Button>
               </Box>
               <Divider
                 sx={{
@@ -379,7 +380,7 @@ const LoginPage = () => {
                   <Icon icon='mdi:facebook' />
                 </IconButton>
                 <IconButton
-                  href='/'
+                  href='/api/auth/logout'
                   component={Link}
                   sx={{ color: '#1da1f2' }}
                   onClick={(e: MouseEvent<HTMLElement>) => e.preventDefault()}
@@ -394,15 +395,7 @@ const LoginPage = () => {
                 >
                   <Icon icon='mdi:github' />
                 </IconButton> */}
-                <IconButton
-                  href='/'
-                  component={Link}
-                  sx={{ color: '#db4437' }}
-                  onClick={(e: MouseEvent<HTMLElement>) => {
-                    e.preventDefault()
-                    loginWithRedirect()
-                  }}
-                >
+                <IconButton href='/api/auth/login' component={Link} sx={{ color: '#db4437' }}>
                   <Icon icon='mdi:google' />
                 </IconButton>
               </Box>

@@ -12,7 +12,7 @@ import authConfig from 'src/configs/auth'
 
 // ** Types
 import { AuthValuesType, LoginParams, UserDataType } from './types'
-import { useAuth0 } from '@auth0/auth0-react'
+import { useUser } from '@auth0/nextjs-auth0/client'
 
 // ** Defaults
 const defaultProvider: AuthValuesType = {
@@ -36,7 +36,7 @@ const AuthProvider = ({ children }: Props) => {
 
   const [user, setUser] = useState<UserDataType | null>(defaultProvider.user)
   const [loading, setLoading] = useState<boolean>(defaultProvider.loading)
-  const { user: userAuht0, logout } = useAuth0()
+  const { user: userAuht0 } = useUser()
 
   // ** Hooks
   const router = useRouter()
@@ -87,7 +87,7 @@ const AuthProvider = ({ children }: Props) => {
         email: userAuht0?.email
       })
     }
-    console.log(userAuht0?.email)
+
     const response = await fetch('http://localhost:3001/users/register', options)
     const res = await response.json()
     const AuthorizationToken = response.headers.get('Authorization')
@@ -116,7 +116,7 @@ const AuthProvider = ({ children }: Props) => {
     } else {
       window.alert(res.message)
       window.localStorage.removeItem('createAccount')
-      logout()
+      router.push('/api/auth/logout')
     }
   }
   const handleLogin = async (params: LoginParams) => {
@@ -132,7 +132,6 @@ const AuthProvider = ({ children }: Props) => {
     const response = await fetch('http://localhost:3001/users/login', options)
     const res = await response.json()
     const AuthorizationToken = response.headers.get('Authorization')
-    console.log(res)
     if (AuthorizationToken !== null) {
       window.localStorage.setItem('AuthorizationToken', AuthorizationToken)
     }
@@ -151,13 +150,15 @@ const AuthProvider = ({ children }: Props) => {
             'eJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg3ODA3MDMzLCJleHAiOjE2ODc4MDczMzN9.CvgFyVYPaSCrVUdFi-EbLmlWV2yttExHcltc0ok7naE'
           )
         : null
-      const returnUrl = router.query.returnUrl
+
+      // const returnUrl = router.query.returnUrl
+
       setUser(microservice_user)
-      const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
+      const redirectURL = '/'
       router.replace(redirectURL as string)
     } else {
       window.alert(res.message)
-      logout()
+      router.push('/api/auth/logout')
     }
 
     // await axios
@@ -188,7 +189,7 @@ const AuthProvider = ({ children }: Props) => {
     window.localStorage.removeItem('AuthorizationToken')
     window.localStorage.removeItem('userData')
     window.localStorage.removeItem(authConfig.storageTokenKeyName)
-    logout()
+    router.push('/api/auth/logout')
     router.push('/login')
   }
 

@@ -62,7 +62,9 @@ import 'src/iconify-bundle/icons-bundle-react'
 
 // ** Global css styles
 import '../../styles/globals.css'
-import ProviderAuth0 from 'src/@core/components/Auth0/Provider'
+
+// ** import ProviderAuth0 from 'src/@core/components/Auth0/Provider'
+import { UserProvider } from '@auth0/nextjs-auth0/client'
 
 // ** Extend App Props with Emotion
 type ExtendedAppProps = AppProps & {
@@ -119,7 +121,7 @@ const App = (props: ExtendedAppProps) => {
   const aclAbilities = Component.acl ?? defaultACLObj
 
   return (
-    <ProviderAuth0>
+    <UserProvider>
       <Provider store={store}>
         <CacheProvider value={emotionCache}>
           <Head>
@@ -154,7 +156,7 @@ const App = (props: ExtendedAppProps) => {
           </AuthProvider>
         </CacheProvider>
       </Provider>
-    </ProviderAuth0>
+    </UserProvider>
   )
 }
 
