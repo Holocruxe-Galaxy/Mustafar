@@ -150,16 +150,14 @@ const LoginPage = () => {
 
   const imageSource = skin === 'bordered' ? 'auth-v2-login-illustration-bordered' : 'auth-v2-login-illustration'
   useEffect(() => {
-    console.log(user)
     if (window.localStorage.getItem('createAccount') === 'true' && user) {
-      console.log('uwu')
       window.localStorage.removeItem('createAccount')
       auth.handleRegister()
 
       return
     }
+
     if (user) {
-      console.log('login')
       auth.login({ rememberMe }, () => {
         setError('email', {
           type: 'manual',
