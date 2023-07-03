@@ -158,6 +158,7 @@ const LoginPage = () => {
     }
 
     if (user) {
+      console.log(user)
       auth.login({ rememberMe }, () => {
         setError('email', {
           type: 'manual',
