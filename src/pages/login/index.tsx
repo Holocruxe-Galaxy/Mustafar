@@ -1,9 +1,5 @@
 // ** React Imports
-<<<<<<< HEAD
-import { useState, ReactNode, MouseEvent } from 'react'
-=======
 import { useState, ReactNode, MouseEvent, useEffect } from 'react'
->>>>>>> alex/auth
 
 // ** Next Imports
 import Link from 'next/link'
@@ -48,12 +44,9 @@ import BlankLayout from 'src/@core/layouts/BlankLayout'
 // ** Demo Imports
 import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
 
-<<<<<<< HEAD
-=======
 // ** Auth0 Imports
 import { useUser } from '@auth0/nextjs-auth0/client'
 
->>>>>>> alex/auth
 // ** Styled Components
 const LoginIllustrationWrapper = styled(Box)<BoxProps>(({ theme }) => ({
   padding: theme.spacing(20),
@@ -122,10 +115,7 @@ interface FormData {
 const LoginPage = () => {
   const [rememberMe, setRememberMe] = useState<boolean>(true)
   const [showPassword, setShowPassword] = useState<boolean>(false)
-<<<<<<< HEAD
-=======
   const { user, isLoading } = useUser()
->>>>>>> alex/auth
 
   // ** Hooks
   const auth = useAuth()
@@ -159,8 +149,6 @@ const LoginPage = () => {
   }
 
   const imageSource = skin === 'bordered' ? 'auth-v2-login-illustration-bordered' : 'auth-v2-login-illustration'
-<<<<<<< HEAD
-=======
   useEffect(() => {
     if (window.localStorage.getItem('createAccount') === 'true' && user) {
       window.localStorage.removeItem('createAccount')
@@ -178,7 +166,6 @@ const LoginPage = () => {
       })
     }
   }, [user, isLoading, auth, rememberMe, setError])
->>>>>>> alex/auth
 
   return (
     <Box className='content-right'>
@@ -357,20 +344,11 @@ const LoginPage = () => {
                   Forgot Password?
                 </Typography>
               </Box>
-<<<<<<< HEAD
-              <Button fullWidth size='large' type='submit' variant='contained' sx={{ mb: 7 }}>
-=======
               <Button type='submit' fullWidth size='large' variant='contained' sx={{ mb: 7 }}>
->>>>>>> alex/auth
                 Login
               </Button>
               <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
                 <Typography sx={{ mr: 2, color: 'text.secondary' }}>New on our platform?</Typography>
-<<<<<<< HEAD
-                <Typography href='/register' component={Link} sx={{ color: 'primary.main', textDecoration: 'none' }}>
-                  Create an account
-                </Typography>
-=======
                 <Button
                   onClick={() => {
                     window.localStorage.setItem('createAccount', 'true')
@@ -380,7 +358,6 @@ const LoginPage = () => {
                 >
                   Create an account
                 </Button>
->>>>>>> alex/auth
               </Box>
               <Divider
                 sx={{
@@ -401,11 +378,7 @@ const LoginPage = () => {
                   <Icon icon='mdi:facebook' />
                 </IconButton>
                 <IconButton
-<<<<<<< HEAD
-                  href='/'
-=======
                   href='/api/auth/logout'
->>>>>>> alex/auth
                   component={Link}
                   sx={{ color: '#1da1f2' }}
                   onClick={(e: MouseEvent<HTMLElement>) => e.preventDefault()}
@@ -420,16 +393,7 @@ const LoginPage = () => {
                 >
                   <Icon icon='mdi:github' />
                 </IconButton> */}
-<<<<<<< HEAD
-                <IconButton
-                  href='/'
-                  component={Link}
-                  sx={{ color: '#db4437' }}
-                  onClick={(e: MouseEvent<HTMLElement>) => e.preventDefault()}
-                >
-=======
                 <IconButton href='/api/auth/login' component={Link} sx={{ color: '#db4437' }}>
->>>>>>> alex/auth
                   <Icon icon='mdi:google' />
                 </IconButton>
               </Box>
