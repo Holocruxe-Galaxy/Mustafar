@@ -11,7 +11,8 @@ import axios from 'axios'
 import authConfig from 'src/configs/auth'
 
 // ** Types
-import { AuthValuesType, LoginParams, ErrCallbackType, UserDataType } from './types'
+import { AuthValuesType, LoginParams, UserDataType } from './types'
+import { useUser } from '@auth0/nextjs-auth0/client'
 
 // ** Defaults
 const defaultProvider: AuthValuesType = {
@@ -20,7 +21,8 @@ const defaultProvider: AuthValuesType = {
   setUser: () => null,
   setLoading: () => Boolean,
   login: () => Promise.resolve(),
-  logout: () => Promise.resolve()
+  logout: () => Promise.resolve(),
+  handleRegister: () => Promise.resolve()
 }
 
 const AuthContext = createContext(defaultProvider)
@@ -31,17 +33,18 @@ type Props = {
 
 const AuthProvider = ({ children }: Props) => {
   // ** States
+
   const [user, setUser] = useState<UserDataType | null>(defaultProvider.user)
   const [loading, setLoading] = useState<boolean>(defaultProvider.loading)
+  const { user: userAuht0 } = useUser()
 
   // ** Hooks
   const router = useRouter()
 
   useEffect(() => {
-    const initAuth = async (): Promise<void> => {
+    const initAuth = async () => {
       const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)!
       if (storedToken) {
-        setLoading(true)
         await axios
           .get(authConfig.meEndpoint, {
             headers: {
@@ -71,32 +74,122 @@ const AuthProvider = ({ children }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const handleLogin = (params: LoginParams, errorCallback?: ErrCallbackType) => {
-    axios
-      .post(authConfig.loginEndpoint, params)
-      .then(async response => {
-        params.rememberMe
-          ? window.localStorage.setItem(authConfig.storageTokenKeyName, response.data.accessToken)
-          : null
-        const returnUrl = router.query.returnUrl
-
-        setUser({ ...response.data.userData })
-        params.rememberMe ? window.localStorage.setItem('userData', JSON.stringify(response.data.userData)) : null
-
-        const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
-
-        router.replace(redirectURL as string)
+  const handleRegister = async () => {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: userAuht0?.nickname,
+        name: userAuht0?.given_name,
+        lastname: userAuht0?.family_name,
+        email: userAuht0?.email
       })
+    }
 
-      .catch(err => {
-        if (errorCallback) errorCallback(err)
+    const response = await fetch('http://localhost:3001/users/register', options)
+    const res = await response.json()
+    const AuthorizationToken = response.headers.get('Authorization')
+    if (AuthorizationToken !== null) {
+      window.localStorage.setItem('AuthorizationToken', AuthorizationToken)
+    }
+
+    if (response.status === 201) {
+      const microservice_user: UserDataType = {
+        name: res.name,
+        email: res.id,
+        fullName: res.name,
+        id: res.id,
+        role: !res.admin ? 'admin' : 'client',
+        username: res.username
+      }
+      window.localStorage.setItem(
+        authConfig.storageTokenKeyName,
+        'eJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg3ODA3MDMzLCJleHAiOjE2ODc4MDczMzN9.CvgFyVYPaSCrVUdFi-EbLmlWV2yttExHcltc0ok7naE'
+      )
+      const returnUrl = router.query.returnUrl
+      setUser(microservice_user)
+      window.localStorage.removeItem('createAccount')
+      const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
+      router.replace(redirectURL as string)
+    } else {
+      window.alert(res.message)
+      window.localStorage.removeItem('createAccount')
+      router.push('/api/auth/logout')
+    }
+  }
+  const handleLogin = async (params: LoginParams) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: userAuht0?.email
       })
+    }
+    const response = await fetch('http://localhost:3001/users/login', options)
+    const res = await response.json()
+    const AuthorizationToken = response.headers.get('Authorization')
+    if (AuthorizationToken !== null) {
+      window.localStorage.setItem('AuthorizationToken', AuthorizationToken)
+    }
+    if (response.status === 202) {
+      const microservice_user: UserDataType = {
+        name: res.name,
+        email: res.id,
+        fullName: res.name,
+        id: res.id,
+        role: !res.admin ? 'admin' : 'client',
+        username: res.username
+      }
+      params.rememberMe
+        ? window.localStorage.setItem(
+            authConfig.storageTokenKeyName,
+            'eJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg3ODA3MDMzLCJleHAiOjE2ODc4MDczMzN9.CvgFyVYPaSCrVUdFi-EbLmlWV2yttExHcltc0ok7naE'
+          )
+        : null
+
+      // const returnUrl = router.query.returnUrl
+
+      setUser(microservice_user)
+      const redirectURL = '/'
+      router.replace(redirectURL as string)
+    } else {
+      window.alert(res.message)
+      router.push('/api/auth/logout')
+    }
+
+    // await axios
+    //   .post(authConfig.loginEndpoint, params)
+    //   .then(async response => {
+    //     console.log(response)
+    //     params.rememberMe
+    //       ? window.localStorage.setItem(authConfig.storageTokenKeyName, response.data.accessToken)
+    //       : null
+    //     const returnUrl = router.query.returnUrl
+    //     console.log(returnUrl)
+    //     setUser({ ...response.data.userData })
+    //     console.log(response.data.userData)
+    //     params.rememberMe ? window.localStorage.setItem('userData', JSON.stringify(response.data.userData)) : null
+
+    //     const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
+
+    //     router.replace(redirectURL as string)
+    //   })
+
+    //   .catch(err => {
+    //     if (errorCallback) errorCallback(err)
+    //   })
   }
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     setUser(null)
+    window.localStorage.removeItem('AuthorizationToken')
     window.localStorage.removeItem('userData')
     window.localStorage.removeItem(authConfig.storageTokenKeyName)
+    router.push('/api/auth/logout')
     router.push('/login')
   }
 
@@ -106,7 +199,8 @@ const AuthProvider = ({ children }: Props) => {
     setUser,
     setLoading,
     login: handleLogin,
-    logout: handleLogout
+    logout: handleLogout,
+    handleRegister
   }
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>
