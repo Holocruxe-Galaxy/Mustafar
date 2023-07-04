@@ -3,7 +3,7 @@ import { useState, ReactNode, MouseEvent, useEffect } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+
 // ** MUI Components
 import Alert from '@mui/material/Alert'
 import Button from '@mui/material/Button'
@@ -44,11 +44,10 @@ import BlankLayout from 'src/@core/layouts/BlankLayout'
 // ** Demo Imports
 import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
 
-// ** Auth0 props
-import { useAuth0 } from '@auth0/auth0-react'
+// ** Auth0 Imports
+import { useUser } from '@auth0/nextjs-auth0/client'
 
 // ** Styled Components
-
 const LoginIllustrationWrapper = styled(Box)<BoxProps>(({ theme }) => ({
   padding: theme.spacing(20),
   paddingRight: '0 !important',
@@ -114,10 +113,9 @@ interface FormData {
 }
 
 const LoginPage = () => {
-  const router = useRouter()
-  // const [rememberMe, setRememberMe] = useState<boolean>(true)
+  const [rememberMe, setRememberMe] = useState<boolean>(true)
   const [showPassword, setShowPassword] = useState<boolean>(false)
-  const { loginWithRedirect, logout, user, isAuthenticated, isLoading } = useAuth0()
+  const { user, isLoading } = useUser()
 
   // ** Hooks
   const auth = useAuth()
@@ -140,18 +138,36 @@ const LoginPage = () => {
     resolver: yupResolver(schema)
   })
 
-  const onSubmit = async () => {
-    if (!isAuthenticated || isLoading) {
-      loginWithRedirect()
-    }
+  const onSubmit = (data: FormData) => {
+    const { email, password } = data
+    auth.login({ email, password, rememberMe }, () => {
+      setError('email', {
+        type: 'manual',
+        message: 'Email or Password is invalid'
+      })
+    })
   }
 
   const imageSource = skin === 'bordered' ? 'auth-v2-login-illustration-bordered' : 'auth-v2-login-illustration'
   useEffect(() => {
-    if (isAuthenticated) {
-      auth.login()
+    if (window.localStorage.getItem('createAccount') === 'true' && user) {
+      window.localStorage.removeItem('createAccount')
+      auth.handleRegister()
+
+      return
     }
-  }, [user, isAuthenticated])
+
+    if (user) {
+      console.log(user)
+      auth.login({ rememberMe }, () => {
+        setError('email', {
+          type: 'manual',
+          message: 'Email or Password is invalid'
+        })
+      })
+    }
+  }, [user, isLoading, auth, rememberMe, setError])
+
   return (
     <Box className='content-right'>
       {!hidden ? (
@@ -256,8 +272,8 @@ const LoginPage = () => {
                 Client: <strong>client@materialize.com</strong> / Pass: <strong>client</strong>
               </Typography>
             </Alert>
-            <form noValidate autoComplete='off'>
-              {/*   <FormControl fullWidth sx={{ mb: 4 }}>
+            <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
+              <FormControl fullWidth sx={{ mb: 4 }}>
                 <Controller
                   name='email'
                   control={control}
@@ -328,28 +344,21 @@ const LoginPage = () => {
                 >
                   Forgot Password?
                 </Typography>
-              </Box> */}
+              </Box>
               <Button type='submit' fullWidth size='large' variant='contained' sx={{ mb: 7 }}>
-                Register
-              </Button>{' '}
-              <Button onClick={() => logout()} fullWidth size='large' variant='contained' sx={{ mb: 7 }}>
-                Logout
+                Login
               </Button>
               <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
-                <Typography sx={{ mr: 2, color: 'text.secondary' }}>Login with Auth0:</Typography>
-                <Typography
-                  href='/api/auth/login'
-                  component={Link}
+                <Typography sx={{ mr: 2, color: 'text.secondary' }}>New on our platform?</Typography>
+                <Button
+                  onClick={() => {
+                    window.localStorage.setItem('createAccount', 'true')
+                    window.location.href = '/api/auth/login'
+                  }}
                   sx={{ color: 'primary.main', textDecoration: 'none' }}
                 >
-                  Click here!
-                </Typography>
-              </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
-                <Typography sx={{ mr: 2, color: 'text.secondary' }}>New on our platform?</Typography>
-                <Typography href='/register' component={Link} sx={{ color: 'primary.main', textDecoration: 'none' }}>
                   Create an account
-                </Typography>
+                </Button>
               </Box>
               <Divider
                 sx={{
@@ -370,7 +379,7 @@ const LoginPage = () => {
                   <Icon icon='mdi:facebook' />
                 </IconButton>
                 <IconButton
-                  href='/'
+                  href='/api/auth/logout'
                   component={Link}
                   sx={{ color: '#1da1f2' }}
                   onClick={(e: MouseEvent<HTMLElement>) => e.preventDefault()}
@@ -385,15 +394,7 @@ const LoginPage = () => {
                 >
                   <Icon icon='mdi:github' />
                 </IconButton> */}
-                <IconButton
-                  onClick={e => {
-                    e.preventDefault()
-                    onSubmit()
-                  }}
-                  href='/'
-                  component={Link}
-                  sx={{ color: '#db4437' }}
-                >
+                <IconButton href='/api/auth/login' component={Link} sx={{ color: '#db4437' }}>
                   <Icon icon='mdi:google' />
                 </IconButton>
               </Box>

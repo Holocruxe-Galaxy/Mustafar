@@ -13,7 +13,11 @@
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.1.1",
+<<<<<<< HEAD
     "@auth0/nextjs-auth0": "^2.6.2",
+=======
+    "@auth0/nextjs-auth0": "^2.6.3",
+>>>>>>> alex/auth
     "@casl/ability": "6.3.3",
     "@casl/react": "3.1.0",
     "@emotion/cache": "11.10.5",

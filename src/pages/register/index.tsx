@@ -330,7 +330,7 @@ const Register = () => {
     if (activeStep === steps.length - 1) {
       toast.success('Form Submitted')
     }
-    
+
     // console.log(data)
   }
 

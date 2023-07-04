@@ -64,9 +64,14 @@ import 'src/iconify-bundle/icons-bundle-react'
 // ** Global css styles
 import '../../styles/globals.css'
 
+<<<<<<< HEAD
 // Auth0
 import { UserProvider } from '@auth0/nextjs-auth0/client'
 import ProviderAuth0 from './Auth0/Provider'
+=======
+// ** import ProviderAuth0 from 'src/@core/components/Auth0/Provider'
+import { UserProvider } from '@auth0/nextjs-auth0/client'
+>>>>>>> alex/auth
 
 // ** Extend App Props with Emotion
 type ExtendedAppProps = AppProps & {
@@ -123,7 +128,11 @@ const App = (props: ExtendedAppProps) => {
   const aclAbilities = Component.acl ?? defaultACLObj
 
   return (
+<<<<<<< HEAD
     <ProviderAuth0>
+=======
+    <UserProvider>
+>>>>>>> alex/auth
       <Provider store={store}>
         <CacheProvider value={emotionCache}>
           <Head>
@@ -135,9 +144,14 @@ const App = (props: ExtendedAppProps) => {
             <meta name='keywords' content='Material Design, MUI, Admin Template, React Admin Template' />
             <meta name='viewport' content='initial-scale=1, width=device-width' />
           </Head>
+<<<<<<< HEAD
           Provider
           <AuthProvider>
             {/* <UserProvider> */}
+=======
+
+          <AuthProvider>
+>>>>>>> alex/auth
             <SettingsProvider {...(setConfig ? { pageSettings: setConfig() } : {})}>
               <SettingsConsumer>
                 {({ settings }) => {
@@ -156,11 +170,18 @@ const App = (props: ExtendedAppProps) => {
                 }}
               </SettingsConsumer>
             </SettingsProvider>
+<<<<<<< HEAD
             {/* </UserProvider> */}
           </AuthProvider>
         </CacheProvider>
       </Provider>
     </ProviderAuth0>
+=======
+          </AuthProvider>
+        </CacheProvider>
+      </Provider>
+    </UserProvider>
+>>>>>>> alex/auth
   )
 }
 
