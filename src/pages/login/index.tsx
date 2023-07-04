@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, ReactNode, MouseEvent } from 'react'
+import { useEffect, useState, ReactNode, MouseEvent } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
@@ -43,6 +43,9 @@ import BlankLayout from 'src/@core/layouts/BlankLayout'
 
 // ** Demo Imports
 import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
+
+// ** Auth0 Imports
+import { useUser } from '@auth0/nextjs-auth0/client'
 
 // ** Styled Components
 const LoginIllustrationWrapper = styled(Box)<BoxProps>(({ theme }) => ({
@@ -112,7 +115,7 @@ interface FormData {
 const LoginPage = () => {
   const [rememberMe, setRememberMe] = useState<boolean>(true)
   const [showPassword, setShowPassword] = useState<boolean>(false)
-
+  const { user, isLoading } = useUser()
   // ** Hooks
   const auth = useAuth()
   const theme = useTheme()
@@ -145,6 +148,24 @@ const LoginPage = () => {
   }
 
   const imageSource = skin === 'bordered' ? 'auth-v2-login-illustration-bordered' : 'auth-v2-login-illustration'
+
+  useEffect(() => {
+    if (window.localStorage.getItem('createAccount') === 'true' && user) {
+      window.localStorage.removeItem('createAccount')
+      auth.handleRegister()
+
+      return
+    }
+
+    if (user) {
+      auth.login({ rememberMe }, () => {
+        setError('email', {
+          type: 'manual',
+          message: 'Email or Password is invalid'
+        })
+      })
+    }
+  }, [user, isLoading, auth, rememberMe, setError])
 
   return (
     <Box className='content-right'>
@@ -328,7 +349,13 @@ const LoginPage = () => {
               </Button>
               <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
                 <Typography sx={{ mr: 2, color: 'text.secondary' }}>New on our platform?</Typography>
-                <Typography href='/register' component={Link} sx={{ color: 'primary.main', textDecoration: 'none' }}>
+                <Typography
+                  onClick={() => {
+                    window.localStorage.setItem('createAccount', 'true')
+                    window.location.href = '/api/auth/login'
+                  }}
+                  sx={{ color: 'primary.main', textDecoration: 'none' }}
+                >
                   Create an account
                 </Typography>
               </Box>
@@ -366,12 +393,7 @@ const LoginPage = () => {
                 >
                   <Icon icon='mdi:github' />
                 </IconButton> */}
-                <IconButton
-                  href='/'
-                  component={Link}
-                  sx={{ color: '#db4437' }}
-                  onClick={(e: MouseEvent<HTMLElement>) => e.preventDefault()}
-                >
+                <IconButton href='/api/auth/login' component={Link} sx={{ color: '#db4437' }}>
                   <Icon icon='mdi:google' />
                 </IconButton>
               </Box>
