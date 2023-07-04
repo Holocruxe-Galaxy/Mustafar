@@ -2,6 +2,7 @@
 import { useEffect, useState, ReactNode, MouseEvent } from 'react'
 
 // ** Next Imports
+
 import Link from 'next/link'
 
 // ** MUI Components
@@ -116,6 +117,7 @@ const LoginPage = () => {
   const [rememberMe, setRememberMe] = useState<boolean>(true)
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const { user, isLoading } = useUser()
+
   // ** Hooks
   const auth = useAuth()
   const theme = useTheme()
