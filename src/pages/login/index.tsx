@@ -5,34 +5,47 @@ import { useState, ReactNode, MouseEvent } from 'react'
 import Link from 'next/link'
 
 // ** MUI Components
-import Alert from '@mui/material/Alert'
+// ** import Alert from '@mui/material/Alert'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import Checkbox from '@mui/material/Checkbox'
-import TextField from '@mui/material/TextField'
-import InputLabel from '@mui/material/InputLabel'
+
+// ** import TextField from '@mui/material/TextField'
+// **import InputLabel from '@mui/material/InputLabel'
 import IconButton from '@mui/material/IconButton'
 import Box, { BoxProps } from '@mui/material/Box'
-import FormControl from '@mui/material/FormControl'
+
+// **import FormControl from '@mui/material/FormControl'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import OutlinedInput from '@mui/material/OutlinedInput'
+
+// **import OutlinedInput from '@mui/material/OutlinedInput'
 import { styled, useTheme } from '@mui/material/styles'
-import FormHelperText from '@mui/material/FormHelperText'
-import InputAdornment from '@mui/material/InputAdornment'
+
+// **import FormHelperText from '@mui/material/FormHelperText'
+// **import InputAdornment from '@mui/material/InputAdornment'
 import Typography, { TypographyProps } from '@mui/material/Typography'
 import MuiFormControlLabel, { FormControlLabelProps } from '@mui/material/FormControlLabel'
+
+// ** ThreeJS Imports
+import { Canvas } from '@react-three/fiber'
+import { Environment, Stars } from '@react-three/drei'
+import HoloplanetCanvas from '../../@core/components/login/models/Holoplanet'
+import BotCanvas from '../../@core/components/login/models/Officialbot'
+
+// ** import Stars from '../../@core/components/login/login-stars/Stars.jsx'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
 // ** Third Party Imports
 import * as yup from 'yup'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 // ** Hooks
 import { useAuth } from 'src/hooks/useAuth'
-import useBgColor from 'src/@core/hooks/useBgColor'
+
+// ** import useBgColor from 'src/@core/hooks/useBgColor'
 import { useSettings } from 'src/@core/hooks/useSettings'
 
 // ** Configs
@@ -42,10 +55,10 @@ import { useSettings } from 'src/@core/hooks/useSettings'
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 
 // ** Demo Imports
-import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
+// ** import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
 
 // ** Styled Components
-const LoginIllustrationWrapper = styled(Box)<BoxProps>(({ theme }) => ({
+/*const LoginIllustrationWrapper = styled(Box)<BoxProps>(({ theme }) => ({
   padding: theme.spacing(20),
   paddingRight: '0 !important',
   [theme.breakpoints.down('lg')]: {
@@ -61,7 +74,7 @@ const LoginIllustration = styled('img')(({ theme }) => ({
   [theme.breakpoints.down('lg')]: {
     maxWidth: '30rem'
   }
-}))
+}))*/
 
 const RightWrapper = styled(Box)<BoxProps>(({ theme }) => ({
   width: '100%',
@@ -111,24 +124,21 @@ interface FormData {
 
 const LoginPage = () => {
   const [rememberMe, setRememberMe] = useState<boolean>(true)
-  const [showPassword, setShowPassword] = useState<boolean>(false)
+
+  // ** const [showPassword, setShowPassword] = useState<boolean>(false)
 
   // ** Hooks
   const auth = useAuth()
   const theme = useTheme()
-  const bgColors = useBgColor()
+
+  // ** const bgColors = useBgColor()
   const { settings } = useSettings()
   const hidden = useMediaQuery(theme.breakpoints.down('md'))
 
   // ** Vars
   const { skin } = settings
 
-  const {
-    control,
-    setError,
-    handleSubmit,
-    formState: { errors }
-  } = useForm({
+  const { setError, handleSubmit } = useForm({
     defaultValues,
     mode: 'onBlur',
     resolver: yupResolver(schema)
@@ -144,12 +154,13 @@ const LoginPage = () => {
     })
   }
 
-  const imageSource = skin === 'bordered' ? 'auth-v2-login-illustration-bordered' : 'auth-v2-login-illustration'
+  //** const imageSource = skin === 'bordered' ? 'auth-v2-login-illustration-bordered' : 'auth-v2-login-illustration'
 
-  return (
-    <Box className='content-right'>
-      {!hidden ? (
-        <Box sx={{ flex: 1, display: 'flex', position: 'relative', alignItems: 'center', justifyContent: 'center' }}>
+  {
+    /*<Box
+          sx={{ flex: 1, display: 'flex', position: 'relative', alignItems: 'center', justifyContent: 'center' }}
+          component='div'
+        >
           <LoginIllustrationWrapper>
             <LoginIllustration
               alt='login-illustration'
@@ -157,8 +168,25 @@ const LoginPage = () => {
             />
           </LoginIllustrationWrapper>
           <FooterIllustrationsV2 />
-        </Box>
+        </Box>*/
+  }
+
+  return (
+    <Box className='content-right' component='div' sx={{ width: '100vw', height: '100vh' }}>
+      {/* PNG container */}
+      {!hidden ? (
+        <Canvas shadows>
+          <group rotation={[0, 0, Math.PI / 4]}>
+            <Stars count={2500} speed={0.9} />
+          </group>
+          <Environment files='/images/login-bg/bg.hdr' background blur={0.3} />
+          <HoloplanetCanvas />
+          <BotCanvas />
+        </Canvas>
       ) : null}
+
+      {/* Login component */}
+
       <RightWrapper sx={skin === 'bordered' && !hidden ? { borderLeft: `1px solid ${theme.palette.divider}` } : {}}>
         <Box
           sx={{
@@ -169,8 +197,11 @@ const LoginPage = () => {
             justifyContent: 'center',
             backgroundColor: 'background.paper'
           }}
+          component='div'
         >
           <BoxWrapper>
+            {/* Svg Holocruxe Box */}
+
             <Box
               sx={{
                 top: 30,
@@ -180,6 +211,7 @@ const LoginPage = () => {
                 alignItems: 'center',
                 justifyContent: 'center'
               }}
+              component='div'
             >
               <svg xmlns='http://www.w3.org/2000/svg' width='180' x='744.13' y='-640.34' viewBox='0 0 1617.68 257.73'>
                 <path
@@ -238,20 +270,30 @@ const LoginPage = () => {
                 />
               </svg>
             </Box>
-            <Box sx={{ mb: 6 }}>
-              <TypographyStyled variant='h5'>{`Welcome to Holocruxe! 👋🏻`}</TypographyStyled>
+
+            {/* Sign in text */}
+
+            <Box sx={{ mb: 6 }} component='div'>
+              <TypographyStyled variant='h5'>{`Welcome to Holocruxe! 🚀`}</TypographyStyled>
               <Typography variant='body2'>Please sign-in to your account and start the adventure</Typography>
             </Box>
-            <Alert icon={false} sx={{ py: 3, mb: 6, ...bgColors.primaryLight, '& .MuiAlert-message': { p: 0 } }}>
+
+            {/* User & Pwd for test */}
+
+            {/*<Alert icon={false} sx={{ py: 3, mb: 6, ...bgColors.primaryLight, '& .MuiAlert-message': { p: 0 } }}>
               <Typography variant='caption' sx={{ mb: 2, display: 'block', color: 'primary.main' }}>
                 Admin: <strong>admin@materialize.com</strong> / Pass: <strong>admin</strong>
               </Typography>
               <Typography variant='caption' sx={{ display: 'block', color: 'primary.main' }}>
                 Client: <strong>client@materialize.com</strong> / Pass: <strong>client</strong>
               </Typography>
-            </Alert>
+            </Alert>*/}
+
+            {/* Login Form */}
+
             <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
-              <FormControl fullWidth sx={{ mb: 4 }}>
+              {/* email input */}
+              {/*<FormControl fullWidth sx={{ mb: 4 }}>
                 <Controller
                   name='email'
                   control={control}
@@ -269,8 +311,9 @@ const LoginPage = () => {
                   )}
                 />
                 {errors.email && <FormHelperText sx={{ color: 'error.main' }}>{errors.email.message}</FormHelperText>}
-              </FormControl>
-              <FormControl fullWidth>
+              </FormControl>*/}
+              {/* Pwd input */}
+              {/*<FormControl fullWidth>
                 <InputLabel htmlFor='auth-login-v2-password' error={Boolean(errors.password)}>
                   Password
                 </InputLabel>
@@ -306,10 +349,10 @@ const LoginPage = () => {
                     {errors.password.message}
                   </FormHelperText>
                 )}
-              </FormControl>
-              <Box
-                sx={{ mb: 4, display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'space-between' }}
-              >
+              </FormControl>*/}
+
+              {/* Checkbox */}
+              <Box component='div'>
                 <FormControlLabel
                   label='Remember Me'
                   control={<Checkbox checked={rememberMe} onChange={e => setRememberMe(e.target.checked)} />}
@@ -323,10 +366,17 @@ const LoginPage = () => {
                   Forgot Password?
                 </Typography>
               </Box>
+
+              {/* Login button */}
               <Button fullWidth size='large' type='submit' variant='contained' sx={{ mb: 7 }}>
                 Login
               </Button>
-              <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
+
+              {/* Sign up section */}
+              <Box
+                sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}
+                component='div'
+              >
                 <Typography sx={{ mr: 2, color: 'text.secondary' }}>New on our platform?</Typography>
                 <Typography href='/register' component={Link} sx={{ color: 'primary.main', textDecoration: 'none' }}>
                   Create an account
@@ -341,7 +391,8 @@ const LoginPage = () => {
               >
                 or
               </Divider>
-              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              {/* Social Media authentication Box */}
+              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} component='div'>
                 <IconButton
                   href='/'
                   component={Link}
