@@ -1,22 +1,25 @@
 // ** React Imports
-import { useEffect, useState, forwardRef, SyntheticEvent, ForwardedRef } from 'react'
+import { useEffect, useState, forwardRef, ForwardedRef } from 'react'
 
 // ** MUI Imports
 import Card from '@mui/material/Card'
 import Table from '@mui/material/Table'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
-import Tooltip from '@mui/material/Tooltip'
+
+// import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import TableRow from '@mui/material/TableRow'
-import Collapse from '@mui/material/Collapse'
+
+// import Collapse from '@mui/material/Collapse'
 import TableBody from '@mui/material/TableBody'
 import TextField from '@mui/material/TextField'
-import IconButton from '@mui/material/IconButton'
+
+// import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import InputLabel from '@mui/material/InputLabel'
 import Box, { BoxProps } from '@mui/material/Box'
-import Grid, { GridProps } from '@mui/material/Grid'
+import Grid from '@mui/material/Grid'
 import { styled, useTheme } from '@mui/material/styles'
 import InputAdornment from '@mui/material/InputAdornment'
 import TableContainer from '@mui/material/TableContainer'
@@ -39,7 +42,7 @@ import { DateType } from 'src/types/forms/reactDatepickerTypes'
 import { SingleInvoiceType, InvoiceClientType } from 'src/types/apps/invoiceTypes'
 
 // ** Custom Component Imports
-import Repeater from 'src/@core/components/repeater'
+// import Repeater from 'src/@core/components/repeater'
 
 interface Props {
   data: SingleInvoiceType
@@ -74,26 +77,26 @@ const CalcWrapper = styled(Box)<BoxProps>(({ theme }) => ({
   }
 }))
 
-const RepeatingContent = styled(Grid)<GridProps>(({ theme }) => ({
-  paddingRight: 0,
-  display: 'flex',
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  border: `1px solid ${theme.palette.divider}`,
-  '& .col-title': {
-    top: '-1.5rem',
-    position: 'absolute'
-  },
-  '& .MuiInputBase-input': {
-    color: theme.palette.text.secondary
-  },
-  [theme.breakpoints.down('lg')]: {
-    '& .col-title': {
-      top: '0',
-      position: 'relative'
-    }
-  }
-}))
+// const RepeatingContent = styled(Grid)<GridProps>(({ theme }) => ({
+//   paddingRight: 0,
+//   display: 'flex',
+//   position: 'relative',
+//   borderRadius: theme.shape.borderRadius,
+//   border: `1px solid ${theme.palette.divider}`,
+//   '& .col-title': {
+//     top: '-1.5rem',
+//     position: 'absolute'
+//   },
+//   '& .MuiInputBase-input': {
+//     color: theme.palette.text.secondary
+//   },
+//   [theme.breakpoints.down('lg')]: {
+//     '& .col-title': {
+//       top: '0',
+//       position: 'relative'
+//     }
+//   }
+// }))
 
 const RepeaterWrapper = styled(CardContent)<CardContentProps>(({ theme }) => ({
   paddingTop: theme.spacing(12),
@@ -103,13 +106,13 @@ const RepeaterWrapper = styled(CardContent)<CardContentProps>(({ theme }) => ({
   }
 }))
 
-const InvoiceAction = styled(Box)<BoxProps>(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  padding: theme.spacing(2, 0),
-  borderLeft: `1px solid ${theme.palette.divider}`
-}))
+// const InvoiceAction = styled(Box)<BoxProps>(({ theme }) => ({
+//   display: 'flex',
+//   flexDirection: 'column',
+//   justifyContent: 'flex-start',
+//   padding: theme.spacing(2, 0),
+//   borderLeft: `1px solid ${theme.palette.divider}`
+// }))
 
 const EditCard = ({ data }: Props) => {
   // ** States
@@ -134,12 +137,12 @@ const EditCard = ({ data }: Props) => {
   }, [clients])
 
   // ** Deletes form
-  const deleteForm = (e: SyntheticEvent) => {
-    e.preventDefault()
+  // const deleteForm = (e: SyntheticEvent) => {
+  //   e.preventDefault()
 
-    // @ts-ignore
-    e.target.closest('.repeater-wrapper').remove()
-  }
+  //   // @ts-ignore
+  //   e.target.closest('.repeater-wrapper').remove()
+  // }
 
   // ** Handle Invoice To Change
   const handleInvoiceChange = (e: SelectChangeEvent) => {
@@ -152,11 +155,11 @@ const EditCard = ({ data }: Props) => {
   if (data) {
     return (
       <Card>
-        <CardContent>
+        <CardContent component='div'>
           <Grid container>
             <Grid item xl={6} xs={12} sx={{ mb: { xl: 0, xs: 4 } }}>
-              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                <Box sx={{ mb: 6, display: 'flex', alignItems: 'center' }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column' }} component='div'>
+                <Box sx={{ mb: 6, display: 'flex', alignItems: 'center' }} component='div'>
                   <svg width={40} fill='none' height={22} viewBox='0 0 268 150' xmlns='http://www.w3.org/2000/svg'>
                     <rect
                       rx='25.1443'
@@ -243,8 +246,11 @@ const EditCard = ({ data }: Props) => {
               </Box>
             </Grid>
             <Grid item xl={6} xs={12}>
-              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: { xl: 'flex-end', xs: 'flex-start' } }}>
-                <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+              <Box
+                sx={{ display: 'flex', flexDirection: 'column', alignItems: { xl: 'flex-end', xs: 'flex-start' } }}
+                component='div'
+              >
+                <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }} component='div'>
                   <Typography variant='h6' sx={{ mr: 1, width: '105px' }}>
                     Invoice
                   </Typography>
@@ -258,7 +264,7 @@ const EditCard = ({ data }: Props) => {
                     }}
                   />
                 </Box>
-                <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+                <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }} component='div'>
                   <Typography variant='body2' sx={{ mr: 2, width: '100px' }}>
                     Date Issued:
                   </Typography>
@@ -270,7 +276,7 @@ const EditCard = ({ data }: Props) => {
                     onChange={(date: Date) => setIssueDate(date)}
                   />
                 </Box>
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center' }} component='div'>
                   <Typography variant='body2' sx={{ mr: 2, width: '100px' }}>
                     Date Due:
                   </Typography>
@@ -383,7 +389,7 @@ const EditCard = ({ data }: Props) => {
         <Divider sx={{ mb: theme => `${theme.spacing(1.25)} !important` }} />
 
         <RepeaterWrapper>
-          <Repeater count={count}>
+          {/* <Repeater count={count}>
             {(i: number) => {
               const Tag = i === 0 ? Box : Collapse
 
@@ -486,7 +492,7 @@ const EditCard = ({ data }: Props) => {
                 </Tag>
               )
             }}
-          </Repeater>
+          </Repeater> */}
 
           <Grid container sx={{ mt: 4.75 }}>
             <Grid item xs={12} sx={{ px: 0 }}>
@@ -507,7 +513,7 @@ const EditCard = ({ data }: Props) => {
         <CardContent>
           <Grid container>
             <Grid item xs={12} sm={9} sx={{ order: { sm: 1, xs: 2 } }}>
-              <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+              <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }} component='div'>
                 <Typography
                   variant='body2'
                   sx={{ mr: 2, color: 'text.primary', fontWeight: 600, letterSpacing: '.25px' }}

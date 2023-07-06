@@ -1,37 +1,27 @@
 'use client'
-import React, { Suspense, useRef } from 'react'
+import React, { useRef } from 'react'
 
 import { useGLTF, PerspectiveCamera } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 
 const Holoplanet = () => {
   const holoplanetRef = useRef()
-  const holoplanet = useGLTF('/models/Holoplanet.gltf')
+  const holoplanet = useGLTF('/models/planet2.gltf')
 
   useFrame(() => {
     if (holoplanetRef.current) {
-      holoplanetRef.current.rotation.x -= 0.003
+      holoplanetRef.current.rotation.x -= 0.001
     }
   })
 
-  return (
-    <primitive
-      ref={holoplanetRef}
-      object={holoplanet.scene}
-      scale={3}
-      position={[0, -9.5, 0]} //la posicion!
-    />
-  )
+  return <primitive ref={holoplanetRef} object={holoplanet.scene} scale={3} position={[0, -3.5, -1]} />
 }
 
 const HoloplanetCanvas = () => {
   return (
     <>
-      <Suspense>
-        <directionalLight intensity={0.2} position={[-5, 5, 5]} castShadow shadow-mapSize={1024} />
-        <Holoplanet />
-        <PerspectiveCamera makeDefault position={[0, 5, 10]} fov={75}></PerspectiveCamera>
-      </Suspense>
+      <PerspectiveCamera makeDefault position={[0, 5.5, 11]} fov={75}></PerspectiveCamera>
+      <Holoplanet />
     </>
   )
 }

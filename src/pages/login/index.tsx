@@ -1,28 +1,17 @@
 // ** React Imports
-import { useState, ReactNode, MouseEvent } from 'react'
+import { useState, ReactNode, MouseEvent, useRef } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Components
-// ** import Alert from '@mui/material/Alert'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import Checkbox from '@mui/material/Checkbox'
-
-// ** import TextField from '@mui/material/TextField'
-// **import InputLabel from '@mui/material/InputLabel'
 import IconButton from '@mui/material/IconButton'
 import Box, { BoxProps } from '@mui/material/Box'
-
-// **import FormControl from '@mui/material/FormControl'
 import useMediaQuery from '@mui/material/useMediaQuery'
-
-// **import OutlinedInput from '@mui/material/OutlinedInput'
 import { styled, useTheme } from '@mui/material/styles'
-
-// **import FormHelperText from '@mui/material/FormHelperText'
-// **import InputAdornment from '@mui/material/InputAdornment'
 import Typography, { TypographyProps } from '@mui/material/Typography'
 import MuiFormControlLabel, { FormControlLabelProps } from '@mui/material/FormControlLabel'
 
@@ -31,8 +20,7 @@ import { Canvas } from '@react-three/fiber'
 import { Environment, Stars } from '@react-three/drei'
 import HoloplanetCanvas from '../../@core/components/login/models/Holoplanet'
 import BotCanvas from '../../@core/components/login/models/Officialbot'
-
-// ** import Stars from '../../@core/components/login/login-stars/Stars.jsx'
+import Particles from '../../@core/components/login/adds/Particles'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -44,37 +32,10 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 // ** Hooks
 import { useAuth } from 'src/hooks/useAuth'
-
-// ** import useBgColor from 'src/@core/hooks/useBgColor'
 import { useSettings } from 'src/@core/hooks/useSettings'
-
-// ** Configs
-// ** import themeConfig from 'src/configs/themeConfig'
 
 // ** Layout Import
 import BlankLayout from 'src/@core/layouts/BlankLayout'
-
-// ** Demo Imports
-// ** import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
-
-// ** Styled Components
-/*const LoginIllustrationWrapper = styled(Box)<BoxProps>(({ theme }) => ({
-  padding: theme.spacing(20),
-  paddingRight: '0 !important',
-  [theme.breakpoints.down('lg')]: {
-    padding: theme.spacing(10)
-  }
-}))
-
-const LoginIllustration = styled('img')(({ theme }) => ({
-  maxWidth: '48rem',
-  [theme.breakpoints.down('xl')]: {
-    maxWidth: '38rem'
-  },
-  [theme.breakpoints.down('lg')]: {
-    maxWidth: '30rem'
-  }
-}))*/
 
 const RightWrapper = styled(Box)<BoxProps>(({ theme }) => ({
   width: '100%',
@@ -125,13 +86,9 @@ interface FormData {
 const LoginPage = () => {
   const [rememberMe, setRememberMe] = useState<boolean>(true)
 
-  // ** const [showPassword, setShowPassword] = useState<boolean>(false)
-
   // ** Hooks
   const auth = useAuth()
   const theme = useTheme()
-
-  // ** const bgColors = useBgColor()
   const { settings } = useSettings()
   const hidden = useMediaQuery(theme.breakpoints.down('md'))
 
@@ -154,38 +111,21 @@ const LoginPage = () => {
     })
   }
 
-  //** const imageSource = skin === 'bordered' ? 'auth-v2-login-illustration-bordered' : 'auth-v2-login-illustration'
-
-  {
-    /*<Box
-          sx={{ flex: 1, display: 'flex', position: 'relative', alignItems: 'center', justifyContent: 'center' }}
-          component='div'
-        >
-          <LoginIllustrationWrapper>
-            <LoginIllustration
-              alt='login-illustration'
-              src={`/images/pages/${imageSource}-${theme.palette.mode}.png`}
-            />
-          </LoginIllustrationWrapper>
-          <FooterIllustrationsV2 />
-        </Box>*/
-  }
+  const mouse = useRef([0, 0])
 
   return (
     <Box className='content-right' component='div' sx={{ width: '100vw', height: '100vh' }}>
-      {/* PNG container */}
       {!hidden ? (
         <Canvas shadows>
-          <group rotation={[0, 0, Math.PI / 4]}>
-            <Stars count={2500} speed={0.9} />
+          <group rotation={[0, 0, Math.PI / 5]}>
+            <Stars count={2500} speed={1} />
           </group>
+          <Particles count={700} mouse={mouse} />
           <Environment files='/images/login-bg/bg.hdr' background blur={0.3} />
           <HoloplanetCanvas />
           <BotCanvas />
         </Canvas>
       ) : null}
-
-      {/* Login component */}
 
       <RightWrapper sx={skin === 'bordered' && !hidden ? { borderLeft: `1px solid ${theme.palette.divider}` } : {}}>
         <Box
@@ -200,8 +140,6 @@ const LoginPage = () => {
           component='div'
         >
           <BoxWrapper>
-            {/* Svg Holocruxe Box */}
-
             <Box
               sx={{
                 top: 30,
@@ -271,87 +209,12 @@ const LoginPage = () => {
               </svg>
             </Box>
 
-            {/* Sign in text */}
-
             <Box sx={{ mb: 6 }} component='div'>
               <TypographyStyled variant='h5'>{`Welcome to Holocruxe! 🚀`}</TypographyStyled>
               <Typography variant='body2'>Please sign-in to your account and start the adventure</Typography>
             </Box>
 
-            {/* User & Pwd for test */}
-
-            {/*<Alert icon={false} sx={{ py: 3, mb: 6, ...bgColors.primaryLight, '& .MuiAlert-message': { p: 0 } }}>
-              <Typography variant='caption' sx={{ mb: 2, display: 'block', color: 'primary.main' }}>
-                Admin: <strong>admin@materialize.com</strong> / Pass: <strong>admin</strong>
-              </Typography>
-              <Typography variant='caption' sx={{ display: 'block', color: 'primary.main' }}>
-                Client: <strong>client@materialize.com</strong> / Pass: <strong>client</strong>
-              </Typography>
-            </Alert>*/}
-
-            {/* Login Form */}
-
             <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
-              {/* email input */}
-              {/*<FormControl fullWidth sx={{ mb: 4 }}>
-                <Controller
-                  name='email'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange, onBlur } }) => (
-                    <TextField
-                      autoFocus
-                      label='Email'
-                      value={value}
-                      onBlur={onBlur}
-                      onChange={onChange}
-                      error={Boolean(errors.email)}
-                      placeholder='admin@materialize.com'
-                    />
-                  )}
-                />
-                {errors.email && <FormHelperText sx={{ color: 'error.main' }}>{errors.email.message}</FormHelperText>}
-              </FormControl>*/}
-              {/* Pwd input */}
-              {/*<FormControl fullWidth>
-                <InputLabel htmlFor='auth-login-v2-password' error={Boolean(errors.password)}>
-                  Password
-                </InputLabel>
-                <Controller
-                  name='password'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange, onBlur } }) => (
-                    <OutlinedInput
-                      value={value}
-                      onBlur={onBlur}
-                      label='Password'
-                      onChange={onChange}
-                      id='auth-login-v2-password'
-                      error={Boolean(errors.password)}
-                      type={showPassword ? 'text' : 'password'}
-                      endAdornment={
-                        <InputAdornment position='end'>
-                          <IconButton
-                            edge='end'
-                            onMouseDown={e => e.preventDefault()}
-                            onClick={() => setShowPassword(!showPassword)}
-                          >
-                            <Icon icon={showPassword ? 'mdi:eye-outline' : 'mdi:eye-off-outline'} fontSize={20} />
-                          </IconButton>
-                        </InputAdornment>
-                      }
-                    />
-                  )}
-                />
-                {errors.password && (
-                  <FormHelperText sx={{ color: 'error.main' }} id=''>
-                    {errors.password.message}
-                  </FormHelperText>
-                )}
-              </FormControl>*/}
-
-              {/* Checkbox */}
               <Box component='div'>
                 <FormControlLabel
                   label='Remember Me'
@@ -367,12 +230,10 @@ const LoginPage = () => {
                 </Typography>
               </Box>
 
-              {/* Login button */}
               <Button fullWidth size='large' type='submit' variant='contained' sx={{ mb: 7 }}>
-                Login
+                Sign in
               </Button>
 
-              {/* Sign up section */}
               <Box
                 sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}
                 component='div'
@@ -391,7 +252,7 @@ const LoginPage = () => {
               >
                 or
               </Divider>
-              {/* Social Media authentication Box */}
+
               <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} component='div'>
                 <IconButton
                   href='/'

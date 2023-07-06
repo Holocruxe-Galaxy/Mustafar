@@ -15,6 +15,7 @@ const FallbackSpinner = ({ sx }: { sx?: BoxProps['sx'] }) => {
         justifyContent: 'center',
         ...sx
       }}
+      component='div'
     >
       <svg xmlns='http://www.w3.org/2000/svg' width='180' x='744.13' y='-640.34' viewBox='0 0 1617.68 257.73'>
         <path

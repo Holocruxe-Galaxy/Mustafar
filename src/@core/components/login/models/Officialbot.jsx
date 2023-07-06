@@ -17,7 +17,7 @@ const Bot = props => {
   }, [])
 
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group ref={group} {...props} dispose={null} position={[0, 5, 4.5]}>
       <group name='Scene'>
         <group name='Armature' rotation={[Math.PI / 2, 0, 0]} scale={0.02}>
           <primitive object={nodes.mixamorigHips} />
@@ -42,8 +42,7 @@ const Bot = props => {
 const BotCanvas = () => {
   return (
     <>
-      <ambientLight intensity={0.1} />
-      <directionalLight position={[-5, 5, 5]} castShadow shadow-mapSize={1024} />
+      <directionalLight position={[9, 5, 0]} shadow-mapSize={1024} castShadow />
       <Bot />
       <mesh rotation={[-0.5 * Math.PI, 0, 0]} position={[0, -1.2, 0]} receiveShadow>
         <planeGeometry args={[10, 10, 1, 1]} />
