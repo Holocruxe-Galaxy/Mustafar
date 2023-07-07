@@ -88,7 +88,7 @@ const AuthProvider = ({ children }: Props) => {
       })
     }
 
-    const response = await fetch('http://localhost:3001/users/register', options)
+    const response = await fetch('http://holocruxe.com/users/register', options)
     const res = await response.json()
     const AuthorizationToken = response.headers.get('Authorization')
     if (AuthorizationToken !== null) {
@@ -129,7 +129,7 @@ const AuthProvider = ({ children }: Props) => {
         email: userAuht0?.email
       })
     }
-    const response = await fetch('http://localhost:3001/users/login', options)
+    const response = await fetch('http://holocruxe.com/users/login', options)
     const res = await response.json()
     const AuthorizationToken = response.headers.get('Authorization')
     if (AuthorizationToken !== null) {
