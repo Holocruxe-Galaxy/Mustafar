@@ -32,7 +32,7 @@ const CardStatsCharacter = ({ data }: Props) => {
               color={chipColor}
               sx={{ mb: 5.5, height: 20, fontWeight: 500, fontSize: '0.75rem' }}
             />
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
+            <Box component='div' sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
               <Typography variant='h5' sx={{ mr: 1.5 }}>
                 {stats}
               </Typography>
