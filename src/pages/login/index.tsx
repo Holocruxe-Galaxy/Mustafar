@@ -89,6 +89,7 @@ interface FormData {
 const LoginPage = () => {
   const [rememberMe, setRememberMe] = useState<boolean>(true)
   const { user, isLoading } = useUser()
+
   // ** Hooks
   const auth = useAuth()
   const theme = useTheme()
@@ -133,6 +134,7 @@ const LoginPage = () => {
       })
     }
   }, [user, isLoading, auth, rememberMe, setError])
+
   return (
     <Box className='content-right' component='div' sx={{ width: '100vw', height: '100vh' }}>
       {!hidden ? (
@@ -264,7 +266,7 @@ const LoginPage = () => {
                     window.localStorage.setItem('createAccount', 'true')
                     window.location.href = '/api/auth/login'
                   }}
-                  href={'/api/auth/login'}
+                  href='/api/auth/login'
                   component={Link}
                   sx={{ color: 'primary.main', textDecoration: 'none' }}
                 >
