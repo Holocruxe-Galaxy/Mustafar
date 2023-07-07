@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, ReactNode, MouseEvent, useRef } from 'react'
+import { useEffect, useState, ReactNode, MouseEvent, useRef } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
@@ -33,6 +33,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 // ** Hooks
 import { useAuth } from 'src/hooks/useAuth'
 import { useSettings } from 'src/@core/hooks/useSettings'
+
+// ** Auth0 Imports
+import { useUser } from '@auth0/nextjs-auth0/client'
 
 // ** Layout Import
 import BlankLayout from 'src/@core/layouts/BlankLayout'
@@ -85,7 +88,7 @@ interface FormData {
 
 const LoginPage = () => {
   const [rememberMe, setRememberMe] = useState<boolean>(true)
-
+  const { user, isLoading } = useUser()
   // ** Hooks
   const auth = useAuth()
   const theme = useTheme()
@@ -113,6 +116,23 @@ const LoginPage = () => {
 
   const mouse = useRef([0, 0])
 
+  useEffect(() => {
+    if (window.localStorage.getItem('createAccount') === 'true' && user) {
+      window.localStorage.removeItem('createAccount')
+      auth.handleRegister()
+
+      return
+    }
+
+    if (user) {
+      auth.login({ rememberMe }, () => {
+        setError('email', {
+          type: 'manual',
+          message: 'Email or Password is invalid'
+        })
+      })
+    }
+  }, [user, isLoading, auth, rememberMe, setError])
   return (
     <Box className='content-right' component='div' sx={{ width: '100vw', height: '100vh' }}>
       {!hidden ? (
@@ -230,7 +250,7 @@ const LoginPage = () => {
                 </Typography>
               </Box>
 
-              <Button fullWidth size='large' type='submit' variant='contained' sx={{ mb: 7 }}>
+              <Button fullWidth size='large' href={'/api/auth/login'} variant='contained' sx={{ mb: 7 }}>
                 Sign in
               </Button>
 
@@ -239,7 +259,15 @@ const LoginPage = () => {
                 component='div'
               >
                 <Typography sx={{ mr: 2, color: 'text.secondary' }}>New on our platform?</Typography>
-                <Typography href='/register' component={Link} sx={{ color: 'primary.main', textDecoration: 'none' }}>
+                <Typography
+                  onClick={() => {
+                    window.localStorage.setItem('createAccount', 'true')
+                    window.location.href = '/api/auth/login'
+                  }}
+                  href={'/api/auth/login'}
+                  component={Link}
+                  sx={{ color: 'primary.main', textDecoration: 'none' }}
+                >
                   Create an account
                 </Typography>
               </Box>
@@ -278,12 +306,7 @@ const LoginPage = () => {
                 >
                   <Icon icon='mdi:github' />
                 </IconButton> */}
-                <IconButton
-                  href='/'
-                  component={Link}
-                  sx={{ color: '#db4437' }}
-                  onClick={(e: MouseEvent<HTMLElement>) => e.preventDefault()}
-                >
+                <IconButton href='/api/auth/login' component={Link} sx={{ color: '#db4437' }}>
                   <Icon icon='mdi:google' />
                 </IconButton>
               </Box>
