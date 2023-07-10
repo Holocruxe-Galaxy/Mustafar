@@ -38,7 +38,7 @@ const ButtonToggleCustomized = () => {
   }
 
   return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
+    <Box component='div' sx={{ display: 'flex', flexWrap: 'wrap' }}>
       <ToggleButtonGroup exclusive value={alignment} onChange={handleAlignment} aria-label='text alignment'>
         <ToggleButton value='left' aria-label='left aligned'>
           <Icon icon='mdi:format-align-left' />

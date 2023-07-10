@@ -108,8 +108,8 @@ const UserDropdown = (props: Props) => {
         anchorOrigin={{ vertical: 'bottom', horizontal: direction === 'ltr' ? 'right' : 'left' }}
         transformOrigin={{ vertical: 'top', horizontal: direction === 'ltr' ? 'right' : 'left' }}
       >
-        <Box sx={{ pt: 2, pb: 3, px: 4 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box component='div' sx={{ pt: 2, pb: 3, px: 4 }}>
+          <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
             <Badge
               overlap='circular'
               badgeContent={<BadgeContentSpan />}
@@ -120,7 +120,7 @@ const UserDropdown = (props: Props) => {
             >
               <Avatar alt='John Doe' src='/images/avatars/1.png' sx={{ width: '2.5rem', height: '2.5rem' }} />
             </Badge>
-            <Box sx={{ display: 'flex', ml: 3, alignItems: 'flex-start', flexDirection: 'column' }}>
+            <Box component='div' sx={{ display: 'flex', ml: 3, alignItems: 'flex-start', flexDirection: 'column' }}>
               <Typography sx={{ fontWeight: 600 }}>John Doe</Typography>
               <Typography variant='body2' sx={{ fontSize: '0.8rem', color: 'text.disabled' }}>
                 Admin
@@ -130,38 +130,38 @@ const UserDropdown = (props: Props) => {
         </Box>
         <Divider sx={{ mt: '0 !important' }} />
         <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
-          <Box sx={styles}>
+          <Box component='div' sx={styles}>
             <Icon icon='mdi:account-outline' />
             Profile
           </Box>
         </MenuItem>
         <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
-          <Box sx={styles}>
+          <Box component='div' sx={styles}>
             <Icon icon='mdi:email-outline' />
             Inbox
           </Box>
         </MenuItem>
         <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
-          <Box sx={styles}>
+          <Box component='div' sx={styles}>
             <Icon icon='mdi:message-outline' />
             Chat
           </Box>
         </MenuItem>
         <Divider />
         <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
-          <Box sx={styles}>
+          <Box component='div' sx={styles}>
             <Icon icon='mdi:cog-outline' />
             Settings
           </Box>
         </MenuItem>
         <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
-          <Box sx={styles}>
+          <Box component='div' sx={styles}>
             <Icon icon='mdi:currency-usd' />
             Pricing
           </Box>
         </MenuItem>
         <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
-          <Box sx={styles}>
+          <Box component='div' sx={styles}>
             <Icon icon='mdi:help-circle-outline' />
             FAQ
           </Box>

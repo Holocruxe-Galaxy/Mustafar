@@ -45,7 +45,7 @@ const ListProgress = () => {
             <Icon icon='mdi:react' />
           </CustomAvatar>
         </ListItemAvatar>
-        <Box sx={{ width: '100%' }}>
+        <Box component='div' sx={{ width: '100%' }}>
           <ListItemText primary='React is a JavaScript library for building user interfaces' />
           <LinearProgress color='info' value={90} sx={{ height: 5 }} variant='determinate' />
         </Box>
@@ -56,7 +56,7 @@ const ListProgress = () => {
             <Icon icon='mdi:bootstrap' />
           </CustomAvatar>
         </ListItemAvatar>
-        <Box sx={{ width: '100%' }}>
+        <Box component='div' sx={{ width: '100%' }}>
           <ListItemText primary='Bootstrap is an open source toolkit' />
           <LinearProgress value={75} sx={{ height: 5 }} variant='determinate' />
         </Box>
@@ -67,7 +67,7 @@ const ListProgress = () => {
             <Icon icon='mdi:vuejs' />
           </CustomAvatar>
         </ListItemAvatar>
-        <Box sx={{ width: '100%' }}>
+        <Box component='div' sx={{ width: '100%' }}>
           <ListItemText primary='Vue.js is the Progressive JavaScript Framework' />
           <LinearProgress color='success' value={85} sx={{ height: 5 }} variant='determinate' />
         </Box>
@@ -78,7 +78,7 @@ const ListProgress = () => {
             <Icon icon='mdi:angular' />
           </CustomAvatar>
         </ListItemAvatar>
-        <Box sx={{ width: '100%' }}>
+        <Box component='div' sx={{ width: '100%' }}>
           <ListItemText primary='Angular implements Functional Programming concepts' />
           <LinearProgress color='error' value={60} sx={{ height: 5 }} variant='determinate' />
         </Box>
@@ -89,7 +89,7 @@ const ListProgress = () => {
             <Icon icon='mdi:language-javascript' />
           </CustomAvatar>
         </ListItemAvatar>
-        <Box sx={{ width: '100%' }}>
+        <Box component='div' sx={{ width: '100%' }}>
           <ListItemText primary='JavaScript is the programming language of the Web' />
           <LinearProgress color='warning' value={70} sx={{ height: 5 }} variant='determinate' />
         </Box>

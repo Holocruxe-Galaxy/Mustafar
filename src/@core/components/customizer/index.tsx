@@ -105,6 +105,7 @@ const Customizer = () => {
       </Toggler>
       <Drawer open={open} hideBackdrop anchor='right' variant='persistent'>
         <Box
+          component='div'
           className='customizer-header'
           sx={{
             position: 'relative',
@@ -140,7 +141,7 @@ const Customizer = () => {
             </Typography>
 
             {/* Skin */}
-            <Box sx={{ mb: 4 }}>
+            <Box component='div' sx={{ mb: 4 }}>
               <Typography>Skin</Typography>
               <RadioGroup
                 row
@@ -154,7 +155,7 @@ const Customizer = () => {
             </Box>
 
             {/* Mode */}
-            <Box sx={{ mb: 4 }}>
+            <Box component='div' sx={{ mb: 4 }}>
               <Typography>Mode</Typography>
               <RadioGroup
                 row
@@ -173,7 +174,7 @@ const Customizer = () => {
             {/* Color Picker */}
             <div>
               <Typography sx={{ mb: 2.5 }}>Primary Color</Typography>
-              <Box sx={{ display: 'flex' }}>
+              <Box component='div' sx={{ display: 'flex' }}>
                 <ColorBox
                   onClick={() => handleChange('themeColor', 'primary')}
                   sx={{
@@ -246,7 +247,7 @@ const Customizer = () => {
             </Typography>
 
             {/* Content Width */}
-            <Box sx={{ mb: 4 }}>
+            <Box component='div' sx={{ mb: 4 }}>
               <Typography>Content Width</Typography>
               <RadioGroup
                 row
@@ -260,7 +261,7 @@ const Customizer = () => {
             </Box>
 
             {/* AppBar */}
-            <Box sx={{ mb: 4 }}>
+            <Box component='div' sx={{ mb: 4 }}>
               <Typography>AppBar Type</Typography>
               <RadioGroup
                 row
@@ -277,7 +278,7 @@ const Customizer = () => {
             </Box>
 
             {/* Footer */}
-            <Box sx={{ mb: 4 }}>
+            <Box component='div' sx={{ mb: 4 }}>
               <Typography>Footer Type</Typography>
               <RadioGroup
                 row
@@ -292,7 +293,7 @@ const Customizer = () => {
             </Box>
 
             {/* AppBar Blur */}
-            <Box sx={{ mb: 4, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <Box component='div' sx={{ mb: 4, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <Typography>AppBar Blur</Typography>
               <Switch
                 name='appBarBlur'
@@ -302,7 +303,7 @@ const Customizer = () => {
             </Box>
 
             {/* RTL */}
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <Box component='div' sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <Typography>RTL</Typography>
               <Switch
                 name='direction'
@@ -324,7 +325,7 @@ const Customizer = () => {
             </Typography>
 
             {/* Menu Layout */}
-            <Box sx={{ mb: layout === 'horizontal' && appBar === 'hidden' ? {} : 4 }}>
+            <Box component='div' sx={{ mb: layout === 'horizontal' && appBar === 'hidden' ? {} : 4 }}>
               <Typography>Menu Layout</Typography>
               <RadioGroup
                 row
@@ -345,7 +346,7 @@ const Customizer = () => {
 
             {/* Menu Toggle */}
             {navHidden || layout === 'horizontal' ? null : (
-              <Box sx={{ mb: 4 }}>
+              <Box component='div' sx={{ mb: 4 }}>
                 <Typography>Menu Toggle</Typography>
                 <RadioGroup
                   row
@@ -363,7 +364,10 @@ const Customizer = () => {
 
             {/* Menu Collapsed */}
             {navHidden || layout === 'horizontal' ? null : (
-              <Box sx={{ mb: 4, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <Box
+                component='div'
+                sx={{ mb: 4, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
+              >
                 <Typography>Menu Collapsed</Typography>
                 <Switch
                   name='navCollapsed'
@@ -375,7 +379,7 @@ const Customizer = () => {
 
             {/* Menu Hidden */}
             {layout === 'horizontal' && appBar === 'hidden' ? null : (
-              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <Box component='div' sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <Typography>Menu Hidden</Typography>
                 <Switch
                   name='navHidden'

@@ -94,7 +94,7 @@ const CardSnippet = (props: CardSnippetProps) => {
           <Divider sx={{ my: '0 !important' }} />
 
           <CardContent sx={{ position: 'relative', '& pre': { m: '0 !important', maxHeight: 500 } }}>
-            <Box sx={{ mb: 4, display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+            <Box component='div' sx={{ mb: 4, display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
               <ToggleButtonGroup
                 exclusive
                 size='small'

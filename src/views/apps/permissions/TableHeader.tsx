@@ -34,6 +34,7 @@ const TableHeader = (props: TableHeaderProps) => {
   return (
     <>
       <Box
+        component='div'
         sx={{ p: 5, pb: 3, display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}
       >
         <TextField
@@ -80,10 +81,10 @@ const TableHeader = (props: TableHeaderProps) => {
             }}
           >
             <TextField fullWidth sx={{ mb: 1 }} label='Permission Name' placeholder='Enter Permission Name' />
-            <Box sx={{ width: '100%', display: 'flex' }}>
+            <Box component='div' sx={{ width: '100%', display: 'flex' }}>
               <FormControlLabel control={<Checkbox />} label='Set as core permission' />
             </Box>
-            <Box className='demo-space-x' sx={{ '& > :last-child': { mr: '0 !important' } }}>
+            <Box component='div' className='demo-space-x' sx={{ '& > :last-child': { mr: '0 !important' } }}>
               <Button size='large' type='submit' variant='contained'>
                 Create Permission
               </Button>

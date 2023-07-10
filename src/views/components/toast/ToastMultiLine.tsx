@@ -18,6 +18,7 @@ const ToastMultiLine = () => {
 
   return (
     <Box
+      component='div'
       sx={{ display: 'flex', textAlign: 'center', alignItems: 'center', flexDirection: 'column', '& svg': { mb: 2 } }}
     >
       <Icon icon='mdi:text-box-outline' fontSize='2rem' />

@@ -1,6 +1,5 @@
 import { Fragment, useState, ReactNode } from 'react'
 
-
 // ** MUI Imports
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
@@ -302,7 +301,6 @@ const Register = () => {
   ]
 
   const [caract, setCaract] = useState()
-
 
   // ** Hooks
   const {
@@ -678,7 +676,7 @@ const Register = () => {
       return (
         <Fragment>
           <Typography>All steps are completed!</Typography>
-          <Box sx={{ mt: 4, display: 'flex', justifyContent: 'flex-end' }}>
+          <Box component='div' sx={{ mt: 4, display: 'flex', justifyContent: 'flex-end' }}>
             <Button size='large' variant='contained' onClick={handleReset}>
               Reset
             </Button>
