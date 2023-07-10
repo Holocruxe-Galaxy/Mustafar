@@ -451,6 +451,7 @@ const AutocompleteComponent = ({ hidden, settings }: Props) => {
   } else {
     return (
       <Box
+        component='div'
         ref={wrapper}
         onClick={() => !openDialog && setOpenDialog(true)}
         sx={{ display: 'flex', cursor: 'pointer', alignItems: 'center' }}
@@ -567,6 +568,7 @@ const AutocompleteComponent = ({ hidden, settings }: Props) => {
             </Box>
             {searchValue.length === 0 ? (
               <Box
+                component='div'
                 sx={{
                   p: 10,
                   display: 'grid',
