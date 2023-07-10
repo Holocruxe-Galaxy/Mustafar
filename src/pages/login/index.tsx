@@ -122,6 +122,7 @@ const LoginPage = () => {
           </group>
           <Particles count={700} mouse={mouse} />
           <Environment files='/images/login-bg/bg.hdr' background blur={0.3} />
+
           <HoloplanetCanvas />
           <BotCanvas />
         </Canvas>
@@ -215,7 +216,7 @@ const LoginPage = () => {
             </Box>
 
             <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
-              <Box component='div'>
+              {/* <Box component='div'>
                 <FormControlLabel
                   label='Remember Me'
                   control={<Checkbox checked={rememberMe} onChange={e => setRememberMe(e.target.checked)} />}
@@ -227,8 +228,8 @@ const LoginPage = () => {
                   sx={{ color: 'primary.main', textDecoration: 'none' }}
                 >
                   Forgot Password?
-                </Typography>
-              </Box>
+                </Typography> 
+              </Box> */}
 
               <Button fullWidth size='large' type='submit' variant='contained' sx={{ mb: 7 }}>
                 Sign in
