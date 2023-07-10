@@ -89,6 +89,7 @@ const AppCalendar = () => {
         handleAddEventSidebarToggle={handleAddEventSidebarToggle}
       />
       <Box
+        component='div'
         sx={{
           px: 5,
           pt: 3.75,
