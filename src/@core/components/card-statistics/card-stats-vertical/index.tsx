@@ -21,11 +21,15 @@ const CardStatsVertical = (props: CardStatsVerticalProps) => {
   return (
     <Card>
       <CardContent sx={{ display: 'flex', flexDirection: 'column' }}>
-        <Box sx={{ mb: 6, width: '100%', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+        <Box
+          component='div'
+          sx={{ mb: 6, width: '100%', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}
+        >
           <CustomAvatar skin='light' variant='rounded' color={color}>
             {icon}
           </CustomAvatar>
           <Box
+            component='div'
             sx={{ display: 'flex', alignItems: 'center', color: trend === 'positive' ? 'success.main' : 'error.main' }}
           >
             <Typography variant='subtitle2' sx={{ color: trend === 'positive' ? 'success.main' : 'error.main' }}>

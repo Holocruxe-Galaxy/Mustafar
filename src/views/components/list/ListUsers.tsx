@@ -48,8 +48,11 @@ const ListUsers = () => {
         </ListItemAvatar>
         <div>
           <ListItemText primary='Caroline Black' />
-          <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
-            <Box sx={{ mr: 3, display: 'flex', alignItems: 'center', '& svg': { mr: 1, color: 'success.main' } }}>
+          <Box component='div' sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+            <Box
+              component='div'
+              sx={{ mr: 3, display: 'flex', alignItems: 'center', '& svg': { mr: 1, color: 'success.main' } }}
+            >
               <Icon icon='mdi:circle' fontSize='0.625rem' />
               <Typography variant='caption'>Online</Typography>
             </Box>
@@ -70,8 +73,11 @@ const ListUsers = () => {
         </ListItemAvatar>
         <div>
           <ListItemText primary='Alfred Copeland' />
-          <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
-            <Box sx={{ mr: 3, display: 'flex', alignItems: 'center', '& svg': { mr: 1, color: 'warning.main' } }}>
+          <Box component='div' sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+            <Box
+              component='div'
+              sx={{ mr: 3, display: 'flex', alignItems: 'center', '& svg': { mr: 1, color: 'warning.main' } }}
+            >
               <Icon icon='mdi:circle' fontSize='0.625rem' />
               <Typography variant='caption'>Away</Typography>
             </Box>
@@ -92,8 +98,11 @@ const ListUsers = () => {
         </ListItemAvatar>
         <div>
           <ListItemText primary='Celia Schneider' />
-          <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
-            <Box sx={{ mr: 3, display: 'flex', alignItems: 'center', '& svg': { mr: 1, color: 'secondary.main' } }}>
+          <Box component='div' sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+            <Box
+              component='div'
+              sx={{ mr: 3, display: 'flex', alignItems: 'center', '& svg': { mr: 1, color: 'secondary.main' } }}
+            >
               <Icon icon='mdi:circle' fontSize='0.625rem' />
               <Typography variant='caption'>Offline</Typography>
             </Box>
@@ -115,8 +124,11 @@ const ListUsers = () => {
         </ListItemAvatar>
         <div>
           <ListItemText primary='Max Rogan' />
-          <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
-            <Box sx={{ mr: 3, display: 'flex', alignItems: 'center', '& svg': { mr: 1, color: 'error.main' } }}>
+          <Box component='div' sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+            <Box
+              component='div'
+              sx={{ mr: 3, display: 'flex', alignItems: 'center', '& svg': { mr: 1, color: 'error.main' } }}
+            >
               <Icon icon='mdi:circle' fontSize='0.625rem' />
               <Typography variant='caption'>In Meeting</Typography>
             </Box>

@@ -70,7 +70,11 @@ const MailItem = styled(ListItem)<ListItemProps>(({ theme }) => ({
 
 const ScrollWrapper = ({ children, hidden }: { children: ReactNode; hidden: boolean }) => {
   if (hidden) {
-    return <Box sx={{ height: '100%', overflowY: 'auto', overflowX: 'hidden' }}>{children}</Box>
+    return (
+      <Box component='div' sx={{ height: '100%', overflowY: 'auto', overflowX: 'hidden' }}>
+        {children}
+      </Box>
+    )
   } else {
     return <PerfectScrollbar options={{ wheelPropagation: false, suppressScrollX: true }}>{children}</PerfectScrollbar>
   }
@@ -313,10 +317,13 @@ const MailLog = (props: MailLogType) => {
   }
 
   return (
-    <Box sx={{ width: '100%', overflow: 'hidden', position: 'relative', '& .ps__rail-y': { zIndex: 5 } }}>
-      <Box sx={{ height: '100%', backgroundColor: 'background.paper' }}>
-        <Box sx={{ px: 5, py: 3 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+    <Box
+      component='div'
+      sx={{ width: '100%', overflow: 'hidden', position: 'relative', '& .ps__rail-y': { zIndex: 5 } }}
+    >
+      <Box component='div' sx={{ height: '100%', backgroundColor: 'background.paper' }}>
+        <Box component='div' sx={{ px: 5, py: 3 }}>
+          <Box component='div' sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
             {lgAbove ? null : (
               <IconButton onClick={handleLeftSidebarToggle} sx={{ mr: 1, ml: -2 }}>
                 <Icon icon='mdi:menu' fontSize={20} />
@@ -336,9 +343,9 @@ const MailLog = (props: MailLogType) => {
           </Box>
         </Box>
         <Divider sx={{ m: '0 !important' }} />
-        <Box sx={{ py: 1.75, px: { xs: 2.5, sm: 5 } }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box component='div' sx={{ py: 1.75, px: { xs: 2.5, sm: 5 } }}>
+          <Box component='div' sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
               {store && store.mails && store.selectedMails ? (
                 <Checkbox
                   onChange={e => dispatch(handleSelectAllMail(e.target.checked))}
@@ -372,7 +379,7 @@ const MailLog = (props: MailLogType) => {
                 </Fragment>
               ) : null}
             </Box>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
               <IconButton size='small' onClick={handleRefreshMailsClick} sx={{ '& svg': { color: 'text.disabled' } }}>
                 <Icon icon='mdi:reload' fontSize='1.375rem' />
               </IconButton>
@@ -383,7 +390,7 @@ const MailLog = (props: MailLogType) => {
           </Box>
         </Box>
         <Divider sx={{ m: '0 !important' }} />
-        <Box sx={{ p: 0, position: 'relative', overflowX: 'hidden', height: 'calc(100% - 7rem)' }}>
+        <Box component='div' sx={{ p: 0, position: 'relative', overflowX: 'hidden', height: 'calc(100% - 7rem)' }}>
           <ScrollWrapper hidden={hidden}>
             {store && store.mails && store.mails.length ? (
               <List sx={{ p: 0 }}>
@@ -403,7 +410,7 @@ const MailLog = (props: MailLogType) => {
                         }, 600)
                       }}
                     >
-                      <Box sx={{ mr: 4, display: 'flex', overflow: 'hidden', alignItems: 'center' }}>
+                      <Box component='div' sx={{ mr: 4, display: 'flex', overflow: 'hidden', alignItems: 'center' }}>
                         <Checkbox
                           onClick={e => e.stopPropagation()}
                           onChange={() => dispatch(handleSelectMail(mail.id))}
@@ -428,6 +435,7 @@ const MailLog = (props: MailLogType) => {
                           sx={{ mr: 3, width: '2rem', height: '2rem' }}
                         />
                         <Box
+                          component='div'
                           sx={{
                             display: 'flex',
                             overflow: 'hidden',
@@ -453,6 +461,7 @@ const MailLog = (props: MailLogType) => {
                         </Box>
                       </Box>
                       <Box
+                        component='div'
                         className='mail-actions'
                         sx={{ display: 'none', alignItems: 'center', justifyContent: 'flex-end' }}
                       >
@@ -491,10 +500,13 @@ const MailLog = (props: MailLogType) => {
                         </Tooltip>
                       </Box>
                       <Box
+                        component='div'
                         className='mail-info-right'
                         sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}
                       >
-                        <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>{renderMailLabels(mail.labels)}</Box>
+                        <Box component='div' sx={{ display: { xs: 'none', sm: 'flex' } }}>
+                          {renderMailLabels(mail.labels)}
+                        </Box>
                         <Typography
                           variant='caption'
                           sx={{ minWidth: '50px', textAlign: 'right', whiteSpace: 'nowrap', color: 'text.disabled' }}
@@ -511,7 +523,10 @@ const MailLog = (props: MailLogType) => {
                 })}
               </List>
             ) : (
-              <Box sx={{ mt: 6, display: 'flex', justifyContent: 'center', alignItems: 'center', '& svg': { mr: 2 } }}>
+              <Box
+                component='div'
+                sx={{ mt: 6, display: 'flex', justifyContent: 'center', alignItems: 'center', '& svg': { mr: 2 } }}
+              >
                 <Icon icon='mdi:alert-circle-outline' fontSize={20} />
                 <Typography>No Mails Found</Typography>
               </Box>

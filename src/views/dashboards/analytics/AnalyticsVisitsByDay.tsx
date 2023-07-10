@@ -92,8 +92,8 @@ const AnalyticsVisitsByDay = () => {
       />
       <CardContent sx={{ pt: { xs: `${theme.spacing(6)} !important`, md: `${theme.spacing(0)} !important` } }}>
         <ReactApexcharts type='bar' height={215} options={options} series={[{ data: [38, 55, 48, 65, 80, 38, 48] }]} />
-        <Box sx={{ mt: 5, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        <Box component='div' sx={{ mt: 5, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Box component='div' sx={{ display: 'flex', flexDirection: 'column' }}>
             <Typography sx={{ mb: 0.75, fontWeight: 600 }}>Most Visited Day</Typography>
             <Typography variant='body2'>Total 62.4k Visits on Thursday</Typography>
           </Box>

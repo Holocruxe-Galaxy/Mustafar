@@ -19,7 +19,7 @@ const TabsVertical = () => {
 
   return (
     <TabContext value={value}>
-      <Box sx={{ display: 'flex' }}>
+      <Box component='div' sx={{ display: 'flex' }}>
         <TabList orientation='vertical' onChange={handleChange} aria-label='vertical tabs example'>
           <Tab value='1' label='Tab 1' />
           <Tab value='2' label='Tab 2' />

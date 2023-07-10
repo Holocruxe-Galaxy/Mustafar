@@ -29,15 +29,18 @@ const CardStatsHorizontal = (props: CardStatsHorizontalProps) => {
   return (
     <Card>
       <CardContent sx={{ py: theme => `${theme.spacing(4.125)} !important` }}>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
           <Avatar skin='light' color={color} variant='rounded'>
             {icon}
           </Avatar>
-          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
+          <Box component='div' sx={{ display: 'flex', flexDirection: 'column' }}>
+            <Box component='div' sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
               <Typography variant='h6'>{stats}</Typography>
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Box sx={{ display: 'inline-flex', color: trend === 'positive' ? 'success.main' : 'error.main' }}>
+              <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
+                <Box
+                  component='div'
+                  sx={{ display: 'inline-flex', color: trend === 'positive' ? 'success.main' : 'error.main' }}
+                >
                   <Icon icon={trend === 'positive' ? 'mdi:chevron-up' : 'mdi:chevron-down'} />
                 </Box>
                 <Typography variant='caption' sx={{ color: trend === 'positive' ? 'success.main' : 'error.main' }}>

@@ -18,6 +18,7 @@ const ToastCustomPosition = () => {
 
   return (
     <Box
+      component='div'
       sx={{ display: 'flex', textAlign: 'center', alignItems: 'center', flexDirection: 'column', '& svg': { mb: 2 } }}
     >
       <Icon icon='mdi:view-grid-plus-outline' fontSize='2rem' />

@@ -246,7 +246,7 @@ const AnalyticsTopReferralSources = () => {
           value === category ? `2px solid ${theme.palette.primary.main}` : `2px dashed ${theme.palette.divider}`
       }}
     >
-      <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+      <Box component='div' sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
         <img
           width={34}
           height={34}
@@ -305,6 +305,7 @@ const AnalyticsTopReferralSources = () => {
                 }}
               >
                 <Box
+                  component='div'
                   sx={{
                     width: 30,
                     height: 30,

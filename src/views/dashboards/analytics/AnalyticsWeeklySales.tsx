@@ -129,22 +129,22 @@ const AnalyticsWeeklySales = () => {
       >
         <Grid container sx={{ mb: [4, 4, 7.25] }}>
           <Grid item xs={6}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
               <CustomAvatar skin='light' sx={{ mr: 4 }} variant='rounded'>
                 <Icon icon='mdi:trending-up' />
               </CustomAvatar>
-              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+              <Box component='div' sx={{ display: 'flex', flexDirection: 'column' }}>
                 <Typography variant='caption'>Net Income</Typography>
                 <Typography sx={{ fontWeight: 600 }}>$438.5k</Typography>
               </Box>
             </Box>
           </Grid>
           <Grid item xs={6}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
               <CustomAvatar skin='light' sx={{ mr: 4 }} color='warning' variant='rounded'>
                 <Icon icon='mdi:currency-usd' />
               </CustomAvatar>
-              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+              <Box component='div' sx={{ display: 'flex', flexDirection: 'column' }}>
                 <Typography variant='caption'>Expense</Typography>
                 <Typography sx={{ fontWeight: 600 }}>$22.4k</Typography>
               </Box>
