@@ -305,6 +305,7 @@ const AnalyticsTopReferralSources = () => {
                 }}
               >
                 <Box
+                  component='div'
                   sx={{
                     width: 30,
                     height: 30,

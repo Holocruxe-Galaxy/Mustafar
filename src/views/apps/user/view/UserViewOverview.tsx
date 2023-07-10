@@ -58,6 +58,7 @@ const UserViewOverview = ({ invoiceData }: Props) => {
                 </TimelineSeparator>
                 <TimelineContent>
                   <Box
+                    component='div'
                     sx={{
                       mb: 2,
                       display: 'flex',
@@ -82,6 +83,7 @@ const UserViewOverview = ({ invoiceData }: Props) => {
                 </TimelineSeparator>
                 <TimelineContent>
                   <Box
+                    component='div'
                     sx={{
                       mb: 2,
                       display: 'flex',
@@ -117,6 +119,7 @@ const UserViewOverview = ({ invoiceData }: Props) => {
                 </TimelineSeparator>
                 <TimelineContent>
                   <Box
+                    component='div'
                     sx={{
                       mb: 2,
                       display: 'flex',
@@ -141,6 +144,7 @@ const UserViewOverview = ({ invoiceData }: Props) => {
                 </TimelineSeparator>
                 <TimelineContent>
                   <Box
+                    component='div'
                     sx={{
                       mb: 2,
                       display: 'flex',

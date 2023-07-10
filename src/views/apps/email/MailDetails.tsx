@@ -205,6 +205,7 @@ const MailDetails = (props: MailDetailsType) => {
       {mail ? (
         <Fragment>
           <Box
+            component='div'
             sx={{
               px: 2.6,
               py: [2.25, 3],
@@ -217,6 +218,7 @@ const MailDetails = (props: MailDetailsType) => {
               sx={{ display: 'flex', alignItems: ['flex-start', 'center'], justifyContent: 'space-between' }}
             >
               <Box
+                component='div'
                 sx={{
                   display: 'flex',
                   overflow: 'hidden',
@@ -235,6 +237,7 @@ const MailDetails = (props: MailDetailsType) => {
                   <Icon icon={goBackIcon} fontSize='1.5rem' />
                 </IconButton>
                 <Box
+                  component='div'
                   sx={{
                     display: 'flex',
                     overflow: 'hidden',
@@ -290,6 +293,7 @@ const MailDetails = (props: MailDetailsType) => {
             </Box>
           </Box>
           <Box
+            component='div'
             sx={{
               backgroundColor: 'background.paper',
               p: theme => theme.spacing(3, 2, 3, 3),
@@ -346,6 +350,7 @@ const MailDetails = (props: MailDetailsType) => {
           <Box component='div' sx={{ height: 'calc(100% - 7.75rem)', backgroundColor: 'action.hover' }}>
             <ScrollWrapper>
               <Box
+                component='div'
                 sx={{
                   py: 4,
                   px: 5,
@@ -369,6 +374,7 @@ const MailDetails = (props: MailDetailsType) => {
                   ? mail.replies.map((reply: MailType, index: number) => {
                       return (
                         <Box
+                          component='div'
                           key={index}
                           sx={{
                             mb: 4,
@@ -381,6 +387,7 @@ const MailDetails = (props: MailDetailsType) => {
                         >
                           <Box component='div' sx={{ p: 5 }}>
                             <Box
+                              component='div'
                               sx={{
                                 display: 'flex',
                                 flexWrap: 'wrap',
@@ -462,6 +469,7 @@ const MailDetails = (props: MailDetailsType) => {
                 ) : null}
 
                 <Box
+                  component='div'
                   sx={{
                     mb: 4,
                     width: '100%',
@@ -475,6 +483,7 @@ const MailDetails = (props: MailDetailsType) => {
                 >
                   <Box component='div' sx={{ p: 5 }}>
                     <Box
+                      component='div'
                       sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap' }}
                     >
                       <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
@@ -554,6 +563,7 @@ const MailDetails = (props: MailDetailsType) => {
                 </Box>
 
                 <Box
+                  component='div'
                   sx={{
                     p: 5,
                     width: '100%',

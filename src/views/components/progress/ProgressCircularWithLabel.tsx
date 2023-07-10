@@ -11,6 +11,7 @@ const Progress = (props: CircularProgressProps) => {
     <Box component='div' sx={{ position: 'relative', display: 'inline-flex' }}>
       <CircularProgress variant='determinate' {...props} size={50} />
       <Box
+        component='div'
         sx={{
           top: 0,
           left: 0,

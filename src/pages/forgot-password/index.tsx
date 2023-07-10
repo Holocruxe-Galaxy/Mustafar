@@ -109,6 +109,7 @@ const ForgotPassword = () => {
       ) : null}
       <RightWrapper sx={skin === 'bordered' && !hidden ? { borderLeft: `1px solid ${theme.palette.divider}` } : {}}>
         <Box
+          component='div'
           sx={{
             p: 7,
             height: '100%',
@@ -120,6 +121,7 @@ const ForgotPassword = () => {
         >
           <BoxWrapper>
             <Box
+              component='div'
               sx={{
                 top: 30,
                 left: 40,

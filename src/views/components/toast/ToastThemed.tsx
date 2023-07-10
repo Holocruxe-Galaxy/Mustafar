@@ -30,6 +30,7 @@ const ToastThemed = () => {
 
   return (
     <Box
+      component='div'
       sx={{ display: 'flex', textAlign: 'center', alignItems: 'center', flexDirection: 'column', '& svg': { mb: 2 } }}
     >
       <Icon icon='mdi:palette-outline' fontSize='2rem' />

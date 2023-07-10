@@ -82,6 +82,7 @@ const ChatContent = (props: ChatContentType) => {
               <Icon icon='mdi:message-outline' fontSize='3.125rem' />
             </MuiAvatar>
             <Box
+              component='div'
               onClick={handleStartConversation}
               sx={{
                 px: 6,
@@ -99,6 +100,7 @@ const ChatContent = (props: ChatContentType) => {
       } else {
         return (
           <Box
+            component='div'
             sx={{
               width: 0,
               flexGrow: 1,
@@ -107,6 +109,7 @@ const ChatContent = (props: ChatContentType) => {
             }}
           >
             <Box
+              component='div'
               sx={{
                 py: 3,
                 px: 5,
@@ -123,6 +126,7 @@ const ChatContent = (props: ChatContentType) => {
                   </IconButton>
                 )}
                 <Box
+                  component='div'
                   onClick={handleUserProfileRightSidebarToggle}
                   sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
                 >

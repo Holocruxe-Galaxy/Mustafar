@@ -306,6 +306,7 @@ const UserViewBilling = () => {
                 User current plan is standard plan
               </Typography>
               <Box
+                component='div'
                 sx={{
                   display: 'flex',
                   alignItems: 'center',
@@ -351,6 +352,7 @@ const UserViewBilling = () => {
           <CardContent>
             {data.map((item: DataType, index: number) => (
               <Box
+                component='div'
                 key={index}
                 sx={{
                   p: 5,

@@ -34,6 +34,7 @@ const TableHeader = (props: TableHeaderProps) => {
   return (
     <>
       <Box
+        component='div'
         sx={{ p: 5, pb: 3, display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}
       >
         <TextField

@@ -219,6 +219,7 @@ const ComposePopup = (props: MailComposeType) => {
       }}
     >
       <Box
+        component='div'
         sx={{
           px: 4,
           py: 2.5,
@@ -239,6 +240,7 @@ const ComposePopup = (props: MailComposeType) => {
         </Box>
       </Box>
       <Box
+        component='div'
         sx={{
           py: 1,
           px: 4,
@@ -301,6 +303,7 @@ const ComposePopup = (props: MailComposeType) => {
       </Box>
       {visibility.cc ? (
         <Box
+          component='div'
           sx={{
             py: 1,
             px: 4,
@@ -327,6 +330,7 @@ const ComposePopup = (props: MailComposeType) => {
       ) : null}
       {visibility.bcc ? (
         <Box
+          component='div'
           sx={{
             py: 1,
             px: 4,
@@ -352,6 +356,7 @@ const ComposePopup = (props: MailComposeType) => {
         </Box>
       ) : null}
       <Box
+        component='div'
         sx={{
           py: 1,
           px: 4,
@@ -407,6 +412,7 @@ const ComposePopup = (props: MailComposeType) => {
         />
       </EditorWrapper>
       <Box
+        component='div'
         sx={{
           px: 4,
           py: 3.5,

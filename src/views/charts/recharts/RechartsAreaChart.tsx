@@ -213,6 +213,7 @@ const RechartsAreaChart = ({ direction }: Props) => {
             <Typography variant='body2'>Click</Typography>
           </Box>
           <Box
+            component='div'
             sx={{
               mr: 6,
               display: 'flex',

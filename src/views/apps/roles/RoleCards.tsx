@@ -216,6 +216,7 @@ const RolesCards = () => {
                 <TableRow>
                   <TableCell sx={{ pl: '0 !important' }}>
                     <Box
+                      component='div'
                       sx={{
                         display: 'flex',
                         fontSize: '0.875rem',

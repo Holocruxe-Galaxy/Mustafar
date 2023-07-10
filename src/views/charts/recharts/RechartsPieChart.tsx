@@ -66,6 +66,7 @@ const RechartsPieChart = () => {
         </Box>
         <Box component='div' sx={{ display: 'flex', flexWrap: 'wrap', mb: 4, justifyContent: 'center' }}>
           <Box
+            component='div'
             sx={{
               mr: 6,
               display: 'flex',
@@ -77,6 +78,7 @@ const RechartsPieChart = () => {
             <Typography variant='body2'>R&D</Typography>
           </Box>
           <Box
+            component='div'
             sx={{
               mr: 6,
               display: 'flex',
@@ -88,6 +90,7 @@ const RechartsPieChart = () => {
             <Typography variant='body2'>Operational</Typography>
           </Box>
           <Box
+            component='div'
             sx={{
               mr: 6,
               display: 'flex',

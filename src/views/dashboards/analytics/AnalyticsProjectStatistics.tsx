@@ -108,6 +108,7 @@ const AnalyticsProjectStatistics = () => {
         {data.map((item: DataType, index: number) => {
           return (
             <Box
+              component='div'
               key={item.title}
               sx={{
                 display: 'flex',
@@ -119,6 +120,7 @@ const AnalyticsProjectStatistics = () => {
                 <img alt='avatar' src={item.src} width={item.imgWidth} height={item.imgHeight} />
               </Avatar>
               <Box
+                component='div'
                 sx={{
                   width: '100%',
                   display: 'flex',

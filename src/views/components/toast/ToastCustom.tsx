@@ -41,6 +41,7 @@ const ToastCustom = () => {
 
   return (
     <Box
+      component='div'
       sx={{ display: 'flex', textAlign: 'center', alignItems: 'center', flexDirection: 'column', '& svg': { mb: 2 } }}
     >
       <Icon icon='mdi:pencil-outline' fontSize='2rem' />

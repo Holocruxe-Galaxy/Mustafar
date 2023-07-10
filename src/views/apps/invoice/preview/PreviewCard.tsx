@@ -123,7 +123,7 @@ const PreviewCard = ({ data }: Props) => {
                     {themeConfig.templateName}
                   </Typography>
                 </Box>
-                <Box>
+                <Box component='div'>
                   <Typography variant='body2' sx={{ mb: 1 }}>
                     Office 149, 450 South Brand Brooklyn
                   </Typography>

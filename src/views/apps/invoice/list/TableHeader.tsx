@@ -21,6 +21,7 @@ const TableHeader = (props: TableHeaderProps) => {
 
   return (
     <Box
+      component='div'
       sx={{
         p: 5,
         pb: 3,
