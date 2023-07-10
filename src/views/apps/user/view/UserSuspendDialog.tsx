@@ -45,6 +45,7 @@ const UserSuspendDialog = (props: Props) => {
           }}
         >
           <Box
+            component='div'
             sx={{
               display: 'flex',
               textAlign: 'center',
@@ -84,6 +85,7 @@ const UserSuspendDialog = (props: Props) => {
       >
         <DialogContent>
           <Box
+            component='div'
             sx={{
               display: 'flex',
               alignItems: 'center',

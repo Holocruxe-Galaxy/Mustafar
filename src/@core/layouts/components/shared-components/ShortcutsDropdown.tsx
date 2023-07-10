@@ -71,7 +71,11 @@ const PerfectScrollbar = styled(PerfectScrollbarComponent)({
 
 const ScrollWrapper = ({ children, hidden }: { children: ReactNode; hidden: boolean }) => {
   if (hidden) {
-    return <Box sx={{ maxHeight: '30rem', overflowY: 'auto', overflowX: 'hidden' }}>{children}</Box>
+    return (
+      <Box component='div' sx={{ maxHeight: '30rem', overflowY: 'auto', overflowX: 'hidden' }}>
+        {children}
+      </Box>
+    )
   } else {
     return <PerfectScrollbar options={{ wheelPropagation: false, suppressScrollX: true }}>{children}</PerfectScrollbar>
   }
@@ -115,7 +119,10 @@ const ShortcutsDropdown = (props: Props) => {
           disableTouchRipple
           sx={{ cursor: 'default', userSelect: 'auto', backgroundColor: 'transparent !important' }}
         >
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+          <Box
+            component='div'
+            sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}
+          >
             <Typography sx={{ fontSize: '1.125rem', color: 'text.secondary', fontWeight: 600 }}>Shortcuts</Typography>
             <Tooltip title='Add Shortcut' placement='top'>
               <IconButton disableRipple>

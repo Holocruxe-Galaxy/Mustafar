@@ -38,7 +38,7 @@ const PlanDetails = (props: PricingPlanProps) => {
 
   const renderFeatures = () => {
     return data?.planBenefits.map((item: string, index: number) => (
-      <Box key={index} sx={{ display: 'flex', alignItems: 'center' }}>
+      <Box component='div' key={index} sx={{ display: 'flex', alignItems: 'center' }}>
         <Box component='span' sx={{ display: 'inline-flex', color: 'text.secondary', mr: 2 }}>
           <Icon icon='mdi:circle-outline' fontSize='0.75rem' />
         </Box>
@@ -74,7 +74,7 @@ const PlanDetails = (props: PricingPlanProps) => {
           }}
         />
       ) : null}
-      <Box sx={{ mb: 5, display: 'flex', justifyContent: 'center' }}>
+      <Box component='div' sx={{ mb: 5, display: 'flex', justifyContent: 'center' }}>
         <img
           width={data?.imgWidth}
           src={`${data?.imgSrc}`}
@@ -82,13 +82,13 @@ const PlanDetails = (props: PricingPlanProps) => {
           alt={`${data?.title.toLowerCase().replace(' ', '-')}-plan-img`}
         />
       </Box>
-      <Box sx={{ textAlign: 'center' }}>
+      <Box component='div' sx={{ textAlign: 'center' }}>
         <Typography variant='h5' sx={{ mb: 1.5 }}>
           {data?.title}
         </Typography>
         <Typography variant='body2'>{data?.subtitle}</Typography>
-        <Box sx={{ my: 7, position: 'relative' }}>
-          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Box component='div' sx={{ my: 7, position: 'relative' }}>
+          <Box component='div' sx={{ display: 'flex', justifyContent: 'center' }}>
             <Typography variant='body2' sx={{ mt: 1.6, fontWeight: 600, alignSelf: 'flex-start' }}>
               $
             </Typography>

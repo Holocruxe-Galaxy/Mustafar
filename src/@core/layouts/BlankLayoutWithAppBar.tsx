@@ -38,6 +38,7 @@ const BlankLayoutWithAppBar = (props: BlankLayoutWithAppBarProps) => {
     <BlankLayoutWithAppBarWrapper>
       <AppBar />
       <Box
+        component='div'
         className='app-content'
         sx={{
           overflowX: 'hidden',

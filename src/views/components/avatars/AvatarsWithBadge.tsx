@@ -15,7 +15,7 @@ const BadgeContentSpan = styled('span')(({ theme }) => ({
 
 const AvatarsWithBadge = () => {
   return (
-    <Box className='demo-space-x' sx={{ display: 'flex' }}>
+    <Box component='div' className='demo-space-x' sx={{ display: 'flex' }}>
       <Badge
         overlap='circular'
         badgeContent={<BadgeContentSpan />}

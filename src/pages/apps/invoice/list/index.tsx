@@ -115,7 +115,7 @@ const defaultColumns: GridColDef[] = [
     minWidth: 80,
     field: 'invoiceStatus',
     renderHeader: () => (
-      <Box sx={{ display: 'flex', color: 'action.active' }}>
+      <Box component='div' sx={{ display: 'flex', color: 'action.active' }}>
         <Icon icon='mdi:trending-up' fontSize={20} />
       </Box>
     ),
@@ -160,9 +160,9 @@ const defaultColumns: GridColDef[] = [
       const { name, companyEmail } = row
 
       return (
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
           {renderClient(row)}
-          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          <Box component='div' sx={{ display: 'flex', flexDirection: 'column' }}>
             <Typography
               noWrap
               variant='body2'
@@ -273,7 +273,7 @@ const InvoiceList = () => {
       field: 'actions',
       headerName: 'Actions',
       renderCell: ({ row }: CellType) => (
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
           <Tooltip title='Delete Invoice'>
             <IconButton size='small' sx={{ mr: 0.5 }} onClick={() => dispatch(deleteInvoice(row.id))}>
               <Icon icon='mdi:delete-outline' />

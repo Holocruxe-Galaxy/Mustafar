@@ -158,8 +158,8 @@ const EditCard = ({ data }: Props) => {
         <CardContent component='div'>
           <Grid container>
             <Grid item xl={6} xs={12} sx={{ mb: { xl: 0, xs: 4 } }}>
-              <Box sx={{ display: 'flex', flexDirection: 'column' }} component='div'>
-                <Box sx={{ mb: 6, display: 'flex', alignItems: 'center' }} component='div'>
+              <Box component='div' sx={{ display: 'flex', flexDirection: 'column' }}>
+                <Box component='div' sx={{ mb: 6, display: 'flex', alignItems: 'center' }}>
                   <svg width={40} fill='none' height={22} viewBox='0 0 268 150' xmlns='http://www.w3.org/2000/svg'>
                     <rect
                       rx='25.1443'
@@ -250,7 +250,7 @@ const EditCard = ({ data }: Props) => {
                 sx={{ display: 'flex', flexDirection: 'column', alignItems: { xl: 'flex-end', xs: 'flex-start' } }}
                 component='div'
               >
-                <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }} component='div'>
+                <Box component='div' sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
                   <Typography variant='h6' sx={{ mr: 1, width: '105px' }}>
                     Invoice
                   </Typography>
@@ -264,7 +264,7 @@ const EditCard = ({ data }: Props) => {
                     }}
                   />
                 </Box>
-                <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }} component='div'>
+                <Box component='div' sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
                   <Typography variant='body2' sx={{ mr: 2, width: '100px' }}>
                     Date Issued:
                   </Typography>
@@ -276,7 +276,7 @@ const EditCard = ({ data }: Props) => {
                     onChange={(date: Date) => setIssueDate(date)}
                   />
                 </Box>
-                <Box sx={{ display: 'flex', alignItems: 'center' }} component='div'>
+                <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
                   <Typography variant='body2' sx={{ mr: 2, width: '100px' }}>
                     Date Due:
                   </Typography>
@@ -436,7 +436,7 @@ const EditCard = ({ data }: Props) => {
                             defaultValue='24'
                             InputProps={{ inputProps: { min: 0 } }}
                           />
-                          <Box sx={{ mt: 3.5 }}>
+                          <Box component='div'sx={{ mt: 3.5 }}>
                             <Typography component='span' variant='body2' sx={{ lineHeight: 2 }}>
                               Discount:
                             </Typography>{' '}
@@ -513,7 +513,7 @@ const EditCard = ({ data }: Props) => {
         <CardContent>
           <Grid container>
             <Grid item xs={12} sm={9} sx={{ order: { sm: 1, xs: 2 } }}>
-              <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }} component='div'>
+              <Box component='div' sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
                 <Typography
                   variant='body2'
                   sx={{ mr: 2, color: 'text.primary', fontWeight: 600, letterSpacing: '.25px' }}

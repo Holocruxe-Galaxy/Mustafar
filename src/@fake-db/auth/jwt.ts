@@ -14,17 +14,17 @@ const users: UserDataType[] = [
   {
     id: 1,
     role: 'admin',
-    password: 'admin',
     fullName: 'John Doe',
     username: 'johndoe',
+    name: 'jhon',
     email: 'admin@materialize.com'
   },
   {
     id: 2,
     role: 'client',
-    password: 'client',
     fullName: 'Jane Doe',
     username: 'janedoe',
+    name: 'jhon',
     email: 'client@materialize.com'
   }
 ]
@@ -39,13 +39,13 @@ const jwtConfig = {
 type ResponseType = [number, { [key: string]: any }]
 
 mock.onPost('/jwt/login').reply(request => {
-  const { email, password } = JSON.parse(request.data)
+  const { email } = JSON.parse(request.data)
 
   let error = {
     email: ['Something went wrong']
   }
 
-  const user = users.find(u => u.email === email && u.password === password)
+  const user = users.find(u => u.email === email)
 
   if (user) {
     const accessToken = jwt.sign({ id: user.id }, jwtConfig.secret as string, { expiresIn: jwtConfig.expirationTime })
@@ -67,7 +67,7 @@ mock.onPost('/jwt/login').reply(request => {
 
 mock.onPost('/jwt/register').reply(request => {
   if (request.data.length > 0) {
-    const { email, password, username } = JSON.parse(request.data)
+    const { email, username } = JSON.parse(request.data)
     const isEmailAlreadyInUse = users.find(user => user.email === email)
     const isUsernameAlreadyInUse = users.find(user => user.username === username)
     const error = {
@@ -84,9 +84,9 @@ mock.onPost('/jwt/register').reply(request => {
       const userData = {
         id: lastIndex + 1,
         email,
-        password,
         username,
         avatar: null,
+        name: 'alex',
         fullName: '',
         role: 'admin'
       }
@@ -94,9 +94,6 @@ mock.onPost('/jwt/register').reply(request => {
       users.push(userData)
 
       const accessToken = jwt.sign({ id: userData.id }, jwtConfig.secret as string)
-
-      const user = { ...userData }
-      delete user.password
 
       const response = { accessToken }
 
