@@ -106,6 +106,7 @@ const UserViewConnection = () => {
             {connectedAccountsArr.map(account => {
               return (
                 <Box
+                  component='div'
                   key={account.title}
                   sx={{
                     gap: 2,
@@ -145,6 +146,7 @@ const UserViewConnection = () => {
             {socialAccountsArr.map(account => {
               return (
                 <Box
+                  component='div'
                   key={account.title}
                   sx={{
                     gap: 2,

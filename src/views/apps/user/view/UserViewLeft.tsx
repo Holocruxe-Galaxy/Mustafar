@@ -404,6 +404,7 @@ const UserViewLeft = () => {
             <CardContent>
               <Box component='div' sx={{ mt: 4, mb: 5 }}>
                 <Box
+                  component='div'
                   sx={{ display: 'flex', mb: 2.5, alignItems: 'center', '& svg': { mr: 2, color: 'text.secondary' } }}
                 >
                   <Icon icon='mdi:circle' fontSize='0.625rem' />
@@ -412,6 +413,7 @@ const UserViewLeft = () => {
                   </Typography>
                 </Box>
                 <Box
+                  component='div'
                   sx={{
                     mt: 2.5,
                     display: 'flex',
@@ -426,6 +428,7 @@ const UserViewLeft = () => {
                   </Typography>
                 </Box>
                 <Box
+                  component='div'
                   sx={{
                     mt: 2.5,
                     display: 'flex',
@@ -526,6 +529,7 @@ const UserViewLeft = () => {
                   User current plan is standard plan
                 </Typography>
                 <Box
+                  component='div'
                   sx={{
                     display: 'flex',
                     alignItems: 'center',

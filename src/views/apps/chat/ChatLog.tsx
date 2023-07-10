@@ -134,6 +134,7 @@ const ChatLog = (props: ChatLogType) => {
 
       return (
         <Box
+          component='div'
           key={index}
           sx={{
             display: 'flex',
@@ -197,6 +198,7 @@ const ChatLog = (props: ChatLogType) => {
                   </div>
                   {index + 1 === length ? (
                     <Box
+                      component='div'
                       sx={{
                         mt: 1,
                         display: 'flex',

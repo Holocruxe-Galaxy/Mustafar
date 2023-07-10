@@ -214,6 +214,7 @@ const SidebarLeft = (props: ChatSidebarLeftType) => {
                   }
                 />
                 <Box
+                  component='div'
                   sx={{
                     display: 'flex',
                     alignItems: 'flex-end',
@@ -372,6 +373,7 @@ const SidebarLeft = (props: ChatSidebarLeftType) => {
         }}
       >
         <Box
+          component='div'
           sx={{
             px: 5.5,
             py: 3.5,
