@@ -47,8 +47,8 @@ const PreviewCard = ({ data }: Props) => {
         <CardContent>
           <Grid container>
             <Grid item sm={6} xs={12} sx={{ mb: { sm: 0, xs: 4 } }}>
-              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                <Box sx={{ mb: 6, display: 'flex', alignItems: 'center' }}>
+              <Box component='div' sx={{ display: 'flex', flexDirection: 'column' }}>
+                <Box component='div' sx={{ mb: 6, display: 'flex', alignItems: 'center' }}>
                   <svg width={40} fill='none' height={22} viewBox='0 0 268 150' xmlns='http://www.w3.org/2000/svg'>
                     <rect
                       rx='25.1443'
@@ -135,7 +135,7 @@ const PreviewCard = ({ data }: Props) => {
               </Box>
             </Grid>
             <Grid item sm={6} xs={12}>
-              <Box sx={{ display: 'flex', justifyContent: { xs: 'flex-start', sm: 'flex-end' } }}>
+              <Box component='div' sx={{ display: 'flex', justifyContent: { xs: 'flex-start', sm: 'flex-end' } }}>
                 <Table sx={{ maxWidth: '200px' }}>
                   <TableBody>
                     <TableRow>
@@ -300,7 +300,7 @@ const PreviewCard = ({ data }: Props) => {
         <CardContent sx={{ pt: 8 }}>
           <Grid container>
             <Grid item xs={12} sm={7} lg={9} sx={{ order: { sm: 1, xs: 2 } }}>
-              <Box sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
+              <Box component='div' sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
                 <Typography
                   variant='body2'
                   sx={{ mr: 2, color: 'text.primary', fontWeight: 600, letterSpacing: '.25px' }}

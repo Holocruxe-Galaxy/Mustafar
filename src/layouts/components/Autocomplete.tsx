@@ -246,8 +246,11 @@ const Dialog = styled(MuiDialog)({
 
 const NoResult = ({ value, setOpenDialog }: NoResultProps) => {
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column', justifyContent: 'center' }}>
-      <Box sx={{ mb: 2.5, color: 'text.primary' }}>
+    <Box
+      component='div'
+      sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column', justifyContent: 'center' }}
+    >
+      <Box component='div' sx={{ mb: 2.5, color: 'text.primary' }}>
         <Icon icon='mdi:file-remove-outline' fontSize='5rem' />
       </Box>
       <Typography variant='h6' sx={{ mb: 11.5, wordWrap: 'break-word' }}>
@@ -272,7 +275,7 @@ const NoResult = ({ value, setOpenDialog }: NoResultProps) => {
               '&:hover > *': { color: 'primary.main' }
             }}
           >
-            <Box sx={{ mr: 2.5, display: 'flex', color: 'text.primary' }}>
+            <Box component='div' sx={{ mr: 2.5, display: 'flex', color: 'text.primary' }}>
               <Icon icon='mdi:cart-outline' fontSize={20} />
             </Box>
             <Typography variant='body2' sx={{ color: 'text.primary' }}>
@@ -291,7 +294,7 @@ const NoResult = ({ value, setOpenDialog }: NoResultProps) => {
               '&:hover > *': { color: 'primary.main' }
             }}
           >
-            <Box sx={{ mr: 2.5, display: 'flex', color: 'text.primary' }}>
+            <Box component='div' sx={{ mr: 2.5, display: 'flex', color: 'text.primary' }}>
               <Icon icon='mdi:account-outline' fontSize={20} />
             </Box>
             <Typography variant='body2' sx={{ color: 'text.primary' }}>
@@ -310,7 +313,7 @@ const NoResult = ({ value, setOpenDialog }: NoResultProps) => {
               '&:hover > *': { color: 'primary.main' }
             }}
           >
-            <Box sx={{ mr: 2.5, display: 'flex', color: 'text.primary' }}>
+            <Box component='div' sx={{ mr: 2.5, display: 'flex', color: 'text.primary' }}>
               <Icon icon='mdi:account-cog-outline' fontSize={20} />
             </Box>
             <Typography variant='body2' sx={{ color: 'text.primary' }}>
@@ -460,7 +463,7 @@ const AutocompleteComponent = ({ hidden, settings }: Props) => {
         ) : null}
         {openDialog && (
           <Dialog fullWidth open={openDialog} fullScreen={fullScreenDialog} onClose={() => setOpenDialog(false)}>
-            <Box sx={{ top: 0, width: '100%', position: 'sticky' }}>
+            <Box component='div' sx={{ top: 0, width: '100%', position: 'sticky' }}>
               <Autocomplete
                 autoHighlight
                 disablePortal

@@ -135,7 +135,7 @@ const PermissionsTable = () => {
       field: 'actions',
       headerName: 'Actions',
       renderCell: ({ row }: CellType) => (
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
           <IconButton onClick={() => handleEditPermission(row.name)}>
             <Icon icon='mdi:pencil-outline' />
           </IconButton>

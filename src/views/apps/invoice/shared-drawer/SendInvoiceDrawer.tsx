@@ -43,7 +43,7 @@ const SendInvoiceDrawer = ({ open, toggle }: Props) => {
           <Icon icon='mdi:close' fontSize={20} />
         </IconButton>
       </Header>
-      <Box sx={{ p: 5 }}>
+      <Box component='div' sx={{ p: 5 }}>
         <FormControl fullWidth sx={{ mb: 6 }}>
           <TextField type='email' label='From' variant='outlined' defaultValue='shelbyComapny@email.com' />
         </FormControl>
@@ -69,7 +69,7 @@ We have generated a new invoice in the amount of $95.59
 We would appreciate payment of this invoice by 05/11/2019`}
           />
         </FormControl>
-        <Box sx={{ mb: 6 }}>
+        <Box component='div' sx={{ mb: 6 }}>
           <CustomChip
             size='small'
             skin='light'

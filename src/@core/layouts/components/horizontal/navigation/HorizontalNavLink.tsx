@@ -119,7 +119,10 @@ const HorizontalNavLink = (props: Props) => {
                 })
           }}
         >
-          <Box sx={{ gap: 2, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Box
+            component='div'
+            sx={{ gap: 2, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
+          >
             <Box
               sx={{
                 display: 'flex',

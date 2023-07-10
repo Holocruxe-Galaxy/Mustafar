@@ -101,7 +101,7 @@ const ApexLineChart = () => {
           '& .MuiCardHeader-content': { mb: [2, 0] }
         }}
         action={
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
             <Typography variant='h6' sx={{ mr: 5 }}>
               $221,267
             </Typography>
@@ -110,7 +110,7 @@ const ApexLineChart = () => {
               color='success'
               sx={{ fontWeight: 500, borderRadius: 1, fontSize: '0.875rem' }}
               label={
-                <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 1 } }}>
+                <Box component='div' sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 1 } }}>
                   <Icon icon='mdi:arrow-up' fontSize='1rem' />
                   <span>22%</span>
                 </Box>

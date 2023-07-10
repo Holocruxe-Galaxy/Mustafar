@@ -81,7 +81,7 @@ const AnalyticsProjectStatistics = () => {
         }
       />
       <CardContent>
-        <Box sx={{ mb: 4, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <Box component='div' sx={{ mb: 4, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Typography
             sx={{
               lineHeight: 2,
@@ -127,7 +127,7 @@ const AnalyticsProjectStatistics = () => {
                   justifyContent: 'space-between'
                 }}
               >
-                <Box sx={{ mr: 2, display: 'flex', mb: 0.4, flexDirection: 'column' }}>
+                <Box component='div' sx={{ mr: 2, display: 'flex', mb: 0.4, flexDirection: 'column' }}>
                   <Typography variant='body2' sx={{ mb: 0.5, fontWeight: 600, color: 'text.primary' }}>
                     {item.title}
                   </Typography>

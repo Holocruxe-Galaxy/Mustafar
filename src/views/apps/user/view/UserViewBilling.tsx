@@ -182,20 +182,20 @@ const UserViewBilling = () => {
           <CardContent>
             <Grid container spacing={6}>
               <Grid item xs={12} md={6}>
-                <Box sx={{ mb: 4 }}>
+                <Box component='div' sx={{ mb: 4 }}>
                   <Typography sx={{ fontWeight: 500, mb: 1, fontSize: '0.875rem' }}>
                     Your Current Plan is <strong>Basic</strong>
                   </Typography>
                   <Typography variant='body2'>A simple start for everyone</Typography>
                 </Box>
-                <Box sx={{ mb: 4 }}>
+                <Box component='div' sx={{ mb: 4 }}>
                   <Typography sx={{ fontWeight: 500, mb: 1, fontSize: '0.875rem' }}>
                     Active until Dec 09, 2021
                   </Typography>
                   <Typography variant='body2'>We will send you a notification upon Subscription expiration</Typography>
                 </Box>
                 <div>
-                  <Box sx={{ display: 'flex', mb: 1, alignItems: 'center' }}>
+                  <Box component='div' sx={{ display: 'flex', mb: 1, alignItems: 'center' }}>
                     <Typography sx={{ mr: 2, fontWeight: 500, fontSize: '0.875rem' }}>$99 Per Month</Typography>
                     <CustomChip
                       skin='light'
@@ -216,7 +216,7 @@ const UserViewBilling = () => {
                   </AlertTitle>
                   Your plan requires updates
                 </Alert>
-                <Box sx={{ display: 'flex', mb: 2, justifyContent: 'space-between' }}>
+                <Box component='div' sx={{ display: 'flex', mb: 2, justifyContent: 'space-between' }}>
                   <Typography sx={{ fontWeight: 600, fontSize: '0.875rem' }}>Days</Typography>
                   <Typography sx={{ fontWeight: 600, fontSize: '0.875rem' }}>26 of 30 Days</Typography>
                 </Box>
@@ -313,7 +313,7 @@ const UserViewBilling = () => {
                   justifyContent: 'space-between'
                 }}
               >
-                <Box sx={{ mr: 3, display: 'flex', ml: 2.4, position: 'relative' }}>
+                <Box component='div' sx={{ mr: 3, display: 'flex', ml: 2.4, position: 'relative' }}>
                   <Sup>$</Sup>
                   <Typography
                     variant='h3'
@@ -365,7 +365,7 @@ const UserViewBilling = () => {
               >
                 <div>
                   <img height='25' alt={item.imgAlt} src={item.imgSrc} />
-                  <Box sx={{ mt: 0.5, display: 'flex', alignItems: 'center' }}>
+                  <Box component='div' sx={{ mt: 0.5, display: 'flex', alignItems: 'center' }}>
                     <Typography sx={{ fontWeight: 500 }}>{item.name}</Typography>
                     {item.cardStatus ? (
                       <CustomChip
@@ -382,7 +382,7 @@ const UserViewBilling = () => {
                   </Typography>
                 </div>
 
-                <Box sx={{ mt: [3, 0], textAlign: ['start', 'end'] }}>
+                <Box component='div' sx={{ mt: [3, 0], textAlign: ['start', 'end'] }}>
                   <Button variant='outlined' sx={{ mr: 3 }} onClick={() => handleEditCardClickOpen(index)}>
                     Edit
                   </Button>

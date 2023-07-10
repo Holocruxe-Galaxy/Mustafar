@@ -51,6 +51,7 @@ const AnalyticsActivityTimeline = () => {
             </TimelineSeparator>
             <TimelineContent sx={{ mt: 0, overflow: 'hidden', mb: theme => `${theme.spacing(2)} !important` }}>
               <Box
+                component='div'
                 sx={{
                   mb: 3,
                   display: 'flex',
@@ -67,7 +68,10 @@ const AnalyticsActivityTimeline = () => {
               <Typography variant='body2' sx={{ mb: 2 }}>
                 Product introduction and details video
               </Typography>
-              <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 2.5, color: 'error.main' } }}>
+              <Box
+                component='div'
+                sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 2.5, color: 'error.main' } }}
+              >
                 <Icon icon='mdi:play-circle' />
                 <Typography noWrap variant='subtitle2' sx={{ fontWeight: 600 }}>
                   www.youtube.com/channel/UCuryo5s0CW4aP83itLjIdZg
@@ -83,6 +87,7 @@ const AnalyticsActivityTimeline = () => {
             </TimelineSeparator>
             <TimelineContent sx={{ mt: 0, mb: theme => `${theme.spacing(2)} !important` }}>
               <Box
+                component='div'
                 sx={{
                   mb: 3,
                   display: 'flex',
@@ -107,6 +112,7 @@ const AnalyticsActivityTimeline = () => {
             </TimelineSeparator>
             <TimelineContent sx={{ mt: 0, mb: theme => `${theme.spacing(2)} !important` }}>
               <Box
+                component='div'
                 sx={{
                   mb: 3,
                   display: 'flex',
@@ -123,7 +129,7 @@ const AnalyticsActivityTimeline = () => {
               <Typography variant='body2' sx={{ mb: 2 }}>
                 Meeting Video call on zoom at 9pm
               </Typography>
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
                 <img width={24} height={24} alt='invoice.pdf' src='/images/icons/file-icons/pdf.png' />
                 <Typography variant='subtitle2' sx={{ ml: 2, fontWeight: 600 }}>
                   presentation.pdf

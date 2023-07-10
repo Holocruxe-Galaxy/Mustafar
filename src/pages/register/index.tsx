@@ -1,6 +1,5 @@
 import { Fragment, useState, ReactNode } from 'react'
 
-
 // ** MUI Imports
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
@@ -303,7 +302,6 @@ const Register = () => {
 
   const [caract, setCaract] = useState()
 
-
   // ** Hooks
   const {
     reset: personalReset,
@@ -412,7 +410,7 @@ const Register = () => {
                       setCaract(newCar)
                     }}
                     renderOption={(props, option) => (
-                      <Box component='li' sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                      <Box component='div' component='li' sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
                         <img
                           loading='lazy'
                           width='20'
@@ -678,7 +676,7 @@ const Register = () => {
       return (
         <Fragment>
           <Typography>All steps are completed!</Typography>
-          <Box sx={{ mt: 4, display: 'flex', justifyContent: 'flex-end' }}>
+          <Box component='div' sx={{ mt: 4, display: 'flex', justifyContent: 'flex-end' }}>
             <Button size='large' variant='contained' onClick={handleReset}>
               Reset
             </Button>

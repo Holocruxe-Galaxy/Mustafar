@@ -225,7 +225,7 @@ const HorizontalNavGroup = (props: Props) => {
                     <Translations text={item.title} />
                   </Typography>
                 </Box>
-                <Box sx={{ display: 'flex', alignItems: 'center', color: 'text.secondary' }}>
+                <Box component='div' sx={{ display: 'flex', alignItems: 'center', color: 'text.secondary' }}>
                   {item.badgeContent ? (
                     <Chip
                       size='small'

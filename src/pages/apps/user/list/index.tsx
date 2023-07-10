@@ -181,9 +181,9 @@ const columns: GridColDef[] = [
       const { fullName, username } = row
 
       return (
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
           {renderClient(row)}
-          <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
+          <Box component='div' sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
             <LinkStyled href='/apps/user/view/overview/'>{fullName}</LinkStyled>
             <Typography noWrap variant='caption'>
               {`@${username}`}
@@ -213,7 +213,10 @@ const columns: GridColDef[] = [
     headerName: 'Role',
     renderCell: ({ row }: CellType) => {
       return (
-        <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 3, color: userRoleObj[row.role].color } }}>
+        <Box
+          component='div'
+          sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 3, color: userRoleObj[row.role].color } }}
+        >
           <Icon icon={userRoleObj[row.role].icon} fontSize={20} />
           <Typography noWrap sx={{ color: 'text.secondary', textTransform: 'capitalize' }}>
             {row.role}

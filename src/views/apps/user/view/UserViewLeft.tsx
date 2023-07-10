@@ -148,8 +148,8 @@ const UserViewLeft = () => {
             </CardContent>
 
             <CardContent sx={{ my: 1 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Box sx={{ mr: 8, display: 'flex', alignItems: 'center' }}>
+              <Box component='div' sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Box component='div' sx={{ mr: 8, display: 'flex', alignItems: 'center' }}>
                   <CustomAvatar skin='light' variant='rounded' sx={{ mr: 3 }}>
                     <Icon icon='mdi:check' />
                   </CustomAvatar>
@@ -160,7 +160,7 @@ const UserViewLeft = () => {
                     <Typography variant='body2'>Task Done</Typography>
                   </div>
                 </Box>
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
                   <CustomAvatar skin='light' variant='rounded' sx={{ mr: 3 }}>
                     <Icon icon='mdi:briefcase-variant-outline' />
                   </CustomAvatar>
@@ -177,20 +177,20 @@ const UserViewLeft = () => {
             <CardContent>
               <Typography variant='h6'>Details</Typography>
               <Divider sx={{ mt: theme => `${theme.spacing(4)} !important` }} />
-              <Box sx={{ pt: 2, pb: 1 }}>
-                <Box sx={{ display: 'flex', mb: 2.7 }}>
+              <Box component='div' sx={{ pt: 2, pb: 1 }}>
+                <Box component='div' sx={{ display: 'flex', mb: 2.7 }}>
                   <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
                     Username:
                   </Typography>
                   <Typography variant='body2'>@{data.username}</Typography>
                 </Box>
-                <Box sx={{ display: 'flex', mb: 2.7 }}>
+                <Box component='div' sx={{ display: 'flex', mb: 2.7 }}>
                   <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
                     Billing Email:
                   </Typography>
                   <Typography variant='body2'>{data.email}</Typography>
                 </Box>
-                <Box sx={{ display: 'flex', mb: 2.7 }}>
+                <Box component='div' sx={{ display: 'flex', mb: 2.7 }}>
                   <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
                     Status:
                   </Typography>
@@ -208,25 +208,25 @@ const UserViewLeft = () => {
                     }}
                   />
                 </Box>
-                <Box sx={{ display: 'flex', mb: 2.7 }}>
+                <Box component='div' sx={{ display: 'flex', mb: 2.7 }}>
                   <Typography sx={{ mr: 2, fontWeight: 500, fontSize: '0.875rem' }}>Role:</Typography>
                   <Typography variant='body2' sx={{ textTransform: 'capitalize' }}>
                     {data.role}
                   </Typography>
                 </Box>
-                <Box sx={{ display: 'flex', mb: 2.7 }}>
+                <Box component='div' sx={{ display: 'flex', mb: 2.7 }}>
                   <Typography sx={{ mr: 2, fontWeight: 500, fontSize: '0.875rem' }}>Tax ID:</Typography>
                   <Typography variant='body2'>Tax-8894</Typography>
                 </Box>
-                <Box sx={{ display: 'flex', mb: 2.7 }}>
+                <Box component='div' sx={{ display: 'flex', mb: 2.7 }}>
                   <Typography sx={{ mr: 2, fontWeight: 500, fontSize: '0.875rem' }}>Contact:</Typography>
                   <Typography variant='body2'>+1 {data.contact}</Typography>
                 </Box>
-                <Box sx={{ display: 'flex', mb: 2.7 }}>
+                <Box component='div' sx={{ display: 'flex', mb: 2.7 }}>
                   <Typography sx={{ mr: 2, fontWeight: 500, fontSize: '0.875rem' }}>Language:</Typography>
                   <Typography variant='body2'>English</Typography>
                 </Box>
-                <Box sx={{ display: 'flex' }}>
+                <Box component='div' sx={{ display: 'flex' }}>
                   <Typography sx={{ mr: 2, fontWeight: 500, fontSize: '0.875rem' }}>Country:</Typography>
                   <Typography variant='body2'>{data.country}</Typography>
                 </Box>
@@ -385,7 +385,7 @@ const UserViewLeft = () => {
                 label='Standard'
                 sx={{ fontSize: '0.75rem', borderRadius: '4px' }}
               />
-              <Box sx={{ display: 'flex', position: 'relative' }}>
+              <Box component='div' sx={{ display: 'flex', position: 'relative' }}>
                 <Sup>$</Sup>
                 <Typography
                   variant='h3'
@@ -402,7 +402,7 @@ const UserViewLeft = () => {
             </CardContent>
 
             <CardContent>
-              <Box sx={{ mt: 4, mb: 5 }}>
+              <Box component='div' sx={{ mt: 4, mb: 5 }}>
                 <Box
                   sx={{ display: 'flex', mb: 2.5, alignItems: 'center', '& svg': { mr: 2, color: 'text.secondary' } }}
                 >
@@ -440,7 +440,7 @@ const UserViewLeft = () => {
                   </Typography>
                 </Box>
               </Box>
-              <Box sx={{ display: 'flex', mb: 1.5, justifyContent: 'space-between' }}>
+              <Box component='div' sx={{ display: 'flex', mb: 1.5, justifyContent: 'space-between' }}>
                 <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.secondary' }}>
                   Days
                 </Typography>
@@ -533,7 +533,7 @@ const UserViewLeft = () => {
                     justifyContent: 'space-between'
                   }}
                 >
-                  <Box sx={{ mr: 3, display: 'flex', ml: 2.4, position: 'relative' }}>
+                  <Box component='div' sx={{ mr: 3, display: 'flex', ml: 2.4, position: 'relative' }}>
                     <Sup>$</Sup>
                     <Typography
                       variant='h3'

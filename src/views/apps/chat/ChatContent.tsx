@@ -116,7 +116,7 @@ const ChatContent = (props: ChatContentType) => {
                 borderBottom: theme => `1px solid ${theme.palette.divider}`
               }}
             >
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
                 {mdAbove ? null : (
                   <IconButton onClick={handleLeftSidebarToggle} sx={{ mr: 2 }}>
                     <Icon icon='mdi:menu' />
@@ -163,7 +163,7 @@ const ChatContent = (props: ChatContentType) => {
                       </CustomAvatar>
                     )}
                   </Badge>
-                  <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                  <Box component='div' sx={{ display: 'flex', flexDirection: 'column' }}>
                     <Typography sx={{ color: 'text.secondary' }}>{selectedChat.contact.fullName}</Typography>
                     <Typography variant='body2' sx={{ color: 'text.disabled' }}>
                       {selectedChat.contact.role}
@@ -172,7 +172,7 @@ const ChatContent = (props: ChatContentType) => {
                 </Box>
               </Box>
 
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
                 {mdAbove ? (
                   <Fragment>
                     <IconButton size='small' sx={{ color: 'text.secondary' }}>

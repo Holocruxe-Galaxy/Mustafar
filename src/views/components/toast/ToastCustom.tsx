@@ -15,8 +15,11 @@ const ToastCustom = () => {
   const handleClick = () => {
     return toast(
       t => (
-        <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box
+          component='div'
+          sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
+        >
+          <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
             <Avatar alt='Victor Anderson' src='/images/avatars/1.png' sx={{ mr: 3, width: 40, height: 40 }} />
             <div>
               <Typography sx={{ fontWeight: 500 }}>John Doe</Typography>

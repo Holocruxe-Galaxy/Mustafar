@@ -8,7 +8,7 @@ import CircularProgress, { CircularProgressProps } from '@mui/material/CircularP
 
 const Progress = (props: CircularProgressProps) => {
   return (
-    <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+    <Box component='div' sx={{ position: 'relative', display: 'inline-flex' }}>
       <CircularProgress variant='determinate' {...props} size={50} />
       <Box
         sx={{

@@ -133,7 +133,7 @@ const AlertsDismissible = () => {
 
   return (
     <>
-      <Box sx={{ mb: 6 }}>
+      <Box component='div'sx={{ mb: 6 }}>
         <Collapse in={open1}>
           <Alert
             action={
@@ -150,7 +150,7 @@ const AlertsDismissible = () => {
         </Button>
       </Box>
 
-      <Box sx={{ mb: 6 }}>
+      <Box component='div'sx={{ mb: 6 }}>
         <Fade in={open2} {...(open2 ? { timeout: 700 } : {})}>
           <Alert
             action={
@@ -167,7 +167,7 @@ const AlertsDismissible = () => {
         </Button>
       </Box>
 
-      <Box sx={{ mb: 6 }}>
+      <Box component='div'sx={{ mb: 6 }}>
         <Grow in={open3} {...(open3 ? { timeout: 700 } : {})}>
           <Alert
             action={
@@ -386,7 +386,7 @@ const AlertsDismissible = () => {
 
   return (
     <>
-      <Box sx={{ mb: 6 }}>
+      <Box component='div'sx={{ mb: 6 }}>
         <Collapse in={open1}>
           <Alert
             action={
@@ -403,7 +403,7 @@ const AlertsDismissible = () => {
         </Button>
       </Box>
 
-      <Box sx={{ mb: 6 }}>
+      <Box component='div'sx={{ mb: 6 }}>
         <Fade in={open2} {...(open2 ? { timeout: 700 } : {})}>
           <Alert
             action={
@@ -420,7 +420,7 @@ const AlertsDismissible = () => {
         </Button>
       </Box>
 
-      <Box sx={{ mb: 6 }}>
+      <Box component='div'sx={{ mb: 6 }}>
         <Grow in={open3} {...(open3 ? { timeout: 700 } : {})}>
           <Alert
             action={

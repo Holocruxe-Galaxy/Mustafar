@@ -44,7 +44,7 @@ const TableHeader = (props: TableHeaderProps) => {
         <MenuItem value='Edit'>Edit</MenuItem>
         <MenuItem value='Send'>Send</MenuItem>
       </Select>
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
+      <Box component='div' sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
         <TextField
           size='small'
           value={value}

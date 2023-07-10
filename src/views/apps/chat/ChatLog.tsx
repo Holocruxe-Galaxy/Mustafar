@@ -169,12 +169,12 @@ const ChatLog = (props: ChatLogType) => {
             </CustomAvatar>
           </div>
 
-          <Box className='chat-body' sx={{ maxWidth: ['calc(100% - 5.75rem)', '75%', '65%'] }}>
+          <Box component='div' className='chat-body' sx={{ maxWidth: ['calc(100% - 5.75rem)', '75%', '65%'] }}>
             {item.messages.map((chat: ChatLogChatType, index: number, { length }: { length: number }) => {
               const time = new Date(chat.time)
 
               return (
-                <Box key={index} sx={{ '&:not(:last-of-type)': { mb: 3.5 } }}>
+                <Box component='div' key={index} sx={{ '&:not(:last-of-type)': { mb: 3.5 } }}>
                   <div>
                     <Typography
                       sx={{
@@ -224,7 +224,7 @@ const ChatLog = (props: ChatLogType) => {
   const ScrollWrapper = ({ children }: { children: ReactNode }) => {
     if (hidden) {
       return (
-        <Box ref={chatArea} sx={{ p: 5, height: '100%', overflowY: 'auto', overflowX: 'hidden' }}>
+        <Box component='div' ref={chatArea} sx={{ p: 5, height: '100%', overflowY: 'auto', overflowX: 'hidden' }}>
           {children}
         </Box>
       )
@@ -238,7 +238,7 @@ const ChatLog = (props: ChatLogType) => {
   }
 
   return (
-    <Box sx={{ height: 'calc(100% - 8.4375rem)' }}>
+    <Box component='div' sx={{ height: 'calc(100% - 8.4375rem)' }}>
       <ScrollWrapper>{renderChats()}</ScrollWrapper>
     </Box>
   )

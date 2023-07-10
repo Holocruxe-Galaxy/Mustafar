@@ -145,21 +145,30 @@ const RechartsScatterChart = ({ direction }: Props) => {
         }
       />
       <CardContent>
-        <Box sx={{ display: 'flex', mb: 4 }}>
-          <Box sx={{ mr: 6, display: 'flex', alignItems: 'center', '& svg': { mr: 1.5, color: 'primary.main' } }}>
+        <Box component='div' sx={{ display: 'flex', mb: 4 }}>
+          <Box
+            component='div'
+            sx={{ mr: 6, display: 'flex', alignItems: 'center', '& svg': { mr: 1.5, color: 'primary.main' } }}
+          >
             <Icon icon='mdi:circle' fontSize='0.75rem' />
             <Typography variant='body2'>React</Typography>
           </Box>
-          <Box sx={{ mr: 6, display: 'flex', alignItems: 'center', '& svg': { mr: 1.5, color: 'success.main' } }}>
+          <Box
+            component='div'
+            sx={{ mr: 6, display: 'flex', alignItems: 'center', '& svg': { mr: 1.5, color: 'success.main' } }}
+          >
             <Icon icon='mdi:circle' fontSize='0.75rem' />
             <Typography variant='body2'>Vue</Typography>
           </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 1.5, color: 'error.main' } }}>
+          <Box
+            component='div'
+            sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 1.5, color: 'error.main' } }}
+          >
             <Icon icon='mdi:circle' fontSize='0.75rem' />
             <Typography variant='body2'>Angular</Typography>
           </Box>
         </Box>
-        <Box sx={{ height: 350 }}>
+        <Box component='div' sx={{ height: 350 }}>
           <ResponsiveContainer>
             <ScatterChart height={350} style={{ direction }} margin={{ left: -20 }}>
               <CartesianGrid />

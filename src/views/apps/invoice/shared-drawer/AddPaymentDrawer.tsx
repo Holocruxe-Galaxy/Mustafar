@@ -63,8 +63,8 @@ const EditInvoiceDrawer = ({ open, toggle }: Props) => {
           <Icon icon='mdi:close' fontSize={20} />
         </IconButton>
       </Header>
-      <Box sx={{ p: 5 }}>
-        <Box sx={{ mb: 6 }}>
+      <Box component='div' sx={{ p: 5 }}>
+        <Box component='div' sx={{ mb: 6 }}>
           <TextField
             fullWidth
             id='invoice-balance'
@@ -73,7 +73,7 @@ const EditInvoiceDrawer = ({ open, toggle }: Props) => {
             defaultValue='5000.00'
           />
         </Box>
-        <Box sx={{ mb: 6 }}>
+        <Box component='div' sx={{ mb: 6 }}>
           <TextField
             fullWidth
             type='number'
@@ -83,7 +83,7 @@ const EditInvoiceDrawer = ({ open, toggle }: Props) => {
             }}
           />
         </Box>
-        <Box sx={{ mb: 6 }}>
+        <Box component='div' sx={{ mb: 6 }}>
           <DatePickerWrapper sx={{ '& .MuiFormControl-root': { width: '100%' } }}>
             <DatePicker
               selected={date}
@@ -93,7 +93,7 @@ const EditInvoiceDrawer = ({ open, toggle }: Props) => {
             />
           </DatePickerWrapper>
         </Box>
-        <Box sx={{ mb: 6 }}>
+        <Box component='div' sx={{ mb: 6 }}>
           <FormControl fullWidth>
             <InputLabel htmlFor='payment-method'>Payment Method</InputLabel>
             <Select
@@ -113,7 +113,7 @@ const EditInvoiceDrawer = ({ open, toggle }: Props) => {
             </Select>
           </FormControl>
         </Box>
-        <Box sx={{ mb: 6 }}>
+        <Box component='div' sx={{ mb: 6 }}>
           <TextField rows={6} multiline fullWidth label='Internal Payment Note' placeholder='Internal Payment Note' />
         </Box>
 
