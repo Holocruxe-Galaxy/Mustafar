@@ -200,6 +200,7 @@ const HorizontalNavGroup = (props: Props) => {
               }}
             >
               <Box
+                component='div'
                 sx={{
                   gap: 2,
                   width: '100%',
@@ -211,6 +212,7 @@ const HorizontalNavGroup = (props: Props) => {
                 ref={setReferenceElement}
               >
                 <Box
+                  component='div'
                   sx={{
                     display: 'flex',
                     alignItems: 'center',
@@ -240,6 +242,7 @@ const HorizontalNavGroup = (props: Props) => {
             </ListItem>
             <AnimationWrapper {...(horizontalMenuAnimation && { in: menuOpen, timeout: { exit: 300, enter: 400 } })}>
               <Box
+                component='div'
                 style={styles.popper}
                 ref={setPopperElement}
                 {...attributes.popper}

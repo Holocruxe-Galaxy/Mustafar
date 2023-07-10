@@ -124,6 +124,7 @@ const HorizontalNavLink = (props: Props) => {
             sx={{ gap: 2, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
           >
             <Box
+              component='div'
               sx={{
                 display: 'flex',
                 alignItems: 'center',

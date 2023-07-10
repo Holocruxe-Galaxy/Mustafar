@@ -136,7 +136,7 @@ const LoginPage = () => {
   }, [user, isLoading, auth, rememberMe, setError])
 
   return (
-    <Box component='div' className='content-right' component='div' sx={{ width: '100vw', height: '100vh' }}>
+    <Box component='div' className='content-right' sx={{ width: '100vw', height: '100vh' }}>
       {!hidden ? (
         <Canvas shadows>
           <group rotation={[0, 0, Math.PI / 5]}>
@@ -231,7 +231,7 @@ const LoginPage = () => {
               </svg>
             </Box>
 
-            <Box component='div' sx={{ mb: 6 }} component='div'>
+            <Box component='div' sx={{ mb: 6 }}>
               <TypographyStyled variant='h5'>{`Welcome to Holocruxe! 🚀`}</TypographyStyled>
               <Typography variant='body2'>Please sign-in to your account and start the adventure</Typography>
             </Box>
@@ -283,11 +283,7 @@ const LoginPage = () => {
                 or
               </Divider>
 
-              <Box
-                component='div'
-                sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                component='div'
-              >
+              <Box component='div' sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <IconButton
                   href='/'
                   component={Link}

@@ -24,7 +24,7 @@ const FooterContent = () => {
     >
       <Typography sx={{ mr: 2 }}>
         {`© ${new Date().getFullYear()}, Made with `}
-        <Box component='div' component='span' sx={{ color: 'error.main' }}>
+        <Box component='span' sx={{ color: 'error.main' }}>
           ❤️
         </Box>
         {` by `}

@@ -410,7 +410,7 @@ const Register = () => {
                       setCaract(newCar)
                     }}
                     renderOption={(props, option) => (
-                      <Box component='div' component='li' sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                      <Box component='li' sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
                         <img
                           loading='lazy'
                           width='20'

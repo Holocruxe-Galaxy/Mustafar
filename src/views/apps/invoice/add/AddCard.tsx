@@ -256,7 +256,7 @@ const AddCard = (props: Props) => {
               sx={{ display: 'flex', flexDirection: 'column', alignItems: { xl: 'flex-end', xs: 'flex-start' } }}
               component='div'
             >
-              <Box component='div' sx={{ mb: 4, display: 'flex', alignItems: 'center' }} component='div'>
+              <Box component='div' sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
                 <Typography variant='h6' sx={{ mr: 1, width: '105px' }}>
                   Invoice
                 </Typography>
@@ -270,7 +270,7 @@ const AddCard = (props: Props) => {
                   }}
                 />
               </Box>
-              <Box component='div' sx={{ mb: 4, display: 'flex', alignItems: 'center' }} component='div'>
+              <Box component='div' sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
                 <Typography variant='body2' sx={{ mr: 2, width: '100px' }}>
                   Date Issued:
                 </Typography>
@@ -281,7 +281,7 @@ const AddCard = (props: Props) => {
                   onChange={(date: Date) => setIssueDate(date)}
                 />
               </Box>
-              <Box component='div' sx={{ display: 'flex' }} component='div'>
+              <Box component='div' sx={{ display: 'flex' }}>
                 <Typography variant='body2' sx={{ mr: 2, width: '100px' }}>
                   Date Due:
                 </Typography>
@@ -522,7 +522,7 @@ const AddCard = (props: Props) => {
       <CardContent>
         <Grid container>
           <Grid item xs={12} sm={9} sx={{ order: { sm: 1, xs: 2 } }}>
-            <Box component='div' sx={{ mb: 4, display: 'flex', alignItems: 'center' }} component='div'>
+            <Box component='div' sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
               <Typography
                 variant='body2'
                 sx={{ mr: 2, color: 'text.primary', fontWeight: 600, letterSpacing: '.25px' }}
