@@ -164,8 +164,8 @@ const AddCard = (props: Props) => {
       <CardContent>
         <Grid container>
           <Grid item xl={6} xs={12} sx={{ mb: { xl: 0, xs: 4 } }}>
-            <Box component='div' sx={{ display: 'flex', flexDirection: 'column' }} component='div'>
-              <Box component='div' sx={{ mb: 6, display: 'flex', alignItems: 'center' }} component='div'>
+            <Box sx={{ display: 'flex', flexDirection: 'column' }} component='div'>
+              <Box sx={{ mb: 6, display: 'flex', alignItems: 'center' }} component='div'>
                 <svg width={40} fill='none' height={22} viewBox='0 0 268 150' xmlns='http://www.w3.org/2000/svg'>
                   <rect
                     rx='25.1443'
