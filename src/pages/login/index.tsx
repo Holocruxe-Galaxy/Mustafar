@@ -1,5 +1,5 @@
 // ** React Imports
-import {  ReactNode, MouseEvent, useRef } from 'react'
+import { useState, ReactNode, MouseEvent, useRef } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
@@ -7,12 +7,13 @@ import Link from 'next/link'
 // ** MUI Components
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
+import Checkbox from '@mui/material/Checkbox'
 import IconButton from '@mui/material/IconButton'
 import Box, { BoxProps } from '@mui/material/Box'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { styled, useTheme } from '@mui/material/styles'
 import Typography, { TypographyProps } from '@mui/material/Typography'
-
+import MuiFormControlLabel, { FormControlLabelProps } from '@mui/material/FormControlLabel'
 
 // ** ThreeJS Imports
 import { Canvas } from '@react-three/fiber'
@@ -60,6 +61,13 @@ const TypographyStyled = styled(Typography)<TypographyProps>(({ theme }) => ({
   [theme.breakpoints.down('md')]: { marginTop: theme.spacing(8) }
 }))
 
+const FormControlLabel = styled(MuiFormControlLabel)<FormControlLabelProps>(({ theme }) => ({
+  '& .MuiFormControlLabel-label': {
+    fontSize: '0.875rem',
+    color: theme.palette.text.secondary
+  }
+}))
+
 const schema = yup.object().shape({
   email: yup.string().email().required(),
   password: yup.string().min(5).required()
@@ -76,7 +84,7 @@ interface FormData {
 }
 
 const LoginPage = () => {
-  
+  const [rememberMe, setRememberMe] = useState<boolean>(true)
 
   // ** Hooks
   const auth = useAuth()
@@ -95,7 +103,7 @@ const LoginPage = () => {
 
   const onSubmit = (data: FormData) => {
     const { email, password } = data
-    auth.login({ email, password }, () => {
+    auth.login({ email, password, rememberMe }, () => {
       setError('email', {
         type: 'manual',
         message: 'Email or Password is invalid'
@@ -208,7 +216,13 @@ const LoginPage = () => {
             </Box>
 
             <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
-              
+              <Box component='div'>
+                <FormControlLabel
+                  label='Remember Me'
+                  control={<Checkbox checked={rememberMe} onChange={e => setRememberMe(e.target.checked)} />}
+                />
+              </Box>
+
               <Button fullWidth size='large' type='submit' variant='contained' sx={{ mb: 7 }}>
                 Sign in
               </Button>
@@ -249,6 +263,14 @@ const LoginPage = () => {
                 >
                   <Icon icon='mdi:twitter' />
                 </IconButton>
+                {/* <IconButton
+                  href='/'
+                  component={Link}
+                  onClick={(e: MouseEvent<HTMLElement>) => e.preventDefault()}
+                  sx={{ color: theme => (theme.palette.mode === 'light' ? '#272727' : 'grey.300') }}
+                >
+                  <Icon icon='mdi:github' />
+                </IconButton> */}
                 <IconButton
                   href='/'
                   component={Link}
