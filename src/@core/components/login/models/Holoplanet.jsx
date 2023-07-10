@@ -1,12 +1,11 @@
 'use client'
 import React, { useRef } from 'react'
-
 import { useGLTF, PerspectiveCamera } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 
 const Holoplanet = () => {
   const holoplanetRef = useRef()
-  const holoplanet = useGLTF('/models/planet2.gltf')
+  const holoplanet = useGLTF('/models/Holoplanet.gltf')
 
   useFrame(() => {
     if (holoplanetRef.current) {

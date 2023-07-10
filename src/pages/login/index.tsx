@@ -144,6 +144,7 @@ const LoginPage = () => {
           </group>
           <Particles count={700} mouse={mouse} />
           <Environment files='/images/login-bg/bg.hdr' background blur={0.3} />
+
           <HoloplanetCanvas />
           <BotCanvas />
         </Canvas>
@@ -242,14 +243,6 @@ const LoginPage = () => {
                   label='Remember Me'
                   control={<Checkbox checked={rememberMe} onChange={e => setRememberMe(e.target.checked)} />}
                 />
-                <Typography
-                  variant='body2'
-                  component={Link}
-                  href='/forgot-password'
-                  sx={{ color: 'primary.main', textDecoration: 'none' }}
-                >
-                  Forgot Password?
-                </Typography>
               </Box>
 
               <Button fullWidth size='large' href={'/api/auth/login'} variant='contained' sx={{ mb: 7 }}>
