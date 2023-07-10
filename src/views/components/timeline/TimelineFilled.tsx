@@ -115,6 +115,7 @@ const TimelineLeft = () => {
             <ImgShoe width='85' height='85' alt='Shoe img' src='/images/misc/shoe.jpeg' />
             <Box component='div' sx={{ ml: { sm: 3, xs: 0 } }}>
               <Box
+                component='div'
                 sx={{ mb: 2, display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}
               >
                 <Typography
