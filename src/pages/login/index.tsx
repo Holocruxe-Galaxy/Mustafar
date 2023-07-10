@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, ReactNode, MouseEvent, useRef } from 'react'
+import {  ReactNode, MouseEvent, useRef } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
@@ -12,6 +12,7 @@ import Box, { BoxProps } from '@mui/material/Box'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { styled, useTheme } from '@mui/material/styles'
 import Typography, { TypographyProps } from '@mui/material/Typography'
+
 
 // ** ThreeJS Imports
 import { Canvas } from '@react-three/fiber'
@@ -75,7 +76,7 @@ interface FormData {
 }
 
 const LoginPage = () => {
-  const [rememberMe, setRememberMe] = useState<boolean>(true)
+  
 
   // ** Hooks
   const auth = useAuth()
@@ -94,7 +95,7 @@ const LoginPage = () => {
 
   const onSubmit = (data: FormData) => {
     const { email, password } = data
-    auth.login({ email, password, rememberMe }, () => {
+    auth.login({ email, password }, () => {
       setError('email', {
         type: 'manual',
         message: 'Email or Password is invalid'
@@ -207,7 +208,7 @@ const LoginPage = () => {
             </Box>
 
             <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
-
+              
               <Button fullWidth size='large' type='submit' variant='contained' sx={{ mb: 7 }}>
                 Sign in
               </Button>
@@ -248,7 +249,6 @@ const LoginPage = () => {
                 >
                   <Icon icon='mdi:twitter' />
                 </IconButton>
-                
                 <IconButton
                   href='/'
                   component={Link}
