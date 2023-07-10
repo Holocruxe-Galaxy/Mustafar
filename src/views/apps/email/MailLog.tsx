@@ -291,7 +291,7 @@ const MailLog = (props: MailLogType) => {
   const renderMailLabels = (arr: MailLabelType[]) => {
     return arr.map((label: MailLabelType, index: number) => {
       return (
-        <Box component='div' key={index} component='span' sx={{ mr: 3.5, color: `${labelColors[label]}.main` }}>
+        <Box key={index} component='span' sx={{ mr: 3.5, color: `${labelColors[label]}.main` }}>
           <Icon icon='mdi:circle' fontSize='0.625rem' />
         </Box>
       )
@@ -435,6 +435,7 @@ const MailLog = (props: MailLogType) => {
                           sx={{ mr: 3, width: '2rem', height: '2rem' }}
                         />
                         <Box
+                          component='div'
                           sx={{
                             display: 'flex',
                             overflow: 'hidden',
@@ -460,6 +461,7 @@ const MailLog = (props: MailLogType) => {
                         </Box>
                       </Box>
                       <Box
+                        component='div'
                         className='mail-actions'
                         sx={{ display: 'none', alignItems: 'center', justifyContent: 'flex-end' }}
                       >
@@ -498,6 +500,7 @@ const MailLog = (props: MailLogType) => {
                         </Tooltip>
                       </Box>
                       <Box
+                        component='div'
                         className='mail-info-right'
                         sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}
                       >
