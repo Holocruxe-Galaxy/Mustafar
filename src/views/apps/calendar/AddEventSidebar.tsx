@@ -208,6 +208,7 @@ const AddEventSidebar = (props: AddEventSidebarType) => {
       sx={{ '& .MuiDrawer-paper': { width: ['100%', drawerWidth] } }}
     >
       <Box
+        component='div'
         className='sidebar-header'
         sx={{
           display: 'flex',
