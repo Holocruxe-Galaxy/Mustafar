@@ -1,8 +1,12 @@
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
-import { useTheme } from '@mui/material/styles'
+import { AvatarProps } from '@mui/material/Avatar'
 import { Box } from '@mui/system'
-import CardContent from '@mui/material/CardContent'
+import { useTheme } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
+
+// ** Custom Components Imports
+import CustomAvatar from 'src/@core/components/mui/avatar'
 
 // ** Styled Component Import
 import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
@@ -19,16 +23,16 @@ import { useSettings } from 'src/@core/hooks/useSettings'
 
 // ** Third Party Styles Import
 import 'chart.js/auto'
-import axios from 'axios'
+import ButtonBarContent from 'src/layouts/components/horizontal/ButtonBarContent'
 
-// ** Types Imports
-import { CardStatsHorizontalProps } from 'src/@core/components/card-statistics/types'
-import { CardStatsType } from 'src/@fake-db/types'
+// ** Styled Avatar component
+const Avatar = styled(CustomAvatar)<AvatarProps>(({ theme }) => ({
+  width: 40,
+  height: 40,
+  marginRight: theme.spacing(4)
+}))
 
-// ** Next Imports
-import { GetStaticProps, InferGetStaticPropsType } from 'next/types'
-
-const Home = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Home = () => {
   const theme = useTheme()
   const { settings } = useSettings()
 
@@ -47,21 +51,26 @@ const Home = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps>) => {
       <ApexChartWrapper>
         <Grid container spacing={6} className='match-height'>
           <Grid item xs={12} sm={6} md={12} height={150}>
-            <Box
-              sx={{
-                width: '100%',
-                height: '100%',
-                display: 'flex',
-                borderRadius: 1,
-                overflow: 'hidden',
-                position: 'relative',
-                backgroundColor: 'background.paper',
-                boxShadow: skin === 'bordered' ? 0 : 6,
-                ...(skin === 'bordered' && { border: `1px solid ${theme.palette.divider}` })
-              }}
-            >
-              Acá vendrían los botones
-            </Box>
+            <ButtonBarContent>
+              {/*               <Grid item xs={12}>
+                <Box
+                  sx={{
+                    width: '20%',
+                    height: '50%',
+                    display: 'flex',
+                    borderRadius: 1,
+                    overflow: 'hidden',
+                    position: 'relative',
+                    boxShadow: skin === 'bordered' ? 0 : 6,
+                    ...(skin === 'bordered' && { border: `1px solid ${theme.palette.divider}` })
+                  }}
+                >
+                  <Avatar skin='light'  color={color}  variant='rounded'>
+                     {icon} 
+                  </Avatar>
+                </Box>
+              </Grid> */}
+            </ButtonBarContent>
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <Box
@@ -107,17 +116,6 @@ const Home = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps>) => {
       <FooterContent />
     </>
   )
-}
-
-export const getStaticProps: GetStaticProps = async () => {
-  const res = await axios.get('/cards/statistics')
-  const apiData: CardStatsType = res.data
-
-  return {
-    props: {
-      apiData
-    }
-  }
 }
 
 export default Home
