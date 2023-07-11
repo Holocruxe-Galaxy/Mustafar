@@ -12,6 +12,7 @@ import toast from 'react-hot-toast'
 const ToastError = () => {
   return (
     <Box
+      component='div'
       sx={{ display: 'flex', textAlign: 'center', alignItems: 'center', flexDirection: 'column', '& svg': { mb: 2 } }}
     >
       <Icon icon='mdi:close' fontSize='2rem' />

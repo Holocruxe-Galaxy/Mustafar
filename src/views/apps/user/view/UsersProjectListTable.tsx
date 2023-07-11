@@ -35,9 +35,9 @@ const columns: GridColDef[] = [
     field: 'projectTitle',
     headerName: 'Project',
     renderCell: ({ row }: CellType) => (
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
         <Img src={row.img} alt={`project-${row.projectTitle}`} />
-        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        <Box component='div' sx={{ display: 'flex', flexDirection: 'column' }}>
           <Typography sx={{ fontWeight: 500, fontSize: '0.875rem' }}>{row.projectTitle}</Typography>
           <Typography variant='caption' sx={{ color: 'text.disabled' }}>
             {row.projectType}
@@ -59,7 +59,7 @@ const columns: GridColDef[] = [
     headerName: 'Progress',
     field: 'progressValue',
     renderCell: ({ row }: CellType) => (
-      <Box sx={{ width: '100%' }}>
+      <Box component='div' sx={{ width: '100%' }}>
         <Typography variant='body2'>{row.progressValue}%</Typography>
         <LinearProgress
           variant='determinate'
@@ -99,7 +99,7 @@ const InvoiceListTable = () => {
     <Card>
       <CardHeader title="User's Projects List" />
       <CardContent>
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+        <Box component='div' sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
           <Typography variant='body2' sx={{ mr: 2 }}>
             Search:
           </Typography>

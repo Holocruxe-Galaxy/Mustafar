@@ -30,6 +30,7 @@ const ToastPromise = () => {
 
   return (
     <Box
+      component='div'
       sx={{ display: 'flex', textAlign: 'center', alignItems: 'center', flexDirection: 'column', '& svg': { mb: 2 } }}
     >
       <Icon icon='mdi:timer-sand' fontSize='2rem' />

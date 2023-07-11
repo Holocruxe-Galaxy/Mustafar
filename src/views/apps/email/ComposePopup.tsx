@@ -166,7 +166,7 @@ const ComposePopup = (props: MailComposeType) => {
   ) => {
     return (
       <ListItem key={option.value} sx={{ cursor: 'pointer' }} onClick={() => setState([...array, option])}>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
           {option.src.length ? (
             <CustomAvatar src={option.src} alt={option.name} sx={{ mr: 3, width: 22, height: 22 }} />
           ) : (
@@ -219,6 +219,7 @@ const ComposePopup = (props: MailComposeType) => {
       }}
     >
       <Box
+        component='div'
         sx={{
           px: 4,
           py: 2.5,
@@ -229,7 +230,7 @@ const ComposePopup = (props: MailComposeType) => {
         }}
       >
         <Typography sx={{ fontWeight: 600, color: 'text.secondary' }}>Compose Mail</Typography>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
           <IconButton sx={{ p: 1, mr: 2, color: 'action.active' }} onClick={handleMinimize}>
             <Icon icon='mdi:minus' fontSize={20} />
           </IconButton>
@@ -239,6 +240,7 @@ const ComposePopup = (props: MailComposeType) => {
         </Box>
       </Box>
       <Box
+        component='div'
         sx={{
           py: 1,
           px: 4,
@@ -248,7 +250,7 @@ const ComposePopup = (props: MailComposeType) => {
           borderBottom: theme => `1px solid ${theme.palette.divider}`
         }}
       >
-        <Box sx={{ width: '100%', display: 'flex', alignItems: 'center' }}>
+        <Box component='div' sx={{ width: '100%', display: 'flex', alignItems: 'center' }}>
           <div>
             <InputLabel sx={{ mr: 3, color: 'text.disabled' }} htmlFor='email-to-select'>
               To:
@@ -301,6 +303,7 @@ const ComposePopup = (props: MailComposeType) => {
       </Box>
       {visibility.cc ? (
         <Box
+          component='div'
           sx={{
             py: 1,
             px: 4,
@@ -327,6 +330,7 @@ const ComposePopup = (props: MailComposeType) => {
       ) : null}
       {visibility.bcc ? (
         <Box
+          component='div'
           sx={{
             py: 1,
             px: 4,
@@ -352,6 +356,7 @@ const ComposePopup = (props: MailComposeType) => {
         </Box>
       ) : null}
       <Box
+        component='div'
         sx={{
           py: 1,
           px: 4,
@@ -407,6 +412,7 @@ const ComposePopup = (props: MailComposeType) => {
         />
       </EditorWrapper>
       <Box
+        component='div'
         sx={{
           px: 4,
           py: 3.5,
@@ -416,7 +422,7 @@ const ComposePopup = (props: MailComposeType) => {
           borderTop: theme => `1px solid ${theme.palette.divider}`
         }}
       >
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
           <ButtonGroup variant='contained' ref={anchorRefSendBtn} aria-label='split button'>
             <Button onClick={handlePopupClose}>Send</Button>
             <Button
@@ -452,7 +458,7 @@ const ComposePopup = (props: MailComposeType) => {
             <Icon icon='mdi:attachment' fontSize='1.25rem' />
           </IconButton>
         </Box>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
           <OptionsMenu
             iconButtonProps={{ size: 'small' }}
             iconProps={{ fontSize: '1.25rem' }}

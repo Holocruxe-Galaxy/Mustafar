@@ -127,7 +127,7 @@ const AppBarContent = (props: Props) => {
   const auth = useAuth()
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+    <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
       {auth.user && <Autocomplete hidden={hidden} settings={settings} />}
       <LanguageDropdown settings={settings} saveSettings={saveSettings} />
       <ModeToggler settings={settings} saveSettings={saveSettings} />

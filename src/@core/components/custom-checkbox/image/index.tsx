@@ -16,6 +16,7 @@ const CustomCheckboxImg = (props: CustomCheckboxImgProps) => {
     return (
       <Grid item {...gridProps}>
         <Box
+          component='div'
           onClick={() => handleChange(value)}
           sx={{
             height: '100%',

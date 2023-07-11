@@ -92,9 +92,12 @@ const ForgotPassword = () => {
     skin === 'bordered' ? 'auth-v2-forgot-password-illustration-bordered' : 'auth-v2-forgot-password-illustration'
 
   return (
-    <Box className='content-right'>
+    <Box component='div' className='content-right'>
       {!hidden ? (
-        <Box sx={{ flex: 1, display: 'flex', position: 'relative', alignItems: 'center', justifyContent: 'center' }}>
+        <Box
+          component='div'
+          sx={{ flex: 1, display: 'flex', position: 'relative', alignItems: 'center', justifyContent: 'center' }}
+        >
           <ForgotPasswordIllustrationWrapper>
             <ForgotPasswordIllustration
               alt='forgot-password-illustration'
@@ -106,6 +109,7 @@ const ForgotPassword = () => {
       ) : null}
       <RightWrapper sx={skin === 'bordered' && !hidden ? { borderLeft: `1px solid ${theme.palette.divider}` } : {}}>
         <Box
+          component='div'
           sx={{
             p: 7,
             height: '100%',
@@ -117,6 +121,7 @@ const ForgotPassword = () => {
         >
           <BoxWrapper>
             <Box
+              component='div'
               sx={{
                 top: 30,
                 left: 40,
@@ -200,7 +205,7 @@ const ForgotPassword = () => {
                 {themeConfig.templateName}
               </Typography>
             </Box>
-            <Box sx={{ mb: 6 }}>
+            <Box component='div' sx={{ mb: 6 }}>
               <TypographyStyled variant='h5'>Forgot Password? 🔒</TypographyStyled>
               <Typography variant='body2'>
                 Enter your email and we&prime;ll send you instructions to reset your password

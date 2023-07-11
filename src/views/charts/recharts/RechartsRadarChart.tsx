@@ -76,7 +76,11 @@ const CustomTooltip = (data: TooltipProps<any, any>) => {
           data.payload &&
           data.payload.map((i: any) => {
             return (
-              <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { color: i.fill, mr: 2.5 } }} key={i.dataKey}>
+              <Box
+                component='div'
+                sx={{ display: 'flex', alignItems: 'center', '& svg': { color: i.fill, mr: 2.5 } }}
+                key={i.dataKey}
+              >
                 <Icon icon='mdi:circle' fontSize='0.6rem' />
                 <Typography variant='body2'>{`${i.dataKey} : ${i.payload[i.dataKey]}`}</Typography>
               </Box>
@@ -94,7 +98,7 @@ const RechartsRadarChart = () => {
     <Card>
       <CardHeader title='Mobile Comparison' />
       <CardContent>
-        <Box sx={{ height: 350 }}>
+        <Box component='div' sx={{ height: 350 }}>
           <ResponsiveContainer>
             <RadarChart cx='50%' cy='50%' height={350} data={data} style={{ direction: 'ltr' }}>
               <PolarGrid />
@@ -106,12 +110,15 @@ const RechartsRadarChart = () => {
             </RadarChart>
           </ResponsiveContainer>
         </Box>
-        <Box sx={{ display: 'flex', mb: 4, justifyContent: 'center' }}>
-          <Box sx={{ mr: 6, display: 'flex', alignItems: 'center', '& svg': { mr: 1.5, color: '#fde802' } }}>
+        <Box component='div' sx={{ display: 'flex', mb: 4, justifyContent: 'center' }}>
+          <Box
+            component='div'
+            sx={{ mr: 6, display: 'flex', alignItems: 'center', '& svg': { mr: 1.5, color: '#fde802' } }}
+          >
             <Icon icon='mdi:circle' fontSize='0.75rem' />
             <Typography variant='body2'>iPhone 11</Typography>
           </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 1.5, color: '#9b88fa' } }}>
+          <Box component='div' sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 1.5, color: '#9b88fa' } }}>
             <Icon icon='mdi:circle' fontSize='0.75rem' />
             <Typography variant='body2'>Samsung s20</Typography>
           </Box>

@@ -75,14 +75,14 @@ const AnalyticsSessions = () => {
   return (
     <Card>
       <CardContent>
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
+        <Box component='div' sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
           <Typography variant='h6' sx={{ mr: 1.5 }}>
             Sessions
           </Typography>
         </Box>
-          <Typography variant='subtitle2' sx={{ color: 'success.main' }}>
-            +62%
-          </Typography>
+        <Typography variant='subtitle2' sx={{ color: 'success.main' }}>
+          +62%
+        </Typography>
         {/* <Typography variant='body2'>Sessions</Typography> */}
         <ReactApexcharts type='line' height={108} options={options} series={series} />
       </CardContent>

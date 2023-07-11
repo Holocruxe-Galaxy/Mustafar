@@ -71,11 +71,11 @@ const InvoicePrint = ({ id }: InvoiceLayoutProps) => {
     const { invoice, paymentDetails } = data
 
     return (
-      <Box sx={{ p: 12, pb: 6 }}>
+      <Box component='div' sx={{ p: 12, pb: 6 }}>
         <Grid container>
           <Grid item xs={8} sx={{ mb: { sm: 0, xs: 4 } }}>
-            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-              <Box sx={{ mb: 6, display: 'flex', alignItems: 'center' }}>
+            <Box component='div' sx={{ display: 'flex', flexDirection: 'column' }}>
+              <Box component='div' sx={{ mb: 6, display: 'flex', alignItems: 'center' }}>
                 <svg width={40} fill='none' height={22} viewBox='0 0 268 150' xmlns='http://www.w3.org/2000/svg'>
                   <rect
                     rx='25.1443'
@@ -162,11 +162,14 @@ const InvoicePrint = ({ id }: InvoiceLayoutProps) => {
             </Box>
           </Grid>
           <Grid item xs={4}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: { sm: 'flex-end', xs: 'flex-start' } }}>
+            <Box
+              component='div'
+              sx={{ display: 'flex', flexDirection: 'column', alignItems: { sm: 'flex-end', xs: 'flex-start' } }}
+            >
               <Typography variant='h6' sx={{ mb: 2 }}>
                 {`Invoice #${invoice.id}`}
               </Typography>
-              <Box sx={{ mb: 2, display: 'flex' }}>
+              <Box component='div' sx={{ mb: 2, display: 'flex' }}>
                 <Typography variant='body2' sx={{ mr: 3 }}>
                   Date Issued:
                 </Typography>
@@ -174,7 +177,7 @@ const InvoicePrint = ({ id }: InvoiceLayoutProps) => {
                   {invoice.issuedDate}
                 </Typography>
               </Box>
-              <Box sx={{ display: 'flex' }}>
+              <Box component='div' sx={{ display: 'flex' }}>
                 <Typography variant='body2' sx={{ mr: 3 }}>
                   Date Due:
                 </Typography>
@@ -286,7 +289,7 @@ const InvoicePrint = ({ id }: InvoiceLayoutProps) => {
 
         <Grid container>
           <Grid item xs={8} sm={7} lg={9}>
-            <Box sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
+            <Box component='div' sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
               <Typography variant='body2' sx={{ mr: 2, fontWeight: 600 }}>
                 Salesperson:
               </Typography>
@@ -333,7 +336,7 @@ const InvoicePrint = ({ id }: InvoiceLayoutProps) => {
     )
   } else if (error) {
     return (
-      <Box sx={{ p: 5 }}>
+      <Box component='div' sx={{ p: 5 }}>
         <Grid container spacing={6}>
           <Grid item xs={12}>
             <Alert severity='error'>

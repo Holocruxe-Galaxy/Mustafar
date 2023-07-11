@@ -77,7 +77,7 @@ const AnalyticsTotalRevenue = () => {
   return (
     <Card>
       <CardContent>
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
+        <Box component='div' sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
           <Typography variant='h6' sx={{ mr: 1.5 }}>
             $42.5k
           </Typography>

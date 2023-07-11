@@ -12,6 +12,7 @@ import toast from 'react-hot-toast'
 const ToastEmoji = () => {
   return (
     <Box
+      component='div'
       sx={{ display: 'flex', textAlign: 'center', alignItems: 'center', flexDirection: 'column', '& svg': { mb: 2 } }}
     >
       <Icon icon='mdi:sticker-emoji' fontSize='2rem' />
