@@ -16,6 +16,7 @@ const stepsForm: Step = {
 
 
 export const stepManager = (num: number, data: any, country: CountryType | undefined) => {
+  console.log("🚀 country:", country)
   const property = stepsForm[num];
 
   if(property === 'contactInfo' && country){
