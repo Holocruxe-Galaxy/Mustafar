@@ -89,9 +89,9 @@ const UserViewRight = ({ tab, invoiceData }: Props) => {
         <Tab value='notification' label='Notification' icon={<Icon icon='mdi:bell-outline' />} />
         <Tab value='connection' label='Connection' icon={<Icon icon='mdi:link-variant' />} />
       </TabList>
-      <Box sx={{ mt: 6 }}>
+      <Box component='div' sx={{ mt: 6 }}>
         {isLoading ? (
-          <Box sx={{ mt: 6, display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+          <Box component='div' sx={{ mt: 6, display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
             <CircularProgress sx={{ mb: 4 }} />
             <Typography>Loading...</Typography>
           </Box>

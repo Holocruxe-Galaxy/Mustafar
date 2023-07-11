@@ -111,7 +111,7 @@ const RolesCards = () => {
       <Grid item xs={12} sm={6} lg={4} key={index}>
         <Card>
           <CardContent>
-            <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Box component='div' sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <Typography variant='body2'>{`Total ${item.totalUsers} users`}</Typography>
               <AvatarGroup max={4} sx={{ '& .MuiAvatar-root': { width: 40, height: 40, fontSize: '0.875rem' } }}>
                 {item.avatars.map((img, index: number) => (
@@ -119,8 +119,8 @@ const RolesCards = () => {
                 ))}
               </AvatarGroup>
             </Box>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-              <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
+            <Box component='div' sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+              <Box component='div' sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
                 <Typography variant='h6'>{item.title}</Typography>
                 <Typography
                   href='/'
@@ -158,13 +158,16 @@ const RolesCards = () => {
         >
           <Grid container sx={{ height: '100%' }}>
             <Grid item xs={5}>
-              <Box sx={{ height: '100%', display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}>
+              <Box
+                component='div'
+                sx={{ height: '100%', display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}
+              >
                 <img width={65} height={130} alt='add-role' src='/images/pages/add-new-role-illustration.png' />
               </Box>
             </Grid>
             <Grid item xs={7}>
               <CardContent>
-                <Box sx={{ textAlign: 'right' }}>
+                <Box component='div' sx={{ textAlign: 'right' }}>
                   <Button
                     variant='contained'
                     sx={{ mb: 2.5, whiteSpace: 'nowrap' }}
@@ -201,7 +204,7 @@ const RolesCards = () => {
             px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`]
           }}
         >
-          <Box sx={{ my: 4 }}>
+          <Box component='div' sx={{ my: 4 }}>
             <FormControl fullWidth>
               <TextField label='Role Name' placeholder='Enter Role Name' />
             </FormControl>
@@ -213,6 +216,7 @@ const RolesCards = () => {
                 <TableRow>
                   <TableCell sx={{ pl: '0 !important' }}>
                     <Box
+                      component='div'
                       sx={{
                         display: 'flex',
                         fontSize: '0.875rem',
@@ -224,7 +228,7 @@ const RolesCards = () => {
                     >
                       Administrator Access
                       <Tooltip placement='top' title='Allows a full access to the system'>
-                        <Box sx={{ display: 'flex' }}>
+                        <Box component='div' sx={{ display: 'flex' }}>
                           <Icon icon='mdi:information-outline' fontSize='1rem' />
                         </Box>
                       </Tooltip>
@@ -315,7 +319,7 @@ const RolesCards = () => {
             pb: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
           }}
         >
-          <Box className='demo-space-x'>
+          <Box component='div' className='demo-space-x'>
             <Button size='large' type='submit' variant='contained' onClick={handleClose}>
               Submit
             </Button>

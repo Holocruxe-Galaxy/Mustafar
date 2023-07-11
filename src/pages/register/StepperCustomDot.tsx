@@ -24,16 +24,21 @@ const StepperCustomDot = (props: StepIconProps) => {
   const theme = useTheme()
 
   if (error) {
-    return <div style={{marginTop: '2em'}}>
-      <Icon icon='mdi:alert' fontSize={10} color={theme.palette.error.main} transform='scale(1.2)' />
-    </div>
+    return (
+      <div style={{ marginTop: '2em' }}>
+        <Icon icon='mdi:alert' fontSize={10} color={theme.palette.error.main} transform='scale(1.2)' />
+      </div>
+    )
   } else if (completed) {
-    return <div style={{marginTop: '2em'}}>
-      <Icon icon='mdi:check-circle' fontSize={10} color={theme.palette.primary.main} transform='scale(1.2)' />
-    </div>
+    return (
+      <div style={{ marginTop: '2em' }}>
+        <Icon icon='mdi:check-circle' fontSize={10} color={theme.palette.primary.main} transform='scale(1.2)' />
+      </div>
+    )
   } else {
     return (
       <Box
+        component='div'
         sx={{
           borderColor: active ? 'primary.main' : alpha(theme.palette.primary.main, 0.3)
         }}

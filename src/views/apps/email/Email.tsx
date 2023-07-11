@@ -76,6 +76,7 @@ const EmailAppLayout = ({ folder, label }: MailLayoutType) => {
 
   return (
     <Box
+      component='div'
       sx={{
         width: '100%',
         display: 'flex',

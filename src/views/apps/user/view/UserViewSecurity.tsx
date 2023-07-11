@@ -203,7 +203,7 @@ const UserViewSecurity = () => {
           <CardContent>
             <Typography sx={{ fontWeight: 500, fontSize: '0.875rem' }}>SMS</Typography>
 
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <Box component='div' sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <Typography variant='body2'>{mobileNumber}</Typography>
               <div>
                 <IconButton
@@ -268,7 +268,7 @@ const UserViewSecurity = () => {
                   label='Mobile number with country code'
                   onChange={e => setMobileNumber(e.target.value)}
                 />
-                <Box sx={{ mt: 6.5, display: 'flex', justifyContent: 'flex-end' }}>
+                <Box component='div' sx={{ mt: 6.5, display: 'flex', justifyContent: 'flex-end' }}>
                   <Button type='reset' color='secondary' variant='outlined' onClick={handleCancelClick}>
                     Cancel
                   </Button>
@@ -305,7 +305,7 @@ const UserViewSecurity = () => {
                 {data.map((item: DataType, index: number) => (
                   <TableRow hover key={index} sx={{ '&:last-of-type td': { border: 0 } }}>
                     <TableCell>
-                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                      <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
                         <img width='22' height='22' alt='Chrome' src='/images/logos/chrome.png' />
                         <Typography sx={{ ml: 2, fontWeight: 500, fontSize: '0.875rem' }}>{item.browser}</Typography>
                       </Box>

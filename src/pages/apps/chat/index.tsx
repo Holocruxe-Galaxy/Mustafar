@@ -62,6 +62,7 @@ const AppChat = () => {
 
   return (
     <Box
+      component='div'
       className='app-chat'
       sx={{
         width: '100%',

@@ -73,7 +73,7 @@ const HorizontalLayout = (props: LayoutProps) => {
     scrollToTop,
 
     // ** footerProps,
-    
+
     saveSettings,
     contentHeightFixed,
     horizontalLayoutProps
@@ -106,12 +106,15 @@ const HorizontalLayout = (props: LayoutProps) => {
             justifyContent: 'center',
             backgroundColor: 'background.paper',
             ...(appBar === 'static' && { zIndex: 13 }),
-            ...(skin === 'bordered' && { borderBottom: theme => `1px solid ${theme.palette.divider}` }),
+            ...(skin === 'bordered' && {
+              borderBottom: (theme: { palette: { divider: any } }) => `1px solid ${theme.palette.divider}`
+            }),
             transition: 'border-bottom 0.2s ease-in-out, backdrop-filter .25s ease-in-out, box-shadow .25s ease-in-out',
             ...(appBar === 'fixed'
               ? appBarBlur && {
                   backdropFilter: 'blur(8px)',
-                  backgroundColor: theme => hexToRGBA(theme.palette.background.paper, 0.9)
+                  backgroundColor: (theme: { palette: { background: { paper: string } } }) =>
+                    hexToRGBA(theme.palette.background.paper, 0.9)
                 }
               : {}),
             ...userAppBarStyle
@@ -120,6 +123,7 @@ const HorizontalLayout = (props: LayoutProps) => {
         >
           {/* Navbar / AppBar */}
           <Box
+            component='div'
             className='layout-navbar'
             sx={{
               width: '100%',
@@ -147,7 +151,11 @@ const HorizontalLayout = (props: LayoutProps) => {
 
           {/* Navigation Menu */}
           {navHidden ? null : (
-            <Box className='layout-horizontal-nav' sx={{ width: '100%', ...horizontalLayoutProps?.navMenu?.sx }}>
+            <Box
+              component='div'
+              className='layout-horizontal-nav'
+              sx={{ width: '100%', ...horizontalLayoutProps?.navMenu?.sx }}
+            >
               <Toolbar
                 className='horizontal-nav-content-container'
                 sx={{

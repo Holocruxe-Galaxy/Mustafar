@@ -181,7 +181,11 @@ const MailDetails = (props: MailDetailsType) => {
   const goBackIcon = prevMailIcon
   const ScrollWrapper = ({ children }: { children: ReactNode }) => {
     if (hidden) {
-      return <Box sx={{ height: '100%', overflowY: 'auto', overflowX: 'hidden' }}>{children}</Box>
+      return (
+        <Box component='div' sx={{ height: '100%', overflowY: 'auto', overflowX: 'hidden' }}>
+          {children}
+        </Box>
+      )
     } else {
       return <PerfectScrollbar options={{ wheelPropagation: false }}>{children}</PerfectScrollbar>
     }
@@ -201,6 +205,7 @@ const MailDetails = (props: MailDetailsType) => {
       {mail ? (
         <Fragment>
           <Box
+            component='div'
             sx={{
               px: 2.6,
               py: [2.25, 3],
@@ -208,8 +213,12 @@ const MailDetails = (props: MailDetailsType) => {
               borderBottom: theme => `1px solid ${theme.palette.divider}`
             }}
           >
-            <Box sx={{ display: 'flex', alignItems: ['flex-start', 'center'], justifyContent: 'space-between' }}>
+            <Box
+              component='div'
+              sx={{ display: 'flex', alignItems: ['flex-start', 'center'], justifyContent: 'space-between' }}
+            >
               <Box
+                component='div'
                 sx={{
                   display: 'flex',
                   overflow: 'hidden',
@@ -228,6 +237,7 @@ const MailDetails = (props: MailDetailsType) => {
                   <Icon icon={goBackIcon} fontSize='1.5rem' />
                 </IconButton>
                 <Box
+                  component='div'
                   sx={{
                     display: 'flex',
                     overflow: 'hidden',
@@ -239,7 +249,7 @@ const MailDetails = (props: MailDetailsType) => {
                   <Typography noWrap sx={{ mr: 5 }}>
                     {mail.subject}
                   </Typography>
-                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
                     {mail.labels && mail.labels.length
                       ? mail.labels.map((label: MailLabelType) => {
                           return (
@@ -262,7 +272,7 @@ const MailDetails = (props: MailDetailsType) => {
                   </Box>
                 </Box>
               </Box>
-              <Box sx={{ display: 'flex' }}>
+              <Box component='div' sx={{ display: 'flex' }}>
                 <IconButton
                   size='small'
                   disabled={!mail.hasPreviousMail}
@@ -283,14 +293,15 @@ const MailDetails = (props: MailDetailsType) => {
             </Box>
           </Box>
           <Box
+            component='div'
             sx={{
               backgroundColor: 'background.paper',
               p: theme => theme.spacing(3, 2, 3, 3),
               borderBottom: theme => `1px solid ${theme.palette.divider}`
             }}
           >
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box component='div' sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
                 {routeParams && routeParams.folder !== 'trash' ? (
                   <IconButton size='small' onClick={handleMoveToTrash}>
                     <Icon icon='mdi:delete-outline' />
@@ -336,9 +347,10 @@ const MailDetails = (props: MailDetailsType) => {
               </div>
             </Box>
           </Box>
-          <Box sx={{ height: 'calc(100% - 7.75rem)', backgroundColor: 'action.hover' }}>
+          <Box component='div' sx={{ height: 'calc(100% - 7.75rem)', backgroundColor: 'action.hover' }}>
             <ScrollWrapper>
               <Box
+                component='div'
                 sx={{
                   py: 4,
                   px: 5,
@@ -362,6 +374,7 @@ const MailDetails = (props: MailDetailsType) => {
                   ? mail.replies.map((reply: MailType, index: number) => {
                       return (
                         <Box
+                          component='div'
                           key={index}
                           sx={{
                             mb: 4,
@@ -372,8 +385,9 @@ const MailDetails = (props: MailDetailsType) => {
                             border: theme => `1px solid ${theme.palette.divider}`
                           }}
                         >
-                          <Box sx={{ p: 5 }}>
+                          <Box component='div' sx={{ p: 5 }}>
                             <Box
+                              component='div'
                               sx={{
                                 display: 'flex',
                                 flexWrap: 'wrap',
@@ -381,20 +395,20 @@ const MailDetails = (props: MailDetailsType) => {
                                 justifyContent: 'space-between'
                               }}
                             >
-                              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                              <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
                                 <Avatar
                                   alt={reply.from.name}
                                   src={reply.from.avatar}
                                   sx={{ width: '2.375rem', height: '2.375rem', mr: 3 }}
                                 />
-                                <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                                <Box component='div' sx={{ display: 'flex', flexDirection: 'column' }}>
                                   <Typography sx={{ color: 'text.secondary' }}>{reply.from.name}</Typography>
                                   <Typography variant='body2' sx={{ color: 'text.disabled' }}>
                                     {reply.from.email}
                                   </Typography>
                                 </Box>
                               </Box>
-                              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                              <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
                                 <Typography variant='body2' sx={{ mr: 1.75, color: 'text.disabled' }}>
                                   {new Date(reply.time).toDateString()}{' '}
                                   {new Date(reply.time).toLocaleTimeString('en-US', {
@@ -415,13 +429,17 @@ const MailDetails = (props: MailDetailsType) => {
                             </Box>
                           </Box>
                           <Divider sx={{ m: '0 !important' }} />
-                          <Box sx={{ px: 5, py: 0 }}>
-                            <Box sx={{ color: 'text.secondary' }} dangerouslySetInnerHTML={{ __html: reply.message }} />
+                          <Box component='div' sx={{ px: 5, py: 0 }}>
+                            <Box
+                              component='div'
+                              sx={{ color: 'text.secondary' }}
+                              dangerouslySetInnerHTML={{ __html: reply.message }}
+                            />
                           </Box>
                           {reply.attachments.length ? (
                             <Fragment>
                               <Divider sx={{ m: '0 !important' }} />
-                              <Box sx={{ p: 5 }}>
+                              <Box component='div' sx={{ p: 5 }}>
                                 <Typography variant='body2'>Attachments</Typography>
                                 <List>
                                   {reply.attachments.map((item: MailAttachmentType) => {
@@ -451,6 +469,7 @@ const MailDetails = (props: MailDetailsType) => {
                 ) : null}
 
                 <Box
+                  component='div'
                   sx={{
                     mb: 4,
                     width: '100%',
@@ -462,24 +481,25 @@ const MailDetails = (props: MailDetailsType) => {
                     border: theme => `1px solid ${theme.palette.divider}`
                   }}
                 >
-                  <Box sx={{ p: 5 }}>
+                  <Box component='div' sx={{ p: 5 }}>
                     <Box
+                      component='div'
                       sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap' }}
                     >
-                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                      <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
                         <Avatar
                           alt={mail.from.name}
                           src={mail.from.avatar}
                           sx={{ width: '2.375rem', height: '2.375rem', mr: 3 }}
                         />
-                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                        <Box component='div' sx={{ display: 'flex', flexDirection: 'column' }}>
                           <Typography sx={{ color: 'text.secondary' }}>{mail.from.name}</Typography>
                           <Typography variant='body2' sx={{ color: 'text.disabled' }}>
                             {mail.from.email}
                           </Typography>
                         </Box>
                       </Box>
-                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                      <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
                         <Typography variant='body2' sx={{ mr: 1.75, color: 'text.disabled' }}>
                           {new Date(mail.time).toDateString()}{' '}
                           {new Date(mail.time).toLocaleTimeString('en-US', {
@@ -513,13 +533,17 @@ const MailDetails = (props: MailDetailsType) => {
                     </Box>
                   </Box>
                   <Divider sx={{ m: '0 !important' }} />
-                  <Box sx={{ px: 5, py: 0 }}>
-                    <Box sx={{ color: 'text.secondary' }} dangerouslySetInnerHTML={{ __html: mail.message }} />
+                  <Box component='div' sx={{ px: 5, py: 0 }}>
+                    <Box
+                      component='div'
+                      sx={{ color: 'text.secondary' }}
+                      dangerouslySetInnerHTML={{ __html: mail.message }}
+                    />
                   </Box>
                   {mail.attachments.length ? (
                     <Fragment>
                       <Divider sx={{ m: '0 !important' }} />
-                      <Box sx={{ p: 5 }}>
+                      <Box component='div' sx={{ p: 5 }}>
                         <Typography variant='body2'>Attachments</Typography>
                         <List>
                           {mail.attachments.map((item: MailAttachmentType) => {
@@ -539,6 +563,7 @@ const MailDetails = (props: MailDetailsType) => {
                 </Box>
 
                 <Box
+                  component='div'
                   sx={{
                     p: 5,
                     width: '100%',

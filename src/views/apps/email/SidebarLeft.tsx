@@ -91,7 +91,11 @@ const SidebarLeft = (props: MailSidebarType) => {
 
   const ScrollWrapper = ({ children }: { children: ReactNode }) => {
     if (hidden) {
-      return <Box sx={{ height: '100%', overflowY: 'auto', overflowX: 'hidden' }}>{children}</Box>
+      return (
+        <Box component='div' sx={{ height: '100%', overflowY: 'auto', overflowX: 'hidden' }}>
+          {children}
+        </Box>
+      )
     } else {
       return <PerfectScrollbar options={{ wheelPropagation: false }}>{children}</PerfectScrollbar>
     }
@@ -121,13 +125,13 @@ const SidebarLeft = (props: MailSidebarType) => {
         }
       }}
     >
-      <Box sx={{ p: 5, overflowY: 'hidden' }}>
+      <Box component='div' sx={{ p: 5, overflowY: 'hidden' }}>
         <Button fullWidth variant='contained' onClick={toggleComposeOpen}>
           Compose
         </Button>
       </Box>
       <ScrollWrapper>
-        <Box sx={{ pt: 1.25, overflowY: 'hidden' }}>
+        <Box component='div' sx={{ pt: 1.25, overflowY: 'hidden' }}>
           <List component='div'>
             <ListItemStyled
               component={Link}
