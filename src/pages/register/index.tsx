@@ -94,6 +94,8 @@ const Register = () => {
   // ** States
   const [activeStep, setActiveStep] = useState<number>(0)
 
+
+
   const countries: CountryType[] = [
     { code: 'AD', label: 'Andorra', phone: '376' },
     {
@@ -338,29 +340,32 @@ const Register = () => {
 
   const onSubmit = (data: any) => {
     const manager = stepManager(activeStep, data, caract)
-    console.log(manager)
 
-    // fetch(`http://ec2-54-234-25-190.compute-1.amazonaws.com/auth/step/${activeStep + 1}`, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(manager)
-    // })
-    //   .then(response => response.json())
-    //   .then(result => {
-    //     // Manipular el resultado de la respuesta
-    //     console.log(result);
-    //   })
-    //   .catch(error => {
-    //     // Manejar errores de la solicitud
-    //     console.error('Error:', error);
-    //   });
+    // console.log(manager)
 
-    setActiveStep(activeStep + 1)
-    if (activeStep === steps.length - 1) {
-      toast.success('Form Submitted')
-    }
+    fetch(`http://ec2-54-234-25-190.compute-1.amazonaws.com/user/form/step`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(manager)
+    })
+      .then(response => response.json())
+      .then(result => {
+        // Manipular el resultado de la respuesta
+        console.log(result);
+
+      })
+      .catch(error => {
+        // Manejar errores de la solicitud
+        console.error('Error:', error);
+        alert('no se mandó')
+      });
+
+      setActiveStep(activeStep + 1)
+      if (activeStep === steps.length - 1) {
+        toast.success('Form Submitted')
+      }
   }
 
   const getStepContent = (step: number) => {
