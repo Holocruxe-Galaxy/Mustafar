@@ -79,8 +79,8 @@ const AnalyticsVisitsByDay = () => {
   return (
     <Card>
       <CardHeader
-        title='Visits by Day'
-        subheader='Total 248.5k Visits'
+        title='Interacción por Día'
+        subheader='Total 248.5k Visitas'
         subheaderTypographyProps={{ sx: { lineHeight: 1.429 } }}
         titleTypographyProps={{ sx: { letterSpacing: '0.15px' } }}
         action={

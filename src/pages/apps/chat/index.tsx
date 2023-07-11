@@ -65,6 +65,7 @@ const AppChat = () => {
       className='app-chat'
       sx={{
         width: '100%',
+        height: '100%',
         display: 'flex',
         borderRadius: 1,
         overflow: 'hidden',
@@ -109,6 +110,6 @@ const AppChat = () => {
   )
 }
 
-AppChat.contentHeightFixed = true
+AppChat.contentHeightFixed = false
 
 export default AppChat

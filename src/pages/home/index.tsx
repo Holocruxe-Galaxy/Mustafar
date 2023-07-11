@@ -1,122 +1,123 @@
-
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
-
-// ** Icon Imports
-
-// import Icon from 'src/@core/components/icon'
-
-// ** Custom Component Import
-// import CardStatisticsVertical from 'src/@core/components/card-statistics/card-stats-vertical'
+import { useTheme } from '@mui/material/styles'
+import { Box } from '@mui/system'
+import CardContent from '@mui/material/CardContent'
 
 // ** Styled Component Import
 import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 
 // ** Demo Components Imports
 import AnalyticsSessions from 'src/views/dashboards/analytics/AnalyticsSessions'
-import AnalyticsOverview from 'src/views/dashboards/analytics/AnalyticsOverview'
-
-// import AnalyticsPerformance from 'src/views/dashboards/analytics/AnalyticsPerformance'
-
-// import AnalyticsWeeklySales from 'src/views/dashboards/analytics/AnalyticsWeeklySales'
-
 import AnalyticsVisitsByDay from 'src/views/dashboards/analytics/AnalyticsVisitsByDay'
-
-// import AnalyticsTotalRevenue from 'src/views/dashboards/analytics/AnalyticsTotalRevenue'
-
-// import AnalyticsSalesCountry from 'src/views/dashboards/analytics/AnalyticsSalesCountry'
-
-import AnalyticsCongratulations from 'src/views/dashboards/analytics/AnalyticsCongratulations'
-import AnalyticsActivityTimeline from 'src/views/dashboards/analytics/AnalyticsActivityTimeline'
-import AnalyticsTotalTransactions from 'src/views/dashboards/analytics/AnalyticsTotalTransactions'
-
-// import AnalyticsProjectStatistics from 'src/views/dashboards/analytics/AnalyticsProjectStatistics'
-
-import AnalyticsTopReferralSources from 'src/views/dashboards/analytics/AnalyticsTopReferralSources'
-
+import AppChat from '../apps/chat'
+import ChartjsPolarAreaChart from 'src/views/charts/chartjs/ChartjsPolarAreaChart'
 import FooterContent from 'src/layouts/components/shared-components/footer/FooterContent'
 
-const Home = () => {
+// ** Hooks
+import { useSettings } from 'src/@core/hooks/useSettings'
+
+// ** Third Party Styles Import
+import 'chart.js/auto'
+import axios from 'axios'
+
+// ** Types Imports
+import { CardStatsHorizontalProps } from 'src/@core/components/card-statistics/types'
+import { CardStatsType } from 'src/@fake-db/types'
+
+// ** Next Imports
+import { GetStaticProps, InferGetStaticPropsType } from 'next/types'
+
+const Home = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const theme = useTheme()
+  const { settings } = useSettings()
+
+  // Vars
+  const { skin } = settings
+  const yellowColor = '#ffe802'
+  const primaryColor = '#836af9'
+  const polarChartGrey = '#4f5d70'
+  const polarChartInfo = '#299aff'
+  const polarChartGreen = '#28dac6'
+  const polarChartWarning = '#ff8131'
+  const legendColor = theme.palette.text.secondary
+
   return (
     <>
-    <ApexChartWrapper>
-      <Grid container spacing={6} className='match-height'>
-        <Grid item xs={12} md={8}>
-          <AnalyticsCongratulations />
-        </Grid>
-        {/* <Grid item xs={6} md={2}>
-          <CardStatisticsVertical
-            stats='155k'
-            color='primary'
-            trendNumber='+22%'
-            title='Total Orders'
-            chipText='Last 4 Month'
-            icon={<Icon icon='mdi:cart-plus' />}
-          />
-        </Grid> */}
-        <Grid item xs={6} md={2}>
-          <AnalyticsSessions />
-        </Grid>
-        <Grid item xs={12} md={8}>
-          <AnalyticsTotalTransactions />
-        </Grid>
-        {/* <Grid item xs={12} sm={6} md={4}>
-          <AnalyticsPerformance />
-        </Grid> */}
-        {/* <Grid item xs={12} sm={6} md={4}>
-          <AnalyticsProjectStatistics />
-        </Grid> */}
-        <Grid item xs={12} sm={6} md={4}>
-          <Grid container spacing={6}>
-            {/* <Grid item xs={6}>
-              <AnalyticsTotalRevenue />
-            </Grid> */}
-            {/* <Grid item xs={6}>
-              <CardStatisticsVertical
-              stats='$13.4k'
-              color='success'
-              trendNumber='+38%'
-              title='Total Sales'
-              chipText='Last Six Month'
-              icon={<Icon icon='mdi:currency-usd' />}
-              />
-            </Grid> */}
-            {/* <Grid item xs={6}>
-              <CardStatisticsVertical
-                color='info'
-                stats='142.8k'
-                trendNumber='+62%'
-                chipText='Last One Year'
-                title='Total Impressions'
-                icon={<Icon icon='mdi:link' />}
-              />
-            </Grid> */}
-            <Grid item xs={6}>
-              <AnalyticsOverview />
-            </Grid>
+      <ApexChartWrapper>
+        <Grid container spacing={6} className='match-height'>
+          <Grid item xs={12} sm={6} md={12} height={150}>
+            <Box
+              sx={{
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                borderRadius: 1,
+                overflow: 'hidden',
+                position: 'relative',
+                backgroundColor: 'background.paper',
+                boxShadow: skin === 'bordered' ? 0 : 6,
+                ...(skin === 'bordered' && { border: `1px solid ${theme.palette.divider}` })
+              }}
+            >
+              Acá vendrían los botones
+            </Box>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+            <Box
+              sx={{
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                borderRadius: 1,
+                overflow: 'hidden',
+                position: 'relative',
+                backgroundColor: 'background.paper',
+                boxShadow: skin === 'bordered' ? 0 : 6,
+                ...(skin === 'bordered' && { border: `1px solid ${theme.palette.divider}` })
+              }}
+            >
+              Acá vendría la animación
+            </Box>
+          </Grid>
+
+          <Grid item xs={12} sm={6} md={8} height={550}>
+            <AppChat />
+          </Grid>
+
+          <Grid item xs={12} md={4} /* height={450} */>
+            <AnalyticsSessions />
+          </Grid>
+          <Grid item xs={12} md={4} /* height={450} */>
+            <AnalyticsVisitsByDay />
+          </Grid>
+          <Grid item xs={12} md={4} height={450}>
+            <ChartjsPolarAreaChart
+              yellow={yellowColor}
+              info={polarChartInfo}
+              grey={polarChartGrey}
+              primary={primaryColor}
+              green={polarChartGreen}
+              legendColor={legendColor}
+              warning={polarChartWarning}
+            />
           </Grid>
         </Grid>
-        {/* <Grid item xs={12} sm={6} md={4}>
-          <AnalyticsSalesCountry />
-        </Grid> */}
-        <Grid item xs={12} md={8}>
-          <AnalyticsTopReferralSources />
-        </Grid>
-        {/* <Grid item xs={12} sm={6} md={4}>
-          <AnalyticsWeeklySales />
-        </Grid> */}
-        <Grid item xs={12} sm={6} md={4}>
-          <AnalyticsVisitsByDay />
-        </Grid>
-        <Grid item xs={12} md={8}>
-          <AnalyticsActivityTimeline />
-        </Grid>
-      </Grid>
-    </ApexChartWrapper>
-    <FooterContent/>
-        </>
+      </ApexChartWrapper>
+      <FooterContent />
+    </>
   )
 }
 
-export default Home
+export const getStaticProps: GetStaticProps = async () => {
+  const res = await axios.get('/cards/statistics')
+  const apiData: CardStatsType = res.data
 
+  return {
+    props: {
+      apiData
+    }
+  }
+}
+
+export default Home
