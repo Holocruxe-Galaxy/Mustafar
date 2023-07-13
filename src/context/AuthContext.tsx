@@ -11,9 +11,9 @@ import axios from 'axios';
 import authConfig from 'src/configs/auth';
 
 // ** Types
-import { AuthValuesType, LoginParams, User, UserDataType } from './types';
+import { AuthValuesType, LoginParams, UserDataType } from './types';
 import { useUser } from '@auth0/nextjs-auth0/client';
-import { tokenExists } from './functions';
+import { afterLogin, afterSignup } from './functions';
 
 // ** Defaults
 const defaultProvider: AuthValuesType = {
@@ -114,15 +114,7 @@ const AuthProvider = ({ children }: Props) => {
       setUser(microservice_user);
       window.localStorage.removeItem('createAccount');
 
-      const token = localStorage.getItem('AuthorizationToken');
-      tokenExists(token);
-
-      const user = await fetch('url/user', { method: 'POST', headers: { authorization: token } });
-      const { status, step } = (await user.json()) as User;
-
-      if (status !== 'COMPLETE') {
-        console.log(step);
-      }
+      afterSignup();
 
       const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/dashboard';
       router.replace(redirectURL as string);
@@ -167,6 +159,7 @@ const AuthProvider = ({ children }: Props) => {
       // const returnUrl = router.query.returnUrl
 
       setUser(microservice_user);
+      afterLogin();
       const redirectURL = '/';
       router.replace(redirectURL as string);
     } else {
