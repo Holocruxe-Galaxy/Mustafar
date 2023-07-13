@@ -94,6 +94,7 @@ const AuthProvider = ({ children }: Props) => {
     const AuthorizationToken = response.headers.get('Authorization');
     if (AuthorizationToken !== null) {
       window.localStorage.setItem('AuthorizationToken', AuthorizationToken);
+      await afterSignup();
     }
 
     if (response.status === 201) {
@@ -109,12 +110,12 @@ const AuthProvider = ({ children }: Props) => {
         authConfig.storageTokenKeyName,
         'eJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg3ODA3MDMzLCJleHAiOjE2ODc4MDczMzN9.CvgFyVYPaSCrVUdFi-EbLmlWV2yttExHcltc0ok7naE'
       );
+
       const returnUrl = router.query.returnUrl;
-      console.log('este es el returnURL ', returnUrl);
+
       setUser(microservice_user);
       window.localStorage.removeItem('createAccount');
 
-      afterSignup();
 
       const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/dashboard';
       router.replace(redirectURL as string);
@@ -159,7 +160,7 @@ const AuthProvider = ({ children }: Props) => {
       // const returnUrl = router.query.returnUrl
 
       setUser(microservice_user);
-      afterLogin();
+      await afterLogin();
       const redirectURL = '/';
       router.replace(redirectURL as string);
     } else {
