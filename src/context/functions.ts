@@ -1,3 +1,4 @@
+import { styles } from "src/configs/cruxis-dialogue-console.";
 import { User } from "./types";
 
 export function tokenExists(token: string | null): asserts token is string {
@@ -22,9 +23,11 @@ export async function afterLogin () {
 
   const user = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/user/data`, { method: 'GET', headers: { Authorization: `Bearer ${token}` } });
   const { status, step } = (await user.json()) as User;
-
   if (status !== 'COMPLETE') {
+    console.log(`%cHi, I'm Cruxis! I hope we will be great friends!`, styles);
     localStorage.setItem('step', step.toString());
-    localStorage.setItem('status', status.toString());
+  } else {
+    console.log(`%cWelcome back! I'm glad to see you again. What do you want to talk about today?`, styles);
   }
+  localStorage.setItem('status', status.toString());
 }
