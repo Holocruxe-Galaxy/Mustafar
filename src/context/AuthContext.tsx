@@ -119,7 +119,7 @@ const AuthProvider = ({ children }: Props) => {
       window.localStorage.removeItem('createAccount');
 
 
-      const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/register/';
+      const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/register';
       router.replace(redirectURL as string);
     } else {
       window.alert(res.message);
@@ -164,7 +164,7 @@ const AuthProvider = ({ children }: Props) => {
       setUser(microservice_user);
 
       const status = await afterLogin();
-      const redirectURL = status === 'COMPLETE' ? '/home' : '/register/';
+      const redirectURL = status === 'COMPLETE' ? '/home' : '/register';
       router.replace(redirectURL as string);
     } else {
       window.alert(res.message);

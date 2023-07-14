@@ -15,6 +15,7 @@ export async function afterSignup () {
   const { step } = (await user.json()) as User;
 
   localStorage.setItem('step', step.toString());
+  console.log(`%cHi, I'm Cruxis! I hope we will be great friends!`, styles);
 }
 
 export async function afterLogin () {
