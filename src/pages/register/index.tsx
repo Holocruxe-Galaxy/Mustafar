@@ -336,34 +336,38 @@ const Register = () => {
     personalReset({ lastName: '', name: '', gender: '', birthdate: '', civilStatus: '' })
   }
 
-  const onSubmit = (data: any) => {
+  const onSubmit = async(data: any) => {
     const manager = stepManager(activeStep, data, caract)
-    // console.log(manager)
 
-    // fetch(`http://ec2-18-204-17-77.compute-1.amazonaws.com/user/form/step`, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(manager)
-    // })
-    //   .then(response => response.json())
-    //   .then(result => {
-    //     // Manipular el resultado de la respuesta
-    //     console.log(result);
+    console.log(manager)
 
-    //   })
-    //   .catch(error => {
-    //     // Manejar errores de la solicitud
-    //     console.error('Error:', error);
-    //     alert('no se mandó')
-    //   });
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/user/form/step`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(manager)
+      })
+
+      console.log(response);
+      if(!response.ok){
+        throw new Error("Network error")
+      }
 
       setActiveStep(activeStep + 1)
       if (activeStep === steps.length - 1) {
-        toast.success('Form Submitted')
+        toast.success('Form submitted!')
       }
+
+    } catch (error: any) {
+      toast.error(error.message)
+
+      // alert('no se mandó')
+      console.log(error.message)
+    }
   }
+
 
   const getStepContent = (step: number) => {
     switch (step) {
@@ -410,7 +414,7 @@ const Register = () => {
                     autoHighlight
                     getOptionLabel={option => option.label}
                     value={caract}
-                    onChange={(newCar: any) => {
+                    onChange={(event: any, newCar: any) => {
                       setCaract(newCar)
                     }}
                     renderOption={(props, option) => (
@@ -430,10 +434,11 @@ const Register = () => {
                         {...params}
                         label='Elige país'
                         error={Boolean(contactErrors.phone)}
-                        inputProps={{
-                          ...params.inputProps,
-                          autoComplete: 'new-password' // disable autocomplete and autofill
-                        }}
+
+                        // inputProps={{
+                        //   ...params.inputProps,
+                        //   autoComplete: 'new-password' // disable autocomplete and autofill
+                        // }}
                       />
                     )}
                   />

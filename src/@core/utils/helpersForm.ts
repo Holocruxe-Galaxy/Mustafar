@@ -16,12 +16,14 @@ const stepsForm: Step = {
 
 
 export const stepManager = (num: number, data: any, country: CountryType | undefined) => {
-  console.log("🚀 country:", country)
   const property = stepsForm[num];
 
   if(property === 'contactInfo' && country){
     const phone = country.code + '+' + country.phone + data.phone;
     const newData = {...data, phone };
+    if(!data.altEmail.length){
+      delete newData['altEmail'];
+    }
     console.log({ [property]: newData })
 
     return { [property]: newData }
