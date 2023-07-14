@@ -14,6 +14,16 @@ export type UserDataType = {
   avatar?: string | null
 }
 
+export const status = ['COMPLETE', 'INACTIVE', 'PENDING', 'BANNED'] as const;
+
+export type StatusType = (typeof status)[number];
+
+
+export type User = {
+  status: StatusType;
+  step: number;
+}
+
 export type AuthValuesType = {
   loading: boolean
   logout: () => void

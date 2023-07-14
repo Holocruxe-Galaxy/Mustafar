@@ -15,6 +15,14 @@ const stepsForm: Step = {
 };
 
 
+export function isNumber(val: unknown): number {
+  if (!isNaN(Number(val))) {
+    return Number(val);
+  };
+  throw new Error("Please don't play around with the local storage.");
+}
+
+
 export const stepManager = (num: number, data: any, country: CountryType | undefined) => {
   const property = stepsForm[num];
 
