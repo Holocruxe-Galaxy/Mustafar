@@ -57,11 +57,9 @@ const AuthProvider = ({ children }: Props) => {
             setUser({ ...response.data.userData });
           })
           .catch(() => {
-            // localStorage.removeItem('userData');
-            // localStorage.removeItem('refreshToken');
-            // localStorage.removeItem('accessToken');
-            // localStorage.removeItem('step');
-            // localStorage.removeItem('status');
+            localStorage.removeItem('userData');
+            localStorage.removeItem('refreshToken');
+            localStorage.removeItem('accessToken');
             setUser(null);
             setLoading(false);
             if (authConfig.onTokenExpiration === 'logout' && !router.pathname.includes('login')) {
@@ -91,7 +89,7 @@ const AuthProvider = ({ children }: Props) => {
       })
     };
 
-    const response = await fetch('http://lb-ms-auth-1623749626.us-east-1.elb.amazonaws.com/users/register', options);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CORUSCANT}/users/register`, options);
     const res = await response.json();
     const AuthorizationToken = response.headers.get('Authorization');
     if (AuthorizationToken !== null) {
@@ -137,7 +135,7 @@ const AuthProvider = ({ children }: Props) => {
         email: userAuht0?.email
       })
     };
-    const response = await fetch('http://lb-ms-auth-1623749626.us-east-1.elb.amazonaws.com/users/login', options);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CORUSCANT}/users/login`, options);
     const res = await response.json();
     const AuthorizationToken = response.headers.get('Authorization');
     if (AuthorizationToken !== null) {
