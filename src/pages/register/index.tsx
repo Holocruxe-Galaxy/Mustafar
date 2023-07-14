@@ -27,7 +27,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 
 // import InputAdornment from '@mui/material/InputAdornment'
 
-import { stepManager, CountryType } from '../../@core/utils/helpersForm';
+import { stepManager, CountryType, isNumber } from '../../@core/utils/helpersForm';
 
 // ** Third Party Imports
 import * as yup from 'yup';
@@ -90,8 +90,15 @@ const contactSchema = yup.object().shape({
 });
 
 const Register = () => {
+
+  const currentStep = localStorage.getItem('step');
+  const step = isNumber(currentStep) || 0;
+
+
   // ** States
-  const [activeStep, setActiveStep] = useState<number>(0);
+  const [activeStep, setActiveStep] = useState<number>(step);
+
+
 
   const countries: CountryType[] = [
     { code: 'AD', label: 'Andorra', phone: '376' },
@@ -334,32 +341,38 @@ const Register = () => {
     personalReset({ lastName: '', name: '', gender: '', birthdate: '', civilStatus: '' });
   };
 
-  const onSubmit = (data: any) => {
+  const onSubmit = async (data: any) => {
     const manager = stepManager(activeStep, data, caract);
-    console.log(manager);
+    try {
 
-    // fetch(`http://ec2-54-234-25-190.compute-1.amazonaws.com/auth/step/${activeStep + 1}`, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(manager)
-    // })
-    //   .then(response => response.json())
-    //   .then(result => {
-    //     // Manipular el resultado de la respuesta
-    //     console.log(result);
-    //   })
-    //   .catch(error => {
-    //     // Manejar errores de la solicitud
-    //     console.error('Error:', error);
-    //   });
+      const token = localStorage.getItem('AuthorizationToken');
 
-    setActiveStep(activeStep + 1);
-    if (activeStep === steps.length - 1) {
-      toast.success('Form Submitted');
+      const response = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/user/form/step`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(manager)
+      });
+      if (!response.ok) {
+        throw new Error("Network error");
+      }
+
+      localStorage.setItem("step", (step + 1).toString());
+      setActiveStep(activeStep + 1);
+      if (activeStep === steps.length - 1) {
+        toast.success('Form submitted!');
+      }
+
+    } catch (error: any) {
+      toast.error(error.message);
+
+      // alert('no se mandó')
+      console.log(error.message);
     }
   };
+
 
   const getStepContent = (step: number) => {
     switch (step) {
@@ -406,8 +419,7 @@ const Register = () => {
                     autoHighlight
                     getOptionLabel={option => option.label}
                     value={caract}
-                    onChange={(newCar: any) => {
-                      console.log(countries.length);
+                    onChange={(event: any, newCar: any) => {
                       setCaract(newCar);
                     }}
                     renderOption={(props, option) => (
@@ -427,10 +439,11 @@ const Register = () => {
                         {...params}
                         label='Elige país'
                         error={Boolean(contactErrors.phone)}
-                        inputProps={{
-                          ...params.inputProps,
-                          autoComplete: 'new-password' // disable autocomplete and autofill
-                        }}
+
+                      // inputProps={{
+                      //   ...params.inputProps,
+                      //   autoComplete: 'new-password' // disable autocomplete and autofill
+                      // }}
                       />
                     )}
                   />
