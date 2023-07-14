@@ -60,6 +60,8 @@ const AuthProvider = ({ children }: Props) => {
             localStorage.removeItem('userData');
             localStorage.removeItem('refreshToken');
             localStorage.removeItem('accessToken');
+            localStorage.removeItem('step');
+            localStorage.removeItem('status');
             setUser(null);
             setLoading(false);
             if (authConfig.onTokenExpiration === 'logout' && !router.pathname.includes('login')) {
@@ -174,6 +176,8 @@ const AuthProvider = ({ children }: Props) => {
     window.localStorage.removeItem('AuthorizationToken');
     window.localStorage.removeItem('userData');
     window.localStorage.removeItem(authConfig.storageTokenKeyName);
+    window.localStorage.removeItem('step');
+    window.localStorage.removeItem('status');
     router.push('/api/auth/logout');
     router.push('/login');
   };
