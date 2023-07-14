@@ -363,7 +363,7 @@ const Register = () => {
       setActiveStep(activeStep + 1);
       if (activeStep === steps.length - 1) {
         toast.success('Form submitted!');
-        localStorage.setItem('step', 'COMPLETE');
+        localStorage.setItem('status', 'COMPLETE');
         router.replace('/home');
       }
 
