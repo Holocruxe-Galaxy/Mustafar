@@ -44,6 +44,7 @@ import BlankLayout from 'src/@core/layouts/BlankLayout';
 
 // ** Styled Components
 import StepperWrapper from 'src/@core/styles/mui/stepper';
+import { useRouter } from 'next/router';
 
 // interface State {
 //   password: string
@@ -90,6 +91,7 @@ const contactSchema = yup.object().shape({
 });
 
 const Register = () => {
+  const router = useRouter();
 
   const currentStep = localStorage.getItem('step');
   const step = isNumber(currentStep) || 0;
@@ -97,8 +99,6 @@ const Register = () => {
 
   // ** States
   const [activeStep, setActiveStep] = useState<number>(step);
-
-
 
   const countries: CountryType[] = [
     { code: 'AD', label: 'Andorra', phone: '376' },
@@ -363,6 +363,8 @@ const Register = () => {
       setActiveStep(activeStep + 1);
       if (activeStep === steps.length - 1) {
         toast.success('Form submitted!');
+        localStorage.setItem('step', 'COMPLETE');
+        router.replace('/home');
       }
 
     } catch (error: any) {
