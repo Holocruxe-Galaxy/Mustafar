@@ -32,3 +32,8 @@ export type CardStatsCharacterProps = {
   chipColor?: ThemeColor
   trend?: 'positive' | 'negative'
 }
+
+export type CardLinksProp = {
+  src: string
+  name: string
+}
