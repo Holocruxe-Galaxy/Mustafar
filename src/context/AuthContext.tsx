@@ -118,7 +118,7 @@ const AuthProvider = ({ children }: Props) => {
 
 
       const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/register';
-      router.replace(redirectURL as string);
+      window.location.href = redirectURL.toString();
     } else {
       window.alert(res.message);
       window.localStorage.removeItem('createAccount');
