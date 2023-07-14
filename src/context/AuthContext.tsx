@@ -57,11 +57,11 @@ const AuthProvider = ({ children }: Props) => {
             setUser({ ...response.data.userData });
           })
           .catch(() => {
-            localStorage.removeItem('userData');
-            localStorage.removeItem('refreshToken');
-            localStorage.removeItem('accessToken');
-            localStorage.removeItem('step');
-            localStorage.removeItem('status');
+            // localStorage.removeItem('userData');
+            // localStorage.removeItem('refreshToken');
+            // localStorage.removeItem('accessToken');
+            // localStorage.removeItem('step');
+            // localStorage.removeItem('status');
             setUser(null);
             setLoading(false);
             if (authConfig.onTokenExpiration === 'logout' && !router.pathname.includes('login')) {
