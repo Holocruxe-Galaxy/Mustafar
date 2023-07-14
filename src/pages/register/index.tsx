@@ -91,7 +91,7 @@ const contactSchema = yup.object().shape({
 
 const Register = () => {
 
-  const currentStep = localStorage.getItem('step')
+  const currentStep = localStorage.getItem('step');
   const step = isNumber(currentStep) || 0;
 
 
@@ -341,40 +341,35 @@ const Register = () => {
     personalReset({ lastName: '', name: '', gender: '', birthdate: '', civilStatus: '' });
   };
 
-  console.log(localStorage.getItem('step'))
-
-  const onSubmit = async(data: any) => {
-    const manager = stepManager(activeStep, data, caract)
-
-
-
+  const onSubmit = async (data: any) => {
+    const manager = stepManager(activeStep, data, caract);
     try {
 
       const token = localStorage.getItem('AuthorizationToken');
 
-
-      const response = await fetch(`http://ec2-18-204-17-77.compute-1.amazonaws.com/user/form/step`, {
-      method: 'POST',
-        headers: { Authorization: `Bearer ${token}` },
+      const response = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/user/form/step`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify(manager)
-      })
-
-      console.log(await response.json());
-      if(!response.ok){
-        throw new Error("Network error")
+      });
+      if (!response.ok) {
+        throw new Error("Network error");
       }
 
-      localStorage.setItem("step", (step + 1).toString())
-      setActiveStep(activeStep + 1)
+      localStorage.setItem("step", (step + 1).toString());
+      setActiveStep(activeStep + 1);
       if (activeStep === steps.length - 1) {
-        toast.success('Form submitted!')
+        toast.success('Form submitted!');
       }
 
     } catch (error: any) {
-      toast.error(error.message)
+      toast.error(error.message);
 
       // alert('no se mandó')
-      console.log(error.message)
+      console.log(error.message);
     }
   };
 
@@ -425,7 +420,7 @@ const Register = () => {
                     getOptionLabel={option => option.label}
                     value={caract}
                     onChange={(event: any, newCar: any) => {
-                      setCaract(newCar)
+                      setCaract(newCar);
                     }}
                     renderOption={(props, option) => (
                       <Box component='li' sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
@@ -445,10 +440,10 @@ const Register = () => {
                         label='Elige país'
                         error={Boolean(contactErrors.phone)}
 
-                        // inputProps={{
-                        //   ...params.inputProps,
-                        //   autoComplete: 'new-password' // disable autocomplete and autofill
-                        // }}
+                      // inputProps={{
+                      //   ...params.inputProps,
+                      //   autoComplete: 'new-password' // disable autocomplete and autofill
+                      // }}
                       />
                     )}
                   />
