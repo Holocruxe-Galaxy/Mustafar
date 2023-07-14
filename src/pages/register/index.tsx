@@ -1,49 +1,49 @@
-import { Fragment, useState, ReactNode } from 'react'
+import { Fragment, useState, ReactNode } from 'react';
 
 // ** MUI Imports
-import Box from '@mui/material/Box'
-import Card from '@mui/material/Card'
-import Step from '@mui/material/Step'
-import Grid from '@mui/material/Grid'
-import Button from '@mui/material/Button'
-import Select from '@mui/material/Select'
-import Divider from '@mui/material/Divider'
-import Stepper from '@mui/material/Stepper'
-import MenuItem from '@mui/material/MenuItem'
-import StepLabel from '@mui/material/StepLabel'
-import TextField from '@mui/material/TextField'
-import Typography from '@mui/material/Typography'
-import InputLabel from '@mui/material/InputLabel'
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import Step from '@mui/material/Step';
+import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
+import Select from '@mui/material/Select';
+import Divider from '@mui/material/Divider';
+import Stepper from '@mui/material/Stepper';
+import MenuItem from '@mui/material/MenuItem';
+import StepLabel from '@mui/material/StepLabel';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import InputLabel from '@mui/material/InputLabel';
 
 // import IconButton from '@mui/material/IconButton'
 
-import CardContent from '@mui/material/CardContent'
-import FormControl from '@mui/material/FormControl'
+import CardContent from '@mui/material/CardContent';
+import FormControl from '@mui/material/FormControl';
 
 // import OutlinedInput from '@mui/material/OutlinedInput'
 
-import FormHelperText from '@mui/material/FormHelperText'
-import Autocomplete from '@mui/material/Autocomplete'
+import FormHelperText from '@mui/material/FormHelperText';
+import Autocomplete from '@mui/material/Autocomplete';
 
 // import InputAdornment from '@mui/material/InputAdornment'
 
-import { stepManager, CountryType } from '../../@core/utils/helpersForm'
+import { stepManager, CountryType } from '../../@core/utils/helpersForm';
 
 // ** Third Party Imports
-import * as yup from 'yup'
-import toast from 'react-hot-toast'
-import { useForm, Controller } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup';
+import toast from 'react-hot-toast';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 // ** Icon Imports
 // import Icon from 'src/@core/components/icon'
 
 // ** Custom Components Imports
-import StepperCustomDot from './StepperCustomDot'
-import BlankLayout from 'src/@core/layouts/BlankLayout'
+import StepperCustomDot from './StepperCustomDot';
+import BlankLayout from 'src/@core/layouts/BlankLayout';
 
 // ** Styled Components
-import StepperWrapper from 'src/@core/styles/mui/stepper'
+import StepperWrapper from 'src/@core/styles/mui/stepper';
 
 // interface State {
 //   password: string
@@ -59,7 +59,7 @@ const steps = [
   {
     title: 'Información personal'
   }
-]
+];
 
 const defaultPersonalValues = {
   name: '',
@@ -67,13 +67,13 @@ const defaultPersonalValues = {
   gender: '',
   birthdate: '',
   civilStatus: ''
-}
+};
 
 const defaultContactValues = {
   altEmail: '',
   phone: '',
   zipCode: ''
-}
+};
 
 const personalSchema = yup.object().shape({
   lastName: yup.string().required(),
@@ -81,17 +81,17 @@ const personalSchema = yup.object().shape({
   gender: yup.string().required(),
   birthdate: yup.string().required(),
   civilStatus: yup.string().required()
-})
+});
 
 const contactSchema = yup.object().shape({
   altEmail: yup.string().email(),
   phone: yup.string().required(),
   zipCode: yup.string().required()
-})
+});
 
 const Register = () => {
   // ** States
-  const [activeStep, setActiveStep] = useState<number>(0)
+  const [activeStep, setActiveStep] = useState<number>(0);
 
   const countries: CountryType[] = [
     { code: 'AD', label: 'Andorra', phone: '376' },
@@ -298,9 +298,9 @@ const Register = () => {
       label: 'Saint Kitts and Nevis',
       phone: '1-869'
     }
-  ]
+  ];
 
-  const [caract, setCaract] = useState()
+  const [caract, setCaract] = useState();
 
   // ** Hooks
   const {
@@ -311,7 +311,7 @@ const Register = () => {
   } = useForm({
     defaultValues: defaultPersonalValues,
     resolver: yupResolver(personalSchema)
-  })
+  });
 
   const {
     reset: contactReset,
@@ -321,22 +321,22 @@ const Register = () => {
   } = useForm({
     defaultValues: defaultContactValues,
     resolver: yupResolver(contactSchema)
-  })
+  });
 
   // Handle Stepper
   const handleBack = () => {
-    setActiveStep(prevActiveStep => prevActiveStep - 1)
-  }
+    setActiveStep(prevActiveStep => prevActiveStep - 1);
+  };
 
   const handleReset = () => {
-    setActiveStep(0)
-    contactReset({ altEmail: '', phone: '', zipCode: '' })
-    personalReset({ lastName: '', name: '', gender: '', birthdate: '', civilStatus: '' })
-  }
+    setActiveStep(0);
+    contactReset({ altEmail: '', phone: '', zipCode: '' });
+    personalReset({ lastName: '', name: '', gender: '', birthdate: '', civilStatus: '' });
+  };
 
   const onSubmit = (data: any) => {
-    const manager = stepManager(activeStep, data, caract)
-    console.log(manager)
+    const manager = stepManager(activeStep, data, caract);
+    console.log(manager);
 
     // fetch(`http://ec2-54-234-25-190.compute-1.amazonaws.com/auth/step/${activeStep + 1}`, {
     //   method: 'POST',
@@ -355,11 +355,11 @@ const Register = () => {
     //     console.error('Error:', error);
     //   });
 
-    setActiveStep(activeStep + 1)
+    setActiveStep(activeStep + 1);
     if (activeStep === steps.length - 1) {
-      toast.success('Form Submitted')
+      toast.success('Form Submitted');
     }
-  }
+  };
 
   const getStepContent = (step: number) => {
     switch (step) {
@@ -407,7 +407,8 @@ const Register = () => {
                     getOptionLabel={option => option.label}
                     value={caract}
                     onChange={(newCar: any) => {
-                      setCaract(newCar)
+                      console.log(countries.length);
+                      setCaract(newCar);
                     }}
                     renderOption={(props, option) => (
                       <Box component='li' sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
@@ -498,7 +499,7 @@ const Register = () => {
               </Grid>
             </Grid>
           </form>
-        )
+        );
       case 1:
         return (
           <form key={1} onSubmit={handlePersonalSubmit(onSubmit)}>
@@ -665,11 +666,11 @@ const Register = () => {
               </Grid>
             </Grid>
           </form>
-        )
+        );
       default:
-        return null
+        return null;
     }
-  }
+  };
 
   const renderContent = () => {
     if (activeStep === steps.length) {
@@ -682,11 +683,11 @@ const Register = () => {
             </Button>
           </Box>
         </Fragment>
-      )
+      );
     } else {
-      return getStepContent(activeStep)
+      return getStepContent(activeStep);
     }
-  }
+  };
 
   return (
     <Card>
@@ -695,12 +696,12 @@ const Register = () => {
           <Stepper activeStep={activeStep}>
             {steps.map((step, index) => {
               const labelProps: {
-                error?: boolean
-              } = {}
+                error?: boolean;
+              } = {};
               if (index === activeStep) {
-                labelProps.error = false
+                labelProps.error = false;
                 if ((contactErrors.phone || contactErrors.altEmail || contactErrors.zipCode) && activeStep === 0) {
-                  labelProps.error = true
+                  labelProps.error = true;
                 } else if (
                   (personalErrors.lastName ||
                     personalErrors.gender ||
@@ -709,9 +710,9 @@ const Register = () => {
                     personalErrors.name) &&
                   activeStep === 1
                 ) {
-                  labelProps.error = true
+                  labelProps.error = true;
                 } else {
-                  labelProps.error = false
+                  labelProps.error = false;
                 }
               }
 
@@ -727,7 +728,7 @@ const Register = () => {
                     </div>
                   </StepLabel>
                 </Step>
-              )
+              );
             })}
           </Stepper>
         </StepperWrapper>
@@ -737,11 +738,11 @@ const Register = () => {
 
       <CardContent>{renderContent()}</CardContent>
     </Card>
-  )
-}
+  );
+};
 
-Register.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
+Register.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>;
 
-Register.guestGuard = true
+Register.guestGuard = true;
 
-export default Register
+export default Register;
