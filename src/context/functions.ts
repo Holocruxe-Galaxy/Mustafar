@@ -30,4 +30,6 @@ export async function afterLogin () {
     console.log(`%cWelcome back! I'm glad to see you again. What do you want to talk about today?`, styles);
   }
   localStorage.setItem('status', status.toString());
+  
+  return status;
 }

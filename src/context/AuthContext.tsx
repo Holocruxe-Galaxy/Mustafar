@@ -119,7 +119,7 @@ const AuthProvider = ({ children }: Props) => {
       window.localStorage.removeItem('createAccount');
 
 
-      const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/dashboard';
+      const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/register/';
       router.replace(redirectURL as string);
     } else {
       window.alert(res.message);
@@ -162,8 +162,9 @@ const AuthProvider = ({ children }: Props) => {
       // const returnUrl = router.query.returnUrl
 
       setUser(microservice_user);
-      await afterLogin();
-      const redirectURL = '/';
+
+      const status = await afterLogin();
+      const redirectURL = status === 'COMPLETE' ? '/home' : '/register/';
       router.replace(redirectURL as string);
     } else {
       window.alert(res.message);
