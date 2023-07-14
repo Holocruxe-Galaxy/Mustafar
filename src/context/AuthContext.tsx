@@ -163,7 +163,8 @@ const AuthProvider = ({ children }: Props) => {
 
       const status = await afterLogin();
       const redirectURL = status === 'COMPLETE' ? '/home' : '/register';
-      window.location.href = redirectURL;
+
+      redirectURL === '/home' ? router.replace(redirectURL) : (window.location.href = redirectURL);
     } else {
       window.alert(res.message);
       router.push('/api/auth/logout');
