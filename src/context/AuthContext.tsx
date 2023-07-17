@@ -89,7 +89,7 @@ const AuthProvider = ({ children }: Props) => {
       })
     };
 
-    const response = await fetch('http://lb-ms-auth-1623749626.us-east-1.elb.amazonaws.com/users/register', options);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CORUSCANT}/users/register`, options);
     const res = await response.json();
     const AuthorizationToken = response.headers.get('Authorization');
     if (AuthorizationToken !== null) {
@@ -117,8 +117,8 @@ const AuthProvider = ({ children }: Props) => {
       window.localStorage.removeItem('createAccount');
 
 
-      const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/dashboard';
-      router.replace(redirectURL as string);
+      const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/register';
+      window.location.href = redirectURL.toString();
     } else {
       window.alert(res.message);
       window.localStorage.removeItem('createAccount');
@@ -135,7 +135,7 @@ const AuthProvider = ({ children }: Props) => {
         email: userAuht0?.email
       })
     };
-    const response = await fetch('http://lb-ms-auth-1623749626.us-east-1.elb.amazonaws.com/users/login', options);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CORUSCANT}/users/login`, options);
     const res = await response.json();
     const AuthorizationToken = response.headers.get('Authorization');
     if (AuthorizationToken !== null) {
@@ -160,9 +160,11 @@ const AuthProvider = ({ children }: Props) => {
       // const returnUrl = router.query.returnUrl
 
       setUser(microservice_user);
-      await afterLogin();
-      const redirectURL = '/';
-      router.replace(redirectURL as string);
+
+      const status = await afterLogin();
+      const redirectURL = status === 'COMPLETE' ? '/home' : '/register';
+
+      redirectURL === '/home' ? router.replace(redirectURL) : (window.location.href = redirectURL);
     } else {
       window.alert(res.message);
       router.push('/api/auth/logout');
@@ -174,6 +176,8 @@ const AuthProvider = ({ children }: Props) => {
     window.localStorage.removeItem('AuthorizationToken');
     window.localStorage.removeItem('userData');
     window.localStorage.removeItem(authConfig.storageTokenKeyName);
+    window.localStorage.removeItem('step');
+    window.localStorage.removeItem('status');
     router.push('/api/auth/logout');
     router.push('/login');
   };
