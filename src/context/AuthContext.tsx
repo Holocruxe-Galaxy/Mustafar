@@ -60,8 +60,6 @@ const AuthProvider = ({ children }: Props) => {
             localStorage.removeItem('userData')
             localStorage.removeItem('refreshToken')
             localStorage.removeItem('accessToken')
-            localStorage.removeItem('step')
-            localStorage.removeItem('status')
             setUser(null)
             setLoading(false)
             if (authConfig.onTokenExpiration === 'logout' && !router.pathname.includes('login')) {
@@ -91,7 +89,7 @@ const AuthProvider = ({ children }: Props) => {
       })
     }
 
-    const response = await fetch('http://lb-ms-auth-1623749626.us-east-1.elb.amazonaws.com/users/register', options)
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CORUSCANT}/users/register`, options)
     const res = await response.json()
     const AuthorizationToken = response.headers.get('Authorization')
     if (AuthorizationToken !== null) {
@@ -119,7 +117,7 @@ const AuthProvider = ({ children }: Props) => {
       window.localStorage.removeItem('createAccount')
 
       const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/register'
-      router.replace(redirectURL as string)
+      window.location.href = redirectURL.toString()
     } else {
       window.alert(res.message)
       window.localStorage.removeItem('createAccount')
@@ -136,7 +134,7 @@ const AuthProvider = ({ children }: Props) => {
         email: userAuht0?.email
       })
     }
-    const response = await fetch('http://lb-ms-auth-1623749626.us-east-1.elb.amazonaws.com/users/login', options)
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CORUSCANT}/users/login`, options)
     const res = await response.json()
     const AuthorizationToken = response.headers.get('Authorization')
     if (AuthorizationToken !== null) {
@@ -164,7 +162,8 @@ const AuthProvider = ({ children }: Props) => {
 
       const status = await afterLogin()
       const redirectURL = status === 'COMPLETE' ? '/home' : '/register'
-      router.replace(redirectURL as string)
+
+      redirectURL === '/home' ? router.replace(redirectURL) : (window.location.href = redirectURL)
     } else {
       window.alert(res.message)
       router.push('/api/auth/logout')
