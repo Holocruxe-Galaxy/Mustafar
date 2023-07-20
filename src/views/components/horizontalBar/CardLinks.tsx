@@ -9,8 +9,8 @@ import { styled } from '@mui/material/styles'
 // ** Custom Components Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
-// ** Types Imports
-import { CardLinksProp } from 'src/@core/components/card-statistics/types'
+// ** Type
+import { CardLinksProps } from './types'
 
 // ** Styled Avatar component
 const Avatar = styled(CustomAvatar)<AvatarProps>(({ theme }) => ({
@@ -19,15 +19,13 @@ const Avatar = styled(CustomAvatar)<AvatarProps>(({ theme }) => ({
   marginRight: theme.spacing(4)
 }))
 
-const CardLinks = (props: CardLinksProp) => {
-  // ** Props
-  const name = 'Acá viene un Link'
-
-  /*   const { name } = props */
+const CardLinks = (props: CardLinksProps) => {
+  // Vars
+  const { name, icon } = props
 
   return (
-    <Card sx={{ display: 'flex', alignItems: 'center', width: 290, backgroundColor: 'red', margin: 2 }}>
-      <CardContent sx={{ py: theme => `${theme.spacing(4.125)} !important`, height: 100 }}>
+    <Card sx={{ display: 'flex', alignItems: 'center', width: 400, margin: 5 }}>
+      <CardContent sx={{ height: 100 }}>
         <Box
           sx={{
             display: 'flex',
@@ -35,8 +33,8 @@ const CardLinks = (props: CardLinksProp) => {
             flexWrap: 'wrap'
           }}
         >
-          <Avatar skin='light' /* color={color} */ variant='rounded'>
-            {/* {icon} */}
+          <Avatar skin='light' variant='rounded'>
+            {icon}
           </Avatar>
           <Typography variant='h6'>{name}</Typography>
         </Box>

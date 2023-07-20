@@ -1,24 +1,11 @@
 // ** MUI Imports
 import Box from '@mui/material/Box'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import Typography from '@mui/material/Typography'
-import { AvatarProps } from '@mui/material/Avatar'
-import { styled } from '@mui/material/styles'
 import { useTheme } from '@mui/material/styles'
 
-// ** Hooks
+// ** Hooks Import
 import { useSettings } from 'src/@core/hooks/useSettings'
-import CardLinks from 'src/views/components/cardLinks/CardLinks'
-
-// ** Custom Components Imports
-import CustomAvatar from 'src/@core/components/mui/avatar'
-
-const Avatar = styled(CustomAvatar)<AvatarProps>(({ theme }) => ({
-  width: 55,
-  height: 55,
-  marginRight: theme.spacing(4)
-}))
+import CardLinks from 'src/views/components/horizontalBar/CardLinks'
+import { CardLinksProps } from 'src/views/components/horizontalBar/types'
 
 const ButtonBarContent = () => {
   // ** Hooks
@@ -27,7 +14,14 @@ const ButtonBarContent = () => {
 
   // Vars
   const { skin } = settings
-  const name = 'Acá viene un Link'
+  const cards = [
+    {
+      name: 'Card 1'
+    },
+    {
+      name: 'Card 2'
+    }
+  ]
 
   return (
     <Box
@@ -42,22 +36,9 @@ const ButtonBarContent = () => {
         ...(skin === 'bordered' && { border: `1px solid ${theme.palette.divider}` })
       }}
     >
-      <Card sx={{ display: 'flex', alignItems: 'center', width: 290, margin: 5, height: 50 }}>
-        <CardContent sx={{ py: theme => `${theme.spacing(4.125)} !important` }}>
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              flexWrap: 'wrap'
-            }}
-          >
-            <Avatar skin='light' /* color={color} */ variant='rounded'>
-              {/* {icon} */}
-            </Avatar>
-            <Typography variant='h6'>{name}</Typography>
-          </Box>
-        </CardContent>
-      </Card>
+      {cards.map((item: CardLinksProps, index: number) => {
+        return <CardLinks name={item.name} key={index} />
+      })}
     </Box>
   )
 }

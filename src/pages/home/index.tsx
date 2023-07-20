@@ -18,11 +18,11 @@ import { useSettings } from 'src/@core/hooks/useSettings'
 
 // ** Third Party Styles Import
 import 'chart.js/auto'
-import ButtonBarContent from 'src/layouts/components/horizontal/ButtonBarContent'
 
 const Home = () => {
-  const theme = useTheme()
+  // ** Hooks
   const { settings } = useSettings()
+  const theme = useTheme()
 
   // Vars
   const { skin } = settings
@@ -38,9 +38,6 @@ const Home = () => {
     <>
       <ApexChartWrapper>
         <Grid container spacing={6} className='match-height'>
-          <Grid item xs={12} sm={6} md={12} height={150}>
-            <ButtonBarContent />
-          </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <Box
               sx={{
@@ -71,13 +68,13 @@ const Home = () => {
           </Grid>
           <Grid item xs={12} md={4} height={450}>
             <ChartjsPolarAreaChart
-              yellow={yellowColor}
               info={polarChartInfo}
               grey={polarChartGrey}
-              primary={primaryColor}
               green={polarChartGreen}
-              legendColor={legendColor}
+              yellow={yellowColor}
+              primary={primaryColor}
               warning={polarChartWarning}
+              legendColor={legendColor}
             />
           </Grid>
         </Grid>
