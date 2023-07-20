@@ -125,12 +125,13 @@ const App = (props: ExtendedAppProps) => {
       <Provider store={store}>
         <CacheProvider value={emotionCache}>
           <Head>
-            <title>Holocruxe - una experiencia única</title>
+            <title>Holocruxe - Una experiencia única</title>
             <meta
               name='description'
               content={`${themeConfig.templateName} – Material Design React Admin Dashboard Template – is the most developer friendly & highly customizable Admin Dashboard Template based on MUI v5.`}
             />
-            <meta name='keywords' content='Material Design, MUI, Admin Template, React Admin Template' />
+            <link rel='shortcut icon' href='/images/favicon.png' />
+            <meta name='keywords' content='Holocruxe, IA, AI, Cruxi' />
             <meta name='viewport' content='initial-scale=1, width=device-width' />
           </Head>
 
