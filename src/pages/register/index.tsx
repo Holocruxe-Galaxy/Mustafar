@@ -90,12 +90,14 @@ const Register = () => {
 
   const currentStep = localStorage.getItem('step');
   const step = isNumber(currentStep) ?? steps.length;
+  console.log("🚀 ~ file: index.tsx:93 ~ Register ~ CUREENTstep:", isNumber(currentStep));
+  console.log("🚀 ~ file: index.tsx:93 ~ Register ~ step:", step);
 
   const { logout } = useAuth();
 
-  const [anchorEl, setAnchorEl] = useState<Element | null>(null);
+  const [, setAnchorEl] = useState<Element | null>(null);
 
-  console.log(anchorEl);
+
 
   const handleDropdownClose = (url?: string) => {
     if (url) {
