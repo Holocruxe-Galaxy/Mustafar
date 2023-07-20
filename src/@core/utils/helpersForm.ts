@@ -18,9 +18,7 @@ const stepsForm: Step = {
 export function isNumber(val: unknown): number | null {
   if (val == null) return null;
   if (!isNaN(Number(val))) {
-    console.log(Number(val))
-    
-return Number(val);
+    return Number(val);
   };
   throw new Error("Please don't play around with the local storage.");
 }
