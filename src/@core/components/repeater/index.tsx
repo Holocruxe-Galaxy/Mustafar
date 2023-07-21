@@ -3,10 +3,10 @@ import { RepeaterProps } from './types'
 
 const Repeater = (props: RepeaterProps) => {
   // ** Props
-  const { count, tag, children } = props
+  const { count, children } = props
 
   // ** Custom Tag
-  const Tag = tag || 'div'
+  // const Tag = tag || 'div'
 
   // ** Default Items
   const items = []
@@ -16,7 +16,7 @@ const Repeater = (props: RepeaterProps) => {
     items.push(children(i))
   }
 
-  return <Tag {...props}>{items}</Tag>
+  return <div></div>
 }
 
 export default Repeater

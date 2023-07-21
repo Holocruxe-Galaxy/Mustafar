@@ -208,6 +208,7 @@ const AddEventSidebar = (props: AddEventSidebarType) => {
       sx={{ '& .MuiDrawer-paper': { width: ['100%', drawerWidth] } }}
     >
       <Box
+        component='div'
         className='sidebar-header'
         sx={{
           display: 'flex',
@@ -219,7 +220,7 @@ const AddEventSidebar = (props: AddEventSidebarType) => {
         <Typography variant='h6'>
           {store.selectedEvent !== null && store.selectedEvent.title.length ? 'Update Event' : 'Add Event'}
         </Typography>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
           {store.selectedEvent !== null && store.selectedEvent.title.length ? (
             <IconButton
               size='small'
@@ -234,7 +235,7 @@ const AddEventSidebar = (props: AddEventSidebarType) => {
           </IconButton>
         </Box>
       </Box>
-      <Box className='sidebar-body' sx={{ p: theme => theme.spacing(5, 6) }}>
+      <Box component='div' className='sidebar-body' sx={{ p: theme => theme.spacing(5, 6) }}>
         <DatePickerWrapper>
           <form onSubmit={handleSubmit(onSubmit)} autoComplete='off'>
             <FormControl fullWidth sx={{ mb: 6 }}>
@@ -267,7 +268,7 @@ const AddEventSidebar = (props: AddEventSidebarType) => {
                 <MenuItem value='ETC'>ETC</MenuItem>
               </Select>
             </FormControl>
-            <Box sx={{ mb: 6 }}>
+            <Box component='div' sx={{ mb: 6 }}>
               <DatePicker
                 selectsStart
                 id='event-start-date'
@@ -281,7 +282,7 @@ const AddEventSidebar = (props: AddEventSidebarType) => {
                 onSelect={handleStartDate}
               />
             </Box>
-            <Box sx={{ mb: 6 }}>
+            <Box component='div' sx={{ mb: 6 }}>
               <DatePicker
                 selectsEnd
                 id='event-end-date'
@@ -339,7 +340,7 @@ const AddEventSidebar = (props: AddEventSidebarType) => {
               value={values.description}
               onChange={e => setValues({ ...values, description: e.target.value })}
             />
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
               <RenderSidebarFooter />
             </Box>
           </form>

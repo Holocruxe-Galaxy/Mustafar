@@ -102,7 +102,7 @@ import Avatar from '@mui/material/Avatar'
 
 const AvatarsImage = () => {
   return (
-    <Box className='demo-space-x' sx={{ display: 'flex' }}>
+    <Box component='div'className='demo-space-x' sx={{ display: 'flex' }}>
       <Avatar src='/images/avatars/1.png' alt='Victor Anderson' />
       <Avatar src='/images/avatars/8.png' alt='Alice Cobb' />
       <Avatar src='/images/avatars/7.png' alt='Jeffery Warner' />
@@ -129,7 +129,7 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 
 const AvatarsIcon = () => {
   return (
-    <Box className='demo-space-x' sx={{ display: 'flex' }}>
+    <Box component='div'className='demo-space-x' sx={{ display: 'flex' }}>
       <Avatar>
         <Icon icon='mdi:folder-outline' />
       </Avatar>
@@ -156,7 +156,7 @@ import Avatar from '@mui/material/Avatar'
 
 const AvatarsSizes = () => {
   return (
-    <Box className='demo-space-x' sx={{ display: 'flex', alignItems: 'center' }}>
+    <Box component='div'className='demo-space-x' sx={{ display: 'flex', alignItems: 'center' }}>
       <Avatar alt='Victor Anderson' sx={{ width: 25, height: 25 }} src='/images/avatars/3.png' />
       <Avatar alt='Victor Anderson' src='/images/avatars/3.png' />
       <Avatar alt='Victor Anderson' sx={{ width: 56, height: 56 }} src='/images/avatars/3.png' />
@@ -180,7 +180,7 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 
 const AvatarsLetter = () => {
   return (
-    <Box className='demo-space-x' sx={{ display: 'flex' }}>
+    <Box component='div'className='demo-space-x' sx={{ display: 'flex' }}>
       <MuiAvatar>H</MuiAvatar>
       <CustomAvatar>N</CustomAvatar>
       <CustomAvatar skin='light' color='error'>
@@ -217,7 +217,7 @@ const BadgeContentSpan = styled('span')(({ theme }) => ({
 
 const AvatarsWithBadge = () => {
   return (
-    <Box className='demo-space-x' sx={{ display: 'flex' }}>
+    <Box component='div'className='demo-space-x' sx={{ display: 'flex' }}>
       <Badge
         overlap='circular'
         badgeContent={<BadgeContentSpan />}
@@ -266,7 +266,7 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 
 const AvatarsVariants = () => {
   return (
-    <Box className='demo-space-x' sx={{ display: 'flex' }}>
+    <Box component='div'className='demo-space-x' sx={{ display: 'flex' }}>
       <CustomAvatar variant='square'>
         <Icon icon='mdi:bell-outline' />
       </CustomAvatar>
@@ -395,7 +395,7 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 
 const AvatarsLetter = () => {
   return (
-    <Box className='demo-space-x' sx={{ display: 'flex' }}>
+    <Box component='div'className='demo-space-x' sx={{ display: 'flex' }}>
       <MuiAvatar>H</MuiAvatar>
       <CustomAvatar>N</CustomAvatar>
       <CustomAvatar skin='light' color='error'>
@@ -421,7 +421,7 @@ import Avatar from '@mui/material/Avatar'
 
 const AvatarsImage = () => {
   return (
-    <Box className='demo-space-x' sx={{ display: 'flex' }}>
+    <Box component='div'className='demo-space-x' sx={{ display: 'flex' }}>
       <Avatar src='/images/avatars/1.png' alt='Victor Anderson' />
       <Avatar src='/images/avatars/8.png' alt='Alice Cobb' />
       <Avatar src='/images/avatars/7.png' alt='Jeffery Warner' />
@@ -448,7 +448,7 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 
 const AvatarsIcon = () => {
   return (
-    <Box className='demo-space-x' sx={{ display: 'flex' }}>
+    <Box component='div'className='demo-space-x' sx={{ display: 'flex' }}>
       <Avatar>
         <Icon icon='mdi:folder-outline' />
       </Avatar>
@@ -475,7 +475,7 @@ import Avatar from '@mui/material/Avatar'
 
 const AvatarsSizes = () => {
   return (
-    <Box className='demo-space-x' sx={{ display: 'flex', alignItems: 'center' }}>
+    <Box component='div'className='demo-space-x' sx={{ display: 'flex', alignItems: 'center' }}>
       <Avatar alt='Victor Anderson' sx={{ width: 25, height: 25 }} src='/images/avatars/3.png' />
       <Avatar alt='Victor Anderson' src='/images/avatars/3.png' />
       <Avatar alt='Victor Anderson' sx={{ width: 56, height: 56 }} src='/images/avatars/3.png' />
@@ -501,7 +501,7 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 
 const AvatarsVariants = () => {
   return (
-    <Box className='demo-space-x' sx={{ display: 'flex' }}>
+    <Box component='div'className='demo-space-x' sx={{ display: 'flex' }}>
       <CustomAvatar variant='square'>
         <Icon icon='mdi:bell-outline' />
       </CustomAvatar>
@@ -542,7 +542,7 @@ const BadgeContentSpan = styled('span')(({ theme }) => ({
 
 const AvatarsWithBadge = () => {
   return (
-    <Box className='demo-space-x' sx={{ display: 'flex' }}>
+    <Box component='div'className='demo-space-x' sx={{ display: 'flex' }}>
       <Badge
         overlap='circular'
         badgeContent={<BadgeContentSpan />}

@@ -10,7 +10,7 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 
 const AvatarsIcon = () => {
   return (
-    <Box className='demo-space-x' sx={{ display: 'flex' }}>
+    <Box component='div' className='demo-space-x' sx={{ display: 'flex' }}>
       <Avatar>
         <Icon icon='mdi:folder-outline' />
       </Avatar>

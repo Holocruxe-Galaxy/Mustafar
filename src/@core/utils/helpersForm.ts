@@ -15,12 +15,24 @@ const stepsForm: Step = {
 };
 
 
+export function isNumber(val: unknown): number | null {
+  if (val == null) return null;
+  if (!isNaN(Number(val))) {
+    return Number(val);
+  };
+  throw new Error("Please don't play around with the local storage.");
+}
+
+
 export const stepManager = (num: number, data: any, country: CountryType | undefined) => {
   const property = stepsForm[num];
 
   if(property === 'contactInfo' && country){
     const phone = country.code + '+' + country.phone + data.phone;
     const newData = {...data, phone };
+    if(!data.altEmail.length){
+      delete newData['altEmail'];
+    }
     console.log({ [property]: newData })
 
     return { [property]: newData }

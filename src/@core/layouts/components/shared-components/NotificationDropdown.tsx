@@ -113,7 +113,11 @@ const MenuItemSubtitle = styled(Typography)<TypographyProps>({
 
 const ScrollWrapper = ({ children, hidden }: { children: ReactNode; hidden: boolean }) => {
   if (hidden) {
-    return <Box sx={{ maxHeight: 349, overflowY: 'auto', overflowX: 'hidden' }}>{children}</Box>
+    return (
+      <Box component='div' sx={{ maxHeight: 349, overflowY: 'auto', overflowX: 'hidden' }}>
+        {children}
+      </Box>
+    )
   } else {
     return <PerfectScrollbar options={{ wheelPropagation: false, suppressScrollX: true }}>{children}</PerfectScrollbar>
   }
@@ -186,7 +190,10 @@ const NotificationDropdown = (props: Props) => {
           disableTouchRipple
           sx={{ cursor: 'default', userSelect: 'auto', backgroundColor: 'transparent !important' }}
         >
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+          <Box
+            component='div'
+            sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}
+          >
             <Typography sx={{ cursor: 'text', fontWeight: 600 }}>Notifications</Typography>
             <CustomChip
               skin='light'
@@ -200,9 +207,12 @@ const NotificationDropdown = (props: Props) => {
         <ScrollWrapper hidden={hidden}>
           {notifications.map((notification: NotificationsType, index: number) => (
             <MenuItem key={index} onClick={handleDropdownClose}>
-              <Box sx={{ width: '100%', display: 'flex', alignItems: 'center' }}>
+              <Box component='div' sx={{ width: '100%', display: 'flex', alignItems: 'center' }}>
                 <RenderAvatar notification={notification} />
-                <Box sx={{ mx: 4, flex: '1 1', display: 'flex', overflow: 'hidden', flexDirection: 'column' }}>
+                <Box
+                  component='div'
+                  sx={{ mx: 4, flex: '1 1', display: 'flex', overflow: 'hidden', flexDirection: 'column' }}
+                >
                   <MenuItemTitle>{notification.title}</MenuItemTitle>
                   <MenuItemSubtitle variant='body2'>{notification.subtitle}</MenuItemSubtitle>
                 </Box>

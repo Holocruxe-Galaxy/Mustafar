@@ -106,6 +106,7 @@ const UserViewConnection = () => {
             {connectedAccountsArr.map(account => {
               return (
                 <Box
+                  component='div'
                   key={account.title}
                   sx={{
                     gap: 2,
@@ -115,8 +116,8 @@ const UserViewConnection = () => {
                     '&:not(:last-of-type)': { mb: 4 }
                   }}
                 >
-                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <Box sx={{ mr: 4, display: 'flex', justifyContent: 'center' }}>
+                  <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
+                    <Box component='div' sx={{ mr: 4, display: 'flex', justifyContent: 'center' }}>
                       <img src={account.logo} alt={account.title} height='30' width='30' />
                     </Box>
                     <div>
@@ -145,6 +146,7 @@ const UserViewConnection = () => {
             {socialAccountsArr.map(account => {
               return (
                 <Box
+                  component='div'
                   key={account.title}
                   sx={{
                     gap: 2,
@@ -154,8 +156,8 @@ const UserViewConnection = () => {
                     '&:not(:last-of-type)': { mb: 4 }
                   }}
                 >
-                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <Box sx={{ mr: 4, minWidth: 45, display: 'flex', justifyContent: 'center' }}>
+                  <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
+                    <Box component='div' sx={{ mr: 4, minWidth: 45, display: 'flex', justifyContent: 'center' }}>
                       <img src={account.logo} alt={account.title} height='30' />
                     </Box>
                     <div>
