@@ -25,6 +25,7 @@ const ButtonBarContent = () => {
         boxShadow: skin === 'bordered' ? 0 : 6,
         ...(skin === 'bordered' && { border: `1px solid ${theme.palette.divider}` })
       }}
+      component='div'
     ></Box>
   )
 }
