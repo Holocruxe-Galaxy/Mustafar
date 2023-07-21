@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useGLTF } from '@react-three/drei'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { /* Canvas, */ useFrame } from '@react-three/fiber'
 
 export function Cruxi(props) {
   const gltf = useGLTF('/models/robotv4.gltf')
@@ -22,7 +22,7 @@ export function Cruxi(props) {
 
   useFrame(() => {
     if (groupRef && groupRef.current) {
-      const scaleFactor = 8
+      /* const scaleFactor = 8 */
       const [x, y] = [mousePosition.x / window.innerWidth - 0.5, mousePosition.y / window.innerHeight - 0.5]
       const maxXRotation = Math.PI / 6
       const minXRotation = -Math.PI / 6

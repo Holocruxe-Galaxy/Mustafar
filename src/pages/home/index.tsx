@@ -1,16 +1,18 @@
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
-import { AvatarProps } from '@mui/material/Avatar'
+
+/* import { AvatarProps } from '@mui/material/Avatar' */
 import { Box } from '@mui/system'
 import { useTheme } from '@mui/material/styles'
-import { styled } from '@mui/material/styles'
+
+/* import { styled } from '@mui/material/styles' */
 
 // ** Models
 
 import { Cruxi } from 'src/models/cruxi'
 
 // ** Custom Components Imports
-import CustomAvatar from 'src/@core/components/mui/avatar'
+/* import CustomAvatar from 'src/@core/components/mui/avatar' */
 
 // ** Styled Component Import
 import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
@@ -27,15 +29,16 @@ import { useSettings } from 'src/@core/hooks/useSettings'
 
 // ** Third Party Styles Import
 import 'chart.js/auto'
-import ButtonBarContent from 'src/layouts/components/horizontal/ButtonBarContent'
+
+/* import ButtonBarContent from 'src/layouts/components/horizontal/ButtonBarContent' */
 import { Canvas } from '@react-three/fiber'
 
 // ** Styled Avatar component
-const Avatar = styled(CustomAvatar)<AvatarProps>(({ theme }) => ({
+/* const Avatar = styled(CustomAvatar)<AvatarProps>(({ theme }) => ({
   width: 40,
   height: 40,
   marginRight: theme.spacing(4)
-}))
+})) */
 
 const Home = () => {
   const theme = useTheme()
@@ -56,8 +59,8 @@ const Home = () => {
       <ApexChartWrapper>
         <Grid container spacing={6} className='match-height'>
           <Grid item xs={12} sm={6} md={12} height={150}>
-            <ButtonBarContent>
-              {/*               <Grid item xs={12}>
+            {/* <ButtonBarContent>
+                             <Grid item xs={12}>
                 <Box
                   sx={{
                     width: '20%',
@@ -74,11 +77,12 @@ const Home = () => {
                      {icon}
                   </Avatar>
                 </Box>
-              </Grid> */}
-            </ButtonBarContent>
+              </Grid> 
+            </ButtonBarContent> */}
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <Box
+              component='div'
               sx={{
                 width: '100%',
                 height: '100%',
