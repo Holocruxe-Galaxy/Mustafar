@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid'
 import ActivityTimeline from 'src/views/pages/user-profile/profile/ActivityTimeline'
 
 /*import ConnectionsTeams from 'src/views/pages/user-profile/profile/ConnectionsTeams'*/
-import UserViewLeft from 'src/views/pages/user-profile/profile/UserViewLeft'
+import UserData from 'src/views/pages/user-profile/profile/UserData'
 
 // ** Types
 import { ProfileTabType } from 'src/@fake-db/types'
@@ -14,7 +14,7 @@ const ProfileTab = ({ data }: { data: ProfileTabType }) => {
   return data && Object.values(data).length ? (
     <Grid container spacing={6}>
       <Grid item lg={4} md={5} xs={12}>
-        <UserViewLeft />
+        <UserData />
       </Grid>
       <Grid item lg={8} md={7} xs={12}>
         <Grid container spacing={6}>

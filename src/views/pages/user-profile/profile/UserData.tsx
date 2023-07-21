@@ -6,9 +6,10 @@ import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import Button from '@mui/material/Button'
+import Badge from '@mui/material/Badge'
+import Avatar from '@mui/material/Avatar'
 import Dialog from '@mui/material/Dialog'
 import Select from '@mui/material/Select'
-import Switch from '@mui/material/Switch'
 import Divider from '@mui/material/Divider'
 import MenuItem from '@mui/material/MenuItem'
 import TextField from '@mui/material/TextField'
@@ -20,8 +21,6 @@ import DialogTitle from '@mui/material/DialogTitle'
 import FormControl from '@mui/material/FormControl'
 import DialogContent from '@mui/material/DialogContent'
 import DialogActions from '@mui/material/DialogActions'
-import InputAdornment from '@mui/material/InputAdornment'
-import FormControlLabel from '@mui/material/FormControlLabel'
 import DialogContentText from '@mui/material/DialogContentText'
 
 // ** Custom Components
@@ -53,7 +52,7 @@ const data: UsersType = {
   currentPlan: 'enterprise',
   fullName: 'Daisy Patterson',
   email: 'gslixby0@abc.net.au',
-  avatar: '/images/avatars/4.png'
+  avatar: '/images/avatars/1.png'
 }
 
 const roleColors: ColorsType = {
@@ -70,7 +69,7 @@ const statusColors: ColorsType = {
   inactive: 'secondary'
 }
 
-const UserViewLeft = () => {
+const UserData = () => {
   // ** States
   const [openEdit, setOpenEdit] = useState<boolean>(false)
   const [suspendDialogOpen, setSuspendDialogOpen] = useState<boolean>(false)
@@ -91,7 +90,7 @@ const UserViewLeft = () => {
                   src={data.avatar}
                   variant='rounded'
                   alt={data.fullName}
-                  sx={{ width: 120, height: 120, fontWeight: 600, mb: 4 }}
+                  sx={{ width: 120, height: 120, fontWeight: 600, mb: 4, borderRadius: '50%' }}
                 />
               ) : (
                 <CustomAvatar
@@ -124,22 +123,56 @@ const UserViewLeft = () => {
             <CardContent>
               <Typography variant='h6'>Detalles</Typography>
               <Divider sx={{ mt: theme => `${theme.spacing(4)} !important` }} />
-              <Box sx={{ pt: 2, pb: 1 }}>
-                <Box sx={{ display: 'flex', mb: 2.7 }}>
+              <Box sx={{ pt: 2, pb: 1 }} component='div'>
+                <Box sx={{ display: 'flex', mb: 2.7 }} component='div'>
                   <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
-                    Username:
+                    Apodo:
                   </Typography>
                   <Typography variant='body2'>@{data.username}</Typography>
                 </Box>
-                <Box sx={{ display: 'flex', mb: 2.7 }}>
+                <Box sx={{ display: 'flex', mb: 2.7 }} component='div'>
+                  <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
+                    Fecha de nacimiento:
+                  </Typography>
+                  <Typography variant='body2'></Typography>
+                </Box>
+                <Box sx={{ display: 'flex', mb: 2.7 }} component='div'>
+                  <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
+                    Ciudad:
+                  </Typography>
+                  <Typography variant='body2'>{data.country}</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', mb: 2.7 }} component='div'>
+                  <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
+                    Provincia:
+                  </Typography>
+                  <Typography variant='body2'></Typography>
+                </Box>
+                <Box sx={{ display: 'flex', mb: 2.7 }} component='div'>
+                  <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
+                    País:
+                  </Typography>
+                  <Typography variant='body2'></Typography>
+                </Box>
+                <Box sx={{ display: 'flex', mb: 2.7 }} component='div'>
+                  <Typography sx={{ mr: 2.7, fontWeight: 500, fontSize: '0.875rem' }}>Teléfono:</Typography>
+                  <Typography variant='body2'>+1 {data.contact}</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', mb: 2.7 }} component='div'>
                   <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
                     Email:
                   </Typography>
                   <Typography variant='body2'>{data.email}</Typography>
                 </Box>
-                <Box sx={{ display: 'flex', mb: 2.7 }}>
+                <Box sx={{ display: 'flex', mb: 2.7 }} component='div'>
                   <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
-                    Status:
+                    Idioma:
+                  </Typography>
+                  <Typography variant='body2'>Español</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', mb: 2.7 }} component='div'>
+                  <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
+                    Estado:
                   </Typography>
                   <CustomChip
                     skin='light'
@@ -155,30 +188,12 @@ const UserViewLeft = () => {
                     }}
                   />
                 </Box>
-                <Box sx={{ display: 'flex', mb: 2.7 }}>
-                  <Typography sx={{ mr: 2, fontWeight: 500, fontSize: '0.875rem' }}>Role:</Typography>
-                  <Typography variant='body2' sx={{ textTransform: 'capitalize' }}>
-                    {data.role}
-                  </Typography>
-                </Box>
-                <Box sx={{ display: 'flex', mb: 2.7 }}>
-                  <Typography sx={{ mr: 2, fontWeight: 500, fontSize: '0.875rem' }}>Contact:</Typography>
-                  <Typography variant='body2'>+1 {data.contact}</Typography>
-                </Box>
-                <Box sx={{ display: 'flex', mb: 2.7 }}>
-                  <Typography sx={{ mr: 2, fontWeight: 500, fontSize: '0.875rem' }}>Language:</Typography>
-                  <Typography variant='body2'>English</Typography>
-                </Box>
-                <Box sx={{ display: 'flex' }}>
-                  <Typography sx={{ mr: 2, fontWeight: 500, fontSize: '0.875rem' }}>Country:</Typography>
-                  <Typography variant='body2'>{data.country}</Typography>
-                </Box>
               </Box>
             </CardContent>
 
             <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
               <Button variant='contained' sx={{ mr: 2 }} onClick={handleEditClickOpen}>
-                Edit
+                Editar
               </Button>
             </CardActions>
 
@@ -210,47 +225,35 @@ const UserViewLeft = () => {
                   Updating user details will receive a privacy audit.
                 </DialogContentText>
                 <form>
+                  <Grid>
+                    <Badge color='primary' variant='dot' anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
+                      <Avatar src='/images/avatars/1.png' alt='User Avatar' />
+                    </Badge>
+                  </Grid>
                   <Grid container spacing={6}>
                     <Grid item xs={12} sm={6}>
-                      <TextField fullWidth label='Full Name' defaultValue={data.fullName} />
+                      <TextField fullWidth label='Apodo' defaultValue='' />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                      <TextField
-                        fullWidth
-                        label='Username'
-                        defaultValue={data.username}
-                        InputProps={{ startAdornment: <InputAdornment position='start'>@</InputAdornment> }}
-                      />
+                      <TextField fullWidth label='Fecha de Nacimiento' defaultValue='' />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                      <TextField fullWidth type='email' label='Billing Email' defaultValue={data.email} />
+                      <TextField fullWidth type='email' label='Email' defaultValue={data.email} />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                      <FormControl fullWidth>
-                        <InputLabel id='user-view-status-label'>Status</InputLabel>
-                        <Select
-                          label='Status'
-                          defaultValue={data.status}
-                          id='user-view-status'
-                          labelId='user-view-status-label'
-                        >
-                          <MenuItem value='pending'>Pending</MenuItem>
-                          <MenuItem value='active'>Active</MenuItem>
-                          <MenuItem value='inactive'>Inactive</MenuItem>
-                        </Select>
-                      </FormControl>
+                      <TextField fullWidth label='Ciudad' defaultValue='' />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                      <TextField fullWidth label='TAX ID' defaultValue='Tax-8894' />
+                      <TextField fullWidth label='País' defaultValue='' />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                      <TextField fullWidth label='Contact' defaultValue={`+1 ${data.contact}`} />
+                      <TextField fullWidth label='Teléfono' defaultValue={`+54 ${data.contact}`} />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                       <FormControl fullWidth>
-                        <InputLabel id='user-view-language-label'>Language</InputLabel>
+                        <InputLabel id='user-view-language-label'>Idioma</InputLabel>
                         <Select
-                          label='Language'
+                          label='Idioma'
                           defaultValue='English'
                           id='user-view-language'
                           labelId='user-view-language-label'
@@ -264,31 +267,6 @@ const UserViewLeft = () => {
                         </Select>
                       </FormControl>
                     </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <FormControl fullWidth>
-                        <InputLabel id='user-view-country-label'>Country</InputLabel>
-                        <Select
-                          label='Country'
-                          defaultValue='USA'
-                          id='user-view-country'
-                          labelId='user-view-country-label'
-                        >
-                          <MenuItem value='USA'>USA</MenuItem>
-                          <MenuItem value='UK'>UK</MenuItem>
-                          <MenuItem value='Spain'>Spain</MenuItem>
-                          <MenuItem value='Russia'>Russia</MenuItem>
-                          <MenuItem value='France'>France</MenuItem>
-                          <MenuItem value='Germany'>Germany</MenuItem>
-                        </Select>
-                      </FormControl>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <FormControlLabel
-                        label='Use as a billing address?'
-                        control={<Switch defaultChecked />}
-                        sx={{ '& .MuiTypography-root': { fontWeight: 500 } }}
-                      />
-                    </Grid>
                   </Grid>
                 </form>
               </DialogContent>
@@ -300,10 +278,10 @@ const UserViewLeft = () => {
                 }}
               >
                 <Button variant='contained' sx={{ mr: 2 }} onClick={handleEditClose}>
-                  Submit
+                  Enviar
                 </Button>
                 <Button variant='outlined' color='secondary' onClick={handleEditClose}>
-                  Cancel
+                  Cancelar
                 </Button>
               </DialogActions>
             </Dialog>
@@ -319,4 +297,4 @@ const UserViewLeft = () => {
   }
 }
 
-export default UserViewLeft
+export default UserData
