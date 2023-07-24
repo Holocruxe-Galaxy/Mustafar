@@ -12,13 +12,17 @@ import { Settings } from 'src/@core/context/settingsContext'
 
 // ** Components
 // **import Autocomplete from 'src/layouts/components/Autocomplete'
+import CardLinks from 'src/views/components/horizontalBar/CardLinks'
+import LanguageDropdown from 'src/@core/layouts/components/shared-components/LanguageDropdown'
 import ModeToggler from 'src/@core/layouts/components/shared-components/ModeToggler'
 import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
-import LanguageDropdown from 'src/@core/layouts/components/shared-components/LanguageDropdown'
 
 // ** Hook Import
 import { useAuth } from 'src/hooks/useAuth'
-import CardLinks from 'src/views/components/horizontalBar/CardLinks'
+import { useRouter } from 'next/router'
+import { Link } from '@mui/material'
+
+/* import Link from 'next/link' */
 
 interface Props {
   hidden: boolean
@@ -30,17 +34,35 @@ interface Props {
 const AppBarContent = (props: Props) => {
   // ** Hook
   const auth = useAuth()
+  const router = useRouter()
 
   // ** Props
   const { /* hidden, */ settings, saveSettings /* , toggleNavVisibility  */ } = props
   const theme = useTheme()
 
+  const button = [
+    {
+      page: 'home',
+      buttons: [
+        { name: 'Tutorial', icon: '', href: '' }
+
+        /*         { name: 'Documentation', icon: '', href: '' } */
+      ]
+    },
+    {
+      page: 'apps/chat',
+      buttons: [
+        { name: 'Tus intereses', icon: '', href: '/home' },
+        { name: 'Tus métricas', icon: '', href: '' }
+      ]
+    }
+  ]
+
   // Vars
+  /*   const currentPath = router.pathname */
+  const currentPage = button.find(item => item.page == router.pathname.slice(1))
+
   const { skin } = settings
-  const button = {
-    name: 'Tutorial',
-    icon: ''
-  }
 
   return (
     <Box
@@ -67,7 +89,11 @@ const AppBarContent = (props: Props) => {
         {auth.user && <Autocomplete hidden={hidden} settings={settings} />}
       </Box> */}
       {/*       <Box className='actions-right' sx={{ display: 'flex', alignItems: 'center' }}> */}
-      <CardLinks name={button.name} icon={button.icon} />
+      {currentPage?.buttons.map((button, index) => (
+        <Link key='index' href={button.href}>
+          <CardLinks key={index} name={button.name} icon={button.icon} />
+        </Link>
+      ))}
       <Card sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 500, margin: 4 }}>
         <CardContent sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '90%' }}>
           <Icon icon='ic:baseline-search' />

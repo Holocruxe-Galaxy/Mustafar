@@ -27,6 +27,7 @@ const CardLinks = (props: CardLinksProps) => {
     <Card sx={{ display: 'flex', alignItems: 'center', width: 400, margin: 5 }}>
       <CardContent sx={{ height: 100 }}>
         <Box
+          component='div'
           sx={{
             display: 'flex',
             alignItems: 'center',
