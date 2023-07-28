@@ -1,6 +1,8 @@
 // ** MUI Imports
 import Box from '@mui/material/Box'
-import IconButton from '@mui/material/IconButton'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import { useTheme } from '@mui/material/styles'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -9,18 +11,18 @@ import Icon from 'src/@core/components/icon'
 import { Settings } from 'src/@core/context/settingsContext'
 
 // ** Components
-import Autocomplete from 'src/layouts/components/Autocomplete'
+// **import Autocomplete from 'src/layouts/components/Autocomplete'
+import CardLinks from 'src/views/components/horizontalBar/CardLinks'
+import LanguageDropdown from 'src/@core/layouts/components/shared-components/LanguageDropdown'
 import ModeToggler from 'src/@core/layouts/components/shared-components/ModeToggler'
 import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
-import LanguageDropdown from 'src/@core/layouts/components/shared-components/LanguageDropdown'
-import NotificationDropdown, {
-  NotificationsType
-} from 'src/@core/layouts/components/shared-components/NotificationDropdown'
-
-// ** import  ShortcutsDropdown,{ ShortcutsType } from 'src/@core/layouts/components/shared-components/ShortcutsDropdown'
 
 // ** Hook Import
 import { useAuth } from 'src/hooks/useAuth'
+import { useRouter } from 'next/router'
+import { Link } from '@mui/material'
+
+/* import Link from 'next/link' */
 
 interface Props {
   hidden: boolean
@@ -29,130 +31,83 @@ interface Props {
   saveSettings: (values: Settings) => void
 }
 
-const notifications: NotificationsType[] = [
-  {
-    meta: 'Today',
-    avatarAlt: 'Flora',
-    title: 'Congratulation Flora! 🎉',
-    avatarImg: '/images/avatars/4.png',
-    subtitle: 'Won the monthly best seller badge'
-  },
-  {
-    meta: 'Yesterday',
-    avatarColor: 'primary',
-    subtitle: '5 hours ago',
-    avatarText: 'Robert Austin',
-    title: 'New user registered.'
-  },
-  {
-    meta: '11 Aug',
-    avatarAlt: 'message',
-    title: 'New message received 👋🏻',
-    avatarImg: '/images/avatars/5.png',
-    subtitle: 'You have 10 unread messages'
-  },
-  {
-    meta: '25 May',
-    title: 'Paypal',
-    avatarAlt: 'paypal',
-    subtitle: 'Received Payment',
-    avatarImg: '/images/misc/paypal.png'
-  },
-  {
-    meta: '19 Mar',
-    avatarAlt: 'order',
-    title: 'Received Order 📦',
-    avatarImg: '/images/avatars/3.png',
-    subtitle: 'New order received from John'
-  },
-  {
-    meta: '27 Dec',
-    avatarAlt: 'chart',
-    subtitle: '25 hrs ago',
-    avatarImg: '/images/misc/chart.png',
-    title: 'Finance report has been generated'
-  }
-]
-
-// ** const shortcuts: ShortcutsType[] = [
-//   {
-//     title: 'Calendar',
-//     url: '/apps/calendar',
-//     subtitle: 'Appointments',
-//     icon: 'mdi:calendar-month-outline'
-//   },
-//   {
-//     title: 'Invoice App',
-//     url: '/apps/invoice/list',
-//     subtitle: 'Manage Accounts',
-//     icon: 'mdi:receipt-text-outline'
-//   },
-//   {
-//     title: 'Users',
-//     url: '/apps/user/list',
-//     subtitle: 'Manage Users',
-//     icon: 'mdi:account-outline'
-//   },
-//   {
-//     url: '/apps/roles',
-//     title: 'Role Management',
-//     subtitle: 'Permissions',
-//     icon: 'mdi:shield-check-outline'
-//   },
-//   {
-//     url: '/',
-//     title: 'Dashboard',
-//     icon: 'mdi:chart-pie',
-//     subtitle: 'User Dashboard'
-//   },
-//   {
-//     title: 'Settings',
-//     icon: 'mdi:cog-outline',
-//     subtitle: 'Account Settings',
-//     url: '/pages/account-settings/account'
-//   },
-//   {
-//     title: 'Help Center',
-//     subtitle: 'FAQs & Articles',
-//     icon: 'mdi:help-circle-outline',
-//     url: '/pages/help-center'
-//   },
-//   {
-//     title: 'Dialogs',
-//     subtitle: 'Useful Dialogs',
-//     icon: 'mdi:window-maximize',
-//     url: '/pages/dialog-examples'
-//   }
-// ]
-
 const AppBarContent = (props: Props) => {
-  // ** Props
-  const { hidden, settings, saveSettings, toggleNavVisibility } = props
-
   // ** Hook
   const auth = useAuth()
+  const router = useRouter()
+
+  // ** Props
+  const { /* hidden, */ settings, saveSettings /* , toggleNavVisibility  */ } = props
+  const theme = useTheme()
+
+  const button = [
+    {
+      page: 'home',
+      buttons: [
+        { name: 'Tutorial', icon: '', href: '' }
+
+        /*         { name: 'Documentation', icon: '', href: '' } */
+      ]
+    },
+    {
+      page: 'apps/chat',
+      buttons: [
+        { name: 'Tus intereses', icon: '', href: '/home' },
+        { name: 'Tus métricas', icon: '', href: '' }
+      ]
+    }
+  ]
+
+  // Vars
+  /*   const currentPath = router.pathname */
+  const currentPage = button.find(item => item.page == router.pathname.slice(1))
+
+  const { skin } = settings
 
   return (
-    <Box component='div' sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-      <Box component='div' className='actions-left' sx={{ mr: 2, display: 'flex', alignItems: 'center' }}>
+    <Box
+      component='div'
+      sx={{
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'space-between',
+        borderRadius: 1,
+        overflow: 'hidden',
+        position: 'relative',
+        backgroundColor: 'background.paper',
+        boxShadow: skin === 'bordered' ? 0 : 6,
+        mt: 8,
+        ...(skin === 'bordered' && { border: `1px solid ${theme.palette.divider}` })
+      }}
+    >
+      {/*       <Box className='actions-left' sx={{ mr: 2, display: 'flex', alignItems: 'center' }}>
         {hidden && !settings.navHidden ? (
           <IconButton color='inherit' sx={{ ml: -2.75 }} onClick={toggleNavVisibility}>
             <Icon icon='mdi:menu' />
           </IconButton>
         ) : null}
         {auth.user && <Autocomplete hidden={hidden} settings={settings} />}
-      </Box>
-      <Box component='div' className='actions-right' sx={{ display: 'flex', alignItems: 'center' }}>
-        <LanguageDropdown settings={settings} saveSettings={saveSettings} />
-        <ModeToggler settings={settings} saveSettings={saveSettings} />
-        {auth.user && (
-          <>
-            {/* <ShortcutsDropdown settings={settings} shortcuts={shortcuts} /> */}
-            <NotificationDropdown settings={settings} notifications={notifications} />
-            <UserDropdown settings={settings} />
-          </>
-        )}
-      </Box>
+      </Box> */}
+      {/*       <Box className='actions-right' sx={{ display: 'flex', alignItems: 'center' }}> */}
+      {currentPage?.buttons.map((button, index) => (
+        <Link key='index' href={button.href}>
+          <CardLinks key={index} name={button.name} icon={button.icon} />
+        </Link>
+      ))}
+      <Card sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 500, margin: 4 }}>
+        <CardContent sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '90%' }}>
+          <Icon icon='ic:baseline-search' />
+          <LanguageDropdown settings={settings} saveSettings={saveSettings} />
+          <ModeToggler settings={settings} saveSettings={saveSettings} />
+          {auth.user && (
+            <>
+              <Icon icon='ic:baseline-mail' />
+              <UserDropdown settings={settings} />
+            </>
+          )}
+        </CardContent>
+      </Card>
+      {/*       </Box> */}
     </Box>
   )
 }
