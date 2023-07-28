@@ -6,7 +6,6 @@ import { Box } from '@mui/system'
 import { useTheme } from '@mui/material/styles'
 
 // ** Models
-
 import { Cruxi } from 'src/models/cruxi'
 
 // ** Styled Component Import

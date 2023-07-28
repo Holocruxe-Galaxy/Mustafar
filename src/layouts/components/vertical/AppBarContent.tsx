@@ -43,11 +43,7 @@ const AppBarContent = (props: Props) => {
   const button = [
     {
       page: 'home',
-      buttons: [
-        { name: 'Tutorial', icon: '', href: '' }
-
-        /*         { name: 'Documentation', icon: '', href: '' } */
-      ]
+      buttons: [{ name: 'Tutorial', icon: '', href: '' }]
     },
     {
       page: 'apps/chat',
