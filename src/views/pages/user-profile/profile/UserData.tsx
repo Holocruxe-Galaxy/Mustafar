@@ -1,17 +1,18 @@
 // ** React Imports
-import { useState } from 'react'
+import { useState, ElementType, ChangeEvent } from 'react'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
-import Button from '@mui/material/Button'
-import Badge from '@mui/material/Badge'
-import Avatar from '@mui/material/Avatar'
+import Button, { ButtonProps } from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
+import { styled } from '@mui/material/styles'
 import Dialog from '@mui/material/Dialog'
 import Select from '@mui/material/Select'
 import Divider from '@mui/material/Divider'
 import MenuItem from '@mui/material/MenuItem'
+import Icon from 'src/@core/components/icon'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import InputLabel from '@mui/material/InputLabel'
@@ -21,7 +22,6 @@ import DialogTitle from '@mui/material/DialogTitle'
 import FormControl from '@mui/material/FormControl'
 import DialogContent from '@mui/material/DialogContent'
 import DialogActions from '@mui/material/DialogActions'
-import DialogContentText from '@mui/material/DialogContentText'
 
 // ** Custom Components
 import CustomChip from 'src/@core/components/mui/chip'
@@ -68,12 +68,55 @@ const statusColors: ColorsType = {
   pending: 'warning',
   inactive: 'secondary'
 }
+const ImgStyled = styled('img')(({ theme }) => ({
+  width: 146,
+  height: 146,
+  marginRight: theme.spacing(3),
+  marginTop: theme.spacing(3),
+  borderRadius: theme.shape.borderRadius * 8
+}))
+
+const ButtonStyled = styled(Button)<ButtonProps & { component?: ElementType; htmlFor?: string }>(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    width: '100%',
+    textAlign: 'center'
+  },
+  width: '58px',
+  height: '58px',
+  borderRadius: '50%'
+}))
+
+const ButtonCancel = styled(IconButton)<ButtonProps & { component?: ElementType; htmlFor?: string }>(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    width: '100%',
+    textAlign: 'center'
+  },
+  width: '35px',
+  height: '35px',
+  marginTop: '10px'
+}))
 
 const UserData = () => {
   // ** States
   const [openEdit, setOpenEdit] = useState<boolean>(false)
+  const [inputValue, setInputValue] = useState<string>('')
+  const [imgSrc, setImgSrc] = useState<string>('/images/avatars/1.png')
   const [suspendDialogOpen, setSuspendDialogOpen] = useState<boolean>(false)
   const [subscriptionDialogOpen, setSubscriptionDialogOpen] = useState<boolean>(false)
+
+  // ** Hooks
+  const handleInputImageChange = (file: ChangeEvent) => {
+    const reader = new FileReader()
+    const { files } = file.target as HTMLInputElement
+    if (files && files.length !== 0) {
+      reader.onload = () => setImgSrc(reader.result as string)
+      reader.readAsDataURL(files[0])
+
+      if (reader.result !== null) {
+        setInputValue(reader.result as string)
+      }
+    }
+  }
 
   // Handle Edit dialog
   const handleEditClickOpen = () => setOpenEdit(true)
@@ -198,38 +241,61 @@ const UserData = () => {
             </CardActions>
 
             <Dialog
+              fullWidth
               open={openEdit}
+              maxWidth='md'
+              scroll='body'
               onClose={handleEditClose}
               aria-labelledby='user-view-edit'
               aria-describedby='user-view-edit-description'
-              sx={{ '& .MuiPaper-root': { width: '100%', maxWidth: 650 } }}
+              sx={{ '& .MuiPaper-root': { width: 630, height: 683, borderRadius: '10px' } }}
             >
-              <DialogTitle
-                id='user-view-edit'
-                sx={{
-                  textAlign: 'center',
-                  fontSize: '1.5rem !important',
-                  px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-                  pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
-                }}
-              >
-                Edit User Information
-              </DialogTitle>
-              <DialogContent
-                sx={{
-                  pb: theme => `${theme.spacing(8)} !important`,
-                  px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`]
-                }}
-              >
-                <DialogContentText variant='body2' id='user-view-edit-description' sx={{ textAlign: 'center', mb: 7 }}>
-                  Updating user details will receive a privacy audit.
-                </DialogContentText>
+              <Grid sx={{ display: 'flex' }}>
+                <CardContent sx={{ pt: 0 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', position: 'relative' }} component='div'>
+                    <ImgStyled src={imgSrc} alt='Profile Pic' />
+                    <div>
+                      <ButtonStyled
+                        component='label'
+                        variant='contained'
+                        htmlFor='account-settings-upload-image'
+                        sx={{ position: 'absolute', bottom: '2px', right: '2px' }}
+                      >
+                        <Icon icon='clarity:camera-line' />
+                        <input
+                          hidden
+                          type='file'
+                          value={inputValue}
+                          accept='image/png, image/jpeg'
+                          onChange={handleInputImageChange}
+                          id='account-settings-upload-image'
+                        />
+                      </ButtonStyled>
+                    </div>
+                  </Box>
+                </CardContent>
+                <Grid container justifyContent='center'>
+                  <DialogTitle
+                    id='user-view-edit'
+                    sx={{
+                      fontFamily: 'Nunito',
+                      textAlign: 'center',
+                      fontSize: '35px !important',
+                      whiteSpace: 'normal',
+                      wordBreak: 'break-word',
+                      px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+                      pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
+                    }}
+                  >
+                    Edit User Information
+                  </DialogTitle>
+                </Grid>
+                <ButtonCancel variant='outlined' color='secondary' size='small' onClick={handleEditClose}>
+                  <Icon icon='ph:x-bold' />
+                </ButtonCancel>
+              </Grid>
+              <DialogContent>
                 <form>
-                  <Grid>
-                    <Badge color='primary' variant='dot' anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
-                      <Avatar src='/images/avatars/1.png' alt='User Avatar' />
-                    </Badge>
-                  </Grid>
                   <Grid container spacing={6}>
                     <Grid item xs={12} sm={6}>
                       <TextField fullWidth label='Apodo' defaultValue='' />
@@ -277,11 +343,8 @@ const UserData = () => {
                   pb: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
                 }}
               >
-                <Button variant='contained' sx={{ mr: 2 }} onClick={handleEditClose}>
-                  Enviar
-                </Button>
-                <Button variant='outlined' color='secondary' onClick={handleEditClose}>
-                  Cancelar
+                <Button variant='contained' sx={{ marginLeft: 'auto', marginBottom: 'auto' }} onClick={handleEditClose}>
+                  Guardar
                 </Button>
               </DialogActions>
             </Dialog>
