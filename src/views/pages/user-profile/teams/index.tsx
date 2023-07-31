@@ -32,14 +32,14 @@ const Teams = ({ data }: { data: TeamsTabType[] }) => {
             <Grid key={index} item xs={12} md={6} lg={4}>
               <Card>
                 <CardContent>
-                  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} component='div'>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }} component='div'>
                       <Avatar src={item.avatar} sx={{ mr: 2, height: 32, width: 32 }} />
                       <Typography variant='h6' sx={{ fontSize: '1.125rem', color: 'text.secondary' }}>
                         {item.title}
                       </Typography>
                     </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }} component='div'>
                       <IconButton size='small' sx={{ color: 'text.secondary' }}>
                         <Icon icon='mdi:star-outline' />
                       </IconButton>
@@ -56,8 +56,8 @@ const Teams = ({ data }: { data: TeamsTabType[] }) => {
                     </Box>
                   </Box>
                   <Typography sx={{ my: 4, color: 'text.secondary' }}>{item.description}</Typography>
-                  <Box sx={{ gap: 2, display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Box sx={{ gap: 2, display: 'flex', flexWrap: 'wrap', alignItems: 'center' }} component='div'>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }} component='div'>
                       <AvatarGroup className='pull-up' sx={{ alignItems: 'center' }}>
                         {item.avatarGroup.map((person, index) => {
                           return (
@@ -71,7 +71,7 @@ const Teams = ({ data }: { data: TeamsTabType[] }) => {
                         </Typography>
                       </AvatarGroup>
                     </Box>
-                    <Box sx={{ ml: 'auto', display: 'flex', alignItems: 'center' }}>
+                    <Box sx={{ ml: 'auto', display: 'flex', alignItems: 'center' }} component='div'>
                       {item.chips &&
                         item.chips.map((chip, index) => (
                           <Box
