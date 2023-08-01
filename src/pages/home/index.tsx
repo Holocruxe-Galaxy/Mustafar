@@ -77,7 +77,7 @@ const Home = () => {
                      {icon}
                   </Avatar>
                 </Box>
-              </Grid> 
+              </Grid>
             </ButtonBarContent> */}
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
@@ -94,7 +94,6 @@ const Home = () => {
                 boxShadow: skin === 'bordered' ? 0 : 6,
                 ...(skin === 'bordered' && { border: `1px solid ${theme.palette.divider}` })
               }}
-              component='div'
             >
               <Canvas camera={{ position: [0, 0, 5], fov: 40 }}>
                 <ambientLight intensity={1.8} />

@@ -15,34 +15,38 @@ const Diary = () => {
   const { settings } = useSettings()
   const { skin } = settings
   return (
-    <> 
-      <Grid container direction="column" spacing={2}>
-        <Card  
+    <>
+      <Grid container direction='column' spacing={2}>
+        <Card
           sx={{
             width: '100%',
             height: '100%',
             display: 'flex',
             borderRadius: 2
-          }}>
-        <Grid item>
-          <Card sx={{
-            width: '90%',
-            height: '50%',
-            
-            borderRadius: 2
-          }}>
-          <h1>Se puede poner un h1 aca?</h1>  
-          </Card>
-          <Card sx={{
-              width: '90%',
-              height: '50%',
-              display: 'flex',
-              borderRadius: 2,
-              backgroundColor: 'background.paper'
-            }}>
+          }}
+        >
+          <Grid item>
+            <Card
+              sx={{
+                width: '90%',
+                height: '50%',
+                borderRadius: 2
+              }}
+            >
+              <h1>Se puede poner un h1 aca?</h1>
+            </Card>
+            <Card
+              sx={{
+                width: '90%',
+                height: '50%',
+                display: 'flex',
+                borderRadius: 2,
+                backgroundColor: 'background.paper'
+              }}
+            >
               <h1>Se puede </h1>
             </Card>
-        </Grid>
+          </Grid>
         </Card>
       </Grid>
     </>
