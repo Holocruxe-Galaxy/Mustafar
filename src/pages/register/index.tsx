@@ -1,44 +1,46 @@
-import { Fragment, useState, ReactNode } from 'react';
+import { Fragment, useState, ReactNode } from 'react'
 
 // ** MUI Imports
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import Step from '@mui/material/Step';
-import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
-import Select from '@mui/material/Select';
-import Divider from '@mui/material/Divider';
-import Stepper from '@mui/material/Stepper';
-import MenuItem from '@mui/material/MenuItem';
-import StepLabel from '@mui/material/StepLabel';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import InputLabel from '@mui/material/InputLabel';
-import CardContent from '@mui/material/CardContent';
-import FormControl from '@mui/material/FormControl';
-import FormHelperText from '@mui/material/FormHelperText';
-import Autocomplete from '@mui/material/Autocomplete';
+import Box from '@mui/material/Box'
+import Card from '@mui/material/Card'
+import Step from '@mui/material/Step'
+import Grid from '@mui/material/Grid'
+import Button from '@mui/material/Button'
+import Select from '@mui/material/Select'
+import Divider from '@mui/material/Divider'
+import Stepper from '@mui/material/Stepper'
+import MenuItem from '@mui/material/MenuItem'
+import StepLabel from '@mui/material/StepLabel'
+import TextField from '@mui/material/TextField'
+import Typography from '@mui/material/Typography'
+import InputLabel from '@mui/material/InputLabel'
+import CardContent from '@mui/material/CardContent'
+import FormControl from '@mui/material/FormControl'
+import FormHelperText from '@mui/material/FormHelperText'
+import Autocomplete from '@mui/material/Autocomplete'
 
 // ** Third Party Imports
-import * as yup from 'yup';
-import toast from 'react-hot-toast';
-import { useForm, Controller } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup'
+import toast from 'react-hot-toast'
+import { useForm, Controller } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 // ** Icon Imports
-import Icon from 'src/@core/components/icon';
+import Icon from 'src/@core/components/icon'
 
 // ** Custom Components Imports
-import StepperCustomDot from './StepperCustomDot';
-import BlankLayout from 'src/@core/layouts/BlankLayout';
+import StepperCustomDot from './StepperCustomDot'
+import BlankLayout from 'src/@core/layouts/BlankLayout'
 
 // ** Styled Components
-import StepperWrapper from 'src/@core/styles/mui/stepper';
+import StepperWrapper from 'src/@core/styles/mui/stepper'
 
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useAuth } from 'src/hooks/useAuth';
-import { stepManager, CountryType, isNumber } from '../../@core/utils/helpersForm';
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useAuth } from 'src/hooks/useAuth'
+import { stepManager, CountryType, isNumber } from '../../@core/utils/helpersForm'
+import { Canvas } from '@react-three/fiber'
+import AstSit from '../../@core/components/holocruxe-model/modelSit'
 
 // interface State {
 //   password: string
@@ -54,7 +56,7 @@ const steps = [
   {
     title: 'Información personal'
   }
-];
+]
 
 const defaultPersonalValues = {
   name: '',
@@ -62,13 +64,13 @@ const defaultPersonalValues = {
   gender: '',
   birthdate: '',
   civilStatus: ''
-};
+}
 
 const defaultContactValues = {
   altEmail: '',
   phone: '',
   zipCode: ''
-};
+}
 
 const personalSchema = yup.object().shape({
   lastName: yup.string().required(),
@@ -76,38 +78,37 @@ const personalSchema = yup.object().shape({
   gender: yup.string().required(),
   birthdate: yup.string().required(),
   civilStatus: yup.string().required()
-});
+})
 
 const contactSchema = yup.object().shape({
   altEmail: yup.string().email(),
   phone: yup.string().required(),
   zipCode: yup.string().required()
-});
+})
 
 const Register = () => {
+  const router = useRouter()
 
-  const router = useRouter();
+  const currentStep = localStorage.getItem('step')
+  const step = isNumber(currentStep) ?? steps.length
+  const { logout } = useAuth()
 
-  const currentStep = localStorage.getItem('step');
-  const step = isNumber(currentStep) ?? steps.length;
-  const { logout } = useAuth();
-
-  const [, setAnchorEl] = useState<Element | null>(null);
+  const [, setAnchorEl] = useState<Element | null>(null)
 
   const handleDropdownClose = (url?: string) => {
     if (url) {
-      router.push(url);
+      router.push(url)
     }
-    setAnchorEl(null);
-  };
+    setAnchorEl(null)
+  }
 
   const handleLogout = () => {
-    logout();
-    handleDropdownClose();
-  };
+    logout()
+    handleDropdownClose()
+  }
 
   // ** States
-  const [activeStep, setActiveStep] = useState<number>(step);
+  const [activeStep, setActiveStep] = useState<number>(step)
 
   const countries: CountryType[] = [
     { code: 'AD', label: 'Andorra', phone: '376' },
@@ -314,9 +315,9 @@ const Register = () => {
       label: 'Saint Kitts and Nevis',
       phone: '1-869'
     }
-  ];
+  ]
 
-  const [caract, setCaract] = useState();
+  const [caract, setCaract] = useState()
 
   // ** Hooks
   const {
@@ -326,7 +327,7 @@ const Register = () => {
   } = useForm({
     defaultValues: defaultPersonalValues,
     resolver: yupResolver(personalSchema)
-  });
+  })
 
   const {
     control: contactControl,
@@ -335,19 +336,18 @@ const Register = () => {
   } = useForm({
     defaultValues: defaultContactValues,
     resolver: yupResolver(contactSchema)
-  });
+  })
 
   // Handle Stepper
   const handleBack = () => {
-    setActiveStep(prevActiveStep => prevActiveStep - 1);
-  };
-
+    setActiveStep(prevActiveStep => prevActiveStep - 1)
+  }
 
   const onSubmit = async (data: any) => {
-    const manager = stepManager(activeStep, data, caract);
+    const manager = stepManager(activeStep, data, caract)
 
     try {
-      const token = localStorage.getItem('AuthorizationToken');
+      const token = localStorage.getItem('AuthorizationToken')
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/user/form/step`, {
         method: 'POST',
@@ -356,26 +356,26 @@ const Register = () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(manager)
-      });
+      })
       if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message);
+        const error = await response.json()
+        throw new Error(error.message)
       }
 
-      localStorage.setItem('step', (step + 1).toString());
-      setActiveStep(activeStep + 1);
+      localStorage.setItem('step', (step + 1).toString())
+      setActiveStep(activeStep + 1)
       if (activeStep === steps.length - 1) {
-        toast.success('Formulario completado!');
-        localStorage.setItem('status', 'COMPLETE');
+        toast.success('Formulario completado!')
+        localStorage.setItem('status', 'COMPLETE')
 
-        router.replace('/home');
+        router.replace('/home')
       }
     } catch (error: any) {
-      toast.error(error.message);
+      toast.error(error.message)
 
-      console.log(error.message);
+      console.log(error.message)
     }
-  };
+  }
 
   const getStepContent = (step: number) => {
     switch (step) {
@@ -423,7 +423,7 @@ const Register = () => {
                     getOptionLabel={option => option.label}
                     value={caract}
                     onChange={(event: any, newCar: any) => {
-                      setCaract(newCar);
+                      setCaract(newCar)
                     }}
                     renderOption={(props, option) => (
                       <Box component='li' sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
@@ -443,10 +443,10 @@ const Register = () => {
                         label='Elige país'
                         error={Boolean(contactErrors.phone)}
 
-                      // inputProps={{
-                      //   ...params.inputProps,
-                      //   autoComplete: 'new-password' // disable autocomplete and autofill
-                      // }}
+                        // inputProps={{
+                        //   ...params.inputProps,
+                        //   autoComplete: 'new-password' // disable autocomplete and autofill
+                        // }}
                       />
                     )}
                   />
@@ -515,7 +515,7 @@ const Register = () => {
               </Grid>
             </Grid>
           </form>
-        );
+        )
       case 1:
         return (
           <form key={1} onSubmit={handlePersonalSubmit(onSubmit)}>
@@ -682,11 +682,11 @@ const Register = () => {
               </Grid>
             </Grid>
           </form>
-        );
+        )
       default:
-        return null;
+        return null
     }
-  };
+  }
 
   const renderContent = () => {
     if (activeStep === steps.length) {
@@ -700,12 +700,15 @@ const Register = () => {
               </Button>
             </Link>
           </Box>
+            <Box component='div'>
+        <img src='/images/banners/cielo.png' alt='' style={{height: "30em", width: "100%", marginTop:"2em"}}/>
+      </Box>
         </Fragment>
-      );
+      )
     } else {
-      return getStepContent(activeStep);
+      return getStepContent(activeStep)
     }
-  };
+  }
 
   return (
     <Card>
@@ -785,7 +788,8 @@ const Register = () => {
         <Box component='div' marginTop={5}>
           <MenuItem
             onClick={handleLogout}
-            sx={{ py: 2, '& svg': { mr: 2, fontSize: '1.375rem', color: 'text.primary' } }}>
+            sx={{ py: 2, '& svg': { mr: 2, fontSize: '1.375rem', color: 'text.primary' } }}
+          >
             <Icon icon='mdi:logout-variant' />
             Logout
           </MenuItem>
@@ -796,12 +800,12 @@ const Register = () => {
           <Stepper activeStep={activeStep}>
             {steps.map((step, index) => {
               const labelProps: {
-                error?: boolean;
-              } = {};
+                error?: boolean
+              } = {}
               if (index === activeStep) {
-                labelProps.error = false;
+                labelProps.error = false
                 if ((contactErrors.phone || contactErrors.altEmail || contactErrors.zipCode) && activeStep === 0) {
-                  labelProps.error = true;
+                  labelProps.error = true
                 } else if (
                   (personalErrors.lastName ||
                     personalErrors.gender ||
@@ -810,9 +814,9 @@ const Register = () => {
                     personalErrors.name) &&
                   activeStep === 1
                 ) {
-                  labelProps.error = true;
+                  labelProps.error = true
                 } else {
-                  labelProps.error = false;
+                  labelProps.error = false
                 }
               }
 
@@ -828,21 +832,21 @@ const Register = () => {
                     </div>
                   </StepLabel>
                 </Step>
-              );
+              )
             })}
           </Stepper>
         </StepperWrapper>
       </CardContent>
 
       <Divider sx={{ m: '0 !important' }} />
-
       <CardContent>{renderContent()}</CardContent>
+
     </Card>
-  );
-};
+  )
+}
 
-Register.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>;
+Register.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
 
-Register.guestGuard = true;
+Register.guestGuard = true
 
-export default Register;
+export default Register

@@ -43,6 +43,7 @@ const StepperCustomDot = (props: StepIconProps) => {
           borderColor: active ? 'primary.main' : alpha(theme.palette.primary.main, 0.3)
         }}
       />
+      
     );
   }
 };
