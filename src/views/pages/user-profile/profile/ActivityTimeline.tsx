@@ -61,6 +61,7 @@ const ActivityTimeline = () => {
                   alignItems: 'center',
                   justifyContent: 'space-between'
                 }}
+                component='div'
               >
                 <Typography sx={{ mr: 2, fontWeight: 500 }}>Client Meeting</Typography>
                 <Typography variant='body2' sx={{ color: 'text.disabled' }}>
@@ -68,7 +69,7 @@ const ActivityTimeline = () => {
                 </Typography>
               </Box>
               <Typography sx={{ mb: 2, color: 'text.secondary' }}>Project meeting with john @10:15am</Typography>
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Box sx={{ display: 'flex', alignItems: 'center' }} component='div'>
                 <Avatar src='/images/avatars/2.png' sx={{ mr: 4, width: 38, height: 38 }} />
                 <div>
                   <Typography sx={{ fontWeight: 500 }}>Lester McCarthy (Client)</Typography>
@@ -91,6 +92,7 @@ const ActivityTimeline = () => {
                   alignItems: 'center',
                   justifyContent: 'space-between'
                 }}
+                component='div'
               >
                 <Typography sx={{ mr: 2, fontWeight: 500 }}>Create a new project for client</Typography>
                 <Typography variant='body2' sx={{ color: 'text.disabled' }}>
@@ -114,22 +116,23 @@ const ActivityTimeline = () => {
                   alignItems: 'center',
                   justifyContent: 'space-between'
                 }}
+                component='div'
               >
                 <Typography sx={{ mr: 2, fontWeight: 500 }}>Shared 2 New Project Files</Typography>
                 <Typography variant='body2' sx={{ color: 'text.disabled' }}>
                   6 Days Ago
                 </Typography>
               </Box>
-              <Box sx={{ mb: 2.5, display: 'flex', alignItems: 'center' }}>
+              <Box sx={{ mb: 2.5, display: 'flex', alignItems: 'center' }} component='div'>
                 <Typography sx={{ color: 'text.secondary' }}>Sent by Mollie Dixon</Typography>
                 <Avatar src='/images/avatars/3.png' sx={{ ml: 5, width: 20, height: 20 }} />
               </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Box sx={{ mr: 6, display: 'flex', alignItems: 'center' }}>
+              <Box sx={{ display: 'flex', alignItems: 'center' }} component='div'>
+                <Box sx={{ mr: 6, display: 'flex', alignItems: 'center' }} component='div'>
                   <img width={20} height={20} alt='app-guidelines' src='/images/icons/file-icons/pdf.png' />
                   <Typography sx={{ ml: 3, fontWeight: 500 }}>App Guidelines</Typography>
                 </Box>
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center' }} component='div'>
                   <img width={20} height={20} alt='testing-results' src='/images/icons/file-icons/doc.png' />
                   <Typography sx={{ ml: 3, fontWeight: 500 }}>Testing Results</Typography>
                 </Box>
@@ -149,6 +152,7 @@ const ActivityTimeline = () => {
                   alignItems: 'center',
                   justifyContent: 'space-between'
                 }}
+                component='div'
               >
                 <Typography sx={{ mr: 2, fontWeight: 500 }}>Project status updated</Typography>
                 <Typography variant='body2' sx={{ color: 'text.disabled' }}>

@@ -4,30 +4,12 @@ import { VerticalNavItemsType } from 'src/@core/layouts/types'
 const navigation = (): VerticalNavItemsType => {
   return [
     {
-      title: 'Dashboards',
+      title: 'Dashboard',
       icon: 'mdi:home-outline',
       path: '/home'
-
-      // **
-      // badgeContent: 'new',
-      // badgeColor: 'error',
-      // children: [
-      //   {
-      //     title: 'CRM',
-      //     path: '/dashboards/crm'
-      //   },
-      //   {
-      //     title: 'Analytics',
-      //     path: '/dashboards/analytics'
-      //   },
-      //   {
-      //     title: 'eCommerce',
-      //     path: '/dashboards/ecommerce'
-      //   }
-      // ]
-
     },
-    {
+
+    /*{
       sectionTitle: 'Apps & Pages'
     },
     {
@@ -80,30 +62,6 @@ const navigation = (): VerticalNavItemsType => {
       icon: 'mdi:calendar-blank-outline',
       path: '/apps/calendar'
     },
-
-    // **
-    // {
-    //   title: 'Invoice',
-    //   icon: 'mdi:file-document-outline',
-    //   children: [
-    //     {
-    //       title: 'List',
-    //       path: '/apps/invoice/list'
-    //     },
-    //     {
-    //       title: 'Preview',
-    //       path: '/apps/invoice/preview'
-    //     },
-    //     {
-    //       title: 'Edit',
-    //       path: '/apps/invoice/edit'
-    //     },
-    //     {
-    //       title: 'Add',
-    //       path: '/apps/invoice/add'
-    //     }
-    //   ]
-    // },
 
     {
       title: 'Roles & Permissions',
@@ -342,7 +300,7 @@ const navigation = (): VerticalNavItemsType => {
       icon: 'mdi:vector-arrange-below',
       title: 'Dialog Examples',
       path: '/pages/dialog-examples'
-    }
+    }*/
 
     // **
     // {
@@ -359,7 +317,7 @@ const navigation = (): VerticalNavItemsType => {
     //   icon: 'mdi:google-circles-extended'
     // },
     // {
-      
+
     //   title: 'Cards',
     //   icon: 'mdi:credit-card-outline',
     //   children: [
@@ -632,7 +590,6 @@ const navigation = (): VerticalNavItemsType => {
     //     }
     //   ]
     // }
-    
   ]
 }
 
