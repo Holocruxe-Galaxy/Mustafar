@@ -54,11 +54,11 @@ const ChartjsPolarAreaChart = (props: PolarAreaProps) => {
   }
 
   const data: ChartData<'polarArea'> = {
-    labels: ['Africa', 'Asia', 'Europe', 'America', 'Antarctica', 'Australia'],
+    labels: ['Programar', 'Cine', 'Natación', 'Viajar', 'Leer', 'Comer'],
     datasets: [
       {
         borderWidth: 0,
-        label: 'Population (millions)',
+        label: 'Escala',
         data: [19, 17.5, 15, 13.5, 11, 9],
         backgroundColor: [primary, yellow, warning, info, grey, green]
       }
@@ -68,11 +68,11 @@ const ChartjsPolarAreaChart = (props: PolarAreaProps) => {
   return (
     <Card>
       <CardHeader
-        title='Average Skills'
+        title='Intereses'
         action={
           <OptionsMenu
             iconProps={{ fontSize: 20 }}
-            options={['Refresh', 'Edit', 'Share']}
+            options={['Refrescar', 'Editar', 'Compartir']}
             iconButtonProps={{ size: 'small', className: 'card-more-options', sx: { color: 'text.secondary' } }}
           />
         }

@@ -11,24 +11,7 @@ const navigation = (): VerticalNavItemsType => {
       icon: 'mdi:home-outline',
       path: '/home'
     },
-    {
-      title: 'Mi bitácora',
-      icon: 'mdi:archive-outline',
-      children: [
-        {
-          title: 'Diario',
-          path: '/apps/diary'
-        },
-        {
-          title: 'Organizador',
-          path: ''
-        },
-        {
-          title: 'Recuerdos',
-          path: ''
-        }
-      ]
-    }
+
     /*{
       sectionTitle: 'Apps & Pages'
     },
