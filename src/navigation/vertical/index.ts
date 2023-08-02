@@ -1,9 +1,6 @@
 // ** Type import
 import { VerticalNavItemsType } from 'src/@core/layouts/types'
 
-// ** Icons
-import Icon from 'src/@core/components/icon'
-
 const navigation = (): VerticalNavItemsType => {
   return [
     {
