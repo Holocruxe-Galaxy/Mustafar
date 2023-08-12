@@ -2,114 +2,13 @@
 import mock from 'src/@fake-db/mock'
 
 // ** Types
-import { ProfileUserType, ChatsObj, ContactType } from 'src/types/apps/chatTypes'
+import { /* ProfileUserType, ContactType, */ ChatsObj  } from 'src/types/apps/chatTypes'
 
 const previousDay = new Date(new Date().getTime() - 24 * 60 * 60 * 1000)
 const dayBeforePreviousDay = new Date(new Date().getTime() - 24 * 60 * 60 * 1000 * 2)
 
-const data: { chats: ChatsObj[]; contacts: ContactType[]; profileUser: ProfileUserType } = {
-  profileUser: {
-    id: 11,
-    avatar: '/images/avatars/1.png',
-    fullName: 'John Doe',
-    role: 'admin',
-    about:
-      'Dessert chocolate cake lemon drops jujubes. Biscuit cupcake ice cream bear claw brownie brownie marshmallow.',
-    status: 'online',
-    settings: {
-      isTwoStepAuthVerificationEnabled: true,
-      isNotificationsOn: false
-    }
-  },
-  contacts: [
-    {
-      id: 1,
-      fullName: 'Felecia Rower',
-      role: 'Frontend Developer',
-      about: 'Cake pie jelly jelly beans. Marzipan lemon drops halvah cake. Pudding cookie lemon drops icing',
-      avatar: '/images/avatars/2.png',
-      status: 'offline'
-    },
-    {
-      id: 2,
-      fullName: 'Adalberto Granzin',
-      role: 'UI/UX Designer',
-      avatarColor: 'primary',
-      about:
-        'Toffee caramels jelly-o tart gummi bears cake I love ice cream lollipop. Sweet liquorice croissant candy danish dessert icing. Cake macaroon gingerbread toffee sweet.',
-      status: 'busy'
-    },
-    {
-      id: 3,
-      fullName: 'Joaquina Weisenborn',
-      role: 'Town planner',
-      about:
-        'Soufflé soufflé caramels sweet roll. Jelly lollipop sesame snaps bear claw jelly beans sugar plum sugar plum.',
-      avatar: '/images/avatars/8.png',
-      status: 'busy'
-    },
-    {
-      id: 4,
-      fullName: 'Verla Morgano',
-      role: 'Data scientist',
-      about:
-        'Chupa chups candy canes chocolate bar marshmallow liquorice muffin. Lemon drops oat cake tart liquorice tart cookie. Jelly-o cookie tootsie roll halvah.',
-      avatar: '/images/avatars/3.png',
-      status: 'online'
-    },
-    {
-      id: 5,
-      fullName: 'Margot Henschke',
-      role: 'Dietitian',
-      avatarColor: 'success',
-      about: 'Cake pie jelly jelly beans. Marzipan lemon drops halvah cake. Pudding cookie lemon drops icing',
-      status: 'busy'
-    },
-    {
-      id: 6,
-      fullName: 'Sal Piggee',
-      role: 'Marketing executive',
-      about:
-        'Toffee caramels jelly-o tart gummi bears cake I love ice cream lollipop. Sweet liquorice croissant candy danish dessert icing. Cake macaroon gingerbread toffee sweet.',
-      avatar: '/images/avatars/5.png',
-      status: 'online'
-    },
-    {
-      id: 7,
-      fullName: 'Miguel Guelff',
-      role: 'Special educational needs teacher',
-      about:
-        'Biscuit powder oat cake donut brownie ice cream I love soufflé. I love tootsie roll I love powder tootsie roll.',
-      avatar: '/images/avatars/7.png',
-      status: 'online'
-    },
-    {
-      id: 8,
-      fullName: 'Mauro Elenbaas',
-      role: 'Advertising copywriter',
-      about:
-        'Bear claw ice cream lollipop gingerbread carrot cake. Brownie gummi bears chocolate muffin croissant jelly I love marzipan wafer.',
-      avatar: '/images/avatars/6.png',
-      status: 'away'
-    },
-    {
-      id: 9,
-      avatarColor: 'warning',
-      fullName: 'Bridgett Omohundro',
-      role: 'Designer, television/film set',
-      about:
-        'Gummies gummi bears I love candy icing apple pie I love marzipan bear claw. I love tart biscuit I love candy canes pudding chupa chups liquorice croissant.',
-      status: 'offline'
-    },
-    {
-      id: 10,
-      avatarColor: 'error',
-      fullName: 'Zenia Jacobs',
-      role: 'Building surveyor',
-      about: 'Cake pie jelly jelly beans. Marzipan lemon drops halvah cake. Pudding cookie lemon drops icing',
-      status: 'away'
-    }
-  ],
+const data: { chats: ChatsObj[] } = {
+
   chats: [
     {
       id: 1,
@@ -298,31 +197,31 @@ const reorderChats = (arr: ChatsObj[], from: number, to: number) => {
 // ------------------------------------------------
 // GET: Return Chats Contacts and Contacts
 // ------------------------------------------------
-mock.onGet('/apps/chat/chats-and-contacts').reply(() => {
-  const chatsContacts = data.chats.map((chat: ChatsObj) => {
-    const contact = data.contacts.find((c: ContactType) => c.id === chat.userId)
+//mock.onGet('/apps/chat/chats-and-contacts').reply(() => {
+//  const chatsContacts = data.chats.map((chat: ChatsObj) => {//
+//    const contact = data.contacts.find((c: ContactType) => c.id === chat.userId)
 
     // @ts-ignore
-    contact.chat = { id: chat.id, unseenMsgs: chat.unseenMsgs, lastMessage: chat.chat[chat.chat.length - 1] }
+//   contact.chat = { id: chat.id, unseenMsgs: chat.unseenMsgs, lastMessage: chat.chat[chat.chat.length - 1] }
 
-    return contact
-  })
+//    return contact
+//  })
 
-  const contactsToShow = data.contacts.filter((co: ContactType) => {
-    return !data.chats.some((ch: ChatsObj) => {
-      return co.id === ch.id
-    })
-  })
+//  const contactsToShow = data.contacts.filter((co: ContactType) => {
+//    return !data.chats.some((ch: ChatsObj) => {
+//      return co.id === ch.id
+//   })
+// })
 
-  const profileUserData = {
-    id: data.profileUser.id,
-    avatar: data.profileUser.avatar,
-    fullName: data.profileUser.fullName,
-    status: data.profileUser.status
-  }
+ // const profileUserData = {
+ //   id: data.profileUser.id,
+//    avatar: data.profileUser.avatar,
+//   fullName: data.profileUser.fullName,
+//   status: data.profileUser.status
+//  }
 
-  return [200, { chatsContacts, contacts: contactsToShow, profileUser: profileUserData }]
-})
+//  return [200, { chatsContacts, contacts: contactsToShow, profileUser: profileUserData }]
+//})
 
 // ------------------------------------------------
 // GET: Return User Profile
@@ -334,20 +233,20 @@ mock.onGet('/apps/chat/users/profile-user').reply(() => [200, data.profileUser])
 // ------------------------------------------------
 mock.onGet('/apps/chat/get-chat').reply(config => {
   // Get event id from URL
-  let userId = config.params.id
+  //let userId = config.params.id
 
   //  Convert Id to number
-  userId = Number(userId)
+  //userId = Number(userId)
 
-  const chat = data.chats.find((c: ChatsObj) => c.id === userId)
+  //const chat = data.chats.find((c: ChatsObj) => c.id === userId)
 
-  if (chat) chat.unseenMsgs = 0
-  const contact = data.contacts.find((c: ContactType) => c.id === userId)
+  //if (chat) chat.unseenMsgs = 0
+  //const contact = data.contacts.find((c: ContactType) => c.id === userId)
 
   // @ts-ignore
-  if (contact.chat) contact.chat.unseenMsgs = 0
+  //if (contact.chat) contact.chat.unseenMsgs = 0
 
-  return [200, { chat, contact }]
+  return [200, { chat }]
 })
 
 // ------------------------------------------------
@@ -357,7 +256,7 @@ mock.onPost('/apps/chat/send-msg').reply(config => {
   // Get event from post data
   const { obj } = JSON.parse(config.data).data
 
-  let activeChat = data.chats.find((chat: ChatsObj) => chat.id === obj.contact.id)
+  //let activeChat = data.chats.find((chat: ChatsObj) => chat.id === obj.contact.id)
 
   const newMessageData = {
     senderId: 11,

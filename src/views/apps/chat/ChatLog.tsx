@@ -13,10 +13,10 @@ import Icon from 'src/@core/components/icon'
 import PerfectScrollbarComponent, { ScrollBarProps } from 'react-perfect-scrollbar'
 
 // ** Custom Components Imports
-import CustomAvatar from 'src/@core/components/mui/avatar'
+// import CustomAvatar from 'src/@core/components/mui/avatar'
 
 // ** Utils Imports
-import { getInitials } from 'src/@core/utils/get-initials'
+// import { getInitials } from 'src/@core/utils/get-initials'
 
 // ** Types Imports
 import {
@@ -24,8 +24,8 @@ import {
   MessageType,
   MsgFeedbackType,
   ChatLogChatType,
+  FormattedChatsType,
   MessageGroupType,
-  FormattedChatsType
 } from 'src/types/apps/chatTypes'
 
 const PerfectScrollbar = styled(PerfectScrollbarComponent)<ScrollBarProps & { ref: Ref<unknown> }>(({ theme }) => ({
@@ -60,24 +60,24 @@ const ChatLog = (props: ChatLogType) => {
     }
 
     const formattedChatLog: FormattedChatsType[] = []
-    let chatMessageSenderId = chatLog[0] ? chatLog[0].senderId : 11
+    let chatMessageSenderId = /* chatLog[0] ? */ chatLog[0].id /* : null */
     let msgGroup: MessageGroupType = {
-      senderId: chatMessageSenderId,
-      messages: []
+      messages: [],
+      id: chatMessageSenderId
     }
     chatLog.forEach((msg: MessageType, index: number) => {
-      if (chatMessageSenderId === msg.senderId) {
+      //if (chatMessageSenderId === msg.senderId) {
         msgGroup.messages.push({
           time: msg.time,
           msg: msg.message,
           feedback: msg.feedback
         })
-      } else {
-        chatMessageSenderId = msg.senderId
+      //} else {
+      //  chatMessageSenderId = msg.senderId
 
         formattedChatLog.push(msgGroup)
         msgGroup = {
-          senderId: msg.senderId,
+          id: msg.id,
           messages: [
             {
               time: msg.time,
@@ -86,7 +86,7 @@ const ChatLog = (props: ChatLogType) => {
             }
           ]
         }
-      }
+      //}
 
       if (index === chatLog.length - 1) formattedChatLog.push(msgGroup)
     })
@@ -130,10 +130,10 @@ const ChatLog = (props: ChatLogType) => {
   // ** Renders user chat
   const renderChats = () => {
     return formattedChatData().map((item: FormattedChatsType, index: number) => {
-      const isSender = item.senderId === data.userContact.id
+      // const isSender = item.senderId === data.userContact.id
 
       return (
-        <Box
+        <Box 
           component='div'
           key={index}
           sx={{
@@ -143,7 +143,7 @@ const ChatLog = (props: ChatLogType) => {
           }}
         >
           <div>
-            <CustomAvatar
+{/*             <CustomAvatar
               skin='light'
               color={data.contact.avatarColor ? data.contact.avatarColor : undefined}
               sx={{
@@ -165,9 +165,9 @@ const ChatLog = (props: ChatLogType) => {
                     alt: data.userContact.fullName
                   }
                 : {})}
-            >
+            > 
               {data.contact.avatarColor ? getInitials(data.contact.fullName) : null}
-            </CustomAvatar>
+            </CustomAvatar>*/}
           </div>
 
           <Box component='div' className='chat-body' sx={{ maxWidth: ['calc(100% - 5.75rem)', '75%', '65%'] }}>
@@ -186,10 +186,10 @@ const ChatLog = (props: ChatLogType) => {
                         fontSize: '0.875rem',
                         wordWrap: 'break-word',
                         p: theme => theme.spacing(3, 4),
-                        ml: isSender ? 'auto' : undefined,
-                        borderTopLeftRadius: !isSender ? 0 : undefined,
-                        borderTopRightRadius: isSender ? 0 : undefined,
-                        color: isSender ? 'common.white' : 'text.primary',
+                        // ml: isSender ? 'auto' : undefined,
+                        // borderTopLeftRadius: !isSender ? 0 : undefined,
+                        // borderTopRightRadius: isSender ? 0 : undefined,
+                        // color: isSender ? 'common.white' : 'text.primary',
                         backgroundColor: isSender ? 'primary.main' : 'background.paper'
                       }}
                     >

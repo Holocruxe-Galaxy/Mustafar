@@ -41,6 +41,7 @@ const SendMsgForm = (props: SendMsgComponentType) => {
     if (store && store.selectedChat && msg.trim().length) {
       dispatch(sendMsg({ ...store.selectedChat, message: msg }))
     }
+    console.log("Este es el estado msg: ", msg)
     setMsg('')
   }
 
@@ -58,15 +59,15 @@ const SendMsgForm = (props: SendMsgComponentType) => {
           />
         </Box>
         <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
-          <IconButton size='small' sx={{ mr: 1.5, color: 'text.primary' }}>
+{/*           <IconButton size='small' sx={{ mr: 1.5, color: 'text.primary' }}>
             <Icon icon='mdi:microphone' fontSize='1.375rem' />
-          </IconButton>
+          </IconButton> 
           <IconButton size='small' component='label' htmlFor='upload-img' sx={{ mr: 2.75, color: 'text.primary' }}>
             <Icon icon='mdi:attachment' fontSize='1.375rem' />
             <input hidden type='file' id='upload-img' />
-          </IconButton>
-          <Button type='submit' variant='contained'>
-            Send
+          </IconButton>*/}
+          <Button type='submit'>
+            <Icon icon='majesticons:send'/>
           </Button>
         </Box>
       </ChatFormWrapper>
