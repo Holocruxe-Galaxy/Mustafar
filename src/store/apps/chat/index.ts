@@ -10,6 +10,7 @@ import { SendMsgParamsType } from 'src/types/apps/chatTypes'
 
 import { Manager, Socket } from "socket.io-client";
 
+type setFunction = (val: any) => void
 let socket: Socket
 
 // ** Fetch User Profile
@@ -29,28 +30,21 @@ export const fetchChatsContacts = createAsyncThunk('appChat/fetchChatsContacts',
 // ** Select Chat
 export const selectChat = createAsyncThunk(
   'appChat/selectChat',
-  async (id: number | string, { dispatch }: { dispatch: Dispatch<any> }) => {
+  async (setId: setFunction) => {
     const manager = new Manager('http://localhost:3001/socket.io/socket.io.js', {
     extraHeaders: {
       authorization: 'holaaaasa'
     }
   });
 
-  socket?.removeAllListeners();
-  socket = manager.socket('/');
+    socket?.removeAllListeners();
+    socket = manager.socket('/');
+  
+    socket.emit('clientChat', { message: 'hola' });
 
-  console.log(id)
+    socket.on('connection', () => setId(socket.id));
 
-  // socket.on('/createChat', ( payload: { fullName: string, message: string }) => {
-
-  // })
-
-  // socket.emit('broadcast', { message: 'client' });
-  socket.emit('clientChat', { message: 'hola' });
-
-  socket.on('connection', () => dispatch(socket.id));
-
-  return null;
+    return null
   }
 )
 
@@ -72,6 +66,7 @@ export const appChatSlice = createSlice({
   initialState: {
     chats: null,
     selectedChat: null
+
     //contacts: null,
     //userProfile: null,
   },
@@ -81,11 +76,7 @@ export const appChatSlice = createSlice({
     }
   },
   extraReducers: builder => {
-    builder.addCase(fetchUserProfile.fulfilled, (state, action) => {
-      state.userProfile = action.payload
-    })
     builder.addCase(fetchChatsContacts.fulfilled, (state, action) => {
-      state.contacts = action.payload.contacts
       state.chats = action.payload.chatsContacts
     })
     builder.addCase(selectChat.fulfilled, (state, action) => {
