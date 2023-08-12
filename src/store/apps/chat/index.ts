@@ -8,6 +8,10 @@ import axios from 'axios'
 import { Dispatch } from 'redux'
 import { SendMsgParamsType } from 'src/types/apps/chatTypes'
 
+import { Manager, Socket } from "socket.io-client";
+
+let socket: Socket
+
 // ** Fetch User Profile
 export const fetchUserProfile = createAsyncThunk('appChat/fetchUserProfile', async () => {
   const response = await axios.get('/apps/chat/users/profile-user')
@@ -26,14 +30,27 @@ export const fetchChatsContacts = createAsyncThunk('appChat/fetchChatsContacts',
 export const selectChat = createAsyncThunk(
   'appChat/selectChat',
   async (id: number | string, { dispatch }: { dispatch: Dispatch<any> }) => {
-    const response = await axios.get('/apps/chat/get-chat', {
-      params: {
-        id
-      }
-    })
-    await dispatch(fetchChatsContacts())
+    const manager = new Manager('http://localhost:3001/socket.io/socket.io.js', {
+    extraHeaders: {
+      authorization: 'holaaaasa'
+    }
+  });
 
-    return response.data
+  socket?.removeAllListeners();
+  socket = manager.socket('/');
+
+  console.log(id)
+
+  // socket.on('/createChat', ( payload: { fullName: string, message: string }) => {
+
+  // })
+
+  // socket.emit('broadcast', { message: 'client' });
+  socket.emit('clientChat', { message: 'hola' });
+
+  socket.on('connection', () => dispatch(socket.id));
+
+  return null;
   }
 )
 
@@ -44,9 +61,7 @@ export const sendMsg = createAsyncThunk('appChat/sendMsg', async (obj: SendMsgPa
       obj
     }
   })
-  if (obj.contact) {
-    await dispatch(selectChat(obj.contact.id))
-  }
+
   await dispatch(fetchChatsContacts())
 
   return response.data
