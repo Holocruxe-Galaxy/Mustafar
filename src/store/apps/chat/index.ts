@@ -71,9 +71,9 @@ export const appChatSlice = createSlice({
   name: 'appChat',
   initialState: {
     chats: null,
-    contacts: null,
-    userProfile: null,
     selectedChat: null
+    //contacts: null,
+    //userProfile: null,
   },
   reducers: {
     removeSelectedChat: state => {
