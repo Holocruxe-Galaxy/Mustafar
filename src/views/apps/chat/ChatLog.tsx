@@ -55,7 +55,6 @@ const ChatLog = (props: ChatLogType) => {
   // ** Formats chat data based on sender
   const formattedChatData = () => {
     let chatLog: MessageType[] | [] = []
-    let senderId = "ailin"
 
     if (data.chat) {
       chatLog = data.chat.chat

@@ -1,16 +1,16 @@
 // ** React Imports
-import { Fragment, useState } from 'react'
+import { Fragment, useState } from 'react';
 
 // ** MUI Imports
-import Badge from '@mui/material/Badge'
-import MuiAvatar from '@mui/material/Avatar'
-import { styled } from '@mui/material/styles'
-import Typography from '@mui/material/Typography'
-import IconButton from '@mui/material/IconButton'
-import Box, { BoxProps } from '@mui/material/Box'
+import Badge from '@mui/material/Badge';
+import MuiAvatar from '@mui/material/Avatar';
+import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import Box, { BoxProps } from '@mui/material/Box';
 
 // ** Icon Imports
-import Icon from 'src/@core/components/icon'
+import Icon from 'src/@core/components/icon';
 
 // ** Custom Components Import
 import ChatLog from './ChatLog'
@@ -20,7 +20,7 @@ import SendMsgForm from 'src/views/apps/chat/SendMsgForm'
 // import OptionsMenu from 'src/@core/components/option-menu'
 
 // ** Types
-import { ChatContentType } from 'src/types/apps/chatTypes'
+import { ChatContentType } from 'src/types/apps/chatTypes';
 
 // ** Styled Components
 const ChatWrapperStartChat = styled(Box)<BoxProps>(({ theme }) => ({
@@ -32,7 +32,7 @@ const ChatWrapperStartChat = styled(Box)<BoxProps>(({ theme }) => ({
   flexDirection: 'column',
   justifyContent: 'center',
   backgroundColor: theme.palette.action.hover
-}))
+}));
 
 const ChatContent = (props: ChatContentType) => {
   // ** Props
@@ -43,25 +43,28 @@ const ChatContent = (props: ChatContentType) => {
     sendMsg,
     store,
     dispatch,
+
     // statusObj,
     // getInitials,
     // sidebarWidth,
     // userProfileRightOpen,
     // handleLeftSidebarToggle,
     // handleUserProfileRightSidebarToggle
-  } = props
+  } = props;
 
   // ** States
-  const [active, setActive] = useState(false)
+  const [active, setActive] = useState(false);
+  const [id, setId] = useState('');
 
 
   const handleStartConversation = (type: 'chat') => {
-    dispatch(selectChat)
-    setActive(true)
+    dispatch(selectChat(setId as any));
+    setActive(true);
+
     //if (!mdAbove) {
     //  handleLeftSidebarToggle()
     //}
-  } 
+  };
 
   const renderContent = () => {
     if (store) {
@@ -74,42 +77,42 @@ const ChatContent = (props: ChatContentType) => {
               ...(mdAbove ? { borderTopLeftRadius: 0, borderBottomLeftRadius: 0 } : {})
             }}
           >
-            <IconButton 
-            sx={{display: 'flex', flexDirection: 'column', height: 300, width: 300}}
+            <IconButton
+              sx={{ display: 'flex', flexDirection: 'column', height: 300, width: 300 }}
               onClick={() => handleStartConversation('chat')}
             >
 
-            <MuiAvatar
-              sx={{
-                mb: 5,
-                pt: 8,
-                pb: 7,
-                px: 7.5,
-                width: 110,
-                height: 110,
-                boxShadow: 3,
-                '& svg': { color: 'action.active' },
-                backgroundColor: 'background.paper'
-              }}
-            >
-              <Icon icon='mdi:message-outline' fontSize='3.125rem' />
-            </MuiAvatar>
-            <Box
-              component='div'
-              sx={{
-                px: 6,
-                py: 2.25,
-                boxShadow: 3,
-                borderRadius: 5,
-                backgroundColor: 'background.paper',
-                cursor: mdAbove ? 'default' : 'pointer'
-              }}
-            >
-              <Typography sx={{ fontWeight: 600 }}>Start Conversation</Typography>
-            </Box>
+              <MuiAvatar
+                sx={{
+                  mb: 5,
+                  pt: 8,
+                  pb: 7,
+                  px: 7.5,
+                  width: 110,
+                  height: 110,
+                  boxShadow: 3,
+                  '& svg': { color: 'action.active' },
+                  backgroundColor: 'background.paper'
+                }}
+              >
+                <Icon icon='mdi:message-outline' fontSize='3.125rem' />
+              </MuiAvatar>
+              <Box
+                component='div'
+                sx={{
+                  px: 6,
+                  py: 2.25,
+                  boxShadow: 3,
+                  borderRadius: 5,
+                  backgroundColor: 'background.paper',
+                  cursor: mdAbove ? 'default' : 'pointer'
+                }}
+              >
+                <Typography sx={{ fontWeight: 600 }}>Start Conversation</Typography>
+              </Box>
             </IconButton>
           </ChatWrapperStartChat>
-        )
+        );
       } else {
         return (
           <Box
@@ -127,14 +130,14 @@ const ChatContent = (props: ChatContentType) => {
 
             <SendMsgForm store={store} dispatch={dispatch} sendMsg={sendMsg} />
           </Box>
-        )
+        );
       }
     } else {
-      return null
+      return null;
     }
-  }
+  };
 
-  return renderContent()
-}
+  return renderContent();
+};
 
-export default ChatContent
+export default ChatContent;

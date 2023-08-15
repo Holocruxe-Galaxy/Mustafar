@@ -8,6 +8,11 @@ import axios from 'axios'
 import { Dispatch } from 'redux'
 import { SendMsgParamsType } from 'src/types/apps/chatTypes'
 
+import { Manager, Socket } from "socket.io-client";
+
+type setFunction = (val: any) => void
+let socket: Socket
+
 // ** Fetch User Profile
 export const fetchUserProfile = createAsyncThunk('appChat/fetchUserProfile', async () => {
   const response = await axios.get('/apps/chat/users/profile-user')
@@ -25,15 +30,21 @@ export const fetchChatsContacts = createAsyncThunk('appChat/fetchChatsContacts',
 // ** Select Chat
 export const selectChat = createAsyncThunk(
   'appChat/selectChat',
-  async (id: number | string, { dispatch }: { dispatch: Dispatch<any> }) => {
-    const response = await axios.get('/apps/chat/get-chat', {
-      params: {
-        id
-      }
-    })
-    await dispatch(fetchChatsContacts())
+  async (setId: setFunction) => {
+    const manager = new Manager('http://localhost:3001/socket.io/socket.io.js', {
+    extraHeaders: {
+      authorization: 'holaaaasa'
+    }
+  });
 
-    return response.data
+    socket?.removeAllListeners();
+    socket = manager.socket('/');
+  
+    socket.emit('clientChat', { message: 'hola' });
+
+    socket.on('connection', () => setId(socket.id));
+
+    return null
   }
 )
 
@@ -44,9 +55,7 @@ export const sendMsg = createAsyncThunk('appChat/sendMsg', async (obj: SendMsgPa
       obj
     }
   })
-  if (obj.contact) {
-    await dispatch(selectChat(obj.contact.id))
-  }
+
   await dispatch(fetchChatsContacts())
 
   return response.data
@@ -57,6 +66,7 @@ export const appChatSlice = createSlice({
   initialState: {
     chats: null,
     selectedChat: null
+
     //contacts: null,
     //userProfile: null,
   },
@@ -66,11 +76,7 @@ export const appChatSlice = createSlice({
     }
   },
   extraReducers: builder => {
-    builder.addCase(fetchUserProfile.fulfilled, (state, action) => {
-      state.userProfile = action.payload
-    })
     builder.addCase(fetchChatsContacts.fulfilled, (state, action) => {
-      state.contacts = action.payload.contacts
       state.chats = action.payload.chatsContacts
     })
     builder.addCase(selectChat.fulfilled, (state, action) => {
