@@ -55,15 +55,17 @@ const ChatLog = (props: ChatLogType) => {
   // ** Formats chat data based on sender
   const formattedChatData = () => {
     let chatLog: MessageType[] | [] = []
+    let senderId = "ailin"
+
     if (data.chat) {
       chatLog = data.chat.chat
     }
 
     const formattedChatLog: FormattedChatsType[] = []
-    let chatMessageSenderId = /* chatLog[0] ? */ chatLog[0].id /* : null */
+    let chatMessageSenderId = /* chatLog[0] ? */ chatLog[0].senderId /* : null */
     let msgGroup: MessageGroupType = {
       messages: [],
-      id: chatMessageSenderId
+      senderId: chatMessageSenderId
     }
     chatLog.forEach((msg: MessageType, index: number) => {
       //if (chatMessageSenderId === msg.senderId) {
@@ -77,7 +79,7 @@ const ChatLog = (props: ChatLogType) => {
 
         formattedChatLog.push(msgGroup)
         msgGroup = {
-          id: msg.id,
+          senderId: msg.senderId,
           messages: [
             {
               time: msg.time,
@@ -130,7 +132,7 @@ const ChatLog = (props: ChatLogType) => {
   // ** Renders user chat
   const renderChats = () => {
     return formattedChatData().map((item: FormattedChatsType, index: number) => {
-      // const isSender = item.senderId === data.userContact.id
+       const isSender = item.senderId
 
       return (
         <Box 
@@ -186,10 +188,10 @@ const ChatLog = (props: ChatLogType) => {
                         fontSize: '0.875rem',
                         wordWrap: 'break-word',
                         p: theme => theme.spacing(3, 4),
-                        // ml: isSender ? 'auto' : undefined,
-                        // borderTopLeftRadius: !isSender ? 0 : undefined,
-                        // borderTopRightRadius: isSender ? 0 : undefined,
-                        // color: isSender ? 'common.white' : 'text.primary',
+                        ml: isSender ? 'auto' : undefined,
+                        borderTopLeftRadius: !isSender ? 0 : undefined,
+                        borderTopRightRadius: isSender ? 0 : undefined,
+                        color: isSender ? 'common.white' : 'text.primary',
                         backgroundColor: isSender ? 'primary.main' : 'background.paper'
                       }}
                     >

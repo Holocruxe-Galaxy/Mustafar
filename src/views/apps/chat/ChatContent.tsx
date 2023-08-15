@@ -15,7 +15,7 @@ import Icon from 'src/@core/components/icon'
 // ** Custom Components Import
 import ChatLog from './ChatLog'
 import SendMsgForm from 'src/views/apps/chat/SendMsgForm'
-import UserProfileRight from 'src/views/apps/chat/UserProfileRight'
+// import UserProfileRight from 'src/views/apps/chat/UserProfileRight'
 // import CustomAvatar from 'src/@core/components/mui/avatar'
 // import OptionsMenu from 'src/@core/components/option-menu'
 
@@ -66,8 +66,6 @@ const ChatContent = (props: ChatContentType) => {
   const renderContent = () => {
     if (store) {
       const selectedChat = store.selectedChat
-      const chat = store.chats
-
       if (active === false) {
 
         return (
@@ -123,10 +121,9 @@ const ChatContent = (props: ChatContentType) => {
               backgroundColor: 'action.hover'
             }}
           >
-
             {selectedChat ? (
               <ChatLog hidden={hidden} data={{ ...selectedChat }} />
-            ) : <Box component='div' sx={{height: 450}}></Box> }
+            ) : <Box component='div' sx={{height: 460}}></Box> }
 
             <SendMsgForm store={store} dispatch={dispatch} sendMsg={sendMsg} />
           </Box>

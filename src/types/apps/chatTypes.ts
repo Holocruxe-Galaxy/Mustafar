@@ -34,14 +34,13 @@ export type ChatType = {
   message: string
   time: Date | string
   feedback: MsgFeedbackType
-  id: string
-  //senderId: number
+  senderId: string
+  //id: string
 }
 
 export type ChatsObj = {
   chat: ChatType[]
   lastMessage?: ChatType
-  //id: number
   //userId: number
   // unseenMsgs: number
 }
@@ -159,8 +158,8 @@ export type MessageType = {
   time: string | Date
   message: string
   feedback: MsgFeedbackType
-  id: string
-  //senderId: number
+  senderId: string
+  //id: string
 }
 
 export type ChatLogChatType = {
@@ -171,11 +170,12 @@ export type ChatLogChatType = {
 
 export type FormattedChatsType = {
   messages: ChatLogChatType[]
-  //senderId: number
+  senderId: string
+  //id: string
 }
 
  export type MessageGroupType = {
-   //senderId: number
-   id: string
+   senderId: string
    messages: ChatLogChatType[]
+   //id: string
  }
