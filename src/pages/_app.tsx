@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-sync-scripts */
 // ** React Imports
 import { ReactNode } from 'react'
 
@@ -133,6 +134,7 @@ const App = (props: ExtendedAppProps) => {
             <link rel='shortcut icon' href='/images/favicon.png' />
             <meta name='keywords' content='Holocruxe, IA, AI, Cruxi' />
             <meta name='viewport' content='initial-scale=1, width=device-width' />
+            <script src='https://upload-widget.cloudinary.com/global/all.js' type='text/javascript'></script>
           </Head>
 
           <AuthProvider>
