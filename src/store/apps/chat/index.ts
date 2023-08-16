@@ -31,7 +31,7 @@ export const fetchChatsContacts = createAsyncThunk('appChat/fetchChatsContacts',
 export const selectChat = createAsyncThunk(
   'appChat/selectChat',
   async (setId: setFunction) => {
-    const manager = new Manager('http://localhost:3001/socket.io/socket.io.js', {
+    const manager = new Manager(`${process.env.NEXT_PUBLIC_MANDALORE}/socket.io/socket.io.js`, {
     extraHeaders: {
       authorization: 'holaaaasa'
     }
@@ -42,7 +42,8 @@ export const selectChat = createAsyncThunk(
   
     socket.emit('clientChat', { message: 'hola' });
 
-    socket.on('connection', () => setId(socket.id));
+    socket.on('connection', () => console.log(socket.id));
+    console.log("Esto es socket id: ", socket.id)
 
     return null
   }
@@ -57,7 +58,7 @@ export const sendMsg = createAsyncThunk('appChat/sendMsg', async (obj: SendMsgPa
   })
 
   await dispatch(fetchChatsContacts())
-
+  console.log("Estoe s response.data: ", response.data)
   return response.data
 })
 

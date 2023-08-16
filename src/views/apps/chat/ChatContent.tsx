@@ -2,7 +2,7 @@
 import { Fragment, useState } from 'react';
 
 // ** MUI Imports
-import Badge from '@mui/material/Badge';
+//import Badge from '@mui/material/Badge';
 import MuiAvatar from '@mui/material/Avatar';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
@@ -57,10 +57,10 @@ const ChatContent = (props: ChatContentType) => {
   const [id, setId] = useState('');
 
 
-  const handleStartConversation = (type: 'chat') => {
+  const handleStartConversation = (type: 'chat' | 'user', id: string ) => {
     dispatch(selectChat(setId as any));
     setActive(true);
-
+    console.log("Esto es id: ", id)
     //if (!mdAbove) {
     //  handleLeftSidebarToggle()
     //}
@@ -69,6 +69,8 @@ const ChatContent = (props: ChatContentType) => {
   const renderContent = () => {
     if (store) {
       const selectedChat = store.selectedChat
+      console.log("Esto es el store: ", store)
+      console.log("Esto es selectedChat: ", selectedChat)
       if (active === false) {
 
         return (
@@ -79,7 +81,7 @@ const ChatContent = (props: ChatContentType) => {
           >
             <IconButton
               sx={{ display: 'flex', flexDirection: 'column', height: 300, width: 300 }}
-              onClick={() => handleStartConversation('chat')}
+              onClick={() => handleStartConversation('chat', id)}
             >
 
               <MuiAvatar
@@ -128,7 +130,7 @@ const ChatContent = (props: ChatContentType) => {
               <ChatLog hidden={hidden} data={{ ...selectedChat }} />
             ) : <Box component='div' sx={{height: 460}}></Box> }
 
-            <SendMsgForm store={store} dispatch={dispatch} sendMsg={sendMsg} />
+            <SendMsgForm store={store} dispatch={dispatch} sendMsg={sendMsg}/>
           </Box>
         );
       }

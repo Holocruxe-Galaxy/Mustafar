@@ -59,7 +59,7 @@ const ChatLog = (props: ChatLogType) => {
     if (data.chat) {
       chatLog = data.chat.chat
     }
-
+    console.log("Esto es data.chat en ChatLog: ", data.chat)
     const formattedChatLog: FormattedChatsType[] = []
     let chatMessageSenderId = /* chatLog[0] ? */ chatLog[0].senderId /* : null */
     let msgGroup: MessageGroupType = {
@@ -74,7 +74,7 @@ const ChatLog = (props: ChatLogType) => {
           feedback: msg.feedback
         })
       //} else {
-      //  chatMessageSenderId = msg.senderId
+        //  chatMessageSenderId = msg.senderId
 
         formattedChatLog.push(msgGroup)
         msgGroup = {
@@ -87,11 +87,11 @@ const ChatLog = (props: ChatLogType) => {
             }
           ]
         }
-      //}
-
-      if (index === chatLog.length - 1) formattedChatLog.push(msgGroup)
-    })
-
+        //}
+        
+        if (index === chatLog.length - 1) formattedChatLog.push(msgGroup)
+      })
+      
     return formattedChatLog
   }
 

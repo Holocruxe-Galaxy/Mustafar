@@ -34,16 +34,21 @@ const SendMsgForm = (props: SendMsgComponentType) => {
   const { store, dispatch, sendMsg } = props
 
   // ** State
-  const [msg, setMsg] = useState<string>('')
+  /* const */let [msg, setMsg] = useState<string>('')
 
   const handleSendMsg = (e: SyntheticEvent) => {
     e.preventDefault()
     if (store && store.selectedChat && msg.trim().length) {
       dispatch(sendMsg({ ...store.selectedChat, message: msg }))
-    }
-    console.log("Este es el estado msg: ", msg)
-    setMsg('')
+      setMsg('')
+      console.log("Esto es store: ", store)
+      console.log("Esto es store.selectedChat: ", store.selectedChat)
+      console.log("Esto es message: msg", msg)
+    } else {
+      msg = "No hay mensajes"
+      console.log("Esto es message: ", msg)
   }
+}
 
   return (
     <Form onSubmit={handleSendMsg}>

@@ -41,8 +41,14 @@ export type ChatType = {
 export type ChatsObj = {
   chat: ChatType[]
   lastMessage?: ChatType
-  //userId: number
-  // unseenMsgs: number
+  senderId: string
+  /* 
+    id: number
+  userId: number
+  chat: ChatType[]
+  unseenMsgs: number
+  lastMessage?: ChatType
+  */
 }
 
 //export type ContactType = {
@@ -90,7 +96,7 @@ export type ChatContentType = {
   store: ChatStoreType
   dispatch: Dispatch<any>
   sendMsg: (params: SendMsgParamsType) => void
-  selectChat: (id: number) => void
+  selectChat: (id: string) => void
   // sidebarWidth: number
   // statusObj: StatusObjType
   // userProfileRightOpen: boolean
