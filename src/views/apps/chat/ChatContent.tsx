@@ -1,5 +1,5 @@
 // ** React Imports
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 // ** MUI Imports
 //import Badge from '@mui/material/Badge';
@@ -13,14 +13,17 @@ import Box, { BoxProps } from '@mui/material/Box';
 import Icon from 'src/@core/components/icon';
 
 // ** Custom Components Import
-import ChatLog from './ChatLog'
-import SendMsgForm from 'src/views/apps/chat/SendMsgForm'
+import ChatLog from './ChatLog';
+import SendMsgForm from 'src/views/apps/chat/SendMsgForm';
+
 // import UserProfileRight from 'src/views/apps/chat/UserProfileRight'
 // import CustomAvatar from 'src/@core/components/mui/avatar'
 // import OptionsMenu from 'src/@core/components/option-menu'
 
 // ** Types
 import { ChatContentType } from 'src/types/apps/chatTypes';
+import { saveId } from 'src/store/apps/chat';
+import { socketClient } from 'src/libs/socket.io';
 
 // ** Styled Components
 const ChatWrapperStartChat = styled(Box)<BoxProps>(({ theme }) => ({
@@ -39,38 +42,33 @@ const ChatContent = (props: ChatContentType) => {
   const {
     hidden,
     mdAbove,
-    selectChat,
     sendMsg,
     store,
     dispatch,
-
-    // statusObj,
-    // getInitials,
-    // sidebarWidth,
-    // userProfileRightOpen,
-    // handleLeftSidebarToggle,
-    // handleUserProfileRightSidebarToggle
   } = props;
 
   // ** States
   const [active, setActive] = useState(false);
   const [id, setId] = useState('');
 
+  useEffect(() => {
+    if (id) dispatch(saveId(id));
+    socketClient.recieveMessages(dispatch);
+    socketClient.recieveBroadcast(dispatch);
 
-  const handleStartConversation = (type: 'chat' | 'user', id: string ) => {
-    dispatch(selectChat(setId as any));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
+
+
+  const handleStartConversation = () => {
+    socketClient.connect(setId);
     setActive(true);
-    console.log("Esto es id: ", id)
-    //if (!mdAbove) {
-    //  handleLeftSidebarToggle()
-    //}
   };
 
   const renderContent = () => {
     if (store) {
-      const selectedChat = store.selectedChat
-      console.log("Esto es el store: ", store)
-      console.log("Esto es selectedChat: ", selectedChat)
+      const selectedChat = store.selectedChat;
+
       if (active === false) {
 
         return (
@@ -81,7 +79,7 @@ const ChatContent = (props: ChatContentType) => {
           >
             <IconButton
               sx={{ display: 'flex', flexDirection: 'column', height: 300, width: 300 }}
-              onClick={() => handleStartConversation('chat', id)}
+              onClick={() => handleStartConversation()}
             >
 
               <MuiAvatar
@@ -128,9 +126,9 @@ const ChatContent = (props: ChatContentType) => {
           >
             {selectedChat ? (
               <ChatLog hidden={hidden} data={{ ...selectedChat }} />
-            ) : <Box component='div' sx={{height: 460}}></Box> }
+            ) : <Box component='div' sx={{ height: 460 }}></Box>}
 
-            <SendMsgForm store={store} dispatch={dispatch} sendMsg={sendMsg}/>
+            <SendMsgForm store={store} dispatch={dispatch} sendMsg={sendMsg} />
           </Box>
         );
       }

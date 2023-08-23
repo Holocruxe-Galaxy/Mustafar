@@ -35,6 +35,7 @@ export type ChatType = {
   time: Date | string
   feedback: MsgFeedbackType
   senderId: string
+
   //id: string
 }
 
@@ -42,6 +43,7 @@ export type ChatsObj = {
   chat: ChatType[]
   lastMessage?: ChatType
   senderId: string
+
   /* 
     id: number
   userId: number
@@ -63,6 +65,7 @@ export type ChatsObj = {
 
 export type ChatsArrType = {
   chat: ChatsObj
+
   //id: number
   // role: string
   // about: string
@@ -74,12 +77,14 @@ export type ChatsArrType = {
 
 export type SelectedChatType = null | {
   chat: ChatsObj
+
   // contact: ChatsArrType
 }
 
 export type ChatStoreType = {
   chats: ChatsArrType[] | null
   selectedChat: SelectedChatType
+
   //contacts: ContactType[] | null
   //userProfile: ProfileUserType | null
 }
@@ -87,6 +92,7 @@ export type ChatStoreType = {
 export type SendMsgParamsType = {
   chat?: ChatsObj
   message: string
+
   // contact?: ChatsArrType
 }
 
@@ -96,7 +102,7 @@ export type ChatContentType = {
   store: ChatStoreType
   dispatch: Dispatch<any>
   sendMsg: (params: SendMsgParamsType) => void
-  selectChat: (id: string) => void
+
   // sidebarWidth: number
   // statusObj: StatusObjType
   // userProfileRightOpen: boolean
@@ -155,6 +161,7 @@ export type ChatLogType = {
   hidden: boolean
   data: {
     chat: ChatsObj
+
     //contact: ContactType
     //userContact: ProfileUserType
   }
@@ -165,6 +172,7 @@ export type MessageType = {
   message: string
   feedback: MsgFeedbackType
   senderId: string
+
   //id: string
 }
 
@@ -177,11 +185,13 @@ export type ChatLogChatType = {
 export type FormattedChatsType = {
   messages: ChatLogChatType[]
   senderId: string
+
   //id: string
 }
 
  export type MessageGroupType = {
    senderId: string
    messages: ChatLogChatType[]
+
    //id: string
  }
