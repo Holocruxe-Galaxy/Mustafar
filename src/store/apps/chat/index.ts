@@ -4,14 +4,22 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 // ** Axios Imports
 import axios from 'axios'
 
-// ** Types
-import { Dispatch } from 'redux'
-import { SendMsgParamsType } from 'src/types/apps/chatTypes'
+interface Messages {
+  messages: Message[]
+}
 
-import { Manager, Socket } from "socket.io-client";
+interface Message {
+  message: string;
+  isBroadcasted?: boolean;
+  id?: string;
+}
 
-type setFunction = (val: any) => void
-let socket: Socket
+interface ChatReducer {
+  id: string;
+  selectedChat: null
+  messages: null | Message[];
+  chats: null | any[];
+}
 
 // ** Fetch User Profile
 export const fetchUserProfile = createAsyncThunk('appChat/fetchUserProfile', async () => {
@@ -27,50 +35,27 @@ export const fetchChatsContacts = createAsyncThunk('appChat/fetchChatsContacts',
   return response.data
 })
 
-// ** Select Chat -> busca el chat a partir del ID
-export const selectChat = createAsyncThunk(
-  'appChat/selectChat',
-  async (setId: setFunction) => {
-    const manager = new Manager(`${process.env.NEXT_PUBLIC_MANDALORE}/socket.io/socket.io.js`, {
-    extraHeaders: {
-      authorization: 'holaaaasa'
-    }
-  });
-
-    socket?.removeAllListeners();
-    socket = manager.socket('/');
+export const addMessageToChat = createAsyncThunk('appChat/addMsgs', async (messages: Messages) => {
   
-    socket.emit('clientChat', { message: 'hola' });
+return messages.messages
+})
 
-    socket.on('connection', () => console.log(socket.id));
-    console.log("Esto es socket id: ", socket.id)
-
-    return null
+// ** Select Chat
+export const saveId = createAsyncThunk(
+  'appChat/saveId',
+  (id: string) => {
+    return id
   }
 )
-
-// ** Send Msg
-export const sendMsg = createAsyncThunk('appChat/sendMsg', async (obj: SendMsgParamsType, { dispatch }) => {
-  console.log("Entrando a index.ts sendMsg")
-  const response = await axios.post('/apps/chat/send-msg', {
-    data: {
-      obj
-    }
-  })
-
-  //await dispatch(fetchChatsContacts())
-  console.log("Esto es response.data: ", response.data)
-  return response.data
-})
 
 export const appChatSlice = createSlice({
   name: 'appChat',
   initialState: {
+    id: '',
     chats: null,
-    selectedChat: null
-    //contacts: null,
-    //userProfile: null,
-  },
+    selectedChat: null,
+    messages: []
+  } as ChatReducer,
   reducers: {
     removeSelectedChat: state => {
       state.selectedChat = null
@@ -80,8 +65,11 @@ export const appChatSlice = createSlice({
     builder.addCase(fetchChatsContacts.fulfilled, (state, action) => {
       state.chats = action.payload.chatsContacts
     })
-    builder.addCase(selectChat.fulfilled, (state, action) => {
-      state.selectedChat = action.payload
+    builder.addCase(saveId.fulfilled, (state, action) => {
+      state.id = action.payload
+    })
+    builder.addCase(addMessageToChat.fulfilled, (state, action) => {
+      state.messages = action.payload
     })
   }
 })

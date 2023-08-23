@@ -1,51 +1,51 @@
 // ** React Imports
-import { useState, useEffect, ChangeEvent, ReactNode } from 'react'
+import { useState, useEffect, ChangeEvent, ReactNode } from 'react';
 
 // ** Next Import
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 
 // ** MUI Imports
-import Box from '@mui/material/Box'
-import List from '@mui/material/List'
-import Chip from '@mui/material/Chip'
-import Badge from '@mui/material/Badge'
-import Drawer from '@mui/material/Drawer'
-import MuiAvatar from '@mui/material/Avatar'
-import ListItem from '@mui/material/ListItem'
-import TextField from '@mui/material/TextField'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import ListItemText from '@mui/material/ListItemText'
-import ListItemAvatar from '@mui/material/ListItemAvatar'
-import ListItemButton from '@mui/material/ListItemButton'
-import InputAdornment from '@mui/material/InputAdornment'
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import Chip from '@mui/material/Chip';
+import Badge from '@mui/material/Badge';
+import Drawer from '@mui/material/Drawer';
+import MuiAvatar from '@mui/material/Avatar';
+import ListItem from '@mui/material/ListItem';
+import TextField from '@mui/material/TextField';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemButton from '@mui/material/ListItemButton';
+import InputAdornment from '@mui/material/InputAdornment';
 
 // ** Third Party Components
-import PerfectScrollbar from 'react-perfect-scrollbar'
+import PerfectScrollbar from 'react-perfect-scrollbar';
 
 // ** Icon Imports
-import Icon from 'src/@core/components/icon'
+import Icon from 'src/@core/components/icon';
 
 // ** Types
-import { ContactType, ChatSidebarLeftType, ChatsArrType } from 'src/types/apps/chatTypes'
+import { ContactType, ChatSidebarLeftType, ChatsArrType } from 'src/types/apps/chatTypes';
 
 // ** Custom Components Import
-import CustomAvatar from 'src/@core/components/mui/avatar'
+import CustomAvatar from 'src/@core/components/mui/avatar';
 
 // ** Chat App Components Imports
-import UserProfileLeft from 'src/views/apps/chat/UserProfileLeft'
+import UserProfileLeft from 'src/views/apps/chat/UserProfileLeft';
 
-const ScrollWrapper = ({ children, hidden }: { children: ReactNode; hidden: boolean }) => {
+const ScrollWrapper = ({ children, hidden }: { children: ReactNode; hidden: boolean; }) => {
   if (hidden) {
     return (
       <Box component='div' sx={{ height: '100%', overflow: 'auto' }}>
         {children}
       </Box>
-    )
+    );
   } else {
-    return <PerfectScrollbar options={{ wheelPropagation: false }}>{children}</PerfectScrollbar>
+    return <PerfectScrollbar options={{ wheelPropagation: false }}>{children}</PerfectScrollbar>;
   }
-}
+};
 
 const SidebarLeft = (props: ChatSidebarLeftType) => {
   // ** Props
@@ -56,7 +56,6 @@ const SidebarLeft = (props: ChatSidebarLeftType) => {
     dispatch,
     statusObj,
     userStatus,
-    selectChat,
     getInitials,
     sidebarWidth,
     setUserStatus,
@@ -66,55 +65,54 @@ const SidebarLeft = (props: ChatSidebarLeftType) => {
     formatDateToMonthShort,
     handleLeftSidebarToggle,
     handleUserProfileLeftSidebarToggle
-  } = props
+  } = props;
 
   // ** States
-  const [query, setQuery] = useState<string>('')
-  const [filteredChat, setFilteredChat] = useState<ChatsArrType[]>([])
-  const [filteredContacts, setFilteredContacts] = useState<ContactType[]>([])
-  const [active, setActive] = useState<null | { type: string; id: string | number }>(null)
+  const [query, setQuery] = useState<string>('');
+  const [filteredChat, setFilteredChat] = useState<ChatsArrType[]>([]);
+  const [filteredContacts, setFilteredContacts] = useState<ContactType[]>([]);
+  const [active, setActive] = useState<null | { type: string; id: string | number; }>(null);
 
   // ** Hooks
-  const router = useRouter()
+  const router = useRouter();
 
   const handleChatClick = (type: 'chat' | 'contact', id: number) => {
-    dispatch(selectChat(id))
-    setActive({ type, id })
+    setActive({ type, id });
     if (!mdAbove) {
-      handleLeftSidebarToggle()
+      handleLeftSidebarToggle();
     }
-  }
+  };
 
   useEffect(() => {
     if (store && store.chats) {
       if (active !== null) {
         if (active.type === 'contact' && active.id === store.chats[0].id) {
-          setActive({ type: 'chat', id: active.id })
+          setActive({ type: 'chat', id: active.id });
         }
       }
     }
-  }, [store, active])
+  }, [store, active]);
 
   useEffect(() => {
     router.events.on('routeChangeComplete', () => {
-      setActive(null)
-      dispatch(removeSelectedChat())
-    })
+      setActive(null);
+      dispatch(removeSelectedChat());
+    });
 
     return () => {
-      setActive(null)
-      dispatch(removeSelectedChat())
-    }
+      setActive(null);
+      dispatch(removeSelectedChat());
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
 
   const hasActiveId = (id: number | string) => {
     if (store.chats !== null) {
-      const arr = store.chats.filter(i => i.id === id)
+      const arr = store.chats.filter(i => i.id === id);
 
-      return !!arr.length
+      return !!arr.length;
     }
-  }
+  };
 
   const renderChats = () => {
     if (store && store.chats && store.chats.length) {
@@ -123,13 +121,13 @@ const SidebarLeft = (props: ChatSidebarLeftType) => {
           <ListItem>
             <Typography sx={{ color: 'text.secondary' }}>No Chats Found</Typography>
           </ListItem>
-        )
+        );
       } else {
-        const arrToMap = query.length && filteredChat.length ? filteredChat : store.chats
+        const arrToMap = query.length && filteredChat.length ? filteredChat : store.chats;
 
         return arrToMap.map((chat: ChatsArrType, index: number) => {
-          const { lastMessage } = chat.chat
-          const activeCondition = active !== null && active.id === chat.id && active.type === 'chat'
+          const { lastMessage } = chat.chat;
+          const activeCondition = active !== null && active.id === chat.id && active.type === 'chat';
 
           return (
             <ListItem key={index} disablePadding sx={{ '&:not(:last-child)': { mb: 1.5 } }}>
@@ -162,8 +160,7 @@ const SidebarLeft = (props: ChatSidebarLeftType) => {
                           color: `${statusObj[chat.status]}.main`,
                           backgroundColor: `${statusObj[chat.status]}.main`,
                           boxShadow: theme =>
-                            `0 0 0 2px ${
-                              !activeCondition ? theme.palette.background.paper : theme.palette.common.white
+                            `0 0 0 2px ${!activeCondition ? theme.palette.background.paper : theme.palette.common.white
                             }`
                         }}
                       />
@@ -241,11 +238,11 @@ const SidebarLeft = (props: ChatSidebarLeftType) => {
                 </Box>
               </ListItemButton>
             </ListItem>
-          )
-        })
+          );
+        });
       }
     }
-  }
+  };
 
   const renderContacts = () => {
     if (store && store.chats && store.chats.length) {
@@ -254,93 +251,93 @@ const SidebarLeft = (props: ChatSidebarLeftType) => {
           <ListItem>
             <Typography sx={{ color: 'text.secondary' }}>No Contacts Found</Typography>
           </ListItem>
-        )
+        );
       } else {
-        const arrToMap = query.length && filteredContacts.length ? filteredContacts : store.contacts
+        const arrToMap = query.length && filteredContacts.length ? filteredContacts : store.contacts;
 
         return arrToMap !== null
           ? arrToMap.map((contact: ContactType, index: number) => {
-              const activeCondition =
-                active !== null && active.id === contact.id && active.type === 'contact' && !hasActiveId(contact.id)
+            const activeCondition =
+              active !== null && active.id === contact.id && active.type === 'contact' && !hasActiveId(contact.id);
 
-              return (
-                <ListItem key={index} disablePadding sx={{ '&:not(:last-child)': { mb: 1.5 } }}>
-                  <ListItemButton
-                    disableRipple
-                    onClick={() => handleChatClick(hasActiveId(contact.id) ? 'chat' : 'contact', contact.id)}
+            return (
+              <ListItem key={index} disablePadding sx={{ '&:not(:last-child)': { mb: 1.5 } }}>
+                <ListItemButton
+                  disableRipple
+                  onClick={() => handleChatClick(hasActiveId(contact.id) ? 'chat' : 'contact', contact.id)}
+                  sx={{
+                    px: 2.5,
+                    py: 2.5,
+                    width: '100%',
+                    borderRadius: 1,
+                    ...(activeCondition && { backgroundColor: theme => `${theme.palette.primary.main} !important` })
+                  }}
+                >
+                  <ListItemAvatar sx={{ m: 0 }}>
+                    {contact.avatar ? (
+                      <MuiAvatar
+                        alt={contact.fullName}
+                        src={contact.avatar}
+                        sx={{
+                          width: 40,
+                          height: 40,
+                          outline: theme =>
+                            `2px solid ${activeCondition ? theme.palette.common.white : 'transparent'}`
+                        }}
+                      />
+                    ) : (
+                      <CustomAvatar
+                        color={contact.avatarColor}
+                        skin={activeCondition ? 'light-static' : 'light'}
+                        sx={{
+                          width: 40,
+                          height: 40,
+                          fontSize: '1rem',
+                          outline: theme =>
+                            `2px solid ${activeCondition ? theme.palette.common.white : 'transparent'}`
+                        }}
+                      >
+                        {getInitials(contact.fullName)}
+                      </CustomAvatar>
+                    )}
+                  </ListItemAvatar>
+                  <ListItemText
                     sx={{
-                      px: 2.5,
-                      py: 2.5,
-                      width: '100%',
-                      borderRadius: 1,
-                      ...(activeCondition && { backgroundColor: theme => `${theme.palette.primary.main} !important` })
+                      my: 0,
+                      ml: 4,
+                      ...(activeCondition && { '& .MuiTypography-root': { color: 'common.white' } })
                     }}
-                  >
-                    <ListItemAvatar sx={{ m: 0 }}>
-                      {contact.avatar ? (
-                        <MuiAvatar
-                          alt={contact.fullName}
-                          src={contact.avatar}
-                          sx={{
-                            width: 40,
-                            height: 40,
-                            outline: theme =>
-                              `2px solid ${activeCondition ? theme.palette.common.white : 'transparent'}`
-                          }}
-                        />
-                      ) : (
-                        <CustomAvatar
-                          color={contact.avatarColor}
-                          skin={activeCondition ? 'light-static' : 'light'}
-                          sx={{
-                            width: 40,
-                            height: 40,
-                            fontSize: '1rem',
-                            outline: theme =>
-                              `2px solid ${activeCondition ? theme.palette.common.white : 'transparent'}`
-                          }}
-                        >
-                          {getInitials(contact.fullName)}
-                        </CustomAvatar>
-                      )}
-                    </ListItemAvatar>
-                    <ListItemText
-                      sx={{
-                        my: 0,
-                        ml: 4,
-                        ...(activeCondition && { '& .MuiTypography-root': { color: 'common.white' } })
-                      }}
-                      primary={
-                        <Typography sx={{ ...(!activeCondition ? { color: 'text.secondary' } : {}) }}>
-                          {contact.fullName}
-                        </Typography>
-                      }
-                      secondary={
-                        <Typography noWrap variant='body2' sx={{ ...(!activeCondition && { color: 'text.disabled' }) }}>
-                          {contact.about}
-                        </Typography>
-                      }
-                    />
-                  </ListItemButton>
-                </ListItem>
-              )
-            })
-          : null
+                    primary={
+                      <Typography sx={{ ...(!activeCondition ? { color: 'text.secondary' } : {}) }}>
+                        {contact.fullName}
+                      </Typography>
+                    }
+                    secondary={
+                      <Typography noWrap variant='body2' sx={{ ...(!activeCondition && { color: 'text.disabled' }) }}>
+                        {contact.about}
+                      </Typography>
+                    }
+                  />
+                </ListItemButton>
+              </ListItem>
+            );
+          })
+          : null;
       }
     }
-  }
+  };
 
   const handleFilter = (e: ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value)
+    setQuery(e.target.value);
     if (store.chats !== null && store.contacts !== null) {
       const searchFilterFunction = (contact: ChatsArrType | ContactType) =>
-        contact.fullName.toLowerCase().includes(e.target.value.toLowerCase())
-      const filteredChatsArr = store.chats.filter(searchFilterFunction)
-      const filteredContactsArr = store.contacts.filter(searchFilterFunction)
-      setFilteredChat(filteredChatsArr)
-      setFilteredContacts(filteredContactsArr)
+        contact.fullName.toLowerCase().includes(e.target.value.toLowerCase());
+      const filteredChatsArr = store.chats.filter(searchFilterFunction);
+      const filteredContactsArr = store.contacts.filter(searchFilterFunction);
+      setFilteredChat(filteredChatsArr);
+      setFilteredContacts(filteredContactsArr);
     }
-  }
+  };
 
   return (
     <div>
@@ -461,7 +458,7 @@ const SidebarLeft = (props: ChatSidebarLeftType) => {
         handleUserProfileLeftSidebarToggle={handleUserProfileLeftSidebarToggle}
       />
     </div>
-  )
-}
+  );
+};
 
-export default SidebarLeft
+export default SidebarLeft;

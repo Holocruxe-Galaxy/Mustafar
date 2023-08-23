@@ -128,10 +128,18 @@ export type ChatType = {
   senderId: number
   time: Date | string
   feedback: MsgFeedbackType
+  senderId: string
+
+  //id: string
 }
 
 export type ChatsObj = {
-  id: number
+  chat: ChatType[]
+  lastMessage?: ChatType
+  senderId: string
+
+  /* 
+    id: number
   userId: number
   chat: ChatType[]
   unseenMsgs: number
@@ -153,15 +161,31 @@ export type ChatsArrType = {
   role: string
   about: string
   chat: ChatsObj
+<<<<<<< HEAD
   avatar?: string
   fullName: string
   status: StatusType
   avatarColor?: ThemeColor
+=======
+
+  //id: number
+  // role: string
+  // about: string
+  // avatar?: string
+  // fullName: string
+  // status: StatusType
+  // avatarColor?: ThemeColor
+>>>>>>> 11c3affefe288c96083292ce30bf4ad522c82920
 }
 
 export type SelectedChatType = null | {
   chat: ChatsObj
+<<<<<<< HEAD
   contact: ChatsArrType
+=======
+
+  // contact: ChatsArrType
+>>>>>>> 11c3affefe288c96083292ce30bf4ad522c82920
 }
 
 export type ChatStoreType = {
@@ -169,12 +193,23 @@ export type ChatStoreType = {
   contacts: ContactType[] | null
   userProfile: ProfileUserType | null
   selectedChat: SelectedChatType
+<<<<<<< HEAD
+=======
+
+  //contacts: ContactType[] | null
+  //userProfile: ProfileUserType | null
+>>>>>>> 11c3affefe288c96083292ce30bf4ad522c82920
 }
 
 export type SendMsgParamsType = {
   chat?: ChatsObj
   message: string
+<<<<<<< HEAD
   contact?: ChatsArrType
+=======
+
+  // contact?: ChatsArrType
+>>>>>>> 11c3affefe288c96083292ce30bf4ad522c82920
 }
 
 export type ChatContentType = {
@@ -188,7 +223,17 @@ export type ChatContentType = {
   handleLeftSidebarToggle: () => void
   getInitials: (val: string) => string
   sendMsg: (params: SendMsgParamsType) => void
+<<<<<<< HEAD
   handleUserProfileRightSidebarToggle: () => void
+=======
+
+  // sidebarWidth: number
+  // statusObj: StatusObjType
+  // userProfileRightOpen: boolean
+  // handleLeftSidebarToggle: () => void
+  // getInitials: (val: string) => string
+  // handleUserProfileRightSidebarToggle: () => void
+>>>>>>> 11c3affefe288c96083292ce30bf4ad522c82920
 }
 
 export type ChatSidebarLeftType = {
@@ -241,8 +286,14 @@ export type ChatLogType = {
   hidden: boolean
   data: {
     chat: ChatsObj
+<<<<<<< HEAD
     contact: ContactType
     userContact: ProfileUserType
+=======
+
+    //contact: ContactType
+    //userContact: ProfileUserType
+>>>>>>> 11c3affefe288c96083292ce30bf4ad522c82920
   }
 }
 
@@ -251,6 +302,12 @@ export type MessageType = {
   message: string
   senderId: number
   feedback: MsgFeedbackType
+<<<<<<< HEAD
+=======
+  senderId: string
+
+  //id: string
+>>>>>>> 11c3affefe288c96083292ce30bf4ad522c82920
 }
 
 export type ChatLogChatType = {
@@ -262,6 +319,7 @@ export type ChatLogChatType = {
 export type FormattedChatsType = {
   senderId: number
   messages: ChatLogChatType[]
+<<<<<<< HEAD
 }
 
 export type MessageGroupType = {
@@ -269,3 +327,16 @@ export type MessageGroupType = {
   messages: ChatLogChatType[]
 }
 */
+=======
+  senderId: string
+
+  //id: string
+}
+
+ export type MessageGroupType = {
+   senderId: string
+   messages: ChatLogChatType[]
+
+   //id: string
+ }
+>>>>>>> 11c3affefe288c96083292ce30bf4ad522c82920
