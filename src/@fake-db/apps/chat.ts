@@ -2,13 +2,27 @@
 import mock from 'src/@fake-db/mock'
 
 // ** Types
-import { /* ProfileUserType, ContactType, */ ChatsObj  } from 'src/types/apps/chatTypes'
+import { /* ProfileUserType, ContactType, */ ChatsObj } from 'src/types/apps/chatTypes'
 
 const previousDay = new Date(new Date().getTime() - 24 * 60 * 60 * 1000)
 const dayBeforePreviousDay = new Date(new Date().getTime() - 24 * 60 * 60 * 1000 * 2)
 
 const data: { chats: ChatsObj[] } = {
-  chats:[]
+  chats:[
+    {
+      chat: [
+        {
+          message: "How can we help? We're here for you!",
+          time: 'Mon Dec 10 2018 07:45:00 GMT+0000 (GMT)',
+          feedback: {
+            isSent: true,
+            isDelivered: true,
+            isSeen: true
+          }
+        }
+      ]
+    }
+  ]
 
 /*   chats: [
     {
@@ -185,12 +199,12 @@ const data: { chats: ChatsObj[] } = {
   ] */
 }
 
-const reorderChats = (arr: ChatsObj[], from: number, to: number) => {
+/* const reorderChats = (arr: ChatsObj[], from: number, to: number) => {
   const item = arr.splice(from, 1)
 
   // ** Move the item to its new position
   arr.splice(to, 0, item[0])
-}
+} */
 
 // ------------------------------------------------
 // GET: Return Chats Contacts and Contacts
@@ -230,19 +244,20 @@ const reorderChats = (arr: ChatsObj[], from: number, to: number) => {
 // GET: Return Single Chat
 // ------------------------------------------------
 mock.onGet('/apps/chat/get-chat').reply(config => {
+  console.log("Return Single Chat - Entrando a la FakeDB")
   // Get event id from URL
-  let userId = config.params.id
+  //let userId = config.params.id
 
   //  Convert Id to number
   //userId = Number(userId)
 
-  const chat = data.chats.find((c: ChatsObj) => c.senderId === userId)
+  const chat = data.chats/* .find((c: ChatsObj) => c.senderId === userId) */
+  
   //if (chat) chat.unseenMsgs = 0
   //const contact = data.contacts.find((c: ContactType) => c.id === userId)
 
   // @ts-ignore
   //if (contact.chat) contact.chat.unseenMsgs = 0
-
   return [200, { chat }]
 })
 
@@ -251,13 +266,13 @@ mock.onGet('/apps/chat/get-chat').reply(config => {
 // ------------------------------------------------
 mock.onPost('/apps/chat/send-msg').reply(config => {
   // Get event from post data
+  console.log("Add New Chat Msg - Entrando a la FakeDB")
   const { obj } = JSON.parse(config.data).data
-  console.log("Esto es obj: ", obj)
 
   //let activeChat = data.chats.find((chat: ChatsObj) => chat.id === obj.contact.id)
 
   const newMessageData = {
-    senderId: '11',
+    //senderId: '11',
     time: new Date(),
     message: obj.message,
     feedback: {
@@ -276,7 +291,7 @@ mock.onPost('/apps/chat/send-msg').reply(config => {
     data.chats.push({
       //id: obj.contact.id,
       //unseenMsgs: 0,
-      userId: obj.contact.id,
+      //userId: obj.contact.id,
       chat: [newMessageData]
     })
     let activeChat = data.chats[data.chats.length - 1]
@@ -288,11 +303,11 @@ mock.onPost('/apps/chat/send-msg').reply(config => {
   // @ts-ignore
   if (isNewChat) response.chat = activeChat
 
-  reorderChats(
+/*   reorderChats(
     data.chats,
     data.chats.findIndex(i => i.userId === response.id),
     0
-  )
+  ) */
 
   return [201, { response }]
 })

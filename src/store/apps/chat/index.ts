@@ -27,7 +27,7 @@ export const fetchChatsContacts = createAsyncThunk('appChat/fetchChatsContacts',
   return response.data
 })
 
-// ** Select Chat
+// ** Select Chat -> busca el chat a partir del ID
 export const selectChat = createAsyncThunk(
   'appChat/selectChat',
   async (setId: setFunction) => {
@@ -51,14 +51,15 @@ export const selectChat = createAsyncThunk(
 
 // ** Send Msg
 export const sendMsg = createAsyncThunk('appChat/sendMsg', async (obj: SendMsgParamsType, { dispatch }) => {
+  console.log("Entrando a index.ts sendMsg")
   const response = await axios.post('/apps/chat/send-msg', {
     data: {
       obj
     }
   })
 
-  await dispatch(fetchChatsContacts())
-  console.log("Estoe s response.data: ", response.data)
+  //await dispatch(fetchChatsContacts())
+  console.log("Esto es response.data: ", response.data)
   return response.data
 })
 
@@ -67,7 +68,6 @@ export const appChatSlice = createSlice({
   initialState: {
     chats: null,
     selectedChat: null
-
     //contacts: null,
     //userProfile: null,
   },

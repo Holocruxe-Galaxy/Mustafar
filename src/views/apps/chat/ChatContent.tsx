@@ -39,11 +39,10 @@ const ChatContent = (props: ChatContentType) => {
   const {
     hidden,
     mdAbove,
-    selectChat,
     sendMsg,
     store,
     dispatch,
-
+    selectChat,
     // statusObj,
     // getInitials,
     // sidebarWidth,
@@ -55,12 +54,13 @@ const ChatContent = (props: ChatContentType) => {
   // ** States
   const [active, setActive] = useState(false);
   const [id, setId] = useState('');
-
+  const chat = store.chats
+  console.log("ChatContent - Esto es chat = store.chats: ", chat)
 
   const handleStartConversation = (type: 'chat' | 'user', id: string ) => {
     dispatch(selectChat(setId as any));
+    setId("")
     setActive(true);
-    console.log("Esto es id: ", id)
     //if (!mdAbove) {
     //  handleLeftSidebarToggle()
     //}
@@ -69,8 +69,7 @@ const ChatContent = (props: ChatContentType) => {
   const renderContent = () => {
     if (store) {
       const selectedChat = store.selectedChat
-      console.log("Esto es el store: ", store)
-      console.log("Esto es selectedChat: ", selectedChat)
+      console.log("ChatContent - Esto es el store: ", store)
       if (active === false) {
 
         return (
@@ -122,11 +121,11 @@ const ChatContent = (props: ChatContentType) => {
             sx={{
               width: 0,
               flexGrow: 1,
-              height: '100%',
+              height: '112%',
               backgroundColor: 'action.hover'
             }}
           >
-            {selectedChat ? (
+            {store ? (
               <ChatLog hidden={hidden} data={{ ...selectedChat }} />
             ) : <Box component='div' sx={{height: 460}}></Box> }
 

@@ -55,11 +55,12 @@ const ChatLog = (props: ChatLogType) => {
   // ** Formats chat data based on sender
   const formattedChatData = () => {
     let chatLog: MessageType[] | [] = []
+    console.log("ChatLog - Esto es chatLog: ", chatLog)
 
     if (data.chat) {
       chatLog = data.chat.chat
     }
-    console.log("Esto es data.chat en ChatLog: ", data.chat)
+    console.log("ChatLog - Esto es chatLog = data.chat.chat: ", data.chat)
     const formattedChatLog: FormattedChatsType[] = []
     let chatMessageSenderId = /* chatLog[0] ? */ chatLog[0].senderId /* : null */
     let msgGroup: MessageGroupType = {
