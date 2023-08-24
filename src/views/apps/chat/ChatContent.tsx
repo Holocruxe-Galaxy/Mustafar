@@ -52,13 +52,12 @@ const ChatContent = (props: ChatContentType) => {
 
   // const [id, setId] = useState('');
 
-  // useEffect(() => {
-  //   if (id) dispatch(saveId(id));
-  //   socketClient.recieveMessages(dispatch);
-  //   socketClient.recieveBroadcast(dispatch);
+  useEffect(() => {
+    socketClient.recieveMessages(dispatch);
+    socketClient.recieveBroadcast(dispatch);
 
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
 
   const handleStartConversation = () => {
