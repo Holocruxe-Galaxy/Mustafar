@@ -1,23 +1,21 @@
-import { Manager, Socket } from "socket.io-client";
+import { Manager } from "socket.io-client";
 import { Dispatch } from 'redux'
-import { addMessageToChat } from "src/store/apps/chat";
-
-type setFunction = (val: any) => void
+import { addMessageToChat, saveId } from "src/store/apps/chat";
 
 class SocketClient {
   socket: any;
 
-  connect(setId: setFunction) {
+  connect(dispatch: Dispatch<any>) {
     const manager = new Manager(`${process.env.NEXT_PUBLIC_MANDALORE}/socket.io/socket.io.js`, {
       extraHeaders: {
-        authorization: 'holaaaasa'
+        authorization: `Bearer ${localStorage.getItem('AuthorizationToken')}`
       }
     });
   
     this.socket?.removeAllListeners();
     this.socket = manager.socket('/');
   
-    this.socket.on('connection', () => setId(this.socket.id));
+    this.socket.on('connection', () => dispatch(saveId(this.socket.id)));
   }
 
   sendMessage(message: string) {

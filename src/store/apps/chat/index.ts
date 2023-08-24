@@ -43,8 +43,8 @@ return messages.messages
 // ** Select Chat
 export const saveId = createAsyncThunk(
   'appChat/saveId',
-  (id: string) => {
-    return id
+  async (id: string) => {    
+  return id
   }
 )
 

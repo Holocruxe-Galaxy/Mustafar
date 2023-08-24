@@ -49,19 +49,20 @@ const ChatContent = (props: ChatContentType) => {
 
   // ** States
   const [active, setActive] = useState(false);
-  const [id, setId] = useState('');
 
-  useEffect(() => {
-    if (id) dispatch(saveId(id));
-    socketClient.recieveMessages(dispatch);
-    socketClient.recieveBroadcast(dispatch);
+  // const [id, setId] = useState('');
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+  // useEffect(() => {
+  //   if (id) dispatch(saveId(id));
+  //   socketClient.recieveMessages(dispatch);
+  //   socketClient.recieveBroadcast(dispatch);
+
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [id]);
 
 
   const handleStartConversation = () => {
-    socketClient.connect(setId);
+    socketClient.connect(dispatch);
     setActive(true);
   };
 
