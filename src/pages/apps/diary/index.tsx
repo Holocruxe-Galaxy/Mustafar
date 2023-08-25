@@ -1,24 +1,29 @@
-import { useState, useRef, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { AppDispatch } from 'src/store'
+import { useState, useRef, useEffect, FormEvent } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from 'src/store'
 
 // ** MUI Imports
 import {
   Container,
+  Typography,
   Card,
+  CardContent,
   TextField,
   InputAdornment,
   IconButton,
   Button,
   Select,
   MenuItem,
-  SelectChangeEvent
+  SelectChangeEvent,
+  Stack,
+  Tooltip,
+  Switch
 } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { makeStyles } from '@mui/styles'
-import Switch from '@mui/material/Switch'
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions'
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch'
+import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied'
 
 // ** Emoji Picker
 import data from '@emoji-mart/data'
@@ -27,8 +32,14 @@ import Picker from '@emoji-mart/react'
 // ** Cloudinary
 import { Cloudinary } from 'src/@core/utils/cloudinary'
 
+// ** Components
+import Entries from 'src/@core/components/diary/Entries'
+
 // ** Redux
-import { addDiary } from 'src/store/apps/diary'
+import { addDiary, fetchData } from 'src/store/apps/diary'
+
+// ** Utils
+import emotions from 'src/@core/utils/emotions'
 
 const useStyles = makeStyles(() => ({
   picker: {
@@ -50,9 +61,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
       color: '#fff',
       transform: 'translateX(22px)',
       '& .MuiSwitch-thumb:before': {
-        backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
-          '#fff'
-        )}" d="M4.2 2.5l-.7 1.8-1.8.7 1.8.7.7 1.8.6-1.8L6.7 5l-1.9-.7-.6-1.8zm15 8.3a6.7 6.7 0 11-6.6-6.6 5.8 5.8 0 006.6 6.6z"/></svg>')`
+        backgroundImage: `url()`
       },
       '& + .MuiSwitch-track': {
         opacity: 1,
@@ -73,9 +82,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
       top: 0,
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'center',
-      backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
-        '#fff'
-      )}" d="M9.305 1.667V3.75h1.389V1.667h-1.39zm-4.707 1.95l-.982.982L5.09 6.072l.982-.982-1.473-1.473zm10.802 0L13.927 5.09l.982.982 1.473-1.473-.982-.982zM10 5.139a4.872 4.872 0 00-4.862 4.86A4.872 4.872 0 0010 14.862 4.872 4.872 0 0014.86 10 4.872 4.872 0 0010 5.139zm0 1.389A3.462 3.462 0 0113.471 10a3.462 3.462 0 01-3.473 3.472A3.462 3.462 0 016.527 10 3.462 3.462 0 0110 6.528zM1.665 9.305v1.39h2.083v-1.39H1.666zm14.583 0v1.39h2.084v-1.39h-2.084zM5.09 13.928L3.616 15.4l.982.982 1.473-1.473-.982-.982zm9.82 0l-.982.982 1.473 1.473.982-.982-1.473-1.473zM9.305 16.25v2.083h1.389V16.25h-1.39z"/></svg>')`
+      backgroundImage: `url()`
     }
   },
   '& .MuiSwitch-track': {
@@ -86,180 +93,169 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 }))
 
 interface Diary {
-  id: string
+  _id: string
   content: string
   favorite: boolean
+  createdAt: string
+  updatedAt: string
   emoji?: string
-  photo?: string
+  photos?: string[]
 }
 
-export type PostDiary = Omit<Diary, 'id' | 'favorite'>
+export type PostDiary = Omit<Diary, '_id' | 'createdAt' | 'updatedAt'>
 
 const Diary = () => {
+  const { data: diaryData } = useSelector((state: RootState) => state.diary)
   const dispatch = useDispatch<AppDispatch>()
+  const [inputValue, setInputValue] = useState<string>('')
+  const [checked, setChecked] = useState<boolean>(false)
+  const [toSend, setToSend] = useState<boolean>(false)
   const [isPickerVisible, setPickerVisible] = useState<boolean | null>(false)
-  const [emotion, setEmotion] = useState<string>('')
-  const [checked, setChecked] = useState<boolean>(true)
   const inputRef = useRef<HTMLInputElement | null>(null)
 
-  const emojiMartRef = useRef<HTMLButtonElement | null>(null)
-
-  const [diary, setDiary] = useState<PostDiary>({ content: 'Hola', emoji: 'Tristeza', photo: 'photo.png' })
-
-  // useEffect(() => {
-  //   console.log('diary console.log', diary)
-  // }, [diary])
+  const [diary, setDiary] = useState<PostDiary>({ content: '', favorite: false })
 
   useEffect(() => {
-    /* Handler del emoji picker */
-    const handleDocumentClick = (event: any) => {
-      if (emojiMartRef.current && !emojiMartRef.current.contains(event.target)) {
-        setPickerVisible(false)
-      }
-    }
+    dispatch(fetchData())
 
-    document.addEventListener('click', handleDocumentClick)
-
-    return () => {
-      document.removeEventListener('click', handleDocumentClick)
-    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  useEffect(() => {
+    if (diary.content.length) {
+      dispatch(addDiary(diary))
+      setDiary({ content: '', favorite: false })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [toSend])
+
   const handleChange = (e: SelectChangeEvent<string>) => {
-    setEmotion(e.target.value)
+    setDiary({ ...diary, emoji: e.target.value })
   }
+
+  const handleInputChange = (event: any) => {
+    setInputValue(event.target.value)
+  }
+
   const handleSwitchChange = () => {
-    setChecked(!checked)
+    setDiary({ ...diary, favorite: !diary.favorite })
   }
 
   const handleEmojiSelect = (emoji: any) => {
-    if (inputRef.current) {
-      const selection = window.getSelection()
-      const range = selection?.getRangeAt(0)
-
-      const emojiNode = document.createTextNode(emoji.native)
-
-      if (range) {
-        range.insertNode(emojiNode)
-        range.collapse(false)
-      }
-
-      // inputRef.current.value += emoji.native
+    if (inputRef.current && isPickerVisible) {
+      console.log(inputRef.current)
+      inputRef.current.value += emoji.native
     }
-    setPickerVisible(isPickerVisible)
+
+    setPickerVisible(!isPickerVisible)
   }
 
-  const onClick = () => {
-    console.log('onSubmit')
-    dispatch(addDiary(diary))
+  const handleChecked = () => {
+    setChecked(!checked)
+  }
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (inputRef.current && inputValue.length) {
+      setDiary({ ...diary, content: inputRef.current.value })
+      setToSend(!toSend)
+    }
+    setInputValue('')
   }
 
   const classes = useStyles()
 
   return (
     <>
-      <Card
-        sx={{
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          borderRadius: 1
-        }}
-      >
-        <Container
-          sx={{
-            margin: 4,
-            width: '100%',
-            height: '10%',
-            borderRadius: 1,
-            display: 'flex'
-          }}
-        >
-          <TextField
-            fullWidth
-            label='Qué hay de nuevo? ...'
-            variant='outlined'
-            inputRef={inputRef}
-            sx={{ marginTop: 4, marginLeft: 3, borderRadius: 2 }}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position='end'>
-                  {!isPickerVisible ? (
-                    ''
-                  ) : (
-                    <Card className={classes.picker}>
-                      <Picker
-                        ref={emojiMartRef}
-                        data={data}
-                        emojiTooltip
-                        perLine={10}
-                        searchPosition='none'
-                        onEmojiSelect={handleEmojiSelect}
+      <Card sx={{ height: '100%' }}>
+        <CardContent>
+          <form onSubmit={onSubmit}>
+            <TextField
+              fullWidth
+              label='Qué hay de nuevo? ...'
+              variant='outlined'
+              inputRef={inputRef}
+              value={inputRef.current?.value}
+              onChange={handleInputChange}
+              sx={{ marginRight: 3, borderRadius: 2 }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position='end' sx={{ display: 'flex' }}>
+                    {!isPickerVisible ? (
+                      ''
+                    ) : (
+                      <Card className={classes.picker}>
+                        <Picker
+                          data={data}
+                          emojiTooltip
+                          perLine={10}
+                          maxFrequentRows={0}
+                          searchPosition='none'
+                          onEmojiSelect={handleEmojiSelect}
+                        />
+                      </Card>
+                    )}
+                    <IconButton onClick={() => setPickerVisible(!isPickerVisible)} sx={{ marginRight: 2 }}>
+                      <EmojiEmotionsIcon />
+                    </IconButton>
+
+                    <Tooltip title='Al activarlo, se guardará como tus publicaciones favoritas' placement='top'>
+                      <MaterialUISwitch
+                        sx={{ marginRight: 3 }}
+                        onChange={handleSwitchChange}
+                        onClick={handleChecked}
+                        checked={checked}
                       />
-                    </Card>
-                  )}
-                  <IconButton onClick={() => setPickerVisible(!isPickerVisible)} sx={{ marginRight: 1 }}>
-                    <EmojiEmotionsIcon />
-                  </IconButton>
-                  <MaterialUISwitch sx={{ marginRight: 2 }} onChange={handleSwitchChange} />
+                    </Tooltip>
 
-                  <Cloudinary values={diary} setValues={setDiary} />
-                  <Button variant='contained' onClick={onClick}>
-                    Enviar <RocketLaunchIcon sx={{ paddingLeft: 1 }} />
-                  </Button>
-                </InputAdornment>
-              )
-            }}
-          ></TextField>
-          <Select
-            id='select'
-            sx={{ width: '13%', height: '73%', marginTop: 4, marginLeft: 2 }}
-            value={emotion}
-            onChange={handleChange}
-            displayEmpty
-            renderValue={selected => {
-              if (selected === 'none' || selected.length === 0) {
-                return <EmojiEmotionsIcon sx={{ paddingLeft: 9, paddingTop: 1 }} />
-              }
+                    <Cloudinary values={diary} setValues={setDiary} />
+                    <Select
+                      id='select'
+                      variant='standard'
+                      sx={{ marginRight: 5 }}
+                      value={diary.emoji || ''}
+                      onChange={handleChange}
+                      displayEmpty
+                      renderValue={selected => {
+                        if (selected === '' || !selected) {
+                          return <EmojiEmotionsIcon sx={{ paddingTop: 1, paddingLeft: 3 }} />
+                        }
 
-              return selected
-            }}
-            inputProps={{ 'aria-label': 'Without label' }}
-          >
-            <MenuItem disabled value=''>
-              <em>Añadir una emoción</em>
-            </MenuItem>
-            <MenuItem value={'none'}>Ninguna</MenuItem>
-            <MenuItem value={'Tristeza'}>😔 Tristeza</MenuItem>
-            <MenuItem value={'Miedo'}>😰 Miedo</MenuItem>
-            <MenuItem value={'Ira'}>🤬 Ira</MenuItem>
-            <MenuItem value={'Felicidad'}>😁 Felicidad</MenuItem>
-            <MenuItem value={'Enamoramiento'}>🥰 Enamoramiento</MenuItem>
-            <MenuItem value={'Sorpresa'}>😱 Sorpresa</MenuItem>
-            <MenuItem value={'Asco'}>🤢 Asco</MenuItem>
-            <MenuItem value={'Verguenza'}>😰 Verguenza</MenuItem>
-            <MenuItem value={'Culpa'}>😖 Culpa</MenuItem>
-            <MenuItem value={'Gratitud'}>🤗 Gratitud</MenuItem>
-            <MenuItem value={'Esperanza'}>😊 Esperanza</MenuItem>
-            <MenuItem value={'Confianza'}>😎 Confianza</MenuItem>
-            <MenuItem value={'Admiración'}>🤩 Admiración</MenuItem>
-            <MenuItem value={'Satisfación'}>😄 Satisfación</MenuItem>
-            <MenuItem value={'Desprecio'}>😒 Desprecio</MenuItem>
-            <MenuItem value={'Ansiedad'}>😖 Ansiedad</MenuItem>
-            <MenuItem value={'Soledad'}>🥺 Soledad</MenuItem>
-            <MenuItem value={'Arrepentimiento'}>😕 Arrepentimiento</MenuItem>
-            <MenuItem value={'Frustración'}>😤 Frustración</MenuItem>
-            <MenuItem value={'Euforia'}>🥳 Euforia</MenuItem>
-            <MenuItem value={'Agradecimiento'}>🙏 Agradecimiento</MenuItem>
-            <MenuItem value={'Diversión'}>😜 Diversión</MenuItem>
-            <MenuItem value={'Alivio'}>😌 Alivio</MenuItem>
-            <MenuItem value={'Hostilidad'}>😠 Hostilidad</MenuItem>
-            <MenuItem value={'Hostilidad'}>🥵 Desesperación</MenuItem>
-            <MenuItem value={'Impotencia'}>😣 Impotencia</MenuItem>
-            <MenuItem value={'Apatía'}>😶 Apatía</MenuItem>
-            <MenuItem value={'Amor'}>😍 Amor</MenuItem>
-          </Select>
-        </Container>
+                        return selected
+                      }}
+                      inputProps={{ 'aria-label': 'Without label' }}
+                    >
+                      {emotions.map(e => (
+                        <MenuItem key={e.value} value={e.value}>
+                          {e.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                    <Button variant='contained' type='submit'>
+                      Enviar <RocketLaunchIcon sx={{ paddingLeft: 1 }} />
+                    </Button>
+                  </InputAdornment>
+                )
+              }}
+            ></TextField>
+          </form>
+        </CardContent>
+        <CardContent>
+          {diaryData.length ? (
+            diaryData.map(entrie => (
+              <Stack spacing={2} key={entrie._id} direction='column' marginTop={5}>
+                <Entries id={entrie._id} props={entrie} />
+              </Stack>
+            ))
+          ) : (
+            <Container sx={{ textAlign: 'center', marginTop: 62 }} fixed>
+              <SentimentVeryDissatisfiedIcon sx={{ color: '#91A7B8' }} />
+              <Typography variant='h5' sx={{ color: '#91A7B8' }}>
+                No hay entradas publicadas
+              </Typography>
+            </Container>
+          )}
+        </CardContent>
       </Card>
     </>
   )

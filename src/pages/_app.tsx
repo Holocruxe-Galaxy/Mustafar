@@ -5,6 +5,7 @@ import { ReactNode } from 'react'
 // ** Next Imports
 import Head from 'next/head'
 import { Router } from 'next/router'
+import Script from 'next/script'
 import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 
@@ -134,8 +135,8 @@ const App = (props: ExtendedAppProps) => {
             <link rel='shortcut icon' href='/images/favicon.png' />
             <meta name='keywords' content='Holocruxe, IA, AI, Cruxi' />
             <meta name='viewport' content='initial-scale=1, width=device-width' />
-            <script src='https://upload-widget.cloudinary.com/global/all.js' type='text/javascript'></script>
           </Head>
+          <Script src='https://upload-widget.cloudinary.com/global/all.js' type='text/javascript'></Script>
 
           <AuthProvider>
             <SettingsProvider {...(setConfig ? { pageSettings: setConfig() } : {})}>

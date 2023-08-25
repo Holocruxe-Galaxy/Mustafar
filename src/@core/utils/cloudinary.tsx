@@ -17,8 +17,8 @@ export const Cloudinary = ({ setValues, values }: any) => {
       function (error: any, result: any) {
         const photoRoute = result.info.secure_url
         if (photoRoute !== undefined) {
-          const photo = [result.info.secure_url]
-          setValues({ ...values, photo })
+          const photos = [result.info.secure_url]
+          setValues({ ...values, photos })
         }
       }
     )

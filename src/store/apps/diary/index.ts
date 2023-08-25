@@ -1,36 +1,50 @@
 // ** Redux Imports
 import { Dispatch } from 'redux'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { PostDiary } from 'src/pages/apps/diary'
-
-// ** Axios Imports
-import axios from 'axios'
-
-interface DataParams {
-  q: string
-  role: string
-  status: string
-  currentPlan: string
-}
+import Diary, { PostDiary } from 'src/pages/apps/diary'
 
 interface Redux {
   getState: any
   dispatch: Dispatch<any>
 }
 
-// ** Fetch Entries
-export const fetchData = createAsyncThunk('appUsers/fetchData', async (params: DataParams) => {
-  const response = await axios.get('/apps/users/list', {
-    params
-  })
+interface EntryState {
+    data: Diary[],
+    total: number,
+    params: string[],
+    allData: Diary[]
+}
 
-  return response.data
+// ** Fetch Entries
+export const fetchData = createAsyncThunk('appDiary/fetchData',
+  async () => {
+      const token = localStorage.getItem('AuthorizationToken');
+
+      const response = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/logbook/diary`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+      });
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message);
+      }
+      const diaryData = await response.json()
+
+      const dispatchableData = {
+        allData: diaryData,
+        diary: diaryData,
+      }
+
+      return dispatchableData
 })
 
 // ** Add Entry
 export const addDiary = createAsyncThunk(
   'appDiary/addDiary',
-  async (data: PostDiary) => {
+  async (data: PostDiary, { dispatch }: Redux) => {
       const token = localStorage.getItem('AuthorizationToken');
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/logbook/diary`, {
@@ -47,20 +61,53 @@ export const addDiary = createAsyncThunk(
         throw new Error(error.message);
       }
 
-      return response
+      dispatch(fetchData())
   }
 )
 
-// ** Delete User
-export const deleteDiary = createAsyncThunk(
-  'appUsers/deleteUser',
-  async (id: number | string, { getState, dispatch }: Redux) => {
-    const response = await axios.delete('/apps/users/delete', {
-      data: id
-    })
-    dispatch(fetchData(getState().user.params))
+// ** Patch Entry
+export const editEntrie = createAsyncThunk('appDiary/editDiary', async ({_id, ...changes} : Diary , { dispatch }: Redux) => {
+   const token = localStorage.getItem('AuthorizationToken');
 
-    return response.data
+   const response = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/logbook/diary/${_id}`, {
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(changes)
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message);
+  }
+
+  dispatch(fetchData())
+
+});
+
+// ** Delete Entry
+export const deleteDiary = createAsyncThunk(
+   'appDiary/deleteDiary',
+   async (id: number | string, { dispatch }: Redux) => {
+    const token = localStorage.getItem('AuthorizationToken');
+
+    const response = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/logbook/diary/${id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+
+    });
+    console.log(response)
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message);
+    }
+
+    dispatch(fetchData())
   }
 )
 
@@ -69,15 +116,16 @@ export const appDiarySlice = createSlice({
   initialState: {
     data: [],
     total: 1,
-    params: {},
+    params: [],
     allData: []
-  },
+  } as EntryState,
   reducers: {},
   extraReducers: builder => {
     builder.addCase(fetchData.fulfilled, (state, action) => {
       state.data = action.payload.diary
-      state.total = action.payload.total
-      state.params = action.payload.params
+
+      // state.total = action.payload.total
+      // state.params = action.payload.params
       state.allData = action.payload.allData
     })
   }
