@@ -82,7 +82,7 @@ export type ChatLogType = {
   hidden: boolean
   data: {
     chat: ChatsObj
-    messages: ChatsObj
+    //messages: ChatsObj
   }
 }
 

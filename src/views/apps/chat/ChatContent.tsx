@@ -45,6 +45,7 @@ const ChatContent = (props: ChatContentType) => {
 
   // ** States
   const [active, setActive] = useState(false);
+
   const [id, setId] = useState('');
 
   useEffect(() => {

@@ -1,16 +1,16 @@
-import { Manager, Socket } from "socket.io-client";
+import { Manager } from "socket.io-client";
 import { Dispatch } from 'redux'
 import { addMessageToChat } from "src/store/apps/chat";
 
-type setFunction = (val: any) => void
+type SetFunction = (arg: any) => void
 
 class SocketClient {
   socket: any;
 
-  connect(setId: setFunction) {
+  connect(setId: SetFunction) {
     const manager = new Manager(`${process.env.NEXT_PUBLIC_MANDALORE}/socket.io/socket.io.js`, {
       extraHeaders: {
-        authorization: 'holaaaasa'
+        authorization: `Bearer ${localStorage.getItem('AuthorizationToken')}`
       }
     });
   

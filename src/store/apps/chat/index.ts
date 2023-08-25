@@ -19,7 +19,7 @@ interface ChatReducer {
   id: string;
   selectedChat: null
   messages: null | Message[];
-  chats: null | Message[];
+  chats: null | any[];
 }
 
 // ** Fetch User Profile
@@ -44,9 +44,8 @@ return messages.messages
 // ** Select Chat
 export const saveId = createAsyncThunk(
   'appChat/saveId',
-  (id: string) => {
-    console.log("Store - Entrando al fetch save id: ", id)
-    return id
+  async (id: string) => {    
+  return id
   }
 )
 
