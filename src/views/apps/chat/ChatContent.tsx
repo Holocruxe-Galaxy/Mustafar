@@ -50,18 +50,19 @@ const ChatContent = (props: ChatContentType) => {
   // ** States
   const [active, setActive] = useState(false);
 
-  // const [id, setId] = useState('');
+  const [id, setId] = useState('');
 
   useEffect(() => {
+    if (id) dispatch(saveId(id));
     socketClient.recieveMessages(dispatch);
     socketClient.recieveBroadcast(dispatch);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [id]);
 
 
   const handleStartConversation = () => {
-    socketClient.connect(dispatch);
+    socketClient.connect(setId);
     setActive(true);
   };
 
