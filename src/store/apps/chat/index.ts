@@ -10,15 +10,16 @@ interface Messages {
 
 interface Message {
   message: string;
-  isBroadcasted?: boolean;
   id?: string;
+  time: Date | string;
+  isBroadcasted?: boolean;
 }
 
 interface ChatReducer {
   id: string;
   selectedChat: null
   messages: null | Message[];
-  chats: null | any[];
+  chats: null | Message[];
 }
 
 // ** Fetch User Profile
@@ -44,6 +45,7 @@ return messages.messages
 export const saveId = createAsyncThunk(
   'appChat/saveId',
   (id: string) => {
+    console.log("Store - Entrando al fetch save id: ", id)
     return id
   }
 )

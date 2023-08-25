@@ -1,6 +1,12 @@
 // ** React Imports
 import { useRef, useEffect, Ref, ReactNode } from 'react';
 
+// ** Store & Actions Imports
+import { useSelector } from 'react-redux';
+
+// ** Types
+import { RootState, AppDispatch } from 'src/store';
+
 // ** MUI Imports
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
@@ -12,16 +18,11 @@ import Icon from 'src/@core/components/icon';
 // ** Third Party Components
 import PerfectScrollbarComponent, { ScrollBarProps } from 'react-perfect-scrollbar';
 
-// ** Custom Components Imports
-// import CustomAvatar from 'src/@core/components/mui/avatar'
-
-// ** Utils Imports
-// import { getInitials } from 'src/@core/utils/get-initials'
-
 // ** Types Imports
 import {
   ChatLogType,
   MessageType,
+  ChatType,
   MsgFeedbackType,
   ChatLogChatType,
   FormattedChatsType,
@@ -52,6 +53,9 @@ const ChatLog = (props: ChatLogType) => {
     }
   };
 
+  const store = useSelector((state: RootState) => state.chat)
+  console.log("ChatLog - Esto es store: ", store)
+
   // ** Formats chat data based on sender
   const formattedChatData = () => {
     let chatLog: MessageType[] | [] = [];
@@ -59,9 +63,11 @@ const ChatLog = (props: ChatLogType) => {
     if (data.chat) {
       chatLog = data.chat.chat;
     }
-    console.log("Esto es data.chat en ChatLog: ", data.chat);
+
     const formattedChatLog: FormattedChatsType[] = [];
-    const chatMessageSenderId = /* chatLog[0] ? */ chatLog[0].senderId; /* : null */
+  
+    //SENDERID -----------------------------------------------------------------
+    const chatMessageSenderId = "1"
     let msgGroup: MessageGroupType = {
       messages: [],
       senderId: chatMessageSenderId
@@ -71,7 +77,7 @@ const ChatLog = (props: ChatLogType) => {
       msgGroup.messages.push({
         time: msg.time,
         msg: msg.message,
-        feedback: msg.feedback
+        //feedback: msg.feedback
       });
 
       //} else {
@@ -84,7 +90,7 @@ const ChatLog = (props: ChatLogType) => {
           {
             time: msg.time,
             msg: msg.message,
-            feedback: msg.feedback
+            //feedback: msg.feedback
           }
         ]
       };
@@ -132,53 +138,28 @@ const ChatLog = (props: ChatLogType) => {
 
   // ** Renders user chat
   const renderChats = () => {
-    return formattedChatData().map((item: FormattedChatsType, index: number) => {
-      const isSender = item.senderId;
-
+    //return formattedChatData().map((item: FormattedChatsType, index: number) => {
+      const isSender = store.id;
+      let chat = store.messages;  
+      
       return (
         <Box
           component='div'
-          key={index}
+          //key={index}
           sx={{
             display: 'flex',
             flexDirection: !isSender ? 'row' : 'row-reverse',
-            mb: index !== formattedChatData().length - 1 ? 9.75 : undefined
+            //mb: index !== formattedChatData().length - 1 ? 9.75 : undefined
           }}
-        >
-          <div>
-            {/*             <CustomAvatar
-              skin='light'
-              color={data.contact.avatarColor ? data.contact.avatarColor : undefined}
-              sx={{
-                width: '2rem',
-                height: '2rem',
-                fontSize: '0.875rem',
-                ml: isSender ? 4 : undefined,
-                mr: !isSender ? 4 : undefined
-              }}
-              {...(data.contact.avatar && !isSender
-                ? {
-                    src: data.contact.avatar,
-                    alt: data.contact.fullName
-                  }
-                : {})}
-              {...(isSender
-                ? {
-                    src: data.userContact.avatar,
-                    alt: data.userContact.fullName
-                  }
-                : {})}
-            > 
-              {data.contact.avatarColor ? getInitials(data.contact.fullName) : null}
-            </CustomAvatar>*/}
-          </div>
-
+          >
           <Box component='div' className='chat-body' sx={{ maxWidth: ['calc(100% - 5.75rem)', '75%', '65%'] }}>
-            {item.messages.map((chat: ChatLogChatType, index: number, { length }: { length: number; }) => {
-              const time = new Date(chat.time);
+            {
+              
+              //store.messages.map((chat: ChatLogChatType, index: number, { length }: { length: number; }) => {
+                //const time = new Date(chat.time);
 
-              return (
-                <Box component='div' key={index} sx={{ '&:not(:last-of-type)': { mb: 3.5 } }}>
+              //return (
+                <Box component='div' /* key={index} */ sx={{ '&:not(:last-of-type)': { mb: 3.5 } }}>
                   <div>
                     <Typography
                       sx={{
@@ -196,10 +177,10 @@ const ChatLog = (props: ChatLogType) => {
                         backgroundColor: isSender ? 'primary.main' : 'background.paper'
                       }}
                     >
-                      {chat.msg}
+                      {chat}
                     </Typography>
                   </div>
-                  {index + 1 === length ? (
+                  {/* {index + 1 === length ? (
                     <Box
                       component='div'
                       sx={{
@@ -216,14 +197,14 @@ const ChatLog = (props: ChatLogType) => {
                           : null}
                       </Typography>
                     </Box>
-                  ) : null}
+                  ) : null} */}
                 </Box>
-              );
+              //);
             })}
           </Box>
         </Box>
       );
-    });
+    //});
   };
 
   const ScrollWrapper = ({ children }: { children: ReactNode; }) => {

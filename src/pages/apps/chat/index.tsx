@@ -8,30 +8,19 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 
 // ** Store & Actions Imports
 import { useDispatch, useSelector } from 'react-redux';
-import { sendMsg, fetchUserProfile, fetchChatsContacts /* , removeSelectedChat,  */ } from 'src/store/apps/chat';
+import { addMessageToChat } from 'src/store/apps/chat';
 
 // ** Types
 import { RootState, AppDispatch } from 'src/store';
 
-// import { StatusObjType, StatusType } from 'src/types/apps/chatTypes'
 
 // ** Hooks
 import { useSettings } from 'src/@core/hooks/useSettings';
 
-// ** Utils Imports
-// import { getInitials } from 'src/@core/utils/get-initials'
-// import { formatDateToMonthShort } from 'src/@core/utils/format'
-
 // ** Chat App Components Imports
-// import SidebarLeft from 'src/views/apps/chat/SidebarLeft'
 import ChatContent from 'src/views/apps/chat/ChatContent';
 
 const AppChat = () => {
-  // ** States
-  // const [userStatus, setUserStatus] = useState<StatusType>('online')
-  // const [leftSidebarOpen, setLeftSidebarOpen] = useState<boolean>(false)
-  // const [userProfileLeftOpen, setUserProfileLeftOpen] = useState<boolean>(false)
-  // const [userProfileRightOpen, setUserProfileRightOpen] = useState<boolean>(false)
 
   // ** Hooks
   const theme = useTheme();
@@ -46,22 +35,6 @@ const AppChat = () => {
   const mdAbove = useMediaQuery(theme.breakpoints.up('md'));
 
   //const sidebarWidth = smAbove ? 370 : 300
-
-  // const statusObj: StatusObjType = {
-  //   busy: 'error',
-  //   away: 'warning',
-  //   online: 'success',
-  //   offline: 'secondary'
-  // }
-
-  useEffect(() => {
-    dispatch(fetchUserProfile());
-    dispatch(fetchChatsContacts());
-  }, [dispatch]);
-
-  // const handleLeftSidebarToggle = () => setLeftSidebarOpen(!leftSidebarOpen)
-  // const handleUserProfileRightSidebarToggle = () => setUserProfileRightOpen(!userProfileRightOpen)
-  //   const handleUserProfileLeftSidebarToggle = () => setUserProfileLeftOpen(!userProfileLeftOpen)
 
   return (
     <Box
@@ -79,38 +52,12 @@ const AppChat = () => {
         ...(skin === 'bordered' && { border: `1px solid ${theme.palette.divider}` })
       }}
     >
-      {/*       <SidebarLeft
-        store={store}
-        hidden={hidden}
-        mdAbove={mdAbove}
-        dispatch={dispatch}
-        statusObj={statusObj}
-        userStatus={userStatus}
-        selectChat={selectChat}
-        getInitials={getInitials}
-        sidebarWidth={sidebarWidth}
-        setUserStatus={setUserStatus}
-        leftSidebarOpen={leftSidebarOpen}
-        removeSelectedChat={removeSelectedChat}
-        userProfileLeftOpen={userProfileLeftOpen}
-        formatDateToMonthShort={formatDateToMonthShort}
-        handleLeftSidebarToggle={handleLeftSidebarToggle}
-        handleUserProfileLeftSidebarToggle={handleUserProfileLeftSidebarToggle}
-      /> */}
-
       <ChatContent
         hidden={hidden}
         mdAbove={mdAbove}
         store={store}
         dispatch={dispatch}
-        sendMsg={sendMsg}
-
-      // statusObj={statusObj}
-      // getInitials={getInitials}
-      // sidebarWidth={sidebarWidth}
-      // userProfileRightOpen={userProfileRightOpen}
-      // handleLeftSidebarToggle={handleLeftSidebarToggle}
-      // handleUserProfileRightSidebarToggle={handleUserProfileRightSidebarToggle}
+        sendMsg={addMessageToChat}
       />
     </Box>
   );

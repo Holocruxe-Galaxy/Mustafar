@@ -1,5 +1,5 @@
 // ** React Imports
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // ** MUI Imports
 //import Badge from '@mui/material/Badge';
@@ -15,10 +15,6 @@ import Icon from 'src/@core/components/icon';
 // ** Custom Components Import
 import ChatLog from './ChatLog';
 import SendMsgForm from 'src/views/apps/chat/SendMsgForm';
-
-// import UserProfileRight from 'src/views/apps/chat/UserProfileRight'
-// import CustomAvatar from 'src/@core/components/mui/avatar'
-// import OptionsMenu from 'src/@core/components/option-menu'
 
 // ** Types
 import { ChatContentType } from 'src/types/apps/chatTypes';
@@ -53,6 +49,7 @@ const ChatContent = (props: ChatContentType) => {
 
   useEffect(() => {
     if (id) dispatch(saveId(id));
+    console.log("Chatcontent - Esto es id: ", id)
     socketClient.recieveMessages(dispatch);
     socketClient.recieveBroadcast(dispatch);
 
@@ -67,8 +64,8 @@ const ChatContent = (props: ChatContentType) => {
 
   const renderContent = () => {
     if (store) {
-      const selectedChat = store.selectedChat;
-
+      const messages = store.chats
+      
       if (active === false) {
 
         return (
@@ -124,9 +121,9 @@ const ChatContent = (props: ChatContentType) => {
               backgroundColor: 'action.hover'
             }}
           >
-            {store ? (
-              <ChatLog hidden={hidden} data={{ ...selectedChat }} />
-            ) : <Box component='div' sx={{ height: 460 }}></Box>}
+            {store.messages ? (
+              <ChatLog hidden={hidden} data={{ ...messages }} />
+            ) : <Box component='div' sx={{ height: 460 }}>holis</Box>}
 
             <SendMsgForm store={store} dispatch={dispatch} sendMsg={sendMsg} />
           </Box>
