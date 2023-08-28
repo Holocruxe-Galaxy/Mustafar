@@ -1,1 +1,1 @@
-export type DateType = Date | null | undefined | string
+export type DateType = Date | null | undefined

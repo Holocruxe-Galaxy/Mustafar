@@ -9,6 +9,12 @@ export interface CountryType {
   suggested?: boolean;
 }
 
+const stepsForm: Step = {
+  0: 'contactInfo',
+  1: 'personal',
+};
+
+
 export function isNumber(val: unknown): number | null {
   if (val == null) return null;
   if (!isNaN(Number(val))) {
@@ -19,21 +25,18 @@ export function isNumber(val: unknown): number | null {
 
 
 export const stepManager = (num: number, data: any, country: CountryType | undefined) => {
-  if(data.contactInfo && country){
-    const phone = country.code + '+' + country.phone + data.contactInfo.phone;
-    const newData = { ...data.contactInfo, phone };
-    if(!data.contactInfo.altEmail.length){
+  const property = stepsForm[num];
+
+  if(property === 'contactInfo' && country){
+    const phone = country.code + '+' + country.phone + data.phone;
+    const newData = {...data, phone };
+    if(!data.altEmail.length){
       delete newData['altEmail'];
     }
-    
-    return { ...data, contactInfo: newData }
+    console.log({ [property]: newData })
+
+    return { [property]: newData }
   }
 
-  return data
-}
-
-
-export const onChecked = (e: any) =>{
-  console.log(e.target.checked)
-  console.log(e.target.value)
+  return { [property]: data }
 }
