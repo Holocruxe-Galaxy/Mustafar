@@ -6,7 +6,7 @@ export type ChatStoreType = {
   id: string | null
   chats: ChatsArrType[] | null
   selectedChat: SelectedChatType | null
-  messages: ChatType[] | null
+  messages: ChatType[] /* | null */
 }
 
 export type SelectedChatType = null | {
@@ -15,8 +15,8 @@ export type SelectedChatType = null | {
 
 export type ChatsObj = {
   message: ChatType[]
-  chat: ChatType[] 
-  //id: string
+  id?: string
+  //chat: ChatType[] 
 }
 
 export type ChatType = {
@@ -35,7 +35,7 @@ export type SendMsgParamsType = {
 export type MessageType = {
   message: string
   time: string | Date
-  senderId: string
+  id?: string
   //feedback?: MsgFeedbackType
 }
 
@@ -47,7 +47,7 @@ export type MessageGroupType = {
 export type SendMsgComponentType = {
   dispatch: Dispatch<any>
   store: ChatStoreType
-  sendMsg: (params: SendMsgParamsType) => void
+  //sendMsg: (params: SendMsgParamsType) => void
 }
 
 export type MsgFeedbackType = {
@@ -57,14 +57,15 @@ export type MsgFeedbackType = {
 }
 
 export type ChatLogChatType = {
-  msg: string
-  time: string | Date
+  msg: string;
+  senderId?: string;
+  time: Date | string;
   //feedback: MsgFeedbackType
 }
 
 export type ChatsArrType = {
   id: number
-  chat: ChatsObj
+  messages: ChatsObj
 }
 
 // CHATCONTENT COMPONENT ----------------------------------------------
@@ -73,7 +74,7 @@ export type ChatContentType = {
   mdAbove: boolean
   dispatch: Dispatch<any>
   store: ChatStoreType
-  sendMsg: (params: SendMsgParamsType) => void
+  //sendMsg: (params: SendMsgParamsType) => void
 }
 
 
@@ -81,8 +82,7 @@ export type ChatContentType = {
 export type ChatLogType = {
   hidden: boolean
   data: {
-    chat: ChatsObj
-    //messages: ChatsObj
+    messages: ChatType[]
   }
 }
 

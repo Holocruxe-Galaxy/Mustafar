@@ -38,9 +38,9 @@ const ChatContent = (props: ChatContentType) => {
   const {
     hidden,
     mdAbove,
-    sendMsg,
     store,
     dispatch,
+    //sendMsg,
   } = props;
 
   // ** States
@@ -50,7 +50,6 @@ const ChatContent = (props: ChatContentType) => {
 
   useEffect(() => {
     if (id) dispatch(saveId(id));
-    console.log("Chatcontent - Esto es id: ", id)
     socketClient.recieveMessages(dispatch);
     socketClient.recieveBroadcast(dispatch);
 
@@ -65,7 +64,7 @@ const ChatContent = (props: ChatContentType) => {
 
   const renderContent = () => {
     if (store) {
-      const messages = store.chats
+      const messages = store.messages
       
       if (active === false) {
 
@@ -118,15 +117,29 @@ const ChatContent = (props: ChatContentType) => {
             sx={{
               width: 0,
               flexGrow: 1,
-              height: '112%',
+              height: '100%',
               backgroundColor: 'action.hover'
             }}
           >
+
+            <Box
+            component='div'
+            sx={{
+              py: 3,
+              px: 5,
+              height: "11%",
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              borderBottom: theme => `1px solid ${theme.palette.divider}`
+            }}
+            ></Box>
+
             {store.messages ? (
-              <ChatLog hidden={hidden} data={{ ...messages }} />
+              <ChatLog hidden={hidden} data={{messages: messages}} />
             ) : <Box component='div' sx={{ height: 460 }}>holis</Box>}
 
-            <SendMsgForm store={store} dispatch={dispatch} sendMsg={sendMsg} />
+            <SendMsgForm store={store} dispatch={dispatch} /* sendMsg={sendMsg} */ />
           </Box>
         );
       }

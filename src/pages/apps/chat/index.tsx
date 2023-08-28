@@ -57,7 +57,7 @@ const AppChat = () => {
         mdAbove={mdAbove}
         store={store}
         dispatch={dispatch}
-        sendMsg={addMessageToChat}
+        //sendMsg={addMessageToChat}
       />
     </Box>
   );

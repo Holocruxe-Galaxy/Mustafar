@@ -22,7 +22,6 @@ import PerfectScrollbarComponent, { ScrollBarProps } from 'react-perfect-scrollb
 import {
   ChatLogType,
   MessageType,
-  ChatType,
   MsgFeedbackType,
   ChatLogChatType,
   FormattedChatsType,
@@ -54,56 +53,37 @@ const ChatLog = (props: ChatLogType) => {
   };
 
   const store = useSelector((state: RootState) => state.chat)
-  console.log("ChatLog - Esto es store: ", store)
 
   // ** Formats chat data based on sender
   const formattedChatData = () => {
     let chatLog: MessageType[] | [] = [];
-
-    if (data.chat) {
-      chatLog = data.chat.chat;
+    if (store.messages) {
+      chatLog = store.messages;
     }
 
     const formattedChatLog: FormattedChatsType[] = [];
-  
-    //SENDERID -----------------------------------------------------------------
-    const chatMessageSenderId = "1"
-    let msgGroup: MessageGroupType = {
-      messages: [],
-      senderId: chatMessageSenderId
-    };
-    chatLog.forEach((msg: MessageType, index: number) => {
-      //if (chatMessageSenderId === msg.senderId) {
-      msgGroup.messages.push({
-        time: msg.time,
-        msg: msg.message,
-        //feedback: msg.feedback
-      });
-
-      //} else {
-      //  chatMessageSenderId = msg.senderId
-
-      formattedChatLog.push(msgGroup);
-      msgGroup = {
-        senderId: msg.senderId,
-        messages: [
-          {
-            time: msg.time,
-            msg: msg.message,
-            //feedback: msg.feedback
-          }
-        ]
+      let chatMessageSenderId = store.id
+      
+      let msgGroup: MessageGroupType = {
+        messages: [],
+        senderId: chatMessageSenderId
       };
-
-      //}
-
-      if (index === chatLog.length - 1) formattedChatLog.push(msgGroup);
-    });
+      
+        chatLog.forEach((msg: MessageType, index: number) => {
+          if (chatMessageSenderId === msg.id) {
+            msgGroup.messages.push({
+              time: msg.time,
+              msg: msg.message,
+              //feedback: msg.feedback
+            })
+          } 
+          if (index === chatLog.length - 1) formattedChatLog.push(msgGroup)
+        })
 
     return formattedChatLog;
   };
 
-  const renderMsgFeedback = (isSender: boolean, feedback: MsgFeedbackType) => {
+/*   const renderMsgFeedback = (isSender: boolean, feedback: MsgFeedbackType) => {
     if (isSender) {
       if (feedback.isSent && !feedback.isDelivered) {
         return (
@@ -127,39 +107,36 @@ const ChatLog = (props: ChatLogType) => {
         return null;
       }
     }
-  };
+  }; */
 
   useEffect(() => {
-    if (data && data.chat && data.chat.chat.length) {
+    if (store && store.messages && store.messages.length) {
       scrollToBottom();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, [store]);
 
   // ** Renders user chat
   const renderChats = () => {
-    //return formattedChatData().map((item: FormattedChatsType, index: number) => {
-      const isSender = store.id;
-      let chat = store.messages;  
-      
+    return formattedChatData().map((item: FormattedChatsType, index: number) => {
+      const isSender = item.senderId
+
       return (
         <Box
-          component='div'
-          //key={index}
+          key={index}
           sx={{
             display: 'flex',
             flexDirection: !isSender ? 'row' : 'row-reverse',
-            //mb: index !== formattedChatData().length - 1 ? 9.75 : undefined
+            mb: index !== formattedChatData().length - 1 ? 9.75 : undefined
           }}
-          >
-          <Box component='div' className='chat-body' sx={{ maxWidth: ['calc(100% - 5.75rem)', '75%', '65%'] }}>
-            {
-              
-              //store.messages.map((chat: ChatLogChatType, index: number, { length }: { length: number; }) => {
-                //const time = new Date(chat.time);
+        >
 
-              //return (
-                <Box component='div' /* key={index} */ sx={{ '&:not(:last-of-type)': { mb: 3.5 } }}>
+          <Box className='chat-body' sx={{ maxWidth: ['calc(100% - 5.75rem)', '75%', '65%'] }}>
+            {item.messages.map((chat: ChatLogChatType, index: number, { length }: { length: number }) => {
+              const time = new Date(chat.time)
+
+              return (
+                <Box key={index} sx={{ '&:not(:last-of-type)': { mb: 3.5 } }}>
                   <div>
                     <Typography
                       sx={{
@@ -177,12 +154,11 @@ const ChatLog = (props: ChatLogType) => {
                         backgroundColor: isSender ? 'primary.main' : 'background.paper'
                       }}
                     >
-                      {chat}
+                      {chat.msg}
                     </Typography>
                   </div>
-                  {/* {index + 1 === length ? (
+                  {index + 1 === length ? (
                     <Box
-                      component='div'
                       sx={{
                         mt: 1,
                         display: 'flex',
@@ -190,22 +166,22 @@ const ChatLog = (props: ChatLogType) => {
                         justifyContent: isSender ? 'flex-end' : 'flex-start'
                       }}
                     >
-                      {renderMsgFeedback(isSender, chat.feedback)}
-                      <Typography variant='caption' sx={{ color: 'text.disabled' }}>
+{/*                       {renderMsgFeedback(isSender, chat.feedback)} */}
+{/*                       <Typography variant='caption' sx={{ color: 'text.disabled' }}>
                         {time
                           ? new Date(time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
                           : null}
-                      </Typography>
+                      </Typography> */}
                     </Box>
-                  ) : null} */}
+                  ) : null}
                 </Box>
-              //);
+              )
             })}
           </Box>
         </Box>
-      );
-    //});
-  };
+      )
+    })
+  }
 
   const ScrollWrapper = ({ children }: { children: ReactNode; }) => {
     if (hidden) {

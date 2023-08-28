@@ -18,7 +18,7 @@ interface Message {
 interface ChatReducer {
   id: string;
   selectedChat: null
-  messages: null | Message[];
+  messages: /* null | */ Message[];
   chats: null | any[];
 }
 
@@ -37,7 +37,6 @@ export const fetchChatsContacts = createAsyncThunk('appChat/fetchChatsContacts',
 })
 
 export const addMessageToChat = createAsyncThunk('appChat/addMsgs', async (messages: Messages) => {
-  
 return messages.messages
 })
 
