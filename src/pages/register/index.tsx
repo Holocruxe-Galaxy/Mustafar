@@ -1,78 +1,78 @@
-import { Fragment, useState, ReactNode, forwardRef, ChangeEvent, useEffect } from 'react'
+import { Fragment, useState, ReactNode, forwardRef, ChangeEvent, useEffect } from 'react';
 
 // ** MUI Imports
-import Box from '@mui/material/Box'
-import Card from '@mui/material/Card'
-import Step from '@mui/material/Step'
-import Grid from '@mui/material/Grid'
-import Button from '@mui/material/Button'
-import Select from '@mui/material/Select'
-import Divider from '@mui/material/Divider'
-import Stepper from '@mui/material/Stepper'
-import MenuItem from '@mui/material/MenuItem'
-import Checkbox from '@mui/material/Checkbox'
-import StepLabel from '@mui/material/StepLabel'
-import TextField from '@mui/material/TextField'
-import Typography from '@mui/material/Typography'
-import InputLabel from '@mui/material/InputLabel'
-import CardContent from '@mui/material/CardContent'
-import FormControl from '@mui/material/FormControl'
-import Autocomplete from '@mui/material/Autocomplete'
-import FormHelperText from '@mui/material/FormHelperText'
-import FormControlLabel from '@mui/material/FormControlLabel'
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import Step from '@mui/material/Step';
+import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
+import Select from '@mui/material/Select';
+import Divider from '@mui/material/Divider';
+import Stepper from '@mui/material/Stepper';
+import MenuItem from '@mui/material/MenuItem';
+import Checkbox from '@mui/material/Checkbox';
+import StepLabel from '@mui/material/StepLabel';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import InputLabel from '@mui/material/InputLabel';
+import CardContent from '@mui/material/CardContent';
+import FormControl from '@mui/material/FormControl';
+import Autocomplete from '@mui/material/Autocomplete';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 // ** Third Party Imports
-import * as yup from 'yup'
-import toast from 'react-hot-toast'
-import { useForm, Controller } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import DatePicker from 'react-datepicker'
+import * as yup from 'yup';
+import toast from 'react-hot-toast';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import DatePicker from 'react-datepicker';
 
 // ** Icon Imports
-import Icon from 'src/@core/components/icon'
+import Icon from 'src/@core/components/icon';
 
 // ** Types
-import { DateType } from 'src/types/forms/reactDatepickerTypes'
+import { DateType } from 'src/types/forms/reactDatepickerTypes';
 
 // ** Custom Components Imports
-import StepperCustomDot from './StepperCustomDot'
-import BlankLayout from 'src/@core/layouts/BlankLayoutOnBoarding'
+import StepperCustomDot from './StepperCustomDot';
+import BlankLayout from 'src/@core/layouts/BlankLayoutOnBoarding';
 
 // ** Styled Components
-import StepperWrapper from 'src/@core/styles/mui/stepper'
-import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
+import StepperWrapper from 'src/@core/styles/mui/stepper';
+import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker';
 
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { useDispatch, useSelector } from 'react-redux'
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchProvincias,
   fetchMunicipios,
   setSelectedProvinciaId,
   Provincias,
   CountriesReducer
-} from 'src/store/apps/countries'
-import { useAuth } from 'src/hooks/useAuth'
-import { stepManager, CountryType, isNumber } from '../../@core/utils/helpersForm'
-import { Canvas } from '@react-three/fiber'
-import AstSit from '../../@core/components/holocruxe-model/modelSit'
-import Deportes from '../../@core/icons/Deportes'
-import Musica from '../../@core/icons/Musica'
-import Arte from '../../@core/icons/Arte'
-import Juegos from '../../@core/icons/Juegos'
-import Salado from '../../@core/icons/Salado'
-import Dulce from '../../@core/icons/Dulce'
-import Viajes from '../../@core/icons/Viajes'
-import Fotografia from '../../@core/icons/Fotografia'
-import Fitness from '../../@core/icons/Fitness'
-import Moda from '../../@core/icons/Moda'
-import Series from '../../@core/icons/Series'
-import Ciencia from '../../@core/icons/Ciencia'
-import Astronomia from '../../@core/icons/Astronomia'
-import Ecologia from '../../@core/icons/Ecologia'
-import Crianza from '../../@core/icons/Crianza'
-import Psic from '../../@core/icons/Psic'
-import { RootState } from 'src/store'
+} from 'src/store/apps/countries';
+import { useAuth } from 'src/hooks/useAuth';
+import { stepManager, CountryType, isNumber } from '../../@core/utils/helpersForm';
+import { Canvas } from '@react-three/fiber';
+import AstSit from '../../@core/components/holocruxe-model/modelSit';
+import Deportes from '../../@core/icons/Deportes';
+import Musica from '../../@core/icons/Musica';
+import Arte from '../../@core/icons/Arte';
+import Juegos from '../../@core/icons/Juegos';
+import Salado from '../../@core/icons/Salado';
+import Dulce from '../../@core/icons/Dulce';
+import Viajes from '../../@core/icons/Viajes';
+import Fotografia from '../../@core/icons/Fotografia';
+import Fitness from '../../@core/icons/Fitness';
+import Moda from '../../@core/icons/Moda';
+import Series from '../../@core/icons/Series';
+import Ciencia from '../../@core/icons/Ciencia';
+import Astronomia from '../../@core/icons/Astronomia';
+import Ecologia from '../../@core/icons/Ecologia';
+import Crianza from '../../@core/icons/Crianza';
+import Psic from '../../@core/icons/Psic';
+import { RootState } from 'src/store';
 
 const steps = [
   {
@@ -87,35 +87,41 @@ const steps = [
   {
     title: 'Intereses generales'
   }
-]
+];
 
 interface CustomInputProps {
-  value: DateType
-  label: string
-  error: boolean
-  onChange: (event: ChangeEvent) => void
+  value: DateType;
+  label: string;
+  error: boolean;
+  onChange: (event: ChangeEvent) => void;
 }
 
 const CustomInput = forwardRef(({ ...props }: CustomInputProps, ref) => {
-  return <TextField inputRef={ref} {...props} sx={{ width: '100%' }} />
-})
+  return <TextField inputRef={ref} {...props} sx={{ width: '100%' }} />;
+});
 
 const defaultPersonalValues = {
-  name: '',
-  gender: '',
-  birthdate: '',
-  civilStatus: ''
-}
+  personal: {
+    name: '',
+    gender: '',
+    birthdate: '',
+    civilStatus: ''
+  }
+};
 
 const defaultContactValues = {
-  altEmail: '',
-  phone: '',
-  language: '',
-  country: '',
-  provinceOrState: '',
-  city: '',
-  zipCode: ''
-}
+  contactInfo: {
+    altEmail: '',
+    phone: '',
+    zipCode: ''
+  },
+  location: {
+    language: '',
+    country: '',
+    provinceOrState: '',
+    city: '',
+  }
+};
 
 const defaultProfessionalValues = {
   educationLevel: '',
@@ -123,28 +129,34 @@ const defaultProfessionalValues = {
   academicField: '',
   occupation: '',
   job: ''
-}
+};
 
 const defaultGeneralInsterestsValues = {
   likes: []
-}
+};
 
 const personalSchema = yup.object().shape({
-  name: yup.string().required(),
-  gender: yup.string().required(),
-  birthdate: yup.string().required(),
-  civilStatus: yup.string().required()
-})
+  personal: yup.object({
+    name: yup.string().required(),
+    gender: yup.string().required(),
+    birthdate: yup.string().required(),
+    civilStatus: yup.string().required()
+  })
+});
 
 const contactSchema = yup.object().shape({
-  altEmail: yup.string().email(),
-  phone: yup.string().required(),
-  language: yup.string().required(),
-  country: yup.string().required(),
-  provinceOrState: yup.string().required(),
-  city: yup.string().required(),
-  zipCode: yup.string().required()
-})
+  contactInfo: yup.object({
+    altEmail: yup.string().email(),
+    phone: yup.string().required(),
+    zipCode: yup.string().required()
+  }),
+  location: yup.object({
+    language: yup.string().required(),
+    country: yup.string().required(),
+    provinceOrState: yup.string().required(),
+    city: yup.string().required(),
+  })
+});
 
 const professionalSchema = yup.object().shape({
   educationLevel: yup.string().required(),
@@ -152,35 +164,35 @@ const professionalSchema = yup.object().shape({
   academicField: yup.string().required(),
   occupation: yup.string().required(),
   job: yup.string().required()
-})
+});
 
 const generalInterestsSchema = yup.object().shape({
   likes: yup.array()
-})
+});
 
 const Register = () => {
-  const router = useRouter()
+  const router = useRouter();
 
-  const currentStep = localStorage.getItem('step')
-  const step = isNumber(currentStep) ?? steps.length
-  const { logout } = useAuth()
+  const currentStep = localStorage.getItem('step');
+  const step = isNumber(currentStep) ?? steps.length;
+  const { logout } = useAuth();
 
-  const [, setAnchorEl] = useState<Element | null>(null)
+  const [, setAnchorEl] = useState<Element | null>(null);
 
   const handleDropdownClose = (url?: string) => {
     if (url) {
-      router.push(url)
+      router.push(url);
     }
-    setAnchorEl(null)
-  }
+    setAnchorEl(null);
+  };
 
   const handleLogout = () => {
-    logout()
-    handleDropdownClose()
-  }
+    logout();
+    handleDropdownClose();
+  };
 
   // ** States
-  const [activeStep, setActiveStep] = useState<number>(step)
+  const [activeStep, setActiveStep] = useState<number>(step);
 
   const countries: CountryType[] = [
     { code: 'AD', label: 'Andorra', phone: '376' },
@@ -387,9 +399,9 @@ const Register = () => {
       label: 'Saint Kitts and Nevis',
       phone: '1-869'
     }
-  ]
+  ];
 
-  const [caract, setCaract] = useState()
+  const [caract, setCaract] = useState();
 
   const interests = [
     { id: 1, name: 'Deportes', value: 'SPORTS', icon: <Deportes /> },
@@ -409,35 +421,35 @@ const Register = () => {
     { id: 15, name: 'Ecología', value: 'ECOLOGY', icon: <Ecologia /> },
     { id: 16, name: 'Crianza y maternidad', value: 'UPBRINGING', icon: <Crianza /> },
     { id: 16, name: 'Psicología', value: 'PSYCHOLOGY', icon: <Psic /> }
-  ]
+  ];
 
-  const [checkedValues, setCheckedValues] = useState([] as string[])
+  const [checkedValues, setCheckedValues] = useState([] as string[]);
 
   const handleSelect = (checkedName: string) => {
     const newNames = checkedValues?.includes(checkedName)
       ? checkedValues?.filter(name => name !== checkedName)
-      : [...(checkedValues ?? []), checkedName]
-    setCheckedValues(newNames)
+      : [...(checkedValues ?? []), checkedName];
+    setCheckedValues(newNames);
 
-    return newNames
-  }
+    return newNames;
+  };
 
-  const dispatch = useDispatch()
-  const store: CountriesReducer = useSelector((state: RootState) => state.countries)
-  const municipios = useSelector((state: RootState) => state.countries.municipios)
-  const selectedProvinciaId = useSelector((state: RootState) => state.countries.selectedProvinciaId)
+  const dispatch = useDispatch();
+  const store: CountriesReducer = useSelector((state: RootState) => state.countries);
+  const municipios = useSelector((state: RootState) => state.countries.municipios);
+  const selectedProvinciaId = useSelector((state: RootState) => state.countries.selectedProvinciaId);
 
   // console.log(countriesState.map(b => b.nombre) )
 
   const handleProvinciaChange = event => {
-    const selectedId = event.target.value
-    dispatch(setSelectedProvinciaId(selectedId))
-    dispatch(fetchMunicipios(selectedId))
-  }
+    const selectedId = event.target.value;
+    dispatch(setSelectedProvinciaId(selectedId));
+    dispatch(fetchMunicipios(selectedId));
+  };
 
   useEffect(() => {
-    dispatch(fetchProvincias())
-  }, [dispatch])
+    dispatch(fetchProvincias());
+  }, [dispatch]);
 
   // ** Hooks
   const {
@@ -447,7 +459,7 @@ const Register = () => {
   } = useForm({
     defaultValues: defaultPersonalValues,
     resolver: yupResolver(personalSchema)
-  })
+  });
 
   const {
     control: contactControl,
@@ -456,7 +468,7 @@ const Register = () => {
   } = useForm({
     defaultValues: defaultContactValues,
     resolver: yupResolver(contactSchema)
-  })
+  });
 
   const {
     control: professionalControl,
@@ -465,7 +477,7 @@ const Register = () => {
   } = useForm({
     defaultValues: defaultProfessionalValues,
     resolver: yupResolver(professionalSchema)
-  })
+  });
 
   const {
     control: generalInsterestsControl,
@@ -474,20 +486,20 @@ const Register = () => {
   } = useForm({
     defaultValues: defaultGeneralInsterestsValues,
     resolver: yupResolver(generalInterestsSchema)
-  })
+  });
 
   // Handle Stepper
   const handleBack = () => {
-    setActiveStep(prevActiveStep => prevActiveStep - 1)
-  }
+    setActiveStep(prevActiveStep => prevActiveStep - 1);
+  };
 
   const onSubmit = async (data: any) => {
-    const manager = stepManager(activeStep, data, caract)
+    const manager = stepManager(activeStep, data, caract);
 
-    // console.log(data)
+    return;
 
     try {
-      const token = localStorage.getItem('AuthorizationToken')
+      const token = localStorage.getItem('AuthorizationToken');
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/user/form/step`, {
         method: 'POST',
@@ -497,28 +509,28 @@ const Register = () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(manager)
-      })
+      });
       if (!response.ok) {
-        const error = await response.json()
-        throw new Error(error.message)
+        const error = await response.json();
+        throw new Error(error.message);
       }
-      console.log("🚀 ~ file: index.tsx:494 ~ onSubmit ~ response:", response)
+      console.log("🚀 ~ file: index.tsx:494 ~ onSubmit ~ response:", response);
 
 
-      localStorage.setItem('step', (step + 1).toString())
-      setActiveStep(activeStep + 1)
+      localStorage.setItem('step', (step + 1).toString());
+      setActiveStep(activeStep + 1);
       if (activeStep === steps.length - 1) {
-        toast.success('Formulario completado!')
-        localStorage.setItem('status', 'COMPLETE')
+        toast.success('Formulario completado!');
+        localStorage.setItem('status', 'COMPLETE');
 
-        router.replace('/home')
+        router.replace('/home');
       }
     } catch (error: any) {
-      toast.error(error.message)
+      toast.error(error.message);
 
-      console.log(error.message)
+      console.log(error.message);
     }
-  }
+  };
 
   const getStepContent = (step: number) => {
     switch (step) {
@@ -534,7 +546,7 @@ const Register = () => {
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
                   <Controller
-                    name='altEmail'
+                    name='contactInfo.altEmail'
                     control={contactControl}
                     rules={{ required: true }}
                     render={({ field: { value, onChange } }) => (
@@ -543,13 +555,13 @@ const Register = () => {
                         value={value}
                         label='E-mail alternativo'
                         onChange={onChange}
-                        error={Boolean(contactErrors.altEmail)}
+                        error={Boolean(contactErrors.contactInfo?.altEmail)}
                         placeholder='carlosperez@gmail.com'
                         aria-describedby='stepper-linear-contact-alternative-mail'
                       />
                     )}
                   />
-                  {contactErrors.altEmail && (
+                  {contactErrors.contactInfo?.altEmail && (
                     <FormHelperText sx={{ color: 'error.main' }} id='stepper-linear-contact-alternative-mail'>
                       Campo requerido
                     </FormHelperText>
@@ -566,7 +578,7 @@ const Register = () => {
                     getOptionLabel={option => option.label}
                     value={caract}
                     onChange={(event: any, newCar: any) => {
-                      setCaract(newCar)
+                      setCaract(newCar);
                     }}
                     renderOption={(props, option) => (
                       <Box component='li' sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
@@ -581,10 +593,10 @@ const Register = () => {
                       </Box>
                     )}
                     renderInput={params => (
-                      <TextField {...params} label='Elige país' error={Boolean(contactErrors.phone)} />
+                      <TextField {...params} label='Elige país' error={Boolean(contactErrors.contactInfo?.phone)} />
                     )}
                   />
-                  {contactErrors.phone && (
+                  {contactErrors.contactInfo?.phone && (
                     <FormHelperText sx={{ color: 'error.main' }} id='stepper-linear-contact-phone'>
                       Campo requerido
                     </FormHelperText>
@@ -593,7 +605,7 @@ const Register = () => {
                 <Grid item xs={12} sm={6}>
                   <FormControl fullWidth>
                     <Controller
-                      name='phone'
+                      name='contactInfo.phone'
                       control={contactControl}
                       rules={{ required: true }}
                       render={({ field: { value, onChange } }) => (
@@ -601,13 +613,13 @@ const Register = () => {
                           value={value}
                           label='Teléfono'
                           onChange={onChange}
-                          error={Boolean(contactErrors.phone)}
+                          error={Boolean(contactErrors.contactInfo?.phone)}
                           aria-describedby='stepper-linear-contact-phone'
                           placeholder='12345678'
                         />
                       )}
                     />
-                    {contactErrors.phone && (
+                    {contactErrors.contactInfo?.phone && (
                       <FormHelperText sx={{ color: 'error.main' }} id='stepper-linear-contact-phone'>
                         Campo requerido
                       </FormHelperText>
@@ -619,13 +631,13 @@ const Register = () => {
                 <FormControl fullWidth>
                   <InputLabel
                     id='stepper-linear-personal-gender'
-                    error={Boolean(contactErrors.language)}
+                    error={Boolean(contactErrors.location?.language)}
                     htmlFor='stepper-linear-personal-gender'
                   >
                     Idioma
                   </InputLabel>
                   <Controller
-                    name='language'
+                    name='location.language'
                     control={contactControl}
                     rules={{ required: true }}
                     render={({ field: { value, onChange } }) => (
@@ -633,7 +645,7 @@ const Register = () => {
                         value={value}
                         label='Idioma'
                         onChange={onChange}
-                        error={Boolean(contactErrors.language)}
+                        error={Boolean(contactErrors.location?.language)}
                         labelId='stepper-linear-personal-gender'
                         aria-describedby='stepper-linear-personal-gender-helper'
                       >
@@ -642,7 +654,7 @@ const Register = () => {
                       </Select>
                     )}
                   />
-                  {contactErrors.language && (
+                  {contactErrors.location?.language && (
                     <FormHelperText sx={{ color: 'error.main' }} id='stepper-linear-personal-gender-helper'>
                       Campo requerido
                     </FormHelperText>
@@ -653,13 +665,13 @@ const Register = () => {
                 <FormControl fullWidth>
                   <InputLabel
                     id='stepper-linear-personal-gender'
-                    error={Boolean(contactErrors.country)}
+                    error={Boolean(contactErrors.location?.country)}
                     htmlFor='stepper-linear-personal-gender'
                   >
                     País
                   </InputLabel>
                   <Controller
-                    name='country'
+                    name='location.country'
                     control={contactControl}
                     rules={{ required: true }}
                     render={({ field: { value, onChange } }) => (
@@ -667,7 +679,7 @@ const Register = () => {
                         value={value}
                         label='País'
                         onChange={onChange}
-                        error={Boolean(contactErrors.country)}
+                        error={Boolean(contactErrors.location?.country)}
                         labelId='stepper-linear-personal-gender'
                         aria-describedby='stepper-linear-personal-gender-helper'
                       >
@@ -684,7 +696,7 @@ const Register = () => {
                       </Select>
                     )}
                   />
-                  {contactErrors.country && (
+                  {contactErrors.location?.country && (
                     <FormHelperText sx={{ color: 'error.main' }} id='stepper-linear-personal-gender-helper'>
                       Campo requerido
                     </FormHelperText>
@@ -695,13 +707,13 @@ const Register = () => {
                 <FormControl fullWidth>
                   <InputLabel
                     id='stepper-linear-personal-gender'
-                    error={Boolean(contactErrors.provinceOrState)}
+                    error={Boolean(contactErrors.location?.provinceOrState)}
                     htmlFor='stepper-linear-personal-gender'
                   >
                     Provincia
                   </InputLabel>
                   <Controller
-                    name='provinceOrState'
+                    name='location.provinceOrState'
                     control={contactControl}
                     rules={{ required: true }}
                     render={({ field: { value, onChange } }) => (
@@ -712,7 +724,7 @@ const Register = () => {
                           onChange(e); // Actualizar el valor en el controlador
                           handleProvinciaChange(e); // Llamar a tu función de manejo
                         }}
-                        error={Boolean(contactErrors.provinceOrState)}
+                        error={Boolean(contactErrors.location?.provinceOrState)}
                         labelId='stepper-linear-personal-gender'
                         aria-describedby='stepper-linear-personal-gender-helper'
                       >
@@ -725,7 +737,7 @@ const Register = () => {
                       </Select>
                     )}
                   />
-                  {contactErrors.provinceOrState && (
+                  {contactErrors.location?.provinceOrState && (
                     <FormHelperText sx={{ color: 'error.main' }} id='stepper-linear-personal-gender-helper'>
                       Campo requerido
                     </FormHelperText>
@@ -736,13 +748,13 @@ const Register = () => {
                 <FormControl fullWidth>
                   <InputLabel
                     id='stepper-linear-personal-gender'
-                    error={Boolean(contactErrors.city)}
+                    error={Boolean(contactErrors.location?.city)}
                     htmlFor='stepper-linear-personal-gender'
                   >
                     Municipio
                   </InputLabel>
                   <Controller
-                    name='city'
+                    name='location.city'
                     control={contactControl}
                     rules={{ required: true }}
                     render={({ field: { value, onChange } }) => (
@@ -750,7 +762,7 @@ const Register = () => {
                         value={value}
                         label='Idioma'
                         onChange={onChange}
-                        error={Boolean(contactErrors.city)}
+                        error={Boolean(contactErrors.location?.city)}
                         labelId='stepper-linear-personal-gender'
                         aria-describedby='stepper-linear-personal-gender-helper'
                       >
@@ -762,7 +774,7 @@ const Register = () => {
                       </Select>
                     )}
                   />
-                  {contactErrors.city && (
+                  {contactErrors.location?.city && (
                     <FormHelperText sx={{ color: 'error.main' }} id='stepper-linear-personal-gender-helper'>
                       Campo requerido
                     </FormHelperText>
@@ -772,7 +784,7 @@ const Register = () => {
               <Grid item xs={12} sm={11.8}>
                 <FormControl fullWidth>
                   <Controller
-                    name='zipCode'
+                    name='contactInfo.zipCode'
                     control={contactControl}
                     rules={{ required: true }}
                     render={({ field: { value, onChange } }) => (
@@ -780,13 +792,13 @@ const Register = () => {
                         value={value}
                         label='Código postal'
                         onChange={onChange}
-                        error={Boolean(contactErrors.zipCode)}
+                        error={Boolean(contactErrors.contactInfo?.zipCode)}
                         placeholder='3000'
                         aria-describedby='stepper-linear-contact-post-code'
                       />
                     )}
                   />
-                  {contactErrors.zipCode && (
+                  {contactErrors.contactInfo?.zipCode && (
                     <FormHelperText sx={{ color: 'error.main' }} id='stepper-linear-contact-post-code'>
                       Campo requerido
                     </FormHelperText>
@@ -809,7 +821,7 @@ const Register = () => {
     </Canvas> */}
             </Grid>
           </form>
-        )
+        );
       case 1:
         return (
           <form key={1} onSubmit={handlePersonalSubmit(onSubmit)}>
@@ -822,7 +834,7 @@ const Register = () => {
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
                   <Controller
-                    name='name'
+                    name='personal.name'
                     control={personalControl}
                     rules={{ required: true }}
                     render={({ field: { value, onChange } }) => (
@@ -831,12 +843,12 @@ const Register = () => {
                         label='Nombre de usuario'
                         onChange={onChange}
                         placeholder='Nombre de usuario'
-                        error={Boolean(personalErrors.name)}
+                        error={Boolean(personalErrors.personal?.name)}
                         aria-describedby='stepper-linear-personal-first-name'
                       />
                     )}
                   />
-                  {personalErrors.name && (
+                  {personalErrors.personal?.name && (
                     <FormHelperText sx={{ color: 'error.main' }} id='stepper-linear-personal-first-name'>
                       Campo requerido
                     </FormHelperText>
@@ -847,13 +859,13 @@ const Register = () => {
                 <FormControl fullWidth>
                   <InputLabel
                     id='stepper-linear-personal-gender'
-                    error={Boolean(personalErrors.gender)}
+                    error={Boolean(personalErrors.personal?.gender)}
                     htmlFor='stepper-linear-personal-gender'
                   >
                     Género
                   </InputLabel>
                   <Controller
-                    name='gender'
+                    name='personal.gender'
                     control={personalControl}
                     rules={{ required: true }}
                     render={({ field: { value, onChange } }) => (
@@ -861,7 +873,7 @@ const Register = () => {
                         value={value}
                         label='Género'
                         onChange={onChange}
-                        error={Boolean(personalErrors.gender)}
+                        error={Boolean(personalErrors.personal?.gender)}
                         labelId='stepper-linear-personal-gender'
                         aria-describedby='stepper-linear-personal-gender-helper'
                       >
@@ -873,7 +885,7 @@ const Register = () => {
                       </Select>
                     )}
                   />
-                  {personalErrors.gender && (
+                  {personalErrors.personal?.gender && (
                     <FormHelperText sx={{ color: 'error.main' }} id='stepper-linear-personal-gender-helper'>
                       Campo requerido
                     </FormHelperText>
@@ -884,7 +896,7 @@ const Register = () => {
               <Grid item xs={12} sm={6}>
                 <DatePickerWrapper>
                   <Controller
-                    name='birthdate'
+                    name='personal.birthdate'
                     control={personalControl}
                     rules={{ required: true }}
                     render={({ field: { value, onChange } }) => (
@@ -899,14 +911,14 @@ const Register = () => {
                             value={value}
                             onChange={onChange}
                             label='Date of Birth'
-                            error={Boolean(personalErrors.birthdate)}
+                            error={Boolean(personalErrors.personal?.birthdate)}
                             aria-describedby='validation-basic-dob'
                           />
                         }
                       />
                     )}
                   />
-                  {personalErrors.birthdate && (
+                  {personalErrors.personal?.birthdate && (
                     <FormHelperText sx={{ mx: 3.5, color: 'error.main' }} id='validation-basic-dob'>
                       Campo requerido
                     </FormHelperText>
@@ -917,13 +929,13 @@ const Register = () => {
                 <FormControl fullWidth>
                   <InputLabel
                     id='stepper-linear-personal-civilStatus'
-                    error={Boolean(personalErrors.civilStatus)}
+                    error={Boolean(personalErrors.personal?.civilStatus)}
                     htmlFor='stepper-linear-personal-civilStatus'
                   >
                     Estado civil
                   </InputLabel>
                   <Controller
-                    name='civilStatus'
+                    name='personal.civilStatus'
                     control={personalControl}
                     rules={{ required: true }}
                     render={({ field: { value, onChange } }) => (
@@ -931,7 +943,7 @@ const Register = () => {
                         value={value}
                         label='Estado civil'
                         onChange={onChange}
-                        error={Boolean(personalErrors.civilStatus)}
+                        error={Boolean(personalErrors.personal?.civilStatus)}
                         labelId='stepper-linear-personal-civilStatus'
                         aria-describedby='stepper-linear-personal-civilStatus-helper'
                       >
@@ -943,7 +955,7 @@ const Register = () => {
                       </Select>
                     )}
                   />
-                  {personalErrors.civilStatus && (
+                  {personalErrors.personal?.civilStatus && (
                     <FormHelperText sx={{ color: 'error.main' }} id='stepper-linear-personal-gender-helper'>
                       Campo requerido
                     </FormHelperText>
@@ -961,7 +973,7 @@ const Register = () => {
               </Grid>
             </Grid>
           </form>
-        )
+        );
       case 2:
         return (
           <form key={2} onSubmit={handleProfessionalSubmit(onSubmit)}>
@@ -1134,7 +1146,7 @@ const Register = () => {
     </Canvas> */}
             </Grid>
           </form>
-        )
+        );
       case 3:
         return (
           <form key={3} onSubmit={handleGeneralInsterestsSubmit(onSubmit)}>
@@ -1196,11 +1208,11 @@ const Register = () => {
     </Canvas> */}
             </Grid>
           </form>
-        )
+        );
       default:
-        return null
+        return null;
     }
-  }
+  };
 
   const renderContent = () => {
     if (activeStep === steps.length) {
@@ -1215,11 +1227,11 @@ const Register = () => {
             </Link>
           </Box>
         </Fragment>
-      )
+      );
     } else {
-      return getStepContent(activeStep)
+      return getStepContent(activeStep);
     }
-  }
+  };
 
   return (
     <Card>
@@ -1311,19 +1323,19 @@ const Register = () => {
           <Stepper activeStep={activeStep}>
             {steps.map((step, index) => {
               const labelProps: {
-                error?: boolean
-              } = {}
+                error?: boolean;
+              } = {};
               if (index === activeStep) {
-                labelProps.error = false
+                labelProps.error = false;
                 if ((contactErrors.phone ||
                   contactErrors.altEmail ||
                   contactErrors.language ||
                   contactErrors.country ||
                   contactErrors.provinceOrState ||
                   contactErrors.city ||
-                  contactErrors.zipCode)&&
+                  contactErrors.zipCode) &&
                   activeStep === 0) {
-                  labelProps.error = true
+                  labelProps.error = true;
                 } else if (
                   (
                     personalErrors.gender ||
@@ -1332,7 +1344,7 @@ const Register = () => {
                     personalErrors.name) &&
                   activeStep === 1
                 ) {
-                  labelProps.error = true
+                  labelProps.error = true;
                 } else if (
                   (professionalErrors.academicField ||
                     professionalErrors.educationLevel ||
@@ -1341,15 +1353,15 @@ const Register = () => {
                     professionalErrors.occupation) &&
                   activeStep === 2
                 ) {
-                  labelProps.error = true
+                  labelProps.error = true;
                 } else if (
                   generalInsterestsErrors.likes &&
 
                   activeStep === 3
                 ) {
-                  labelProps.error = true
+                  labelProps.error = true;
                 } else {
-                  labelProps.error = false
+                  labelProps.error = false;
                 }
               }
 
@@ -1365,7 +1377,7 @@ const Register = () => {
                     </div>
                   </StepLabel>
                 </Step>
-              )
+              );
             })}
           </Stepper>
         </StepperWrapper>
@@ -1374,11 +1386,11 @@ const Register = () => {
       <Divider sx={{ m: '0 !important' }} />
       <CardContent>{renderContent()}</CardContent>
     </Card>
-  )
-}
+  );
+};
 
-Register.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
+Register.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>;
 
-Register.guestGuard = true
+Register.guestGuard = true;
 
-export default Register
+export default Register;
