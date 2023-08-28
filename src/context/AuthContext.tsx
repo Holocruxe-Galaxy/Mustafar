@@ -13,6 +13,7 @@ import authConfig from 'src/configs/auth'
 // ** Types
 import { AuthValuesType, LoginParams, UserDataType } from './types'
 import { useUser } from '@auth0/nextjs-auth0/client'
+import { afterLogin, afterSignup } from './functions'
 
 // ** Defaults
 const defaultProvider: AuthValuesType = {
@@ -88,11 +89,12 @@ const AuthProvider = ({ children }: Props) => {
       })
     }
 
-    const response = await fetch('http://lb-ms-auth-1623749626.us-east-1.elb.amazonaws.com/users/register', options)
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CORUSCANT}/users/register`, options)
     const res = await response.json()
     const AuthorizationToken = response.headers.get('Authorization')
     if (AuthorizationToken !== null) {
       window.localStorage.setItem('AuthorizationToken', AuthorizationToken)
+      await afterSignup()
     }
 
     if (response.status === 201) {
@@ -104,15 +106,14 @@ const AuthProvider = ({ children }: Props) => {
         role: !res.admin ? 'admin' : 'client',
         username: res.username
       }
-      window.localStorage.setItem(
-        authConfig.storageTokenKeyName,
-        'eJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg3ODA3MDMzLCJleHAiOjE2ODc4MDczMzN9.CvgFyVYPaSCrVUdFi-EbLmlWV2yttExHcltc0ok7naE'
-      )
+
       const returnUrl = router.query.returnUrl
+
       setUser(microservice_user)
       window.localStorage.removeItem('createAccount')
-      const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
-      router.replace(redirectURL as string)
+
+      const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/register'
+      window.location.href = redirectURL.toString()
     } else {
       window.alert(res.message)
       window.localStorage.removeItem('createAccount')
@@ -129,7 +130,7 @@ const AuthProvider = ({ children }: Props) => {
         email: userAuht0?.email
       })
     }
-    const response = await fetch('http://lb-ms-auth-1623749626.us-east-1.elb.amazonaws.com/users/login', options)
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CORUSCANT}/users/login`, options)
     const res = await response.json()
     const AuthorizationToken = response.headers.get('Authorization')
     if (AuthorizationToken !== null) {
@@ -154,8 +155,11 @@ const AuthProvider = ({ children }: Props) => {
       // const returnUrl = router.query.returnUrl
 
       setUser(microservice_user)
-      const redirectURL = '/'
-      router.replace(redirectURL as string)
+
+      const status = await afterLogin()
+      const redirectURL = status === 'COMPLETE' ? '/home' : '/register'
+
+      redirectURL === '/home' ? router.replace(redirectURL) : (window.location.href = redirectURL)
     } else {
       window.alert(res.message)
       router.push('/api/auth/logout')
@@ -167,6 +171,8 @@ const AuthProvider = ({ children }: Props) => {
     window.localStorage.removeItem('AuthorizationToken')
     window.localStorage.removeItem('userData')
     window.localStorage.removeItem(authConfig.storageTokenKeyName)
+    window.localStorage.removeItem('step')
+    window.localStorage.removeItem('status')
     router.push('/api/auth/logout')
     router.push('/login')
   }

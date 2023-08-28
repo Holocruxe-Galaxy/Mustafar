@@ -38,7 +38,6 @@ const StepperCustomDot = (props: StepIconProps) => {
   } else {
     return (
       <Box
-        component='div'
         sx={{
           borderColor: active ? 'primary.main' : alpha(theme.palette.primary.main, 0.3)
         }}
