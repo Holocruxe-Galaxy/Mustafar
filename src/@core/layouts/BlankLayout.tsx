@@ -37,6 +37,7 @@ const BlankLayout = ({ children }: BlankLayoutProps) => {
       >
         {children}
       </Box>
+
     </BlankLayoutWrapper>
   )
 }

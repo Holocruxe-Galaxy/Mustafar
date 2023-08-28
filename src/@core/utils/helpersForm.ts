@@ -12,6 +12,8 @@ export interface CountryType {
 const stepsForm: Step = {
   0: 'contactInfo',
   1: 'personal',
+  2: 'professional',
+  3: 'generalInterests',
 };
 
 
@@ -39,4 +41,10 @@ export const stepManager = (num: number, data: any, country: CountryType | undef
   }
 
   return { [property]: data }
+}
+
+
+export const onChecked = (e: any) =>{
+  console.log(e.target.checked)
+  console.log(e.target.value)
 }

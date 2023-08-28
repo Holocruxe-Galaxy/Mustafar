@@ -7,7 +7,14 @@ const ModelSit = () => {
   const astronautSit = useGLTF('/models/astronautSit.gltf')
 
 
-  return <primitive ref={astronautSitRef} object={astronautSit.scene} scale={3} position={[0, -3.5, -1]} />
+  return <primitive
+  ref={astronautSitRef}
+  object={astronautSit.scene}
+  scale={2}
+  position={[0, 0.5, 0]}
+  rotation={[0.3,3.1,0]}
+
+  />
 }
 
 const AstronautSitCanvas = () => {
