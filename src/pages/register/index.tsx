@@ -496,8 +496,6 @@ const Register = () => {
   const onSubmit = async (data: any) => {
     const manager = stepManager(activeStep, data, caract);
 
-    return;
-
     try {
       const token = localStorage.getItem('AuthorizationToken');
 
