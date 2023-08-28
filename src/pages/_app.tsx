@@ -1,9 +1,11 @@
+/* eslint-disable @next/next/no-sync-scripts */
 // ** React Imports
 import { ReactNode } from 'react'
 
 // ** Next Imports
 import Head from 'next/head'
 import { Router } from 'next/router'
+import Script from 'next/script'
 import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 
@@ -134,6 +136,7 @@ const App = (props: ExtendedAppProps) => {
             <meta name='keywords' content='Holocruxe, IA, AI, Cruxi' />
             <meta name='viewport' content='initial-scale=1, width=device-width' />
           </Head>
+          <Script src='https://upload-widget.cloudinary.com/global/all.js' type='text/javascript'></Script>
 
           <AuthProvider>
             <SettingsProvider {...(setConfig ? { pageSettings: setConfig() } : {})}>

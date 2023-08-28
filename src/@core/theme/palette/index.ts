@@ -31,7 +31,7 @@ const DefaultPalette = (mode: Palette['mode'], skin: Skin): Palette => {
       bodyBg: mode === 'light' ? '#F7F9F9' : '#20435e', // Same as palette.background.default but doesn't consider bordered skin
       trackBg: mode === 'light' ? '#F2F2F4' : '#20435e',
       avatarBg: mode === 'light' ? '#F1F1F3' : '#20435e',
-      tooltipBg: mode === 'light' ? '#20435e' : '#20435e',
+      tooltipBg: mode === 'light' ? '#142B3D' : '#142B3D',
       tableHeaderBg: mode === 'light' ? '#F5F5F7' : '#20435e'
     },
     mode: mode,

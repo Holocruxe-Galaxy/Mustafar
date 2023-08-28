@@ -106,10 +106,6 @@ const AuthProvider = ({ children }: Props) => {
         role: !res.admin ? 'admin' : 'client',
         username: res.username
       }
-      window.localStorage.setItem(
-        authConfig.storageTokenKeyName,
-        'eJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg3ODA3MDMzLCJleHAiOjE2ODc4MDczMzN9.CvgFyVYPaSCrVUdFi-EbLmlWV2yttExHcltc0ok7naE'
-      )
 
       const returnUrl = router.query.returnUrl
 
