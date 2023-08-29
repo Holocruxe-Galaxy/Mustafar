@@ -23,6 +23,7 @@ export type ChatType = {
   message: string
   time: Date | string
   id?: string
+  isBroadcasted?: boolean
   feedback?: MsgFeedbackType
 }
 
@@ -36,11 +37,13 @@ export type MessageType = {
   message: string
   time: string | Date
   id?: string
+  isBroadcasted?: boolean
   //feedback?: MsgFeedbackType
 }
 
 export type MessageGroupType = {
   senderId: string
+  isBroadcasted?: boolean
   messages: ChatLogChatType[]
 }
 
@@ -60,6 +63,7 @@ export type ChatLogChatType = {
   msg: string;
   senderId?: string;
   time: Date | string;
+  isBroadcasted?: boolean
   //feedback: MsgFeedbackType
 }
 
@@ -89,4 +93,5 @@ export type ChatLogType = {
 export type FormattedChatsType = {
   messages: ChatLogChatType[]
   senderId: string
+  isBroadcasted?: boolean
 }

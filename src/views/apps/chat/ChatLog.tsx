@@ -57,26 +57,28 @@ const ChatLog = (props: ChatLogType) => {
   // ** Formats chat data based on sender
   const formattedChatData = () => {
     let chatLog: MessageType[] | [] = [];
-    if (store.messages) {
-      chatLog = store.messages;
+    if (data.messages) {
+      chatLog = data.messages;
     }
-
+    
     const formattedChatLog: FormattedChatsType[] = [];
-      let chatMessageSenderId = store.id
-      
+    let chatMessageSenderId = store.id 
+    
       let msgGroup: MessageGroupType = {
         messages: [],
-        senderId: chatMessageSenderId
+        senderId: chatMessageSenderId,
+        isBroadcasted: false
       };
       
         chatLog.forEach((msg: MessageType, index: number) => {
-          if (chatMessageSenderId === msg.id) {
+          if (chatMessageSenderId === msg.id || msg.isBroadcasted === true) {
             msgGroup.messages.push({
               time: msg.time,
               msg: msg.message,
-              //feedback: msg.feedback
+              isBroadcasted: msg.isBroadcasted
             })
-          } 
+          }
+
           if (index === chatLog.length - 1) formattedChatLog.push(msgGroup)
         })
 
@@ -119,7 +121,8 @@ const ChatLog = (props: ChatLogType) => {
   // ** Renders user chat
   const renderChats = () => {
     return formattedChatData().map((item: FormattedChatsType, index: number) => {
-      const isSender = item.senderId
+      let isSender = item.senderId      
+      console.log("esto es isSender: ", isSender)
 
       return (
         <Box
@@ -127,19 +130,23 @@ const ChatLog = (props: ChatLogType) => {
           sx={{
             display: 'flex',
             flexDirection: !isSender ? 'row' : 'row-reverse',
-            mb: index !== formattedChatData().length - 1 ? 9.75 : undefined
+            mb: index !== formattedChatData().length - 1 ? 9.75 : undefined,
           }}
         >
 
           <Box className='chat-body' sx={{ maxWidth: ['calc(100% - 5.75rem)', '75%', '65%'] }}>
             {item.messages.map((chat: ChatLogChatType, index: number, { length }: { length: number }) => {
               const time = new Date(chat.time)
+              let chatBroadcasted = chat
+              console.log("Esto es chat: ", chat.isBroadcasted)
 
               return (
                 <Box key={index} sx={{ '&:not(:last-of-type)': { mb: 3.5 } }}>
                   <div>
                     <Typography
                       sx={{
+                        display: 'flex',
+                        flexDirection: !chatBroadcasted ? 'row' : 'row-reverse',
                         boxShadow: 1,
                         borderRadius: 1,
                         maxWidth: '100%',
@@ -167,11 +174,11 @@ const ChatLog = (props: ChatLogType) => {
                       }}
                     >
 {/*                       {renderMsgFeedback(isSender, chat.feedback)} */}
-{/*                       <Typography variant='caption' sx={{ color: 'text.disabled' }}>
+                      <Typography variant='caption' sx={{ color: 'text.disabled' }}>
                         {time
                           ? new Date(time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
                           : null}
-                      </Typography> */}
+                      </Typography>
                     </Box>
                   ) : null}
                 </Box>

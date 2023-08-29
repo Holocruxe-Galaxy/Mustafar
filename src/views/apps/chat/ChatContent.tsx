@@ -127,7 +127,7 @@ const ChatContent = (props: ChatContentType) => {
             sx={{
               py: 3,
               px: 5,
-              height: "11%",
+              height: "12%",
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
