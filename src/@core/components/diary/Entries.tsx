@@ -180,6 +180,12 @@ const Entries = ({ id, props }: any) => {
     textAlign: 'center'
   }
 
+  const styleModal = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+
   const styleEdit = {
     position: 'absolute' as const,
     top: '50%',
@@ -189,7 +195,8 @@ const Entries = ({ id, props }: any) => {
     bgcolor: 'background.paper',
     borderRadius: 1,
     boxShadow: 24,
-    p: 4
+    p: 4,
+    textAlign: 'center'
   }
 
   const classes = useStyles()
@@ -215,7 +222,7 @@ const Entries = ({ id, props }: any) => {
               </IconButton>
             </Tooltip>
 
-            <Modal open={openEdit} onClose={handleCloseEdit}>
+            <Modal open={openEdit} onClose={handleCloseEdit} sx={styleModal}>
               <Box sx={styleEdit}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <FormControl>
@@ -227,7 +234,7 @@ const Entries = ({ id, props }: any) => {
                           value={value}
                           onChange={onChange}
                           inputRef={contentRef}
-                          inputProps={{
+                          InputProps={{
                             endAdornment: (
                               <InputAdornment position='end' sx={{ display: 'flex' }}>
                                 {!isPickerVisible ? (
@@ -236,20 +243,23 @@ const Entries = ({ id, props }: any) => {
                                   <Card className={classes.picker}>
                                     <Picker
                                       data={data}
-                                      emojiTooltip
-                                      perLine={10}
+                                      perLine={6}
                                       maxFrequentRows={0}
                                       searchPosition='none'
                                       onEmojiSelect={handleEmojiSelect}
                                     />
                                   </Card>
                                 )}
+                                <IconButton onClick={() => setPickerVisible(!isPickerVisible)}>
+                                  <EmojiEmotionsIcon />
+                                </IconButton>
                               </InputAdornment>
                             )
                           }}
                         ></TextField>
                       )}
                     />
+                    {props.emoji && <IconButton>{props.emoji}</IconButton>}
                     <Controller
                       name='favorite'
                       control={control}

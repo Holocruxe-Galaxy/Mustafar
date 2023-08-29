@@ -49,6 +49,7 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
+// TODO: Poner SVG correspondientes para el switch
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
   height: 34,
@@ -111,7 +112,9 @@ const Diary = () => {
   const [checked, setChecked] = useState<boolean>(false)
   const [toSend, setToSend] = useState<boolean>(false)
   const [isPickerVisible, setPickerVisible] = useState<boolean | null>(false)
+
   const inputRef = useRef<HTMLInputElement | null>(null)
+  const pickerRef = useRef<HTMLDivElement>(null)
 
   const [diary, setDiary] = useState<PostDiary>({ content: '', favorite: false })
 
@@ -143,9 +146,17 @@ const Diary = () => {
 
   const handleEmojiSelect = (emoji: any) => {
     if (inputRef.current && isPickerVisible) {
-      console.log(inputRef.current)
-      inputRef.current.value += emoji.native
+      const cursorPosition = inputRef.current.selectionStart || 0
+      const inputValue = inputRef.current.value
+      const beforeCursor = inputValue.substring(0, cursorPosition)
+      const afterCursor = inputValue.substring(cursorPosition)
+
+      const newValue = beforeCursor + emoji.native + afterCursor
+      inputRef.current.value = newValue
     }
+
+    // TODO: Checkear poder eliminar el emoji si es lo primero que la persona escribe.
+    // TODO: ocultar picker cuando se clickea en otra parte de la pagina.
 
     setPickerVisible(!isPickerVisible)
   }
@@ -155,6 +166,8 @@ const Diary = () => {
   }
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    // TODO: Control de caracteres máximo 200.
+
     e.preventDefault()
     if (inputRef.current && inputValue.length) {
       setDiary({ ...diary, content: inputRef.current.value })
@@ -167,11 +180,13 @@ const Diary = () => {
 
   return (
     <>
+      {/* // TODO: Estilar entrada de diario en base a un ternario que verifique si el input esta onFocus() */}
       <Card sx={{ height: '100%' }}>
         <CardContent>
           <form onSubmit={onSubmit}>
             <TextField
               fullWidth
+              id='myInput'
               label='Qué hay de nuevo? ...'
               variant='outlined'
               inputRef={inputRef}
@@ -184,7 +199,7 @@ const Diary = () => {
                     {!isPickerVisible ? (
                       ''
                     ) : (
-                      <Card className={classes.picker}>
+                      <Card className={classes.picker} ref={pickerRef}>
                         <Picker
                           data={data}
                           emojiTooltip
