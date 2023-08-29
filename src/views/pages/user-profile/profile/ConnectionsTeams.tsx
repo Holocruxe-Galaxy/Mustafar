@@ -1,29 +1,29 @@
 // ** Next Import
-import Link from 'next/link'
+import Link from 'next/link';
 
 // ** MUI Components
-import Box from '@mui/material/Box'
-import Grid from '@mui/material/Grid'
-import Card from '@mui/material/Card'
-import Button from '@mui/material/Button'
-import Avatar from '@mui/material/Avatar'
-import Typography from '@mui/material/Typography'
-import CardHeader from '@mui/material/CardHeader'
-import CardContent from '@mui/material/CardContent'
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
+import Button from '@mui/material/Button';
+import Avatar from '@mui/material/Avatar';
+import Typography from '@mui/material/Typography';
+import CardHeader from '@mui/material/CardHeader';
+import CardContent from '@mui/material/CardContent';
 
 // ** Icon Imports
-import Icon from 'src/@core/components/icon'
+import Icon from 'src/@core/components/icon';
 
 // ** Custom Components Imports
-import CustomChip from 'src/@core/components/mui/chip'
-import OptionsMenu from 'src/@core/components/option-menu'
+import CustomChip from 'src/@core/components/mui/chip';
+import OptionsMenu from 'src/@core/components/option-menu';
 
 // ** Types
-import { ProfileTeamsTechType, ProfileConnectionsType } from 'src/@fake-db/types'
+import { ProfileTeamsTechType, ProfileConnectionsType } from 'src/@fake-db/types';
 
 interface Props {
-  teams: ProfileTeamsTechType[]
-  connections: ProfileConnectionsType[]
+  teams: ProfileTeamsTechType[];
+  connections: ProfileConnectionsType[];
 }
 
 const ConnectionsTeams = ({ connections, teams }: Props) => {
@@ -45,6 +45,7 @@ const ConnectionsTeams = ({ connections, teams }: Props) => {
               connections.map((connection: ProfileConnectionsType, index) => {
                 return (
                   <Box
+                    component="div"
                     key={index}
                     sx={{
                       display: 'flex',
@@ -53,7 +54,10 @@ const ConnectionsTeams = ({ connections, teams }: Props) => {
                       '&:not(:last-of-type)': { mb: 4 }
                     }}
                   >
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <Box
+                      component="div"
+                      sx={{ display: 'flex', alignItems: 'center' }}
+                    >
                       <Avatar src={connection.avatar} sx={{ mr: 4, width: 38, height: 38 }} />
                       <div>
                         <Typography sx={{ lineHeight: 1.1, fontWeight: 500 }}>{connection.name}</Typography>
@@ -71,9 +75,12 @@ const ConnectionsTeams = ({ connections, teams }: Props) => {
                       <Icon icon='mdi:account-outline' />
                     </Button>
                   </Box>
-                )
+                );
               })}
-            <Box sx={{ width: '100%', textAlign: 'center' }}>
+            <Box
+              component="div"
+              sx={{ width: '100%', textAlign: 'center' }}
+            >
               <Typography
                 href='/'
                 component={Link}
@@ -102,6 +109,7 @@ const ConnectionsTeams = ({ connections, teams }: Props) => {
               teams.map((team: ProfileTeamsTechType, index) => {
                 return (
                   <Box
+                    component="div"
                     key={index}
                     sx={{
                       display: 'flex',
@@ -109,7 +117,10 @@ const ConnectionsTeams = ({ connections, teams }: Props) => {
                       '&:not(:last-of-type)': { mb: 4 }
                     }}
                   >
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <Box
+                      component="div"
+                      sx={{ display: 'flex', alignItems: 'center' }}
+                    >
                       <Avatar src={team.avatar} sx={{ mr: 4, width: 38, height: 38 }} />
                       <div>
                         <Typography sx={{ lineHeight: 1.1, fontWeight: 500 }}>{team.title}</Typography>
@@ -127,9 +138,12 @@ const ConnectionsTeams = ({ connections, teams }: Props) => {
                       <CustomChip size='small' skin='light' color={team.ChipColor} label={team.chipText} />
                     </Box>
                   </Box>
-                )
+                );
               })}
-            <Box sx={{ width: '100%', textAlign: 'center' }}>
+            <Box
+              component="div"
+              sx={{ width: '100%', textAlign: 'center' }}
+            >
               <Typography
                 href='/'
                 component={Link}
@@ -143,7 +157,7 @@ const ConnectionsTeams = ({ connections, teams }: Props) => {
         </Card>
       </Grid>
     </>
-  )
-}
+  );
+};
 
-export default ConnectionsTeams
+export default ConnectionsTeams;

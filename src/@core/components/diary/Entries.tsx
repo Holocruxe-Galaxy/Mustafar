@@ -327,7 +327,7 @@ const Entries = ({ id, props }: any) => {
               <DeleteIcon />
             </IconButton>
             <Modal open={open} onClose={handleClose}>
-              <Box sx={style}>
+              <Box component='div' sx={style}>
                 <Typography variant='h6' component='h2'>
                   Deseas eliminar?
                 </Typography>
