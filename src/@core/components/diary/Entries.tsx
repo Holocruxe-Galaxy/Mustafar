@@ -63,6 +63,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   })
 }))
 
+// TODO: Poner SVG correspondientes para el switch
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
   height: 34,
@@ -160,9 +161,17 @@ const Entries = ({ id, props }: any) => {
 
   const handleEmojiSelect = (emoji: any) => {
     if (inputRef.current && isPickerVisible) {
-      console.log(inputRef.current)
-      inputRef.current.value += emoji.native
+      const cursorPosition = inputRef.current.selectionStart || 0
+      const inputValue = inputRef.current.value
+      const beforeCursor = inputValue.substring(0, cursorPosition)
+      const afterCursor = inputValue.substring(cursorPosition)
+
+      const newValue = beforeCursor + emoji.native + afterCursor
+      inputRef.current.value = newValue
     }
+
+    // TODO: Checkear poder eliminar el emoji si es lo primero que la persona escribe.
+    // TODO: ocultar picker cuando se clickea en otra parte de la pagina.
 
     setPickerVisible(!isPickerVisible)
   }

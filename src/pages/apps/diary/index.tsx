@@ -222,7 +222,7 @@ const Diary = () => {
                         checked={checked}
                       />
                     </Tooltip>
-
+                    {/* // TODO: Realizar cambios correspondientes con el S3 de imagenes */}
                     <Cloudinary values={diary} setValues={setDiary} />
                     <Select
                       id='select'
