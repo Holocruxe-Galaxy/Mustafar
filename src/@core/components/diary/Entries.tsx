@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react'
-import { useDispatch } from 'react-redux'
-import { AppDispatch } from 'src/store'
-import { useForm, Controller, useFieldArray } from 'react-hook-form'
+import React, { useState, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from 'src/store';
+import { useForm, Controller, useFieldArray } from 'react-hook-form';
 
 // ** Material UI
 import {
@@ -22,46 +22,46 @@ import {
   Select,
   MenuItem,
   InputAdornment
-} from '@mui/material'
-import { styled } from '@mui/material/styles'
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
 
-import { makeStyles } from '@mui/styles'
-import IconButton, { IconButtonProps } from '@mui/material/IconButton'
-import { red } from '@mui/material/colors'
-import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions'
-import ClearIcon from '@mui/icons-material/Clear'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import RocketLaunchIcon from '@mui/icons-material/RocketLaunch'
-import EditNoteIcon from '@mui/icons-material/EditNote'
-import DeleteIcon from '@mui/icons-material/Delete'
-import Tooltip from '@mui/material/Tooltip'
+import { makeStyles } from '@mui/styles';
+import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import { red } from '@mui/material/colors';
+import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
+import ClearIcon from '@mui/icons-material/Clear';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
+import EditNoteIcon from '@mui/icons-material/EditNote';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Tooltip from '@mui/material/Tooltip';
 
 // ** Redux Toolkit
-import { deleteDiary, editEntrie } from 'src/store/apps/diary'
+import { deleteDiary, editEntrie } from 'src/store/apps/diary';
 
 // ** Emoji Picker
-import data from '@emoji-mart/data'
-import Picker from '@emoji-mart/react'
+import data from '@emoji-mart/data';
+import Picker from '@emoji-mart/react';
 
 // ** Utils
-import emotions from 'src/@core/utils/emotions'
+import emotions from 'src/@core/utils/emotions';
 
 interface ExpandMoreProps extends IconButtonProps {
-  expand: boolean
+  expand: boolean;
 }
 
 const ExpandMore = styled((props: ExpandMoreProps) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { expand, ...other } = props
+  const { expand, ...other } = props;
 
-  return <IconButton {...other} />
+  return <IconButton {...other} />;
 })(({ theme, expand }) => ({
   transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
   marginLeft: 'auto',
   transition: theme.transitions.create('transform', {
     duration: theme.transitions.duration.shortest
   })
-}))
+}));
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -104,7 +104,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#8796A5' : '#aab4be',
     borderRadius: 20 / 2
   }
-}))
+}));
 
 const useStyles = makeStyles(() => ({
   picker: {
@@ -112,60 +112,60 @@ const useStyles = makeStyles(() => ({
     top: 60,
     zIndex: 9999
   }
-}))
+}));
 
 const Entries = ({ id, props }: any) => {
-  const dispatch = useDispatch<AppDispatch>()
-  const [expanded, setExpanded] = useState<boolean>(false)
-  const [open, setOpen] = useState<boolean>(false)
+  const dispatch = useDispatch<AppDispatch>();
+  const [expanded, setExpanded] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
 
-  const contentRef = useRef<HTMLInputElement>(props.content)
-  const favoriteRef = useRef<HTMLElement>(props.favorite)
-  const emojiRef = useRef<HTMLSelectElement>(props.emoji)
-  const inputRef = useRef<HTMLInputElement | null>(null)
+  const contentRef = useRef<HTMLInputElement>(props.content);
+  const favoriteRef = useRef<HTMLElement>(props.favorite);
+  const emojiRef = useRef<HTMLSelectElement>(props.emoji);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const [isPickerVisible, setPickerVisible] = useState<boolean | null>(false)
+  const [isPickerVisible, setPickerVisible] = useState<boolean | null>(false);
 
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-  const [openEdit, setOpenEdit] = useState<boolean>(false)
-  const handleOpenEdit = () => setOpenEdit(true)
-  const handleCloseEdit = () => setOpenEdit(false)
+  const [openEdit, setOpenEdit] = useState<boolean>(false);
+  const handleOpenEdit = () => setOpenEdit(true);
+  const handleCloseEdit = () => setOpenEdit(false);
 
   const { control, handleSubmit } = useForm({
     defaultValues: { content: props.content, emoji: props.emoji, photos: props.photos, favorite: props.favorite }
-  })
+  });
   const { fields, remove } = useFieldArray({
     control,
     name: 'photos'
-  })
+  });
 
   const onSubmit = (data: any) => {
-    if (data.emoji === undefined) delete data.emoji
+    if (data.emoji === undefined) delete data.emoji;
 
-    if (!data.photos.length && !props.photos.length) delete data.photos
+    if (!data.photos.length && !props.photos.length) delete data.photos;
 
-    dispatch(editEntrie({ ...data, _id: id }))
-    handleCloseEdit()
-  }
+    dispatch(editEntrie({ ...data, _id: id }));
+    handleCloseEdit();
+  };
 
   const handleExpandClick = () => {
-    setExpanded(!expanded)
-  }
+    setExpanded(!expanded);
+  };
 
   const handleDelete = () => {
-    dispatch(deleteDiary(id))
-  }
+    dispatch(deleteDiary(id));
+  };
 
   const handleEmojiSelect = (emoji: any) => {
     if (inputRef.current && isPickerVisible) {
-      console.log(inputRef.current)
-      inputRef.current.value += emoji.native
+      console.log(inputRef.current);
+      inputRef.current.value += emoji.native;
     }
 
-    setPickerVisible(!isPickerVisible)
-  }
+    setPickerVisible(!isPickerVisible);
+  };
 
   const style = {
     position: 'absolute' as const,
@@ -178,7 +178,7 @@ const Entries = ({ id, props }: any) => {
     boxShadow: 24,
     p: 4,
     textAlign: 'center'
-  }
+  };
 
   const styleEdit = {
     position: 'absolute' as const,
@@ -190,9 +190,9 @@ const Entries = ({ id, props }: any) => {
     borderRadius: 1,
     boxShadow: 24,
     p: 4
-  }
+  };
 
-  const classes = useStyles()
+  const classes = useStyles();
 
   return (
     <Card>
@@ -216,7 +216,7 @@ const Entries = ({ id, props }: any) => {
             </Tooltip>
 
             <Modal open={openEdit} onClose={handleCloseEdit}>
-              <Box sx={styleEdit}>
+              <Box component='div' sx={styleEdit}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <FormControl>
                     <Controller
@@ -271,10 +271,10 @@ const Entries = ({ id, props }: any) => {
                           displayEmpty
                           renderValue={selected => {
                             if (selected === '' || !selected) {
-                              return <EmojiEmotionsIcon sx={{ paddingTop: 1, paddingLeft: 3 }} />
+                              return <EmojiEmotionsIcon sx={{ paddingTop: 1, paddingLeft: 3 }} />;
                             }
 
-                            return selected
+                            return selected;
                           }}
                           inputProps={{ 'aria-label': 'Without label' }}
                         >
@@ -308,7 +308,10 @@ const Entries = ({ id, props }: any) => {
               <DeleteIcon />
             </IconButton>
             <Modal open={open} onClose={handleClose}>
-              <Box sx={style}>
+              <Box
+                component="div"
+                sx={style}
+              >
                 <Typography variant='h6' component='h2'>
                   Deseas eliminar?
                 </Typography>
@@ -347,7 +350,7 @@ const Entries = ({ id, props }: any) => {
         </>
       )}
     </Card>
-  )
-}
+  );
+};
 
-export default Entries
+export default Entries;
