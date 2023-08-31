@@ -505,7 +505,7 @@ const Register = () => {
     { year: '2023' }
   ]
   const [checkedValues, setCheckedValues] = useState([] as string[])
-  console.log("🚀 ~ file: index.tsx:509 ~ Register ~ checkedValues:", checkedValues)
+
 
   const handleSelect = (checkedName: string) => {
     const newNames = checkedValues?.includes(checkedName)
@@ -524,7 +524,7 @@ const Register = () => {
 
   // console.log(countriesState.map(b => b.nombre) )
 
-  const handleProvinciaChange = event => {
+  const handleProvinciaChange = (event: any) => {
     const selectedId = event.target.value
     dispatch(setSelectedProvinciaId(selectedId))
     dispatch(fetchMunicipios(selectedId))
@@ -1092,7 +1092,7 @@ const Register = () => {
                         <MenuItem value='HIGH_SCHOOL'>Secundario</MenuItem>
                         <MenuItem value='COLLEGE'>Universidad</MenuItem>
 
-                        
+
                       </Select>
                     )}
                   />
@@ -1469,3 +1469,4 @@ Register.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
 Register.guestGuard = true
 
 export default Register
+

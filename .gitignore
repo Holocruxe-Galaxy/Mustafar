@@ -3,10 +3,10 @@
 # dependencies
 /node_modules
 /.pnp
-yarn.lock
 .env
 .pnp.js
 package-lock.json
+yarn.lock
 
 # testing
 /coverage
