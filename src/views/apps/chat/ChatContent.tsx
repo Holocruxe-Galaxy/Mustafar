@@ -40,7 +40,6 @@ const ChatContent = (props: ChatContentType) => {
     mdAbove,
     store,
     dispatch,
-    //sendMsg,
   } = props;
 
   // ** States
@@ -86,7 +85,7 @@ const ChatContent = (props: ChatContentType) => {
                   pb: 7,
                   px: 7.5,
                   width: 110,
-                  height: 110,
+                  height: 100,
                   boxShadow: 3,
                   '& svg': { color: 'action.active' },
                   backgroundColor: 'background.paper'
@@ -105,7 +104,7 @@ const ChatContent = (props: ChatContentType) => {
                   cursor: mdAbove ? 'default' : 'pointer'
                 }}
               >
-                <Typography sx={{ fontWeight: 600 }}>Start Conversation</Typography>
+                <Typography sx={{ fontWeight: 600 }}>Iniciar Conversación</Typography>
               </Box>
             </IconButton>
           </ChatWrapperStartChat>
@@ -127,7 +126,8 @@ const ChatContent = (props: ChatContentType) => {
             sx={{
               py: 3,
               px: 5,
-              height: "12%",
+              mb: 3,
+              height: "11%",
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
@@ -135,11 +135,11 @@ const ChatContent = (props: ChatContentType) => {
             }}
             ></Box>
 
-            {store.messages ? (
+            { store.messages ? (
               <ChatLog hidden={hidden} data={{messages: messages}} />
-            ) : <Box component='div' sx={{ height: 460 }}>holis</Box>}
+            ) : null }
 
-            <SendMsgForm store={store} dispatch={dispatch} /* sendMsg={sendMsg} */ />
+            <SendMsgForm store={store} dispatch={dispatch} />
           </Box>
         );
       }

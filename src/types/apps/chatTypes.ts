@@ -6,7 +6,7 @@ export type ChatStoreType = {
   id: string | null
   chats: ChatsArrType[] | null
   selectedChat: SelectedChatType | null
-  messages: ChatType[] /* | null */
+  messages: ChatType[] 
 }
 
 export type SelectedChatType = null | {
@@ -16,7 +16,6 @@ export type SelectedChatType = null | {
 export type ChatsObj = {
   message: ChatType[]
   id?: string
-  //chat: ChatType[] 
 }
 
 export type ChatType = {
@@ -38,19 +37,16 @@ export type MessageType = {
   time: string | Date
   id?: string
   isBroadcasted?: boolean
-  //feedback?: MsgFeedbackType
 }
 
 export type MessageGroupType = {
   senderId: string
-  isBroadcasted?: boolean
   messages: ChatLogChatType[]
 }
 
 export type SendMsgComponentType = {
   dispatch: Dispatch<any>
   store: ChatStoreType
-  //sendMsg: (params: SendMsgParamsType) => void
 }
 
 export type MsgFeedbackType = {
@@ -61,10 +57,9 @@ export type MsgFeedbackType = {
 
 export type ChatLogChatType = {
   msg: string;
-  senderId?: string;
   time: Date | string;
+  senderId?: string;
   isBroadcasted?: boolean
-  //feedback: MsgFeedbackType
 }
 
 export type ChatsArrType = {
@@ -78,7 +73,6 @@ export type ChatContentType = {
   mdAbove: boolean
   dispatch: Dispatch<any>
   store: ChatStoreType
-  //sendMsg: (params: SendMsgParamsType) => void
 }
 
 

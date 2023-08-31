@@ -5,15 +5,12 @@ import { useRef, useEffect, Ref, ReactNode } from 'react';
 import { useSelector } from 'react-redux';
 
 // ** Types
-import { RootState, AppDispatch } from 'src/store';
+import { RootState } from 'src/store';
 
 // ** MUI Imports
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-
-// ** Icon Imports
-import Icon from 'src/@core/components/icon';
 
 // ** Third Party Components
 import PerfectScrollbarComponent, { ScrollBarProps } from 'react-perfect-scrollbar';
@@ -22,7 +19,6 @@ import PerfectScrollbarComponent, { ScrollBarProps } from 'react-perfect-scrollb
 import {
   ChatLogType,
   MessageType,
-  MsgFeedbackType,
   ChatLogChatType,
   FormattedChatsType,
   MessageGroupType,
@@ -62,12 +58,11 @@ const ChatLog = (props: ChatLogType) => {
     }
     
     const formattedChatLog: FormattedChatsType[] = [];
-    let chatMessageSenderId = store.id 
+    const chatMessageSenderId = store.id 
     
-      let msgGroup: MessageGroupType = {
+      const msgGroup: MessageGroupType = {
         messages: [],
         senderId: chatMessageSenderId,
-        isBroadcasted: false
       };
       
         chatLog.forEach((msg: MessageType, index: number) => {
@@ -75,7 +70,8 @@ const ChatLog = (props: ChatLogType) => {
             msgGroup.messages.push({
               time: msg.time,
               msg: msg.message,
-              isBroadcasted: msg.isBroadcasted
+              senderId: msg.id,
+              isBroadcasted: msg.isBroadcasted,
             })
           }
 
@@ -84,32 +80,6 @@ const ChatLog = (props: ChatLogType) => {
 
     return formattedChatLog;
   };
-
-/*   const renderMsgFeedback = (isSender: boolean, feedback: MsgFeedbackType) => {
-    if (isSender) {
-      if (feedback.isSent && !feedback.isDelivered) {
-        return (
-          <Box component='span' sx={{ display: 'inline-flex', '& svg': { mr: 2, color: 'text.secondary' } }}>
-            <Icon icon='mdi:check' fontSize='1rem' />
-          </Box>
-        );
-      } else if (feedback.isSent && feedback.isDelivered) {
-        return (
-          <Box
-            component='span'
-            sx={{
-              display: 'inline-flex',
-              '& svg': { mr: 2, color: feedback.isSeen ? 'success.main' : 'text.secondary' }
-            }}
-          >
-            <Icon icon='mdi:check-all' fontSize='1rem' />
-          </Box>
-        );
-      } else {
-        return null;
-      }
-    }
-  }; */
 
   useEffect(() => {
     if (store && store.messages && store.messages.length) {
@@ -120,33 +90,33 @@ const ChatLog = (props: ChatLogType) => {
 
   // ** Renders user chat
   const renderChats = () => {
-    return formattedChatData().map((item: FormattedChatsType, index: number) => {
-      let isSender = item.senderId      
-      console.log("esto es isSender: ", isSender)
+    return formattedChatData().map((item: FormattedChatsType, index: number) => {    
 
       return (
         <Box
           key={index}
           sx={{
-            display: 'flex',
-            flexDirection: !isSender ? 'row' : 'row-reverse',
-            mb: index !== formattedChatData().length - 1 ? 9.75 : undefined,
+            display: 'flex'
           }}
         >
 
-          <Box className='chat-body' sx={{ maxWidth: ['calc(100% - 5.75rem)', '75%', '65%'] }}>
+          <Box className='chat-body' sx={{ width: ['calc(100% - 5.75rem)', '100%', '100%'] }}>
             {item.messages.map((chat: ChatLogChatType, index: number, { length }: { length: number }) => {
-              const time = new Date(chat.time)
-              let chatBroadcasted = chat
-              console.log("Esto es chat: ", chat.isBroadcasted)
+              const isSender = chat.senderId
 
               return (
+                <Box
+                key= {index}
+                  sx={{
+                    display: 'flex', 
+                    flexDirection: !isSender ? 'row' : 'row-reverse',
+                    mb: index !== formattedChatData().length - 1 ? /* 9.75 */ 2 : 2
+                  }}
+                >
                 <Box key={index} sx={{ '&:not(:last-of-type)': { mb: 3.5 } }}>
                   <div>
                     <Typography
                       sx={{
-                        display: 'flex',
-                        flexDirection: !chatBroadcasted ? 'row' : 'row-reverse',
                         boxShadow: 1,
                         borderRadius: 1,
                         maxWidth: '100%',
@@ -173,14 +143,9 @@ const ChatLog = (props: ChatLogType) => {
                         justifyContent: isSender ? 'flex-end' : 'flex-start'
                       }}
                     >
-{/*                       {renderMsgFeedback(isSender, chat.feedback)} */}
-                      <Typography variant='caption' sx={{ color: 'text.disabled' }}>
-                        {time
-                          ? new Date(time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-                          : null}
-                      </Typography>
                     </Box>
                   ) : null}
+                </Box>
                 </Box>
               )
             })}

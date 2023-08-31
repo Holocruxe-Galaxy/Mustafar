@@ -1,5 +1,4 @@
 // ** React Imports
-import { useEffect, useState } from 'react';
 
 // ** MUI Imports
 import Box from '@mui/material/Box';
@@ -8,7 +7,6 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 
 // ** Store & Actions Imports
 import { useDispatch, useSelector } from 'react-redux';
-import { addMessageToChat } from 'src/store/apps/chat';
 
 // ** Types
 import { RootState, AppDispatch } from 'src/store';
@@ -31,8 +29,9 @@ const AppChat = () => {
 
   // ** Vars
   const { skin } = settings;
-  const smAbove = useMediaQuery(theme.breakpoints.up('sm'));
   const mdAbove = useMediaQuery(theme.breakpoints.up('md'));
+  
+  //const smAbove = useMediaQuery(theme.breakpoints.up('sm'));
 
   //const sidebarWidth = smAbove ? 370 : 300
 
@@ -57,7 +56,6 @@ const AppChat = () => {
         mdAbove={mdAbove}
         store={store}
         dispatch={dispatch}
-        //sendMsg={addMessageToChat}
       />
     </Box>
   );

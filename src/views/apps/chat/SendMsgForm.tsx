@@ -31,7 +31,7 @@ const Form = styled('form')(({ theme }) => ({
 
 const SendMsgForm = (props: SendMsgComponentType) => {
   // ** Props
-  const { store, dispatch /* sendMsg */ } = props;
+  const { store } = props;
 
   // ** State
   const [msg, setMsg] = useState<string>('');
@@ -39,7 +39,6 @@ const SendMsgForm = (props: SendMsgComponentType) => {
   const handleSendMsg = (e: SyntheticEvent) => {
     e.preventDefault();
     if (store && msg.trim().length) {
-      //dispatch(sendMsg({ ...store.chats, messages: msg }));
       socketClient.sendMessage(msg);
       setMsg('');
     }
