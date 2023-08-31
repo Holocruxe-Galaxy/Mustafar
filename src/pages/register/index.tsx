@@ -1,78 +1,80 @@
-import { Fragment, useState, ReactNode, forwardRef, ChangeEvent, useEffect } from 'react';
+import { Fragment, useState, ReactNode, forwardRef, ChangeEvent, useEffect } from 'react'
 
 // ** MUI Imports
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import Step from '@mui/material/Step';
-import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
-import Select from '@mui/material/Select';
-import Divider from '@mui/material/Divider';
-import Stepper from '@mui/material/Stepper';
-import MenuItem from '@mui/material/MenuItem';
-import Checkbox from '@mui/material/Checkbox';
-import StepLabel from '@mui/material/StepLabel';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import InputLabel from '@mui/material/InputLabel';
-import CardContent from '@mui/material/CardContent';
-import FormControl from '@mui/material/FormControl';
-import Autocomplete from '@mui/material/Autocomplete';
-import FormHelperText from '@mui/material/FormHelperText';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import Box from '@mui/material/Box'
+import Card from '@mui/material/Card'
+import Step from '@mui/material/Step'
+import Grid from '@mui/material/Grid'
+import Button from '@mui/material/Button'
+import Select from '@mui/material/Select'
+import Divider from '@mui/material/Divider'
+import Stepper from '@mui/material/Stepper'
+import MenuItem from '@mui/material/MenuItem'
+import Checkbox from '@mui/material/Checkbox'
+import StepLabel from '@mui/material/StepLabel'
+import TextField from '@mui/material/TextField'
+import Typography from '@mui/material/Typography'
+import InputLabel from '@mui/material/InputLabel'
+import CardContent from '@mui/material/CardContent'
+import FormControl from '@mui/material/FormControl'
+import Autocomplete from '@mui/material/Autocomplete'
+import FormHelperText from '@mui/material/FormHelperText'
+import FormControlLabel from '@mui/material/FormControlLabel'
 
 // ** Third Party Imports
-import * as yup from 'yup';
-import toast from 'react-hot-toast';
-import { useForm, Controller } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import DatePicker from 'react-datepicker';
+import * as yup from 'yup'
+import toast from 'react-hot-toast'
+import { useForm, Controller } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import DatePicker from 'react-datepicker'
 
 // ** Icon Imports
-import Icon from 'src/@core/components/icon';
+import Icon from 'src/@core/components/icon'
 
 // ** Types
-import { DateType } from 'src/types/forms/reactDatepickerTypes';
+import { DateType } from 'src/types/forms/reactDatepickerTypes'
 
 // ** Custom Components Imports
-import StepperCustomDot from './StepperCustomDot';
-import BlankLayout from 'src/@core/layouts/BlankLayoutOnBoarding';
+import StepperCustomDot from './StepperCustomDot'
+import BlankLayout from 'src/@core/layouts/BlankLayoutOnBoarding'
 
 // ** Styled Components
-import StepperWrapper from 'src/@core/styles/mui/stepper';
-import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker';
+import StepperWrapper from 'src/@core/styles/mui/stepper'
+import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
 
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   fetchProvincias,
   fetchMunicipios,
   setSelectedProvinciaId,
-  Provincias,
   CountriesReducer
-} from 'src/store/apps/countries';
-import { useAuth } from 'src/hooks/useAuth';
-import { stepManager, CountryType, isNumber } from '../../@core/utils/helpersForm';
-import { Canvas } from '@react-three/fiber';
-import AstSit from '../../@core/components/holocruxe-model/modelSit';
-import Deportes from '../../@core/icons/Deportes';
-import Musica from '../../@core/icons/Musica';
-import Arte from '../../@core/icons/Arte';
-import Juegos from '../../@core/icons/Juegos';
-import Salado from '../../@core/icons/Salado';
-import Dulce from '../../@core/icons/Dulce';
-import Viajes from '../../@core/icons/Viajes';
-import Fotografia from '../../@core/icons/Fotografia';
-import Fitness from '../../@core/icons/Fitness';
-import Moda from '../../@core/icons/Moda';
-import Series from '../../@core/icons/Series';
-import Ciencia from '../../@core/icons/Ciencia';
-import Astronomia from '../../@core/icons/Astronomia';
-import Ecologia from '../../@core/icons/Ecologia';
-import Crianza from '../../@core/icons/Crianza';
-import Psic from '../../@core/icons/Psic';
-import { RootState } from 'src/store';
+} from 'src/store/apps/countries'
+import { useAuth } from 'src/hooks/useAuth'
+import { stepManager, CountryType, isNumber } from '../../@core/utils/helpersForm'
+import { Canvas } from '@react-three/fiber'
+import AstSit from '../../@core/components/holocruxe-model/AstronautSit'
+import AstWave from '../../@core/components/holocruxe-model/AstronautWave'
+import AstBeyond from '../../@core/components/holocruxe-model/AstronautBeyond'
+import AstVolt from '../../@core/components/holocruxe-model/AstronautVoltereta'
+import Deportes from '../../@core/icons/Deportes'
+import Musica from '../../@core/icons/Musica'
+import Arte from '../../@core/icons/Arte'
+import Juegos from '../../@core/icons/Juegos'
+import Salado from '../../@core/icons/Salado'
+import Dulce from '../../@core/icons/Dulce'
+import Viajes from '../../@core/icons/Viajes'
+import Fotografia from '../../@core/icons/Fotografia'
+import Fitness from '../../@core/icons/Fitness'
+import Moda from '../../@core/icons/Moda'
+import Series from '../../@core/icons/Series'
+import Ciencia from '../../@core/icons/Ciencia'
+import Astronomia from '../../@core/icons/Astronomia'
+import Ecologia from '../../@core/icons/Ecologia'
+import Crianza from '../../@core/icons/Crianza'
+import Psic from '../../@core/icons/Psic'
+import { AppDispatch, RootState } from 'src/store'
 
 const steps = [
   {
@@ -87,18 +89,18 @@ const steps = [
   {
     title: 'Intereses generales'
   }
-];
+]
 
 interface CustomInputProps {
-  value: DateType;
-  label: string;
-  error: boolean;
-  onChange: (event: ChangeEvent) => void;
+  value: DateType
+  label: string
+  error: boolean
+  onChange: (event: ChangeEvent) => void
 }
 
 const CustomInput = forwardRef(({ ...props }: CustomInputProps, ref) => {
-  return <TextField inputRef={ref} {...props} sx={{ width: '100%' }} />;
-});
+  return <TextField inputRef={ref} {...props} sx={{ width: '100%' }} />
+})
 
 const defaultPersonalValues = {
   personal: {
@@ -107,7 +109,7 @@ const defaultPersonalValues = {
     birthdate: '',
     civilStatus: ''
   }
-};
+}
 
 const defaultContactValues = {
   contactInfo: {
@@ -116,24 +118,28 @@ const defaultContactValues = {
     zipCode: ''
   },
   location: {
-    language: '',
     country: '',
     provinceOrState: '',
     city: '',
+    language: ''
   }
-};
+}
 
 const defaultProfessionalValues = {
-  educationLevel: '',
-  graduationYear: 0,
-  academicField: '',
-  occupation: '',
-  job: ''
-};
+  professional: {
+    educationLevel: '',
+    graduationYear: 0,
+    academicField: '',
+    occupation: '',
+    job: ''
+  }
+}
 
 const defaultGeneralInsterestsValues = {
-  likes: []
-};
+  generalInterests: {
+    likes: []
+  }
+}
 
 const personalSchema = yup.object().shape({
   personal: yup.object({
@@ -142,7 +148,7 @@ const personalSchema = yup.object().shape({
     birthdate: yup.string().required(),
     civilStatus: yup.string().required()
   })
-});
+})
 
 const contactSchema = yup.object().shape({
   contactInfo: yup.object({
@@ -154,45 +160,49 @@ const contactSchema = yup.object().shape({
     language: yup.string().required(),
     country: yup.string().required(),
     provinceOrState: yup.string().required(),
-    city: yup.string().required(),
+    city: yup.string().required()
   })
-});
+})
 
 const professionalSchema = yup.object().shape({
-  educationLevel: yup.string().required(),
-  graduationYear: yup.number().required(),
-  academicField: yup.string().required(),
-  occupation: yup.string().required(),
-  job: yup.string().required()
-});
+  professional: yup.object({
+    educationLevel: yup.string().required(),
+    graduationYear: yup.number().required(),
+    academicField: yup.string().required(),
+    occupation: yup.string().required(),
+    job: yup.string().required()
+  })
+})
 
 const generalInterestsSchema = yup.object().shape({
-  likes: yup.array()
-});
+  generalInterests: yup.object({
+    likes: yup.array()
+  })
+})
 
 const Register = () => {
-  const router = useRouter();
+  const router = useRouter()
 
-  const currentStep = localStorage.getItem('step');
-  const step = isNumber(currentStep) ?? steps.length;
-  const { logout } = useAuth();
+  const currentStep = localStorage.getItem('step')
+  const step = isNumber(currentStep) ?? steps.length
+  const { logout } = useAuth()
 
-  const [, setAnchorEl] = useState<Element | null>(null);
+  const [, setAnchorEl] = useState<Element | null>(null)
 
   const handleDropdownClose = (url?: string) => {
     if (url) {
-      router.push(url);
+      router.push(url)
     }
-    setAnchorEl(null);
-  };
+    setAnchorEl(null)
+  }
 
   const handleLogout = () => {
-    logout();
-    handleDropdownClose();
-  };
+    logout()
+    handleDropdownClose()
+  }
 
   // ** States
-  const [activeStep, setActiveStep] = useState<number>(step);
+  const [activeStep, setActiveStep] = useState<number>(step)
 
   const countries: CountryType[] = [
     { code: 'AD', label: 'Andorra', phone: '376' },
@@ -399,9 +409,9 @@ const Register = () => {
       label: 'Saint Kitts and Nevis',
       phone: '1-869'
     }
-  ];
+  ]
 
-  const [caract, setCaract] = useState();
+  const [caract, setCaract] = useState()
 
   const interests = [
     { id: 1, name: 'Deportes', value: 'SPORTS', icon: <Deportes /> },
@@ -421,35 +431,108 @@ const Register = () => {
     { id: 15, name: 'Ecología', value: 'ECOLOGY', icon: <Ecologia /> },
     { id: 16, name: 'Crianza y maternidad', value: 'UPBRINGING', icon: <Crianza /> },
     { id: 16, name: 'Psicología', value: 'PSYCHOLOGY', icon: <Psic /> }
-  ];
+  ]
 
-  const [checkedValues, setCheckedValues] = useState([] as string[]);
+  const year = [
+    { year: '1960' },
+    { year: '1961' },
+    { year: '1962' },
+    { year: '1963' },
+    { year: '1964' },
+    { year: '1965' },
+    { year: '1966' },
+    { year: '1967' },
+    { year: '1968' },
+    { year: '1969' },
+    { year: '1970' },
+    { year: '1971' },
+    { year: '1972' },
+    { year: '1973' },
+    { year: '1974' },
+    { year: '1975' },
+    { year: '1976' },
+    { year: '1977' },
+    { year: '1978' },
+    { year: '1979' },
+    { year: '1980' },
+    { year: '1981' },
+    { year: '1982' },
+    { year: '1983' },
+    { year: '1984' },
+    { year: '1985' },
+    { year: '1986' },
+    { year: '1987' },
+    { year: '1988' },
+    { year: '1989' },
+    { year: '1990' },
+    { year: '1991' },
+    { year: '1992' },
+    { year: '1993' },
+    { year: '1994' },
+    { year: '1990' },
+    { year: '1991' },
+    { year: '1992' },
+    { year: '1993' },
+    { year: '1994' },
+    { year: '1995' },
+    { year: '1996' },
+    { year: '1997' },
+    { year: '1998' },
+    { year: '1999' },
+    { year: '2000' },
+    { year: '2001' },
+    { year: '2002' },
+    { year: '2003' },
+    { year: '2004' },
+    { year: '2005' },
+    { year: '2006' },
+    { year: '2007' },
+    { year: '2008' },
+    { year: '2009' },
+    { year: '2010' },
+    { year: '2011' },
+    { year: '2012' },
+    { year: '2013' },
+    { year: '2014' },
+    { year: '2015' },
+    { year: '2016' },
+    { year: '2017' },
+    { year: '2018' },
+    { year: '2019' },
+    { year: '2020' },
+    { year: '2021' },
+    { year: '2022' },
+    { year: '2023' }
+  ]
+  const [checkedValues, setCheckedValues] = useState([] as string[])
+  console.log("🚀 ~ file: index.tsx:509 ~ Register ~ checkedValues:", checkedValues)
 
   const handleSelect = (checkedName: string) => {
     const newNames = checkedValues?.includes(checkedName)
       ? checkedValues?.filter(name => name !== checkedName)
-      : [...(checkedValues ?? []), checkedName];
-    setCheckedValues(newNames);
+      : [...(checkedValues ?? []), checkedName]
+    setCheckedValues(newNames)
 
-    return newNames;
-  };
+    return newNames
+  }
 
-  const dispatch = useDispatch();
-  const store: CountriesReducer = useSelector((state: RootState) => state.countries);
-  const municipios = useSelector((state: RootState) => state.countries.municipios);
-  const selectedProvinciaId = useSelector((state: RootState) => state.countries.selectedProvinciaId);
+  const dispatch = useDispatch<AppDispatch>()
+  const store: CountriesReducer = useSelector((state: RootState) => state.countries)
+  const municipios = useSelector((state: RootState) => state.countries.municipios)
+
+  // const selectedProvinciaId = useSelector((state: RootState) => state.countries.selectedProvinciaId)
 
   // console.log(countriesState.map(b => b.nombre) )
 
   const handleProvinciaChange = event => {
-    const selectedId = event.target.value;
-    dispatch(setSelectedProvinciaId(selectedId));
-    dispatch(fetchMunicipios(selectedId));
-  };
+    const selectedId = event.target.value
+    dispatch(setSelectedProvinciaId(selectedId))
+    dispatch(fetchMunicipios(selectedId))
+  }
 
   useEffect(() => {
-    dispatch(fetchProvincias());
-  }, [dispatch]);
+    dispatch(fetchProvincias())
+  }, [dispatch])
 
   // ** Hooks
   const {
@@ -459,7 +542,7 @@ const Register = () => {
   } = useForm({
     defaultValues: defaultPersonalValues,
     resolver: yupResolver(personalSchema)
-  });
+  })
 
   const {
     control: contactControl,
@@ -468,7 +551,7 @@ const Register = () => {
   } = useForm({
     defaultValues: defaultContactValues,
     resolver: yupResolver(contactSchema)
-  });
+  })
 
   const {
     control: professionalControl,
@@ -477,7 +560,7 @@ const Register = () => {
   } = useForm({
     defaultValues: defaultProfessionalValues,
     resolver: yupResolver(professionalSchema)
-  });
+  })
 
   const {
     control: generalInsterestsControl,
@@ -486,18 +569,18 @@ const Register = () => {
   } = useForm({
     defaultValues: defaultGeneralInsterestsValues,
     resolver: yupResolver(generalInterestsSchema)
-  });
+  })
 
   // Handle Stepper
   const handleBack = () => {
-    setActiveStep(prevActiveStep => prevActiveStep - 1);
-  };
+    setActiveStep(prevActiveStep => prevActiveStep - 1)
+  }
 
   const onSubmit = async (data: any) => {
-    const manager = stepManager(activeStep, data, caract);
-
+    const manager = stepManager(activeStep, data, caract)
+    console.log('🚀 ~ file: index.tsx:506 ~ onSubmit ~ manager:', manager)
     try {
-      const token = localStorage.getItem('AuthorizationToken');
+      const token = localStorage.getItem('AuthorizationToken')
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/user/form/step`, {
         method: 'POST',
@@ -507,28 +590,26 @@ const Register = () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(manager)
-      });
+      })
       if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message);
+        const error = await response.json()
+        throw new Error(error.message)
       }
-      console.log("🚀 ~ file: index.tsx:494 ~ onSubmit ~ response:", response);
 
-
-      localStorage.setItem('step', (step + 1).toString());
-      setActiveStep(activeStep + 1);
+      localStorage.setItem('step', (step + 1).toString())
+      setActiveStep(activeStep + 1)
       if (activeStep === steps.length - 1) {
-        toast.success('Formulario completado!');
-        localStorage.setItem('status', 'COMPLETE');
+        toast.success('Formulario completado!')
+        localStorage.setItem('status', 'COMPLETE')
 
-        router.replace('/home');
+        router.replace('/home')
       }
     } catch (error: any) {
-      toast.error(error.message);
+      toast.error(error.message)
 
-      console.log(error.message);
+      console.log(error.message)
     }
-  };
+  }
 
   const getStepContent = (step: number) => {
     switch (step) {
@@ -576,7 +657,7 @@ const Register = () => {
                     getOptionLabel={option => option.label}
                     value={caract}
                     onChange={(event: any, newCar: any) => {
-                      setCaract(newCar);
+                      setCaract(newCar)
                     }}
                     renderOption={(props, option) => (
                       <Box component='li' sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
@@ -718,9 +799,9 @@ const Register = () => {
                       <Select
                         value={value}
                         label='Provincia'
-                        onChange={(e) => {
-                          onChange(e); // Actualizar el valor en el controlador
-                          handleProvinciaChange(e); // Llamar a tu función de manejo
+                        onChange={e => {
+                          onChange(e) // Actualizar el valor en el controlador
+                          handleProvinciaChange(e) // Llamar a tu función de manejo
                         }}
                         error={Boolean(contactErrors.location?.provinceOrState)}
                         labelId='stepper-linear-personal-gender'
@@ -764,8 +845,8 @@ const Register = () => {
                         labelId='stepper-linear-personal-gender'
                         aria-describedby='stepper-linear-personal-gender-helper'
                       >
-                        {municipios.map(municipio => (
-                          <MenuItem key={municipio.id} value={municipio}>
+                        {municipios.map((municipio, i) => (
+                          <MenuItem key={i} value={municipio}>
                             {municipio}
                           </MenuItem>
                         ))}
@@ -811,15 +892,14 @@ const Register = () => {
                   siguiente
                 </Button>
               </Grid>
-
-              {/* <Canvas shadows style={{ height: '550px',  top: '80px' , marginBottom: '80px'}}>
-    <ambientLight intensity={0.5} />
-  <directionalLight castShadow  position={[2, 2, 2]} />
-    <AstSit />
-    </Canvas> */}
+              <Canvas shadows style={{height:"13em"}}>
+                <ambientLight intensity={0.5} />
+                <directionalLight castShadow position={[2, 2, 2]} />
+                <AstWave />
+              </Canvas>
             </Grid>
           </form>
-        );
+        )
       case 1:
         return (
           <form key={1} onSubmit={handlePersonalSubmit(onSubmit)}>
@@ -960,7 +1040,6 @@ const Register = () => {
                   )}
                 </FormControl>
               </Grid>
-
               <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Button size='large' variant='outlined' color='secondary' onClick={handleBack}>
                   ATRÁS
@@ -969,9 +1048,14 @@ const Register = () => {
                   siguiente
                 </Button>
               </Grid>
+              <Canvas shadows>
+                <ambientLight intensity={0.5} />
+                <directionalLight castShadow position={[2, 2, 2]} />
+                <AstVolt />
+              </Canvas>
             </Grid>
           </form>
-        );
+        )
       case 2:
         return (
           <form key={2} onSubmit={handleProfessionalSubmit(onSubmit)}>
@@ -985,13 +1069,13 @@ const Register = () => {
                 <FormControl fullWidth>
                   <InputLabel
                     id='stepper-linear-professional-educationLevel'
-                    error={Boolean(professionalErrors.educationLevel)}
+                    error={Boolean(professionalErrors.professional?.educationLevel)}
                     htmlFor='stepper-linear-professional-educationLevel'
                   >
                     Nivel de educación
                   </InputLabel>
                   <Controller
-                    name='educationLevel'
+                    name='professional.educationLevel'
                     control={professionalControl}
                     rules={{ required: true }}
                     render={({ field: { value, onChange } }) => (
@@ -999,7 +1083,7 @@ const Register = () => {
                         value={value}
                         label='Nivel de educación'
                         onChange={onChange}
-                        error={Boolean(professionalErrors.educationLevel)}
+                        error={Boolean(professionalErrors.professional?.educationLevel)}
                         labelId='stepper-linear-professional-educationLevel'
                         aria-describedby='stepper-linear-formation-edu-helper'
                       >
@@ -1007,12 +1091,12 @@ const Register = () => {
                         <MenuItem value='MIDDLE_SCHOOL'>Escuela intermedia</MenuItem>
                         <MenuItem value='HIGH_SCHOOL'>Secundario</MenuItem>
                         <MenuItem value='COLLEGE'>Universidad</MenuItem>
-                        {/* <MenuItem value='OTHER'>Otro</MenuItem>
-                        <MenuItem value='PREFER-NOT-TO-SAY'>Prefiero no decir</MenuItem> */}
+
+                        
                       </Select>
                     )}
                   />
-                  {professionalErrors.educationLevel && (
+                  {professionalErrors.professional?.educationLevel && (
                     <FormHelperText sx={{ color: 'error.main' }} id='stepper-linear-formation-edu-helper'>
                       Campo requerido
                     </FormHelperText>
@@ -1023,13 +1107,13 @@ const Register = () => {
                 <FormControl fullWidth>
                   <InputLabel
                     id='stepper-linear-professional-graduationYear'
-                    error={Boolean(professionalErrors.graduationYear)}
+                    error={Boolean(professionalErrors.professional?.graduationYear)}
                     htmlFor='stepper-linear-professional-graduationYear'
                   >
                     Año de graduación
                   </InputLabel>
                   <Controller
-                    name='graduationYear'
+                    name='professional.graduationYear'
                     control={professionalControl}
                     rules={{ required: true }}
                     render={({ field: { value, onChange } }) => (
@@ -1037,19 +1121,19 @@ const Register = () => {
                         value={value}
                         label='Año de graduación'
                         onChange={onChange}
-                        error={Boolean(professionalErrors.graduationYear)}
+                        error={Boolean(professionalErrors.professional?.graduationYear)}
                         labelId='stepper-linear-professional-graduationYear'
                         aria-describedby='stepper-linear-professional-graduationYear-helper'
                       >
-                        <MenuItem value='2020'>2020</MenuItem>
-                        <MenuItem value='2021'>2021</MenuItem>
-                        <MenuItem value='2022'>2022</MenuItem>
-                        <MenuItem value='2023'>2023</MenuItem>
-                        {/* <MenuItem value='PREFER-NOT-TO-SAY'>Prefiero no decir</MenuItem> */}
+                        {year.map((y, i) => (
+                          <MenuItem key={i} value={y.year}>
+                            {y.year}
+                          </MenuItem>
+                        ))}
                       </Select>
                     )}
                   />
-                  {professionalErrors.graduationYear && (
+                  {professionalErrors.professional?.graduationYear && (
                     <FormHelperText sx={{ color: 'error.main' }} id='stepper-linear-professional-graduationYear-helper'>
                       Campo requerido
                     </FormHelperText>
@@ -1059,7 +1143,7 @@ const Register = () => {
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
                   <Controller
-                    name='academicField'
+                    name='professional.academicField'
                     control={professionalControl}
                     rules={{ required: true }}
                     render={({ field: { value, onChange } }) => (
@@ -1068,12 +1152,12 @@ const Register = () => {
                         label='Area de estudio'
                         onChange={onChange}
                         placeholder='Area de estudio'
-                        error={Boolean(professionalErrors.academicField)}
+                        error={Boolean(professionalErrors.professional?.academicField)}
                         aria-describedby='stepper-linear-professional-academicField'
                       />
                     )}
                   />
-                  {professionalErrors.academicField && (
+                  {professionalErrors.professional?.academicField && (
                     <FormHelperText sx={{ color: 'error.main' }} id='stepper-linear-professional-academicField'>
                       Campo requerido
                     </FormHelperText>
@@ -1083,7 +1167,7 @@ const Register = () => {
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
                   <Controller
-                    name='occupation'
+                    name='professional.occupation'
                     control={professionalControl}
                     rules={{ required: true }}
                     render={({ field: { value, onChange } }) => (
@@ -1092,12 +1176,12 @@ const Register = () => {
                         label='Ocupación'
                         onChange={onChange}
                         placeholder='Veterinario'
-                        error={Boolean(professionalErrors.occupation)}
+                        error={Boolean(professionalErrors.professional?.occupation)}
                         aria-describedby='stepper-linear-professional-occupation'
                       />
                     )}
                   />
-                  {professionalErrors.occupation && (
+                  {professionalErrors.professional?.occupation && (
                     <FormHelperText sx={{ color: 'error.main' }} id='stepper-linear-professional-occupation'>
                       Campo requerido
                     </FormHelperText>
@@ -1107,7 +1191,7 @@ const Register = () => {
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
                   <Controller
-                    name='job'
+                    name='professional.job'
                     control={professionalControl}
                     rules={{ required: true }}
                     render={({ field: { value, onChange } }) => (
@@ -1116,18 +1200,19 @@ const Register = () => {
                         label='Cargo o Puesto'
                         onChange={onChange}
                         placeholder='Veterinario'
-                        error={Boolean(professionalErrors.job)}
+                        error={Boolean(professionalErrors.professional?.job)}
                         aria-describedby='stepper-linear-professional-job'
                       />
                     )}
                   />
-                  {professionalErrors.job && (
+                  {professionalErrors.professional?.job && (
                     <FormHelperText sx={{ color: 'error.main' }} id='stepper-linear-professional-job'>
                       Campo requerido
                     </FormHelperText>
                   )}
                 </FormControl>
               </Grid>
+
               <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Button size='large' variant='outlined' color='secondary' onClick={handleBack}>
                   atrás
@@ -1136,15 +1221,14 @@ const Register = () => {
                   siguiente
                 </Button>
               </Grid>
-
-              {/* <Canvas shadows style={{ height: '550px',  top: '80px' , marginBottom: '80px'}}>
-    <ambientLight intensity={0.5} />
-  <directionalLight castShadow  position={[2, 2, 2]} />
-    <AstSit />
-    </Canvas> */}
+              <Canvas shadows>
+                <ambientLight intensity={0.5} />
+                <directionalLight castShadow position={[2, 2, 2]} />
+                <AstSit />
+              </Canvas>
             </Grid>
           </form>
-        );
+        )
       case 3:
         return (
           <form key={3} onSubmit={handleGeneralInsterestsSubmit(onSubmit)}>
@@ -1157,10 +1241,11 @@ const Register = () => {
 
               <Grid container spacing={3}>
                 {interests.map((f, i) => (
-                  <Grid item xs={6} sm={6} lg={2} key={i} style={{ paddingLeft: '2em', paddingTop: '2em' }}>
+                  <Grid item xs={11} sm={6} lg={3} key={i} style={{ paddingLeft: '2em', paddingTop: '2em', alignItems:'center' }}>
+                    {f.icon}
                     <FormControl>
                       <Controller
-                        name='likes'
+                        name='generalInterests.likes'
                         control={generalInsterestsControl}
                         rules={{ required: true }}
                         render={({ field: { onChange: onCheckChange } }) => (
@@ -1169,10 +1254,10 @@ const Register = () => {
                             control={
                               <Checkbox
                                 name='validation-basic-checkbox'
-                                icon={f.icon}
-                                checkedIcon={f.icon}
-                                value={f}
 
+                                style={{paddingLeft: "1em"}}
+
+                                value={f}
                                 checked={checkedValues.includes(f.value)}
                                 onChange={() => onCheckChange(handleSelect(f.value))}
                               />
@@ -1180,11 +1265,7 @@ const Register = () => {
                           />
                         )}
                       />
-                      {/* {generalInsterestsErrors.likes && (
-                  <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-checkbox'>
-                    This field is required
-                  </FormHelperText>
-                )} */}
+
                     </FormControl>
                   </Grid>
                 ))}
@@ -1198,19 +1279,18 @@ const Register = () => {
                   </Button>
                 </Grid>
               </Grid>
-
-              {/* <Canvas shadows style={{ height: '550px',  top: '80px' , marginBottom: '80px'}}>
+              <Canvas shadows >
     <ambientLight intensity={0.5} />
   <directionalLight castShadow  position={[2, 2, 2]} />
-    <AstSit />
-    </Canvas> */}
+    <AstBeyond />
+    </Canvas>
             </Grid>
           </form>
-        );
+        )
       default:
-        return null;
+        return null
     }
-  };
+  }
 
   const renderContent = () => {
     if (activeStep === steps.length) {
@@ -1225,11 +1305,11 @@ const Register = () => {
             </Link>
           </Box>
         </Fragment>
-      );
+      )
     } else {
-      return getStepContent(activeStep);
+      return getStepContent(activeStep)
     }
-  };
+  }
 
   return (
     <Card>
@@ -1321,45 +1401,42 @@ const Register = () => {
           <Stepper activeStep={activeStep}>
             {steps.map((step, index) => {
               const labelProps: {
-                error?: boolean;
-              } = {};
+                error?: boolean
+              } = {}
               if (index === activeStep) {
-                labelProps.error = false;
-                if ((contactErrors.phone ||
-                  contactErrors.altEmail ||
-                  contactErrors.language ||
-                  contactErrors.country ||
-                  contactErrors.provinceOrState ||
-                  contactErrors.city ||
-                  contactErrors.zipCode) &&
-                  activeStep === 0) {
-                  labelProps.error = true;
+                labelProps.error = false
+                if (
+                  (contactErrors.contactInfo?.phone ||
+                    contactErrors.contactInfo?.altEmail ||
+                    contactErrors.location?.language ||
+                    contactErrors.location?.country ||
+                    contactErrors.location?.provinceOrState ||
+                    contactErrors.location?.city ||
+                    contactErrors.contactInfo?.zipCode) &&
+                  activeStep === 0
+                ) {
+                  labelProps.error = true
                 } else if (
-                  (
-                    personalErrors.gender ||
-                    personalErrors.birthdate ||
-                    personalErrors.civilStatus ||
-                    personalErrors.name) &&
+                  (personalErrors.personal?.gender ||
+                    personalErrors.personal?.birthdate ||
+                    personalErrors.personal?.civilStatus ||
+                    personalErrors.personal?.name) &&
                   activeStep === 1
                 ) {
-                  labelProps.error = true;
+                  labelProps.error = true
                 } else if (
-                  (professionalErrors.academicField ||
-                    professionalErrors.educationLevel ||
-                    professionalErrors.graduationYear ||
-                    professionalErrors.job ||
-                    professionalErrors.occupation) &&
+                  (professionalErrors.professional?.academicField ||
+                    professionalErrors.professional?.educationLevel ||
+                    professionalErrors.professional?.graduationYear ||
+                    professionalErrors.professional?.job ||
+                    professionalErrors.professional?.occupation) &&
                   activeStep === 2
                 ) {
-                  labelProps.error = true;
-                } else if (
-                  generalInsterestsErrors.likes &&
-
-                  activeStep === 3
-                ) {
-                  labelProps.error = true;
+                  labelProps.error = true
+                } else if (generalInsterestsErrors.generalInterests?.likes && activeStep === 3) {
+                  labelProps.error = true
                 } else {
-                  labelProps.error = false;
+                  labelProps.error = false
                 }
               }
 
@@ -1375,7 +1452,7 @@ const Register = () => {
                     </div>
                   </StepLabel>
                 </Step>
-              );
+              )
             })}
           </Stepper>
         </StepperWrapper>
@@ -1384,11 +1461,11 @@ const Register = () => {
       <Divider sx={{ m: '0 !important' }} />
       <CardContent>{renderContent()}</CardContent>
     </Card>
-  );
-};
+  )
+}
 
-Register.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>;
+Register.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
 
-Register.guestGuard = true;
+Register.guestGuard = true
 
-export default Register;
+export default Register

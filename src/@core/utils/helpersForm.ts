@@ -1,6 +1,3 @@
-interface Step {
-  [key: number]: string;
-}
 
 export interface CountryType {
   code: string;
@@ -25,7 +22,7 @@ export const stepManager = (num: number, data: any, country: CountryType | undef
     if(!data.contactInfo.altEmail.length){
       delete newData['altEmail'];
     }
-    
+
     return { ...data, contactInfo: newData }
   }
 

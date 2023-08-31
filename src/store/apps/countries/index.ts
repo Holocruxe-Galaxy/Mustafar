@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 
 export interface Provincias {
   id: string
@@ -76,10 +75,10 @@ export const EmptyState = {
     },
     extraReducers(builder) {
       builder
-        .addCase(fetchProvincias.pending, (state, action) => {
+        .addCase(fetchProvincias.pending, (state) => {
           state.status = "loading";
         })
-        .addCase(fetchProvincias.rejected, (state, action) => {
+        .addCase(fetchProvincias.rejected, (state) => {
           state.status = "error";
         })
         .addCase(fetchProvincias.fulfilled, (state, action) => {
@@ -93,10 +92,10 @@ export const EmptyState = {
           }
 
         })
-        .addCase(fetchMunicipios.pending, (state, action) => {
+        .addCase(fetchMunicipios.pending, (state) => {
           state.status = "loading";
         })
-        .addCase(fetchMunicipios.rejected, (state, action) => {
+        .addCase(fetchMunicipios.rejected, (state) => {
           state.status = "error";
         })
         .addCase(fetchMunicipios.fulfilled, (state, action) => {
