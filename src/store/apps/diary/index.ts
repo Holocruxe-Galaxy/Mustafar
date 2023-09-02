@@ -15,6 +15,12 @@ interface EntryState {
     allData: Diary[]
 }
 
+type PostDiaryAndFile = PostDiary & {file?: FormData}
+
+const isPostDiaryAndFile = (post: any): post is PostDiaryAndFile => {
+  return post.file !== undefined
+}
+
 // ** Fetch Entries
 export const fetchData = createAsyncThunk('appDiary/fetchData',
   async () => {
@@ -44,21 +50,57 @@ export const fetchData = createAsyncThunk('appDiary/fetchData',
 // ** Add Entry
 export const addDiary = createAsyncThunk(
   'appDiary/addDiary',
-  async (data: PostDiary, { dispatch }: Redux) => {
+  async (data: PostDiary | PostDiaryAndFile, { dispatch }: Redux) => {
       const token = localStorage.getItem('AuthorizationToken');
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/logbook/diary`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      });
-      console.log(response)
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message);
+      if(!isPostDiaryAndFile(data)) {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/logbook/diary`, {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.message);
+        }
+      } else {
+        const file = data.file
+        console.log(file)
+        delete data.file
+        console.log('data', data.file)
+        const response = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/logbook/diary`, {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+
+        if (!response.ok) {
+           const error = await response.json();
+           throw new Error(error.message);
+          }
+
+        const { _id } = await response.json()
+        const fileResponse = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/logbook/diary/${_id}/upload`, {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(file)
+        })
+
+      if (!fileResponse.ok) {
+         const error = await response.json();
+         throw new Error(error.message);
+        }
+
       }
 
       dispatch(fetchData())
