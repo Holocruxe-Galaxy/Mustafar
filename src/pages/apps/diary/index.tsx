@@ -36,7 +36,7 @@ import Picker from '@emoji-mart/react'
 import Entries from 'src/@core/components/diary/Entries'
 
 // ** Redux
-import { addDiary, fetchData } from 'src/store/apps/diary'
+import { addDiary, addDiaryWithPhoto, fetchData } from 'src/store/apps/diary'
 
 // ** Utils
 import emotions from 'src/@core/utils/emotions'
@@ -127,11 +127,12 @@ const Diary = () => {
   }, [])
 
   useEffect(() => {
+    console.log(file)
     if (diary.content.length && !file) {
       dispatch(addDiary(diary))
       setDiary({ content: '', favorite: false })
     } else if (diary.content.length && file) {
-      dispatch(addDiary({ ...diary, file }))
+      dispatch(addDiaryWithPhoto({ ...diary, file }))
       setDiary({ content: '', favorite: false })
       setFile(undefined)
     }
@@ -176,9 +177,7 @@ const Diary = () => {
   const fileSelected = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target?.files?.[0]
     const formData = new FormData()
-    formData.append('file', file as unknown as string)
-    console.log(formData.entries())
-    console.log(file)
+    formData.append('photos', file as unknown as string)
     setFile(formData)
   }
 
