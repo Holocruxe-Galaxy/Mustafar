@@ -8,6 +8,7 @@ import email from 'src/store/apps/email'
 import invoice from 'src/store/apps/invoice'
 import calendar from 'src/store/apps/calendar'
 import permissions from 'src/store/apps/permissions'
+import countries from "src/store/apps/countries"
 import diary from 'src/store/apps/diary'
 
 export const store = configureStore({
@@ -18,6 +19,7 @@ export const store = configureStore({
     invoice,
     calendar,
     permissions,
+    countries,
     diary
   },
   middleware: getDefaultMiddleware =>
