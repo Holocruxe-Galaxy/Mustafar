@@ -520,9 +520,7 @@ const Register = () => {
   const store: CountriesReducer = useSelector((state: RootState) => state.countries)
   const municipios = useSelector((state: RootState) => state.countries.municipios)
 
-  // const selectedProvinciaId = useSelector((state: RootState) => state.countries.selectedProvinciaId)
 
-  // console.log(countriesState.map(b => b.nombre) )
 
   const handleProvinciaChange = (event: any) => {
     const selectedId = event.target.value
@@ -884,7 +882,7 @@ const Register = () => {
                   )}
                 </FormControl>
               </Grid>
-              <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', paddingBottom:'5em'}}>
                 <Button size='large' variant='outlined' color='secondary' disabled>
                   atrás
                 </Button>
@@ -1040,7 +1038,7 @@ const Register = () => {
                   )}
                 </FormControl>
               </Grid>
-              <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', paddingBottom:'5em' }}>
                 <Button size='large' variant='outlined' color='secondary' onClick={handleBack}>
                   ATRÁS
                 </Button>
@@ -1213,7 +1211,7 @@ const Register = () => {
                 </FormControl>
               </Grid>
 
-              <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', paddingBottom:'5em' }}>
                 <Button size='large' variant='outlined' color='secondary' onClick={handleBack}>
                   atrás
                 </Button>
@@ -1270,7 +1268,7 @@ const Register = () => {
                   </Grid>
                 ))}
 
-                <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', paddingBottom:'5em' }}>
                   <Button size='large' variant='outlined' color='secondary' onClick={handleBack}>
                     atrás
                   </Button>
@@ -1315,7 +1313,7 @@ const Register = () => {
     <Card>
       <Box component='div' display='flex' justifyContent='space-between'>
         <Box component='div' marginBottom={30}>
-          <Link href={'/home'}>
+          <Link href={'/login'}>
             <Box
               sx={{
                 top: 30,

@@ -44,7 +44,7 @@ export const EmptyState = {
   );
 
   export const fetchMunicipios = createAsyncThunk(
-    'municipios/fetchMunicipios', async (provinciaId) => {
+    'municipios/fetchMunicipios', async (provinciaId: string) => {
     try {
       const response = await fetch(`https://apis.datos.gob.ar/georef/api/municipios?provincia=${provinciaId}&campos=id,nombre&max=500`);
       if (!response.ok) {
@@ -53,8 +53,8 @@ export const EmptyState = {
       const data = await response.json();
 
       const municipios = data.municipios
-        .map(m => m.nombre)
-        .sort((a, b) => a.localeCompare(b));
+        .map((m:any) => m.nombre)
+        .sort((a:any, b:any) => a.localeCompare(b));
 
       return {...data, munis: municipios};
     } catch (error) {
