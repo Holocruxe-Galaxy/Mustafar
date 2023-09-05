@@ -216,11 +216,11 @@ const Entries = ({ id, props }: any) => {
         avatar={<Avatar sx={{ bgcolor: '#59c1bd' }}>R</Avatar>}
         action={
           <>
-            {props.emoji && <IconButton>{props.emoji}</IconButton>}
+            {props.emoji && <IconButton sx={{ marginRight: 2 }}>{props.emoji}</IconButton>}
             {props.favorite && (
               <Tooltip title='Tu publicación se encuentra dentro de tus favoritos' placement='top'>
                 <IconButton className={classes.iconButton}>
-                  <svg xmlns='http://www.w3.org/2000/svg' width='60' height='101' viewBox='0 0 105 105' fill='none'>
+                  <svg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 100 100' fill='none'>
                     <g filter='url(#filter0_d_849_49601)'>
                       <path
                         d='M30.2666 52.7425L35.7558 47.3339L45.1016 45.6777L44.1778 50.569L31.5432 54.4524L30.7268 54.0997L30.2666 52.7425Z'
@@ -339,7 +339,7 @@ const Entries = ({ id, props }: any) => {
             )}
 
             <Tooltip title='Editar publicación' placement='top'>
-              <IconButton className={classes.iconButton} onClick={handleOpenEdit} sx={{ marginLeft: 2, marginTop: 1 }}>
+              <IconButton className={classes.iconButton} onClick={handleOpenEdit} sx={{ marginTop: 1, marginRight: 2 }}>
                 <svg xmlns='http://www.w3.org/2000/svg' width='25' height='48' viewBox='0 0 48 48' fill='none'>
                   <g filter='url(#filter0_di_849_49845)'>
                     <path
@@ -562,10 +562,10 @@ const Entries = ({ id, props }: any) => {
                 <Button
                   onClick={handleDelete}
                   variant='contained'
-                  sx={{ marginTop: 3, width: '50%', fontSize: 'large' }}
+                  sx={{ marginTop: 3, width: '50%', height: '3rem', fontSize: 'large' }}
                 >
-                  <div style={{ marginRight: 6 }}>
-                    <svg width='22' height='50' viewBox='0 0 47 47' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                  <div style={{ position: 'absolute', left: 28, top: 1, marginRight: 6 }}>
+                    <svg width='19' height='50' viewBox='0 0 49 49' fill='none' xmlns='http://www.w3.org/2000/svg'>
                       <g filter='url(#filter0_d_849_49960)'>
                         <g filter='url(#filter1_i_849_49960)'>
                           <path
@@ -643,9 +643,9 @@ const Entries = ({ id, props }: any) => {
                 <Button
                   onClick={handleClose}
                   variant='contained'
-                  sx={{ marginTop: 3, width: '50%', fontSize: 'large' }}
+                  sx={{ marginTop: 3, width: '50%', height: '3rem', fontSize: 'large' }}
                 >
-                  <div style={{ marginRight: 6 }}>
+                  <div style={{ position: 'absolute', left: 28, top: 2, marginRight: 6 }}>
                     <svg width='20' height='48' viewBox='0 0 48 48' fill='none' xmlns='http://www.w3.org/2000/svg'>
                       <g filter='url(#filter0_d_849_49966)'>
                         <path

@@ -125,7 +125,6 @@ const Diary = () => {
   }, [])
 
   useEffect(() => {
-    console.log(file)
     if (diary.content.length && !file) {
       dispatch(addDiary(diary))
       setDiary({ content: '', favorite: false })

@@ -17,6 +17,24 @@ interface EntryState {
 
 type PostDiaryAndFile = PostDiary & {file?: FormData}
 
+async function photoUploader(token: string, _id: string, counter = 0) {
+  counter++
+  if(counter === 10) return
+
+  const responseWithFile = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/logbook/diary/entry/${_id}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    },
+
+  })
+  const response: Diary = await responseWithFile.json()
+  if(!response.photos?.length) return photoUploader(token, _id, counter)
+
+  return response
+}
+
 // ** Fetch Entries
 export const fetchData = createAsyncThunk('appDiary/fetchData',
   async () => {
@@ -74,8 +92,8 @@ export const addDiary = createAsyncThunk(
 
 // ** Add Entry
 export const addDiaryWithPhoto = createAsyncThunk(
-  'appDiary/addDiary',
-  async (data: PostDiaryAndFile) => {
+  'appDiary/addDiaryWithPhoto',
+  async (data: PostDiaryAndFile, { getState }: Redux) => {
     const token = localStorage.getItem('AuthorizationToken');
     const file = data.file
     delete data.file
@@ -111,7 +129,16 @@ export const addDiaryWithPhoto = createAsyncThunk(
       throw new Error(error.message);
     }
 
+    const prevState: Diary[] = [...getState().diary.data];
+    if (!token) return { data: prevState }
+    const uploaded = await photoUploader(token, _id)
+    if (uploaded) {
+      prevState.unshift(uploaded)
 
+      return { data: prevState }
+    }
+
+    return { data: prevState }
   }
 )
 
@@ -176,6 +203,9 @@ export const appDiarySlice = createSlice({
       state.allData = action.payload.allData
     })
     builder.addCase(addDiary.fulfilled, (state, action) => {
+      state.data = action.payload.data
+    })
+    builder.addCase(addDiaryWithPhoto.fulfilled, (state, action) => {
       state.data = action.payload.data
     })
   }
