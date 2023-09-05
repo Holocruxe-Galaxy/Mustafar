@@ -30,9 +30,6 @@ import IconButton, { IconButtonProps } from '@mui/material/IconButton'
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions'
 import ClearIcon from '@mui/icons-material/Clear'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import RocketLaunchIcon from '@mui/icons-material/RocketLaunch'
-import EditNoteIcon from '@mui/icons-material/EditNote'
-import DeleteIcon from '@mui/icons-material/Delete'
 import Tooltip from '@mui/material/Tooltip'
 
 // ** Redux Toolkit
@@ -63,46 +60,36 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 }))
 
 // TODO: Poner SVG correspondientes para el switch
-const MaterialUISwitch = styled(Switch)(({ theme }) => ({
-  width: 62,
-  height: 34,
-  padding: 7,
-  '& .MuiSwitch-switchBase': {
-    margin: 1,
-    padding: 0,
-    transform: 'translateX(6px)',
-    '&.Mui-checked': {
-      color: '#fff',
-      transform: 'translateX(22px)',
-      '& .MuiSwitch-thumb:before': {
-        backgroundImage: `url()`
-      },
-      '& + .MuiSwitch-track': {
-        opacity: 1,
-        backgroundColor: theme.palette.mode === 'dark' ? '#8796A5' : '#aab4be'
-      }
+const Android12Switch = styled(Switch)(({ theme }) => ({
+  padding: 8,
+  '& .MuiSwitch-track': {
+    borderRadius: 22 / 2,
+    '&:before, &:after': {
+      content: '""',
+      position: 'absolute',
+      top: '50%',
+      transform: 'translateY(-50%)',
+      width: 16,
+      height: 16
+    },
+    '&:before': {
+      backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 24 24"><path fill="${encodeURIComponent(
+        theme.palette.getContrastText(theme.palette.primary.main)
+      )}" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/></svg>')`,
+      left: 12
+    },
+    '&:after': {
+      backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 24 24"><path fill="${encodeURIComponent(
+        theme.palette.getContrastText(theme.palette.primary.main)
+      )}" d="M19,13H5V11H19V13Z" /></svg>')`,
+      right: 12
     }
   },
   '& .MuiSwitch-thumb': {
-    backgroundColor: theme.palette.mode === 'dark' ? '#59C1BD' : '#59C1BD',
-    width: 32,
-    height: 32,
-    '&:before': {
-      content: "''",
-      position: 'absolute',
-      width: '100%',
-      height: '100%',
-      left: 0,
-      top: 0,
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'center',
-      backgroundImage: `url()`
-    }
-  },
-  '& .MuiSwitch-track': {
-    opacity: 1,
-    backgroundColor: theme.palette.mode === 'dark' ? '#8796A5' : '#aab4be',
-    borderRadius: 20 / 2
+    boxShadow: 'none',
+    width: 16,
+    height: 16,
+    margin: 2
   }
 }))
 
@@ -182,7 +169,6 @@ const Entries = ({ id, props }: any) => {
       inputRef.current.value = newValue
     }
 
-    // TODO: Checkear poder eliminar el emoji si es lo primero que la persona escribe.
     // TODO: ocultar picker cuando se clickea en otra parte de la pagina.
 
     setPickerVisible(!isPickerVisible)
@@ -190,6 +176,9 @@ const Entries = ({ id, props }: any) => {
 
   const style = {
     position: 'absolute' as const,
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
@@ -197,8 +186,7 @@ const Entries = ({ id, props }: any) => {
     bgcolor: 'background.paper',
     borderRadius: 1,
     boxShadow: 24,
-    p: 4,
-    textAlign: 'center'
+    p: 4
   }
 
   const styleModal = {
@@ -428,6 +416,8 @@ const Entries = ({ id, props }: any) => {
                       render={({ field: { value, onChange } }) => (
                         <TextField
                           value={value}
+                          multiline
+                          minRows={4}
                           onChange={onChange}
                           inputRef={contentRef}
                           InputProps={{
@@ -460,7 +450,12 @@ const Entries = ({ id, props }: any) => {
                       name='favorite'
                       control={control}
                       render={({ field: { value, onChange } }) => (
-                        <MaterialUISwitch checked={value} onChange={onChange} inputRef={favoriteRef}></MaterialUISwitch>
+                        <Android12Switch
+                          checked={value}
+                          onChange={onChange}
+                          inputRef={favoriteRef}
+                          sx={{ position: 'absolute', top: 130, left: 170 }}
+                        ></Android12Switch>
                       )}
                     />
                     <Controller
@@ -473,7 +468,7 @@ const Entries = ({ id, props }: any) => {
                           inputRef={emojiRef}
                           id='select'
                           variant='standard'
-                          sx={{ marginRight: 5 }}
+                          sx={{ marginRight: 5, position: 'absolute', top: 130 }}
                           displayEmpty
                           renderValue={selected => {
                             if (selected === '' || !selected) {
@@ -505,7 +500,9 @@ const Entries = ({ id, props }: any) => {
                         ))}
                       </>
                     )}
-                    <Button type='submit'>Guardar</Button>
+                    <Button type='submit' sx={{ marginTop: 36 }}>
+                      Guardar
+                    </Button>
                   </FormControl>
                 </form>
               </Box>
@@ -562,11 +559,139 @@ const Entries = ({ id, props }: any) => {
                 <Typography variant='h6' component='h2'>
                   Deseas eliminar?
                 </Typography>
-                <Button onClick={handleDelete} variant='contained' sx={{ marginRight: 2, marginTop: 3 }}>
+                <Button
+                  onClick={handleDelete}
+                  variant='contained'
+                  sx={{ marginTop: 3, width: '50%', fontSize: 'large' }}
+                >
+                  <div style={{ marginRight: 6 }}>
+                    <svg width='22' height='50' viewBox='0 0 47 47' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                      <g filter='url(#filter0_d_849_49960)'>
+                        <g filter='url(#filter1_i_849_49960)'>
+                          <path
+                            d='M21 41C26.5228 41 31.5228 38.7614 35.1421 35.1421C38.7614 31.5228 41 26.5228 41 21C41 15.4772 38.7614 10.4772 35.1421 6.85786C31.5228 3.23858 26.5228 1 21 1C15.4772 1 10.4772 3.23858 6.85786 6.85786C3.23858 10.4772 1 15.4772 1 21C1 26.5228 3.23858 31.5228 6.85786 35.1421C10.4772 38.7614 15.4772 41 21 41Z'
+                            fill='#010032'
+                          />
+                        </g>
+                        <path
+                          d='M21 41C26.5228 41 31.5228 38.7614 35.1421 35.1421C38.7614 31.5228 41 26.5228 41 21C41 15.4772 38.7614 10.4772 35.1421 6.85786C31.5228 3.23858 26.5228 1 21 1C15.4772 1 10.4772 3.23858 6.85786 6.85786C3.23858 10.4772 1 15.4772 1 21C1 26.5228 3.23858 31.5228 6.85786 35.1421C10.4772 38.7614 15.4772 41 21 41Z'
+                          stroke='#00FFED'
+                          stroke-width='2'
+                          stroke-linejoin='round'
+                        />
+                        <path
+                          d='M13 21L19 27L31 15'
+                          stroke='#00FFED'
+                          stroke-width='2'
+                          stroke-linecap='round'
+                          stroke-linejoin='round'
+                        />
+                      </g>
+                      <defs>
+                        <filter
+                          id='filter0_d_849_49960'
+                          x='0'
+                          y='0'
+                          width='50'
+                          height='50'
+                          filterUnits='userSpaceOnUse'
+                          color-interpolation-filters='sRGB'
+                        >
+                          <feFlood flood-opacity='0' result='BackgroundImageFix' />
+                          <feColorMatrix
+                            in='SourceAlpha'
+                            type='matrix'
+                            values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0'
+                            result='hardAlpha'
+                          />
+                          <feOffset dx='4' dy='4' />
+                          <feGaussianBlur stdDeviation='2' />
+                          <feComposite in2='hardAlpha' operator='out' />
+                          <feColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0' />
+                          <feBlend mode='normal' in2='BackgroundImageFix' result='effect1_dropShadow_849_49960' />
+                          <feBlend mode='normal' in='SourceGraphic' in2='effect1_dropShadow_849_49960' result='shape' />
+                        </filter>
+                        <filter
+                          id='filter1_i_849_49960'
+                          x='0'
+                          y='0'
+                          width='46'
+                          height='46'
+                          filterUnits='userSpaceOnUse'
+                          color-interpolation-filters='sRGB'
+                        >
+                          <feFlood flood-opacity='0' result='BackgroundImageFix' />
+                          <feBlend mode='normal' in='SourceGraphic' in2='BackgroundImageFix' result='shape' />
+                          <feColorMatrix
+                            in='SourceAlpha'
+                            type='matrix'
+                            values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0'
+                            result='hardAlpha'
+                          />
+                          <feOffset dx='4' dy='4' />
+                          <feGaussianBlur stdDeviation='2' />
+                          <feComposite in2='hardAlpha' operator='arithmetic' k2='-1' k3='1' />
+                          <feColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0' />
+                          <feBlend mode='normal' in2='shape' result='effect1_innerShadow_849_49960' />
+                        </filter>
+                      </defs>
+                    </svg>
+                  </div>
                   Si
                 </Button>
 
-                <Button onClick={handleOpen} variant='contained' sx={{ marginTop: 3 }}>
+                <Button
+                  onClick={handleClose}
+                  variant='contained'
+                  sx={{ marginTop: 3, width: '50%', fontSize: 'large' }}
+                >
+                  <div style={{ marginRight: 6 }}>
+                    <svg width='20' height='48' viewBox='0 0 48 48' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                      <g filter='url(#filter0_d_849_49966)'>
+                        <path
+                          d='M20 40C31.0457 40 40 31.0457 40 20C40 8.95431 31.0457 0 20 0C8.95431 0 0 8.95431 0 20C0 31.0457 8.95431 40 20 40Z'
+                          fill='#CC3333'
+                        />
+                        <path
+                          d='M18.7 38.4C29.0277 38.4 37.4 30.0277 37.4 19.7C37.4 9.37227 29.0277 1 18.7 1C8.37227 1 0 9.37227 0 19.7C0 30.0277 8.37227 38.4 18.7 38.4Z'
+                          fill='#F44336'
+                        />
+                        <path
+                          d='M6.6671 8.5666C8.1671 6.19994 11.3671 4.23327 14.7004 3.63327C15.5338 3.49993 16.3671 3.43327 17.0671 3.69994C17.6004 3.89994 18.0338 4.39993 17.7338 4.9666C17.5004 5.43327 16.8671 5.63327 16.3671 5.79993C13.2402 6.83175 10.5439 8.87159 8.70044 11.5999C8.03377 12.5999 7.03377 15.3666 5.80044 14.6666C4.50044 13.8999 4.7671 11.4999 6.6671 8.5666Z'
+                          fill='#FF8A80'
+                        />
+                        <path
+                          d='M33.333 22.6673H6.66634C5.92967 22.6673 5.33301 22.0707 5.33301 21.334V18.6673C5.33301 17.9307 5.92967 17.334 6.66634 17.334H33.333C34.0697 17.334 34.6663 17.9307 34.6663 18.6673V21.334C34.6663 22.0707 34.0697 22.6673 33.333 22.6673Z'
+                          fill='#FAFAFA'
+                        />
+                      </g>
+                      <defs>
+                        <filter
+                          id='filter0_d_849_49966'
+                          x='0'
+                          y='0'
+                          width='48'
+                          height='48'
+                          filterUnits='userSpaceOnUse'
+                          color-interpolation-filters='sRGB'
+                        >
+                          <feFlood flood-opacity='0' result='BackgroundImageFix' />
+                          <feColorMatrix
+                            in='SourceAlpha'
+                            type='matrix'
+                            values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0'
+                            result='hardAlpha'
+                          />
+                          <feOffset dx='4' dy='4' />
+                          <feGaussianBlur stdDeviation='2' />
+                          <feComposite in2='hardAlpha' operator='out' />
+                          <feColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0' />
+                          <feBlend mode='normal' in2='BackgroundImageFix' result='effect1_dropShadow_849_49966' />
+                          <feBlend mode='normal' in='SourceGraphic' in2='effect1_dropShadow_849_49966' result='shape' />
+                        </filter>
+                      </defs>
+                    </svg>
+                  </div>
                   No
                 </Button>
               </Box>

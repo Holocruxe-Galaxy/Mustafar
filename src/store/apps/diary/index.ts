@@ -75,7 +75,7 @@ export const addDiary = createAsyncThunk(
 // ** Add Entry
 export const addDiaryWithPhoto = createAsyncThunk(
   'appDiary/addDiary',
-  async (data: PostDiaryAndFile, { dispatch }: Redux) => {
+  async (data: PostDiaryAndFile) => {
     const token = localStorage.getItem('AuthorizationToken');
     const file = data.file
     delete data.file
@@ -93,9 +93,10 @@ export const addDiaryWithPhoto = createAsyncThunk(
         const error = await response.json();
         throw new Error(error.message);
       }
-      
+
     const { _id } = await response.json()
 
+    console.log('este es el id :)', file)
     const fileResponse = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/logbook/diary/${_id}/upload`, {
       method: 'POST',
       headers: {
@@ -106,10 +107,11 @@ export const addDiaryWithPhoto = createAsyncThunk(
 
     if (!fileResponse.ok) {
       const error = await response.json();
+      console.log('estoy aca', error)
       throw new Error(error.message);
     }
 
-    dispatch(fetchData())
+
   }
 )
 
