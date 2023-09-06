@@ -106,7 +106,7 @@ const defaultPersonalValues = {
   personal: {
     name: '',
     gender: '',
-    birthdate: '',
+    birthdate: null,
     civilStatus: ''
   }
 }
