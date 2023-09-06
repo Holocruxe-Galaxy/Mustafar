@@ -45,12 +45,7 @@ import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  fetchProvincias,
-  fetchMunicipios,
-  setSelectedProvinciaId,
-  CountriesReducer
-} from 'src/store/apps/countries'
+import { fetchProvincias, fetchMunicipios, setSelectedProvinciaId, CountriesReducer } from 'src/store/apps/countries'
 import { useAuth } from 'src/hooks/useAuth'
 import { stepManager, CountryType, isNumber } from '../../@core/utils/helpersForm'
 import { Canvas } from '@react-three/fiber'
@@ -106,7 +101,7 @@ const defaultPersonalValues = {
   personal: {
     name: '',
     gender: '',
-    birthdate: '',
+    birthdate: null,
     civilStatus: ''
   }
 }
@@ -506,7 +501,6 @@ const Register = () => {
   ]
   const [checkedValues, setCheckedValues] = useState([] as string[])
 
-
   const handleSelect = (checkedName: string) => {
     const newNames = checkedValues?.includes(checkedName)
       ? checkedValues?.filter(name => name !== checkedName)
@@ -519,8 +513,6 @@ const Register = () => {
   const dispatch = useDispatch<AppDispatch>()
   const store: CountriesReducer = useSelector((state: RootState) => state.countries)
   const municipios = useSelector((state: RootState) => state.countries.municipios)
-
-
 
   const handleProvinciaChange = (event: any) => {
     const selectedId = event.target.value
@@ -882,7 +874,7 @@ const Register = () => {
                   )}
                 </FormControl>
               </Grid>
-              <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', paddingBottom:'5em'}}>
+              <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '5em' }}>
                 <Button size='large' variant='outlined' color='secondary' disabled>
                   atrás
                 </Button>
@@ -890,7 +882,7 @@ const Register = () => {
                   siguiente
                 </Button>
               </Grid>
-              <Canvas shadows style={{height:"13em"}}>
+              <Canvas shadows style={{ height: '13em' }}>
                 <ambientLight intensity={0.5} />
                 <directionalLight castShadow position={[2, 2, 2]} />
                 <AstWave />
@@ -1038,7 +1030,7 @@ const Register = () => {
                   )}
                 </FormControl>
               </Grid>
-              <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', paddingBottom:'5em' }}>
+              <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '5em' }}>
                 <Button size='large' variant='outlined' color='secondary' onClick={handleBack}>
                   ATRÁS
                 </Button>
@@ -1089,8 +1081,6 @@ const Register = () => {
                         <MenuItem value='MIDDLE_SCHOOL'>Escuela intermedia</MenuItem>
                         <MenuItem value='HIGH_SCHOOL'>Secundario</MenuItem>
                         <MenuItem value='COLLEGE'>Universidad</MenuItem>
-
-
                       </Select>
                     )}
                   />
@@ -1211,7 +1201,7 @@ const Register = () => {
                 </FormControl>
               </Grid>
 
-              <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', paddingBottom:'5em' }}>
+              <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '5em' }}>
                 <Button size='large' variant='outlined' color='secondary' onClick={handleBack}>
                   atrás
                 </Button>
@@ -1239,7 +1229,14 @@ const Register = () => {
 
               <Grid container spacing={3}>
                 {interests.map((f, i) => (
-                  <Grid item xs={11} sm={6} lg={3} key={i} style={{ paddingLeft: '2em', paddingTop: '2em', alignItems:'center' }}>
+                  <Grid
+                    item
+                    xs={11}
+                    sm={6}
+                    lg={3}
+                    key={i}
+                    style={{ paddingLeft: '2em', paddingTop: '2em', alignItems: 'center' }}
+                  >
                     {f.icon}
                     <FormControl>
                       <Controller
@@ -1252,9 +1249,7 @@ const Register = () => {
                             control={
                               <Checkbox
                                 name='validation-basic-checkbox'
-
-                                style={{paddingLeft: "1em"}}
-
+                                style={{ paddingLeft: '1em' }}
                                 value={f}
                                 checked={checkedValues.includes(f.value)}
                                 onChange={() => onCheckChange(handleSelect(f.value))}
@@ -1263,12 +1258,11 @@ const Register = () => {
                           />
                         )}
                       />
-
                     </FormControl>
                   </Grid>
                 ))}
 
-                <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', paddingBottom:'5em' }}>
+                <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '5em' }}>
                   <Button size='large' variant='outlined' color='secondary' onClick={handleBack}>
                     atrás
                   </Button>
@@ -1277,11 +1271,11 @@ const Register = () => {
                   </Button>
                 </Grid>
               </Grid>
-              <Canvas shadows >
-    <ambientLight intensity={0.5} />
-  <directionalLight castShadow  position={[2, 2, 2]} />
-    <AstBeyond />
-    </Canvas>
+              <Canvas shadows>
+                <ambientLight intensity={0.5} />
+                <directionalLight castShadow position={[2, 2, 2]} />
+                <AstBeyond />
+              </Canvas>
             </Grid>
           </form>
         )
@@ -1467,4 +1461,3 @@ Register.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
 Register.guestGuard = true
 
 export default Register
-
