@@ -1,24 +1,27 @@
 // ** React Imports
-import { forwardRef, useState } from 'react'
+// import { forwardRef, useState } from 'react'
 
 // ** MUI Imports
 import Card from '@mui/material/Card'
-import TextField from '@mui/material/TextField'
+
+// import TextField from '@mui/material/TextField'
 import { useTheme } from '@mui/material/styles'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
-import InputAdornment from '@mui/material/InputAdornment'
+
+// import InputAdornment from '@mui/material/InputAdornment'
 
 // ** Third Party Imports
-import format from 'date-fns/format'
+// import format from 'date-fns/format'
 import { ApexOptions } from 'apexcharts'
-import DatePicker from 'react-datepicker'
+
+// import DatePicker from 'react-datepicker'
 
 // ** Icon Imports
-import Icon from 'src/@core/components/icon'
+// import Icon from 'src/@core/components/icon'
 
 // ** Types
-import { DateType } from 'src/types/forms/reactDatepickerTypes'
+// import { DateType } from 'src/types/forms/reactDatepickerTypes'
 
 // ** Component Import
 import ReactApexcharts from 'src/@core/components/react-apexcharts'
@@ -29,10 +32,10 @@ const areaColors = {
   series3: '#e0cffe'
 }
 
-interface PickerProps {
-  start: Date | number
-  end: Date | number
-}
+// interface PickerProps {
+//   start: Date | number
+//   end: Date | number
+// }
 
 const series = [
   {
@@ -51,8 +54,8 @@ const series = [
 
 const ApexAreaChart = () => {
   // ** States
-  const [endDate, setEndDate] = useState<DateType>(null)
-  const [startDate, setStartDate] = useState<DateType>(null)
+  // const [, setEndDate] = useState<DateType>(null)
+  // const [, setStartDate] = useState<DateType>(null)
 
   // ** Hook
   const theme = useTheme()
@@ -125,39 +128,39 @@ const ApexAreaChart = () => {
     }
   }
 
-  const CustomInput = forwardRef((props: PickerProps, ref) => {
-    const startDate = props.start !== null ? format(props.start, 'MM/dd/yyyy') : ''
-    const endDate = props.end !== null ? ` - ${format(props.end, 'MM/dd/yyyy')}` : null
+  // const CustomInput = forwardRef((props: PickerProps, ref) => {
+  //   const startDate = props.start !== null ? format(props.start, 'MM/dd/yyyy') : ''
+  //   const endDate = props.end !== null ? ` - ${format(props.end, 'MM/dd/yyyy')}` : null
 
-    const value = `${startDate}${endDate !== null ? endDate : ''}`
+  //   const value = `${startDate}${endDate !== null ? endDate : ''}`
 
-    return (
-      <TextField
-        {...props}
-        size='small'
-        value={value}
-        inputRef={ref}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position='start'>
-              <Icon icon='mdi:bell-outline' />
-            </InputAdornment>
-          ),
-          endAdornment: (
-            <InputAdornment position='end'>
-              <Icon icon='mdi:chevron-down' />
-            </InputAdornment>
-          )
-        }}
-      />
-    )
-  })
+  //   return (
+  //     <TextField
+  //       {...props}
+  //       size='small'
+  //       value={value}
+  //       inputRef={ref}
+  //       InputProps={{
+  //         startAdornment: (
+  //           <InputAdornment position='start'>
+  //             <Icon icon='mdi:bell-outline' />
+  //           </InputAdornment>
+  //         ),
+  //         endAdornment: (
+  //           <InputAdornment position='end'>
+  //             <Icon icon='mdi:chevron-down' />
+  //           </InputAdornment>
+  //         )
+  //       }}
+  //     />
+  //   )
+  // })
 
-  const handleOnChange = (dates: any) => {
-    const [start, end] = dates
-    setStartDate(start)
-    setEndDate(end)
-  }
+  // const handleOnChange = (dates: any) => {
+  //   const [start, end] = dates
+  //   setStartDate(start)
+  //   setEndDate(end)
+  // }
 
   return (
     <Card>
@@ -171,18 +174,19 @@ const ApexAreaChart = () => {
           '& .MuiCardHeader-action': { mb: 0 },
           '& .MuiCardHeader-content': { mb: [2, 0] }
         }}
-        action={
-          <DatePicker
-            selectsRange
-            endDate={endDate}
-            id='apexchart-area'
-            selected={startDate}
-            startDate={startDate}
-            onChange={handleOnChange}
-            placeholderText='Click to select a date'
-            customInput={<CustomInput start={startDate as Date | number} end={endDate as Date | number} />}
-          />
-        }
+
+        // action={
+        //   <DatePicker
+        //     selectsRange
+        //     endDate={endDate}
+        //     id='apexchart-area'
+        //     selected={startDate}
+        //     startDate={startDate}
+        //     onChange={handleOnChange}
+        //     placeholderText='Click to select a date'
+        //     customInput={<CustomInput start={startDate as DateType} end={endDate as DateType} />}
+        //   />
+        // }
       />
       <CardContent>
         <ReactApexcharts type='area' height={400} options={options} series={series} />
