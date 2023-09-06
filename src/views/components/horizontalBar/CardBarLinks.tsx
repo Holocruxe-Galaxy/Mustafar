@@ -16,8 +16,7 @@ import { CardLinksProps } from './types'
 const Avatar = styled(CustomAvatar)<AvatarProps>(({ theme }) => ({
   width: 55,
   height: 55,
-  marginRight: theme.spacing(4),
-  marginTop: 3
+  marginRight: theme.spacing(4)
 }))
 
 const CardLinks = (props: CardLinksProps) => {
@@ -25,7 +24,7 @@ const CardLinks = (props: CardLinksProps) => {
   const { name, icon, href } = props
 
   return (
-    <Card sx={{ display: 'flex', alignItems: 'center', width: 345, height: 70, my: 2.5, mx: '25px', borderRadius: '14px'}}>
+    <Card sx={{ display: 'flex', alignItems: 'center', width: 345, height: 85, mx: '25px', my:5, borderRadius: '14px'}}>
       <CardContent sx={{ height: 100 }}>
         <Box
           component='div'

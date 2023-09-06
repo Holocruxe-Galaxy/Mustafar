@@ -19,6 +19,7 @@ import {
   Tooltip,
   Switch
 } from '@mui/material'
+import { Box } from '@mui/system'
 import { styled } from '@mui/material/styles'
 import { makeStyles } from '@mui/styles'
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions'
@@ -40,6 +41,8 @@ import { addDiary, fetchData } from 'src/store/apps/diary'
 
 // ** Utils
 import emotions from 'src/@core/utils/emotions'
+
+import CardButtons from 'src/views/components/horizontalBar/CardButtons'
 
 const useStyles = makeStyles(() => ({
   picker: {
@@ -165,8 +168,25 @@ const Diary = () => {
 
   const classes = useStyles()
 
+  // Vars  
+  const diaryCards = [
+    {
+      name: 'DIARIO',
+      icon: '',
+      href: ''
+    },
+    {
+      name: 'ORGANIZADOR',
+      icon: '',
+      href: ''
+    }
+  ]
+
   return (
     <>
+    <Box component='div' sx={{mb: 4}}>
+      <CardButtons data={diaryCards}/>
+    </Box>
       <Card sx={{ height: '100%' }}>
         <CardContent>
           <form onSubmit={onSubmit}>
