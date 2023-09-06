@@ -12,7 +12,7 @@ import { Settings } from 'src/@core/context/settingsContext'
 
 // ** Components
 // **import Autocomplete from 'src/layouts/components/Autocomplete'
-import CardLinks from 'src/views/components/horizontalBar/CardLinks'
+import CardBarLinks from 'src/views/components/horizontalBar/CardBarLinks'
 import LanguageDropdown from 'src/@core/layouts/components/shared-components/LanguageDropdown'
 import ModeToggler from 'src/@core/layouts/components/shared-components/ModeToggler'
 import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
@@ -37,25 +37,24 @@ const AppBarContent = (props: Props) => {
   const router = useRouter()
 
   // ** Props
-  const { /* hidden, */ settings, saveSettings /* , toggleNavVisibility  */ } = props
+  const { /* hidden, */ settings, saveSettings } = props
   const theme = useTheme()
 
   const button = [
     {
       page: 'home',
-      buttons: [{ name: 'Tutorial', icon: '', href: '' }]
+      buttons: [{ name: 'TUTORIAL', icon: '', href: '',  active: true }]
     },
     {
-      page: 'apps/chat',
+      page: 'apps/diary',
       buttons: [
-        { name: 'Tus intereses', icon: '', href: '/home' },
-        { name: 'Tus métricas', icon: '', href: '' }
+        { name: 'MI BITÁCORA', icon: '', href: '', active: true },
+        { name: 'TUS MÉTRICAS', icon: '', href: '', active: true }
       ]
     }
   ]
 
   // Vars
-  /*   const currentPath = router.pathname */
   const currentPage = button.find(item => item.page == router.pathname.slice(1))
 
   const { skin } = settings
@@ -76,21 +75,12 @@ const AppBarContent = (props: Props) => {
         ...(skin === 'bordered' && { border: `1px solid ${theme.palette.divider}` })
       }}
     >
-      {/*       <Box className='actions-left' sx={{ mr: 2, display: 'flex', alignItems: 'center' }}>
-        {hidden && !settings.navHidden ? (
-          <IconButton color='inherit' sx={{ ml: -2.75 }} onClick={toggleNavVisibility}>
-            <Icon icon='mdi:menu' />
-          </IconButton>
-        ) : null}
-        {auth.user && <Autocomplete hidden={hidden} settings={settings} />}
-      </Box> */}
-      {/*       <Box className='actions-right' sx={{ display: 'flex', alignItems: 'center' }}> */}
       {currentPage?.buttons.map((button, index) => (
         <Link key='index' href={button.href}>
-          <CardLinks key={index} name={button.name} icon={button.icon} />
+          <CardBarLinks key={index} name={button.name} icon={button.icon} />
         </Link>
       ))}
-      <Card sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 500, margin: 4 }}>
+      <Card sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '26.063rem', height: '5.313rem', margin: 5, borderRadius: '14px' }}>
         <CardContent sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '90%' }}>
           <Icon icon='ic:baseline-search' />
           <LanguageDropdown settings={settings} saveSettings={saveSettings} />
@@ -103,7 +93,6 @@ const AppBarContent = (props: Props) => {
           )}
         </CardContent>
       </Card>
-      {/*       </Box> */}
     </Box>
   )
 }
