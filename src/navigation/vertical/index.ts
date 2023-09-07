@@ -25,7 +25,26 @@ const navigation = (): VerticalNavItemsType => {
           path: ''
         }
       ]
-    }
+    },
+    {
+      title: 'Configuración',
+      icon: 'mdi:settings-outline',
+      children: [
+        {
+          title: 'Cuenta',
+          path: '/pages/account-settings/account'
+        },
+        {
+          title: 'Seguridad',
+          path: '/pages/account-settings/security'
+        },
+        {
+          title: 'Notificaciones',
+          path: '/pages/account-settings/notifications'
+        }
+      ]
+    },
+
   ]
 }
 
