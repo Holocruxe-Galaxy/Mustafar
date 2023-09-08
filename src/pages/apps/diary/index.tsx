@@ -195,7 +195,7 @@ const Diary = () => {
 
   const classes = useStyles()
 
-  // Vars  
+  // Vars
   const diaryCards = [
     {
       name: 'DIARIO',
@@ -211,9 +211,9 @@ const Diary = () => {
 
   return (
     <>
-    <Box component='div' sx={{mb: 4}}>
-      <CardButtons data={diaryCards}/>
-    </Box>
+      <Box component='div' sx={{ mb: 4 }}>
+        <CardButtons data={diaryCards} />
+      </Box>
       <Card sx={{ height: '100%' }}>
         <CardContent>
           <form onSubmit={onSubmit}>
