@@ -12,16 +12,17 @@ const AccountSettingsTab = ({ tab }: InferGetStaticPropsType<typeof getStaticPro
 export const getStaticPaths: GetStaticPaths = () => {
   return {
     paths: [
-      { params: { tab: 'Cuenta' } },
-      { params: { tab: 'Seguridad' } },
-      { params: { tab: 'Notificaciones' } },
+      { params: { tab: 'cuenta' } },
+      { params: { tab: 'seguridad' } },
+
+      { params: { tab: 'notificaciones' } },
+
     ],
     fallback: false
   }
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }: GetStaticPropsContext) => {
-  
 
   return {
     props: {

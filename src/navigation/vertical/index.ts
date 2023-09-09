@@ -32,15 +32,15 @@ const navigation = (): VerticalNavItemsType => {
       children: [
         {
           title: 'Cuenta',
-          path: '/pages/account-settings/account'
+          path: '/pages/account-settings/cuenta'
         },
         {
           title: 'Seguridad',
-          path: '/pages/account-settings/security'
+          path: '/pages/account-settings/seguridad'
         },
         {
           title: 'Notificaciones',
-          path: '/pages/account-settings/notifications'
+          path: '/pages/account-settings/notificaciones'
         }
       ]
     },

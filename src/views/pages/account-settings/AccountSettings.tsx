@@ -19,10 +19,8 @@ import CircularProgress from '@mui/material/CircularProgress'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-
 // ** Demo Tabs Imports
 import TabAccount from 'src/views/pages/account-settings/TabAccount'
-
 
 import TabSecurity from 'src/views/pages/account-settings/TabSecurity'
 
@@ -68,10 +66,9 @@ const AccountSettings = ({ tab }: { tab: string; }) => {
   }, [tab])
 
   const tabContentList: { [key: string]: ReactElement } = {
-    account: <TabAccount />,
-    security: <TabSecurity />,
-    notifications: <TabNotifications />,
-
+    cuenta: <TabAccount />,
+    seguridad: <TabSecurity />,
+    notificaciones: <TabNotifications />,
 
   }
 
@@ -88,34 +85,34 @@ const AccountSettings = ({ tab }: { tab: string; }) => {
                 aria-label='customized tabs example'
               >
                 <Tab
-                  value='account'
+                  value='cuenta'
                   label={
                     <Box component='div' sx={{ display: 'flex', alignItems: 'center', ...(!hideText && { '& svg': { mr: 2 } }) }}>
                       <Icon icon='mdi:account-outline' />
-                      {!hideText && 'Account'}
+                      {!hideText && 'Cuenta'}
                     </Box>
                   }
                 />
                 <Tab
-                  value='security'
+                  value='seguridad'
                   label={
                     <Box component='div' sx={{ display: 'flex', alignItems: 'center', ...(!hideText && { '& svg': { mr: 2 } }) }}>
                       <Icon icon='mdi:lock-open-outline' />
-                      {!hideText && 'Security'}
+                      {!hideText && 'Seguridad'}
                     </Box>
                   }
                 />
-                
+
                 <Tab
-                  value='notifications'
+                  value='notificaciones'
                   label={
                     <Box component='div' sx={{ display: 'flex', alignItems: 'center', ...(!hideText && { '& svg': { mr: 2 } }) }}>
                       <Icon icon='mdi:bell-outline' />
-                      {!hideText && 'Notifications'}
+                      {!hideText && 'Notificaciones'}
                     </Box>
                   }
                 />
-                
+
               </TabList>
             </Grid>
             <Grid item xs={12}>
