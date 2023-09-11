@@ -40,7 +40,7 @@ const CardButtons = (props: CardButtonsProps) => {
       position: 'relative',
       backgroundColor: 'background.paper',
       borderRadius: '10px',
-      boxShadow: skin === 'bordered' ? 0 : 6,
+      boxShadow: /* skin === 'bordered' ? 0 : 6 */ '4px 4px 4px 0px rgba(255, 255, 255, 0.50)',
       ...(skin === 'bordered' && { border: `1px solid ${theme.palette.divider}` })
     }}
     >
