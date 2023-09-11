@@ -101,12 +101,13 @@ const ChatLog = (props: ChatLogType) => {
           }}
         >
 
-          <Box className='chat-body' sx={{ width: ['calc(100% - 5.75rem)', '100%', '100%'] }}>
+          <Box component='div' className='chat-body' sx={{ width: ['calc(100% - 5.75rem)', '100%', '100%'] }}>
             {item.messages.map((chat: ChatLogChatType, index: number, { length }: { length: number }) => {
               const isSender = chat.senderId
 
               return (
                 <Box
+                component='div'
                 key= {index}
                   sx={{
                     display: 'flex', 
@@ -114,7 +115,7 @@ const ChatLog = (props: ChatLogType) => {
                     mb: index !== formattedChatData().length - 1 ? /* 9.75 */ 2 : 2
                   }}
                 >
-                <Box key={index} sx={{ '&:not(:last-of-type)': { mb: 3.5 } }}>
+                <Box component='div' key={index} sx={{ '&:not(:last-of-type)': { mb: 3.5 } }}>
                   <div>
                     <Typography
                       sx={{
@@ -137,6 +138,7 @@ const ChatLog = (props: ChatLogType) => {
                   </div>
                   {index + 1 === length ? (
                     <Box
+                    component='div'
                       sx={{
                         mt: 1,
                         display: 'flex',
