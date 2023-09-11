@@ -26,7 +26,8 @@ import Icon from 'src/@core/components/icon'
 
 // ** Third Party Imports
 import format from 'date-fns/format'
-import DatePicker from 'react-datepicker'
+
+// import DatePicker from 'react-datepicker'
 
 // ** Store & Actions Imports
 import { useDispatch, useSelector } from 'react-redux'
@@ -36,7 +37,8 @@ import { fetchData, deleteInvoice } from 'src/store/apps/invoice'
 import { RootState, AppDispatch } from 'src/store'
 import { ThemeColor } from 'src/@core/layouts/types'
 import { InvoiceType } from 'src/types/apps/invoiceTypes'
-import { DateType } from 'src/types/forms/reactDatepickerTypes'
+
+// import { DateType } from 'src/types/forms/reactDatepickerTypes'
 
 // ** Utils Import
 import { getInitials } from 'src/@core/utils/get-initials'
@@ -225,12 +227,16 @@ const CustomInput = forwardRef((props: CustomInputProps, ref) => {
 
 const InvoiceList = () => {
   // ** State
-  const [dates, setDates] = useState<Date[]>([])
+  const [dates] = useState<Date[]>([])
   const [value, setValue] = useState<string>('')
   const [statusValue, setStatusValue] = useState<string>('')
-  const [endDateRange, setEndDateRange] = useState<DateType>(null)
+
+  // const [,setEndDateRange] = useState<DateType>(null)
+
   const [selectedRows, setSelectedRows] = useState<GridRowId[]>([])
-  const [startDateRange, setStartDateRange] = useState<DateType>(null)
+
+  // const [, setStartDateRange] = useState<DateType>(null)
+
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
 
   // ** Hooks
@@ -255,14 +261,14 @@ const InvoiceList = () => {
     setStatusValue(e.target.value)
   }
 
-  const handleOnChangeRange = (dates: any) => {
-    const [start, end] = dates
-    if (start !== null && end !== null) {
-      setDates(dates)
-    }
-    setStartDateRange(start)
-    setEndDateRange(end)
-  }
+  // const handleOnChangeRange = (dates: any) => {
+  //   const [start, end] = dates
+  //   if (start !== null && end !== null) {
+  //     setDates(dates)
+  //   }
+  //   setStartDateRange(start)
+  //   setEndDateRange(end)
+  // }
 
   const columns: GridColDef[] = [
     ...defaultColumns,
@@ -340,7 +346,8 @@ const InvoiceList = () => {
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <DatePicker
+
+                  {/* <DatePicker
                     isClearable
                     selectsRange
                     monthsShown={2}
@@ -359,7 +366,8 @@ const InvoiceList = () => {
                         start={startDateRange as number | Date}
                       />
                     }
-                  />
+                  /> */}
+
                 </Grid>
               </Grid>
             </CardContent>
