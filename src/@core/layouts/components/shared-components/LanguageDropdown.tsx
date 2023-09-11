@@ -36,7 +36,7 @@ const LanguageDropdown = ({ settings, saveSettings }: Props) => {
 
   return (
     <OptionsMenu
-      icon={<Icon icon='mdi:translate' />}
+      icon={<Icon icon='mdi:translate' height='35px'/>}
       menuProps={{ sx: { '& .MuiMenu-paper': { mt: 4, minWidth: 130 } } }}
       iconButtonProps={{ color: 'inherit', sx: { ...(layout === 'vertical' ? { mr: 0.75 } : { mx: 0.75 }) } }}
       options={[

@@ -1,6 +1,7 @@
 export type CardLinksProps = {
-  name: string
   icon: string
+  name: string
+  classType?: string
   href?: string
 }
 

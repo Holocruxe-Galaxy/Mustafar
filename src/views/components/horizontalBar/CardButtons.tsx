@@ -6,6 +6,7 @@ import { useTheme } from '@mui/material/styles'
 // ** Hooks Import
 import { Link } from '@mui/material'
 import { useSettings } from 'src/@core/hooks/useSettings'
+import { useRouter } from 'next/router'
 
 // ** Types Imports
 import { CardButtonsProps, CardLinksProps } from 'src/views/components/horizontalBar/types'
@@ -21,9 +22,12 @@ const CardButtons = (props: CardButtonsProps) => {
   // ** Hooks
   const theme = useTheme()
   const { settings } = useSettings()
+  const router = useRouter()
 
   // Vars
   const { skin } = settings
+
+  const currentPage = data.find(item => item.href === router.pathname.slice(1))
 
   return (
     <Box
@@ -41,8 +45,8 @@ const CardButtons = (props: CardButtonsProps) => {
     }}
     >
       {data?.map((item: CardLinksProps, index: number) => (
-        <Link key={index} href={item.href}>
-          <CardLinks name={item.name} icon={item.icon} key={index}/>
+        <Link key={index} href={item.href} underline="none">
+          <CardLinks classType={currentPage?.href === item.href ? 'cardActive' : 'cardInactive'} name={item.name} icon={item.icon} key={index}/>
         </Link>
       ))}
     </Box>

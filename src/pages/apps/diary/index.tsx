@@ -167,13 +167,13 @@ const Diary = () => {
   }
 
   const classes = useStyles()
-
+  
   // Vars  
   const diaryCards = [
     {
       name: 'DIARIO',
       icon: '',
-      href: ''
+      href: 'apps/diary'
     },
     {
       name: 'ORGANIZADOR',
