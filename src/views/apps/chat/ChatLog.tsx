@@ -94,6 +94,7 @@ const ChatLog = (props: ChatLogType) => {
 
       return (
         <Box
+          component='div'
           key={index}
           sx={{
             display: 'flex'
