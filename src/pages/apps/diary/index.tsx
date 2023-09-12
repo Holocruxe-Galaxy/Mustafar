@@ -183,8 +183,6 @@ const Diary = () => {
   }
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    // TODO: Control de caracteres máximo 200.
-
     e.preventDefault()
     if (inputRef.current && inputRef.current.value.length) {
       setDiary({ ...diary, content: inputRef.current.value })
