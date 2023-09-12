@@ -184,7 +184,7 @@ const LoginPage = () => {
         <Box
           sx={{
             top: 30,
-            left: 40,
+            left: 34,
             display: 'flex',
             position: 'absolute',
             alignItems: 'center',
@@ -249,6 +249,7 @@ const LoginPage = () => {
             />
           </svg>
         </Box>
+
         <Box
           sx={{
             p: 9,
@@ -259,9 +260,9 @@ const LoginPage = () => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: 'background.paper',
+            backgroundColor: 'rgb(32, 67, 94, 0.5)',
             position: 'absolute',
-            opacity: 0.9,
+            backdropFilter: 'blur(2px)',
             top: 0,
             right: 40
           }}
@@ -269,8 +270,8 @@ const LoginPage = () => {
         >
           <BoxWrapper>
             <Box component='div' sx={{ my: 6, textAlign: 'center' }}>
-              <TypographyStyled variant='h5'>{`Bienvenido a Holocruxe `}</TypographyStyled>
-              <Icon sx={{ position: 'absolute', right: 53, top: 57 }}>
+              <TypographyStyled variant='h5'>{`Bienvenido a Holocruxe`}</TypographyStyled>
+              <Icon sx={{ position: 'absolute', right: 53, top: 55 }}>
                 <svg width='50' height='44' viewBox='0 0 85 85' fill='none' xmlns='http://www.w3.org/2000/svg'>
                   <path
                     d='M1.2666 24.7425L6.75582 19.3339L16.1016 17.6777L15.1778 22.569L2.54316 26.4524L1.72684 26.0997L1.2666 24.7425Z'
@@ -359,7 +360,9 @@ const LoginPage = () => {
                   />
                 </svg>
               </Icon>
-              <Typography variant='body2'>Ingresa a tu cuenta y dale vida a tus momentos</Typography>
+              <Typography variant='body2' sx={{ marginTop: 4 }}>
+                Ingresa a tu cuenta y dale vida a tus momentos
+              </Typography>
             </Box>
 
             <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
