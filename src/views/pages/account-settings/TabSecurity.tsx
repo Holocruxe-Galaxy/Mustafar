@@ -1,231 +1,176 @@
 // ** React Imports
-import { ReactNode } from 'react'
+import { ChangeEvent, ReactNode, useState } from 'react'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import Grid from '@mui/material/Grid'
-import Table from '@mui/material/Table'
-import TableRow from '@mui/material/TableRow'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableHead from '@mui/material/TableHead'
+
 import Typography from '@mui/material/Typography'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
-import TableContainer from '@mui/material/TableContainer'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Custom Components Imports
-import CustomChip from 'src/@core/components/mui/chip'
-
-// ** Demo Components
-import CreateApiKey from 'src/views/pages/account-settings/security/CreateApiKey'
-import ChangePasswordCard from 'src/views/pages/account-settings/security/ChangePasswordCard'
 import TwoFactorAuthentication from 'src/views/pages/account-settings/security/TwoFactorAuthentication'
-
-interface ApiKeyListType {
-  title: string
-  access: string
-  date: string
-  key: string
-}
+import ComputerIcon from 'src/@core/icons/ComputerIcon'
+import PhoneIcon from 'src/@core/icons/PhoneIcon'
+import TabletIcon from 'src/@core/icons/TabletIcon'
+import { Button, Checkbox, FormControl, FormControlLabel } from '@mui/material'
+import { Controller } from 'react-hook-form'
+import Negativo from 'src/@core/icons/Negativo'
+import ChangePasswordCard from './security/ChangePasswordCard'
 
 interface RecentDeviceDataType {
-  date: string
+  date?: string
   device: string
   location: string
   browserName: string
   browserIcon: ReactNode
+  login: string
+  thisDevice?: string
 }
-
-const apiKeyList: ApiKeyListType[] = [
-  {
-    title: 'Server Key 1',
-    access: 'Full Access',
-    date: '28 Apr 2021, 18:20 GTM+4:10',
-    key: '23eaf7f0-f4f7-495e-8b86-fad3261282ac'
-  },
-  {
-    title: 'Server Key 2',
-    access: 'Read Only',
-    date: '12 Feb 2021, 10:30 GTM+2:30',
-    key: 'bb98e571-a2e2-4de8-90a9-2e231b5e99'
-  },
-  {
-    title: 'Server Key 3',
-    access: 'Full Access',
-    date: '28 Dec 2021, 12:21 GTM+4:10',
-    key: '2e915e59-3105-47f2-8838-6e46bf83b711'
-  }
-]
 
 const recentDeviceData: RecentDeviceDataType[] = [
   {
-    location: 'Switzerland',
-    device: 'HP Spectre 360',
-    date: '10, July 2021 20:07',
+    location: 'Pamplona - España',
+    device: 'McAir X0000',
+
+    // date: '10, July 2021 20:07',
+
     browserName: 'Chrome on Windows',
+    thisDevice: 'Este dispositivo',
+    login: 'Cerrar sesión',
     browserIcon: (
       <Box component='span' sx={{ mr: 4, '& svg': { color: 'info.main' } }}>
-        <Icon icon='mdi:microsoft-windows' fontSize={20} />
+        <ComputerIcon />
       </Box>
     )
   },
   {
-    location: 'Australia',
-    device: 'iPhone 12x',
-    date: '13, July 2021 10:10',
+    location: 'Pamplona - España',
+    device: 'Teléfono',
+    date: '19/8/23 - 7:39 am',
     browserName: 'Chrome on iPhone',
+    login: 'Cerrar sesión',
     browserIcon: (
       <Box component='span' sx={{ mr: 4, '& svg': { color: 'error.main' } }}>
-        <Icon icon='mdi:cellphone' fontSize={20} />
+        <PhoneIcon />
       </Box>
     )
   },
   {
-    location: 'Dubai',
-    device: 'Oneplus 9 Pro',
-    date: '14, July 2021 15:15',
+    location: 'Pamplona - España',
+    device: 'Tablet',
+    date: '19/8/23 - 7:39 am',
     browserName: 'Chrome on Android',
+    login: 'Cerrar sesión',
     browserIcon: (
       <Box component='span' sx={{ mr: 4, '& svg': { color: 'success.main' } }}>
-        <Icon icon='mdi:android' fontSize={20} />
+        <TabletIcon />
       </Box>
     )
   },
   {
-    location: 'India',
-    device: 'Apple iMac',
-    date: '16, July 2021 16:17',
-    browserName: 'Chrome on MacOS',
+    location: 'Pamplona - España',
+    device: 'Teléfono',
+    date: '19/8/23 - 7:39 am',
+    browserName: 'Chrome on iPhone',
+    login: 'Cerrar sesión',
     browserIcon: (
-      <Box component='span' sx={{ mr: 4, '& svg': { color: 'secondary.main' } }}>
-        <Icon icon='mdi:apple' fontSize={20} />
-      </Box>
-    )
-  },
-  {
-    location: 'Switzerland',
-    device: 'HP Spectre 360',
-    date: '20, July 2021 21:01',
-    browserName: 'Chrome on Windows',
-    browserIcon: (
-      <Box component='span' sx={{ mr: 4, '& svg': { color: 'info.main' } }}>
-        <Icon icon='mdi:microsoft-windows' fontSize={20} />
-      </Box>
-    )
-  },
-  {
-    location: 'Dubai',
-    device: 'Oneplus 9 Pro',
-    date: '21, July 2021 12:22',
-    browserName: 'Chrome on Android',
-    browserIcon: (
-      <Box component='span' sx={{ mr: 4, '& svg': { color: 'success.main' } }}>
-        <Icon icon='mdi:android' fontSize={20} />
+      <Box component='span' sx={{ mr: 4, '& svg': { color: 'error.main' } }}>
+        <PhoneIcon />
       </Box>
     )
   }
 ]
 
 const TabSecurity = () => {
+  const [isChecked, setIsChecked] = useState<boolean>(false)
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setIsChecked(e.target.checked)
+  }
+
   return (
     <Grid container spacing={6}>
-      <Grid item xs={12}>
-        <ChangePasswordCard />
-      </Grid>
-      <Grid item xs={12}>
-        <TwoFactorAuthentication />
-      </Grid>
-      <Grid item xs={12}>
-        <CreateApiKey />
-      </Grid>
-
-      {/* API Key List & Access Card*/}
-      <Grid item xs={12}>
+      {/* Recent Devices Card*/}
+      <Grid item xs={5}>
         <Card>
-          <CardHeader title='API Key List & Access' />
-          <CardContent>
-            <Typography sx={{ mb: 4, color: 'text.secondary' }}>
-              An API key is a simple encrypted string that identifies an application without any principal. They are
-              useful for accessing public data anonymously, and are used to associate API requests with your project for
-              quota and billing.
-            </Typography>
-            {apiKeyList.map(item => {
-              return (
-                <Box
-                  key={item.key}
-                  sx={{ p: 4, borderRadius: 1, backgroundColor: 'action.hover', '&:not(:last-child)': { mb: 4 } }}
-                >
-                  <Box sx={{ mb: 3, display: 'flex', alignItems: 'center' }}>
-                    <Typography variant='h6' sx={{ mr: 4 }}>
-                      {item.title}
-                    </Typography>
-                    <CustomChip
-                      size='small'
-                      skin='light'
-                      color='primary'
-                      label={item.access}
-                      sx={{ textTransform: 'uppercase' }}
-                    />
-                  </Box>
-                  <Box sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
-                    <Typography sx={{ mr: 3, color: 'text.secondary', fontWeight: 600 }}>{item.key}</Typography>
-                    <Box component='span' sx={{ display: 'flex', cursor: 'pointer', color: 'text.secondary' }}>
-                      <Icon icon='mdi:content-copy' fontSize='1rem' />
-                    </Box>
-                  </Box>
-                  <Typography sx={{ color: 'text.secondary' }}>Created on {item.date}</Typography>
+          <CardHeader title='DISPOSITIVOS CONECTADOS' />
+          <Typography sx={{ whiteSpace: 'nowrap', color: 'text.secondary', alignItems: 'center', ml: '2em'}}>
+            Has iniciado sesión en:
+          </Typography>
+          {recentDeviceData.map((row, index) => (
+            <CardContent key={index}>
+              <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
+                {row.browserIcon}
+                <Box component='div' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                  <Typography sx={{ whiteSpace: 'nowrap', color: 'text.secondary' }}>
+                    Dispositivo: {row.device}
+                  </Typography>
+
+                  <Typography sx={{ whiteSpace: 'nowrap', color: 'text.secondary' }}>Lugar: {row.location}</Typography>
+                  <Typography sx={{ whiteSpace: 'nowrap', color: 'text.secondary' }}>
+                    Fecha y Hora: {row.date}
+                  </Typography>
+                  <Typography sx={{ whiteSpace: 'nowrap', color: '#F836F4' }}>{row.thisDevice}</Typography>
+
+                  <Typography sx={{ whiteSpace: 'nowrap', color: 'text.secondary' }}>{row.login}</Typography>
                 </Box>
-              )
-            })}
+              </Box>
+            </CardContent>
+          ))}
+        </Card>
+      </Grid>
+      <Grid item xs={7}>
+        <Card style={{ height: '100%' }}>
+          <CardHeader title='ALERTA DE INICIO DE SESION' />
+          <CardContent>
+            <Typography sx={{ whiteSpace: 'nowrap', color: 'text.secondary' }}>
+              Administra cómo quieres que se te notifique sobre los inicios de sesión no reconocidos en tu cuenta.
+            </Typography>
+            <FormControlLabel
+        control={<Checkbox checked={isChecked} onChange={handleChange} />}
+        label="Notificación en la Web/app"
+        labelPlacement="start"
+      />
+      {isChecked && (
+        <div>
+          <p style={{ paddingLeft: '1em' }}>Intentaron iniciar sesión desde:</p>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div>
+              <ComputerIcon />
+            </div>
+            <div style={{ paddingLeft: '2em' }}>
+              <p>Dispositivo: ejemplo</p>
+              <p>Lugar: ejemplo</p>
+              <p>IP: XXX.XXXX.XXX</p>
+              <p>Hora: 17:28 pm</p>
+            </div>
+          </div>
+          <Button variant="contained" startIcon={<Negativo />}>
+            No fui yo
+          </Button>
+        </div>
+      )}
+      <div>
+        <FormControlLabel
+          control={<Checkbox />}
+          label="Correo Electrónico"
+          labelPlacement="start"
+        />
+              <Typography sx={{ whiteSpace: 'nowrap', color: 'text.secondary', ml:'1em' }}>mailusuario@ejemplo.com</Typography>
+              <Typography sx={{ whiteSpace: 'nowrap', color: '#6DFC73', ml:'1em' }}>Siempre activado</Typography>
+      </div>
           </CardContent>
         </Card>
       </Grid>
 
-      {/* Recent Devices Card*/}
       <Grid item xs={12}>
-        <Card>
-          <CardHeader title='Recent Devices' />
-          <TableContainer>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell sx={{ whiteSpace: 'nowrap' }}>Browser</TableCell>
-                  <TableCell sx={{ whiteSpace: 'nowrap' }}>Device</TableCell>
-                  <TableCell sx={{ whiteSpace: 'nowrap' }}>Location</TableCell>
-                  <TableCell sx={{ whiteSpace: 'nowrap' }}>Recent Activities</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {recentDeviceData.map((row, index) => (
-                  <TableRow key={index}>
-                    <TableCell>
-                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        {row.browserIcon}
-                        <Typography sx={{ fontWeight: 600, whiteSpace: 'nowrap', color: 'text.secondary' }}>
-                          {row.browserName}
-                        </Typography>
-                      </Box>
-                    </TableCell>
-                    <TableCell>
-                      <Typography sx={{ whiteSpace: 'nowrap', color: 'text.secondary' }}>{row.device}</Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography sx={{ whiteSpace: 'nowrap', color: 'text.secondary' }}>{row.location}</Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography sx={{ whiteSpace: 'nowrap', color: 'text.secondary' }}>{row.date}</Typography>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Card>
+        <ChangePasswordCard />
+      </Grid>
+
+      <Grid item xs={12}>
+        <TwoFactorAuthentication />
       </Grid>
     </Grid>
   )

@@ -22,6 +22,8 @@ import Icon from 'src/@core/components/icon'
 
 // ** Third Party Imports
 import { useForm, Controller } from 'react-hook-form'
+import GreenChecked from 'src/@core/icons/GreenChecked'
+import PinkAirplane from 'src/@core/icons/PinkAirplane'
 
 const TwoFactorAuthenticationCard = () => {
   // ** States
@@ -52,25 +54,17 @@ const TwoFactorAuthenticationCard = () => {
   return (
     <>
       <Card>
-        <CardHeader title='Two-steps verification' />
+        <CardHeader title='VERIFICACION DE DOS PASOS' />
         <CardContent>
-          <Typography sx={{ mb: 4, fontWeight: 600, color: 'text.secondary' }}>
-            Two factor authentication is not enabled yet.
+          <Typography sx={{ mb: 4, color: 'text.secondary' }}>
+            La autenticación de dos factores aún no está activada
           </Typography>
           <Typography sx={{ mb: 6, width: '75%', color: 'text.secondary' }}>
-            Two-factor authentication adds an additional layer of security to your account by requiring more than just a
-            password to log in.{' '}
-            <Box
-              href='/'
-              component={'a'}
-              onClick={e => e.preventDefault()}
-              sx={{ textDecoration: 'none', color: 'primary.main' }}
-            >
-              Learn more.
-            </Box>
+            La autenticación de dos factores añade una capa adicional de seguridad a tu cuenta al requerir algo más que
+            una contraseña para iniciar sesión.
           </Typography>
-          <Button variant='contained' onClick={toggle2FADialog}>
-            Enable two-factor authentication
+          <Button variant='contained' onClick={toggle2FADialog} startIcon={<GreenChecked />}>
+            ACTIVAR LA AUTENTICACION DE DOS FACTORES
           </Button>
         </CardContent>
       </Card>
@@ -82,9 +76,9 @@ const TwoFactorAuthenticationCard = () => {
             py: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
           }}
         >
-          <Box sx={{ mb: 12, display: 'flex', justifyContent: 'center' }}>
+          <Box component='div' sx={{ mb: 12, display: 'flex', justifyContent: 'center' }}>
             <Typography variant='h5' sx={{ fontSize: '1.625rem' }}>
-              Enable One Time Password
+              VERIFICACION PRIMER PASO
             </Typography>
           </Box>
 
@@ -92,9 +86,11 @@ const TwoFactorAuthenticationCard = () => {
             <Icon icon='mdi:close' />
           </IconButton>
 
-          <Typography sx={{ color: 'text.secondary', fontWeight: 500 }}>Verify Your Mobile Number for SMS</Typography>
+          <Typography sx={{ color: 'text.secondary', fontWeight: 500 }}>
+            Verifique su número de móvil para SMS
+          </Typography>
           <Typography sx={{ mt: 4, mb: 6 }}>
-            Enter your mobile phone number with country code and we will send you a verification code.
+            Introduzca su número de teléfono móvil con el código de país y le enviaremos un código de verificación.
           </Typography>
 
           <form onSubmit={handleSubmit(on2FAFormSubmit)}>
@@ -113,9 +109,9 @@ const TwoFactorAuthenticationCard = () => {
                     onChange={onChange}
                     label='Phone Number'
                     id='opt-phone-number'
-                    placeholder='202 555 0111'
+                    placeholder='+54 245731135'
                     error={Boolean(errors.phoneNumber)}
-                    startAdornment={<InputAdornment position='start'>+1</InputAdornment>}
+                    endAdornment={<InputAdornment position='start'><PinkAirplane/></InputAdornment>}
                   />
                 )}
               />
