@@ -19,8 +19,6 @@ const DefaultPalette = (mode: Palette['mode'], skin: Skin): Palette => {
     } else return '#0e2b42'
   }
 
-  // line 19 bg color
-
   return {
     customColors: {
       dark: darkColor,
@@ -40,7 +38,6 @@ const DefaultPalette = (mode: Palette['mode'], skin: Skin): Palette => {
       white: whiteColor
     },
     primary: {
-      // button colors
       light: '#59c1bd',
       main: '#59c1bd',
       dark: '#59c1bd',
@@ -99,7 +96,6 @@ const DefaultPalette = (mode: Palette['mode'], skin: Skin): Palette => {
     },
     divider: `rgba(${mainColor}, 0.12)`,
     background: {
-      // components bg color
       paper: mode === 'light' ? whiteColor : '#20435e',
       default: defaultBgColor()
     },
