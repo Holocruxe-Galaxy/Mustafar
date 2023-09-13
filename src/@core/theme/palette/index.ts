@@ -41,9 +41,9 @@ const DefaultPalette = (mode: Palette['mode'], skin: Skin): Palette => {
     },
     primary: {
       // button colors
-      light: '#59c1bd',
-      main: '#59c1bd',
-      dark: '#59c1bd',
+      light: '#59C1BD',
+      main: '#59C1BD',
+      dark: '#59C1BD',
       contrastText: whiteColor
     },
     secondary: {
@@ -65,9 +65,9 @@ const DefaultPalette = (mode: Palette['mode'], skin: Skin): Palette => {
       contrastText: whiteColor
     },
     info: {
-      light: '#59c1bd',
-      main: '#59c1bd',
-      dark: '#59c1bd',
+      light: '#59C1BD',
+      main: '#59C1BD',
+      dark: '#59C1BD',
       contrastText: whiteColor
     },
     success: {
@@ -99,7 +99,6 @@ const DefaultPalette = (mode: Palette['mode'], skin: Skin): Palette => {
     },
     divider: `rgba(${mainColor}, 0.12)`,
     background: {
-      // components bg color
       paper: mode === 'light' ? whiteColor : '#20435e',
       default: defaultBgColor()
     },
