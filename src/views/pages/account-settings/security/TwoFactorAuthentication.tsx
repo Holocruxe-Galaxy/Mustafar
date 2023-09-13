@@ -8,6 +8,7 @@ import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import InputLabel from '@mui/material/InputLabel'
 import IconButton from '@mui/material/IconButton'
+import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
@@ -28,6 +29,7 @@ import PinkAirplane from 'src/@core/icons/PinkAirplane'
 const TwoFactorAuthenticationCard = () => {
   // ** States
   const [open, setOpen] = useState<boolean>(false)
+  const [openSec, setOpenSec] = useState<boolean>(false)
 
   // ** Hooks
   const {
@@ -39,6 +41,7 @@ const TwoFactorAuthenticationCard = () => {
   } = useForm({ defaultValues: { phoneNumber: '' } })
 
   const toggle2FADialog = () => setOpen(!open)
+  const toggleSecondDialog = () => setOpenSec(!openSec)
 
   const on2FAFormSubmit = () => {
     toggle2FADialog()
@@ -49,6 +52,10 @@ const TwoFactorAuthenticationCard = () => {
     toggle2FADialog()
     clearErrors('phoneNumber')
     setValue('phoneNumber', '')
+  }
+  const closeSecondDialog = () => {
+    toggleSecondDialog()
+    
   }
 
   return (
@@ -96,7 +103,7 @@ const TwoFactorAuthenticationCard = () => {
           <form onSubmit={handleSubmit(on2FAFormSubmit)}>
             <FormControl fullWidth sx={{ mb: 4 }}>
               <InputLabel htmlFor='opt-phone-number' error={Boolean(errors.phoneNumber)}>
-                Phone Number
+                Teléfono
               </InputLabel>
               <Controller
                 name='phoneNumber'
@@ -107,11 +114,11 @@ const TwoFactorAuthenticationCard = () => {
                     type='number'
                     value={value}
                     onChange={onChange}
-                    label='Phone Number'
+                    label='Teléfono'
                     id='opt-phone-number'
                     placeholder='+54 245731135'
                     error={Boolean(errors.phoneNumber)}
-                    endAdornment={<InputAdornment position='start'><PinkAirplane/></InputAdornment>}
+                    endAdornment={<InputAdornment position='start'><IconButton onClick={toggleSecondDialog}><PinkAirplane/></IconButton></InputAdornment>}
                   />
                 )}
               />
@@ -119,15 +126,89 @@ const TwoFactorAuthenticationCard = () => {
                 <FormHelperText sx={{ color: 'error.main' }}>Please enter a valid phone number</FormHelperText>
               )}
             </FormControl>
-            <div>
+            {/* <div>
               <Button variant='contained' type='submit' sx={{ mr: 3.5 }}>
                 Submit
               </Button>
               <Button type='reset' variant='outlined' color='secondary' onClick={close2FADialog}>
                 Cancel
               </Button>
-            </div>
+            </div> */}
           </form>
+        </DialogContent>
+      </Dialog>
+      <Dialog fullWidth open={openSec} onClose={toggleSecondDialog}>
+      <DialogContent
+          sx={{
+            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+            py: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
+          }}
+        >
+          <Box component='div' sx={{ mb: 12, display: 'flex', justifyContent: 'center' }}>
+            <Typography variant='h5' sx={{ fontSize: '1.625rem' }}>
+            VERIFICACION SEGUNDO PASO
+            </Typography>
+          </Box>
+          <IconButton size='small' onClick={closeSecondDialog} sx={{ position: 'absolute', right: '1rem', top: '1rem' }}>
+            <Icon icon='mdi:close' />
+          </IconButton>
+          <Typography sx={{ mt: 4, mb: 6 }}>
+          Introduzca el número de 6 digitos que se envió en su telefono como SMS
+          </Typography>
+          <TextField
+          id="standard-number"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          sx={{ width: 0.1, mr: 8 }}
+          variant="standard"
+        />
+          <TextField
+          id="standard-number"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          sx={{ width: 0.1, mr: 8 }}
+          variant="standard"
+        />
+          <TextField
+          id="standard-number"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          sx={{ width: 0.1, mr: 8 }}
+          variant="standard"
+        />
+          <TextField
+          id="standard-number"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          sx={{ width: 0.1, mr: 8 }}
+          variant="standard"
+        />
+          <TextField
+          id="standard-number"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          sx={{ width: 0.1, mr: 8 }}
+          variant="standard"
+        />
+          <TextField
+          id="standard-number"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          sx={{ width: 0.1, mr: 8 }}
+          variant="standard"
+        />
         </DialogContent>
       </Dialog>
     </>
