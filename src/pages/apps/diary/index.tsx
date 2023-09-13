@@ -183,8 +183,6 @@ const Diary = () => {
   }
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    // TODO: Control de caracteres máximo 200.
-
     e.preventDefault()
     if (inputRef.current && inputRef.current.value.length) {
       setDiary({ ...diary, content: inputRef.current.value })
@@ -195,7 +193,7 @@ const Diary = () => {
 
   const classes = useStyles()
 
-  // Vars  
+  // Vars
   const diaryCards = [
     {
       name: 'DIARIO',
@@ -211,9 +209,9 @@ const Diary = () => {
 
   return (
     <>
-    <Box component='div' sx={{mb: 4}}>
-      <CardButtons data={diaryCards}/>
-    </Box>
+      <Box component='div' sx={{ mb: 4 }}>
+        <CardButtons data={diaryCards} />
+      </Box>
       <Card sx={{ height: '100%' }}>
         <CardContent>
           <form onSubmit={onSubmit}>

@@ -407,7 +407,7 @@ const Entries = ({ id, props }: any) => {
             </Tooltip>
 
             <Modal open={openEdit} onClose={handleCloseEdit} sx={styleModal}>
-              <Box sx={styleEdit}>
+              <Box sx={styleEdit} component='div'>
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <FormControl>
                     <Controller
