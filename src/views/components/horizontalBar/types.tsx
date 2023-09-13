@@ -3,3 +3,7 @@ export type CardLinksProps = {
   icon: string
   href?: string
 }
+
+export type CardButtonsProps = {
+  data: CardLinksProps[]
+}

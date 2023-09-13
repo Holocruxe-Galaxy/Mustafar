@@ -1,26 +1,51 @@
 // ** MUI Imports
 import React from 'react'
 import Box from '@mui/material/Box'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
+import { useTheme } from '@mui/material/styles'
 
-/* import ModeButton from '../horizontalBarButtons/ModeButton' */
-/* import ModeToggler from 'src/@core/layouts/components/shared-components/ModeToggler' */
+// ** Hooks Import
+import { Link } from '@mui/material'
+import { useSettings } from 'src/@core/hooks/useSettings'
 
-const CardButtons = () => {
+// ** Types Imports
+import { CardButtonsProps, CardLinksProps } from 'src/views/components/horizontalBar/types'
+
+import CardLinks from './CardLinks'
+
+const CardButtons = (props: CardButtonsProps) => {
+  // ** Props
+  const {
+    data
+  } = props
+
+  // ** Hooks
+  const theme = useTheme()
+  const { settings } = useSettings()
+
+  // Vars
+  const { skin } = settings
+
   return (
-    <Card sx={{ display: 'flex', alignItems: 'center', width: 400, margin: 4 }}>
-      <CardContent sx={{ py: theme => `${theme.spacing(4.125)} !important`, height: 100 }}>
-        <Box
-          component='div'
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            flexWrap: 'wrap'
-          }}
-        ></Box>
-      </CardContent>
-    </Card>
+    <Box
+    component='div'
+    sx={{
+      width: '100%',
+      height: '5.688rem',
+      display: 'flex',
+      overflow: 'hidden',
+      position: 'relative',
+      backgroundColor: 'background.paper',
+      borderRadius: '10px',
+      boxShadow: skin === 'bordered' ? 0 : 6,
+      ...(skin === 'bordered' && { border: `1px solid ${theme.palette.divider}` })
+    }}
+    >
+      {data?.map((item: CardLinksProps, index: number) => (
+        <Link key={index} href={item.href}>
+          <CardLinks name={item.name} icon={item.icon} key={index}/>
+        </Link>
+      ))}
+    </Box>
   )
 }
 
