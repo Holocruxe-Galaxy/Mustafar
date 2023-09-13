@@ -22,10 +22,12 @@ const Avatar = styled(CustomAvatar)<AvatarProps>(({ theme }) => ({
 
 const CardLinks = (props: CardLinksProps) => {
   // Vars
-  const { name, icon, href } = props
+  const { name, icon } = props
 
   return (
-    <Card sx={{ display: 'flex', alignItems: 'center', width: 345, height: 70, my: 2.5, mx: '25px', borderRadius: '14px'}}>
+    <Card
+      sx={{ display: 'flex', alignItems: 'center', width: 345, height: 70, my: 2.5, mx: '25px', borderRadius: '14px' }}
+    >
       <CardContent sx={{ height: 100 }}>
         <Box
           component='div'
