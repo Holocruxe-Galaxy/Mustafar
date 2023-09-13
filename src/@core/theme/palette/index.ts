@@ -38,16 +38,10 @@ const DefaultPalette = (mode: Palette['mode'], skin: Skin): Palette => {
       white: whiteColor
     },
     primary: {
-<<<<<<< HEAD
-      light: '#59c1bd',
-      main: '#59c1bd',
-      dark: '#59c1bd',
-=======
       // button colors
       light: '#59C1BD',
       main: '#59C1BD',
       dark: '#59C1BD',
->>>>>>> 9cdc4452475aa5cdc8b24922d28d24e5dfe61aea
       contrastText: whiteColor
     },
     secondary: {

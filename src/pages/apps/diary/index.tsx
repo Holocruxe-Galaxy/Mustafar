@@ -255,11 +255,7 @@ const Diary = () => {
 
   return (
     <>
-<<<<<<< HEAD
       <Box component='div' sx={{ mb: 5 }}>
-=======
-      <Box component='div' sx={{ mb: 4 }}>
->>>>>>> 9cdc4452475aa5cdc8b24922d28d24e5dfe61aea
         <CardButtons data={diaryCards} />
       </Box>
       <Card sx={{ height: '100%' }}>
