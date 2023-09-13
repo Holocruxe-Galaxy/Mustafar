@@ -111,7 +111,6 @@ const Diary = () => {
   const { data: diaryData } = useSelector((state: RootState) => state.diary)
   const dispatch = useDispatch<AppDispatch>()
 
-  const [checked, setChecked] = useState<boolean>(false)
   const [toSend, setToSend] = useState<boolean>(false)
   const [isPickerVisible, setPickerVisible] = useState<boolean | null>(false)
   const [isMultiline, setMultiline] = useState<boolean>(false)
@@ -168,10 +167,6 @@ const Diary = () => {
     }
 
     setPickerVisible(!isPickerVisible)
-  }
-
-  const handleChecked = () => {
-    setChecked(!checked)
   }
 
   const fileSelected = (e: ChangeEvent<HTMLInputElement>) => {
@@ -232,7 +227,7 @@ const Diary = () => {
                 label='Qué hay de nuevo? ...'
                 inputRef={inputRef}
                 onChange={e => handleValue(e)}
-                sx={{ width: '70%', marginRight: 3, borderRadius: 2 }}
+                sx={{ width: '80%', marginRight: 3, borderRadius: 2 }}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position='end' sx={{ display: 'flex' }}>
@@ -263,12 +258,7 @@ const Diary = () => {
               ></TextField>
               <Box display='flex' justifyContent='center' component='div'>
                 <Tooltip title='Al activarlo, se guardará como tus publicaciones favoritas' placement='top'>
-                  <Android12Switch
-                    sx={{ marginRight: 3 }}
-                    onChange={handleSwitchChange}
-                    onClick={handleChecked}
-                    checked={checked}
-                  />
+                  <Android12Switch sx={{ marginRight: 3 }} onClick={handleSwitchChange} checked={diary.favorite} />
                 </Tooltip>
 
                 <input
@@ -284,19 +274,22 @@ const Diary = () => {
 
                 <Select
                   id='select'
-                  variant='standard'
-                  sx={{ marginRight: 2, width: '15%' }}
                   value={diary.emoji || ''}
+                  variant='standard'
+                  sx={{ height: '3rem' }}
                   onChange={handleChange}
                   displayEmpty
                   renderValue={selected => {
                     if (selected === '' || !selected) {
-                      return <ArtIcon />
+                      return (
+                        <span style={{ position: 'absolute', top: 0, right: 50 }}>
+                          <ArtIcon />
+                        </span>
+                      )
                     }
 
                     return selected
                   }}
-                  inputProps={{ 'aria-label': 'Without label' }}
                 >
                   {emotions.map(e => (
                     <MenuItem key={e.value} value={e.value}>

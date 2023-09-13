@@ -303,7 +303,11 @@ const Entries = ({ id, props }: any) => {
                           displayEmpty
                           renderValue={selected => {
                             if (selected === '' || !selected) {
-                              return <ArtIcon />
+                              return (
+                                <span style={{ position: 'absolute', bottom: 0, right: 50 }}>
+                                  <ArtIcon />
+                                </span>
+                              )
                             }
 
                             return selected
