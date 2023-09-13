@@ -17,7 +17,7 @@ interface EntryState {
 
 type PostDiaryAndFile = PostDiary & {file?: FormData}
 
-async function photoUploader(token: string, _id: string, counter = 0) {
+async function photoUploader(token: string, _id: string, counter = 0): Promise<any> {
   counter++
   if(counter === 10) return
 
