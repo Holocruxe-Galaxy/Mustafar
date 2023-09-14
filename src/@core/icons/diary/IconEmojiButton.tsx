@@ -1,4 +1,4 @@
-const IconButton = () => {
+const IconEmojiButton = () => {
   return (
     <svg xmlns='http://www.w3.org/2000/svg' width='27' height='48' viewBox='0 0 48 48' fill='none'>
       <g filter='url(#filter0_di_849_49992)'>
@@ -59,4 +59,4 @@ const IconButton = () => {
   )
 }
 
-export default IconButton
+export default IconEmojiButton

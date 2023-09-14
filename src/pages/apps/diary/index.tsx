@@ -23,6 +23,7 @@ import { Box } from '@mui/system'
 import { styled } from '@mui/material/styles'
 import { makeStyles } from '@mui/styles'
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied'
+import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions'
 
 // ** Emoji Picker
 import data from '@emoji-mart/data'
@@ -41,7 +42,9 @@ import CardButtons from 'src/views/components/horizontalBar/CardButtons'
 // ** Icon Components
 import UploadButton from 'src/@core/icons/diary/UploadButton'
 import Rocket from 'src/@core/icons/diary/Rocket'
-import ArtIcon from 'src/@core/icons/diary/ArtIcon'
+
+//import ArtIcon from 'src/@core/icons/diary/ArtIcon'
+import IconEmojiButton from 'src/@core/icons/diary/IconEmojiButton'
 
 const useStyles = makeStyles(() => ({
   picker: {
@@ -217,7 +220,6 @@ const Diary = () => {
       dispatch(addDiary(diary))
       setDiary({ content: '', favorite: false })
     } else if (diary.content.length && file) {
-      console.log('entre!')
       dispatch(addDiaryWithPhoto({ ...diary, file }))
       setDiary({ content: '', favorite: false })
       setFile(undefined)
@@ -335,7 +337,7 @@ const Diary = () => {
                         sx={isMultiline ? undefined : { display: 'none' }}
                         className={classes.iconButton}
                       >
-                        <IconButton />
+                        <IconEmojiButton />
                       </IconButton>
                     </InputAdornment>
                   )
@@ -366,11 +368,7 @@ const Diary = () => {
                   displayEmpty
                   renderValue={selected => {
                     if (selected === '' || !selected) {
-                      return (
-                        <span style={{ position: 'absolute', top: 0, right: 50 }}>
-                          <ArtIcon />
-                        </span>
-                      )
+                      return <EmojiEmotionsIcon sx={{ paddingLeft: 10 }} />
                     }
 
                     return selected
@@ -386,7 +384,7 @@ const Diary = () => {
               <Button
                 variant='contained'
                 type='submit'
-                sx={isMultiline ? { position: 'absolute', top: '25.5rem', right: '10rem' } : { display: 'none' }}
+                sx={isMultiline ? { position: 'absolute', top: '25.5rem', right: '17rem' } : { display: 'none' }}
               >
                 Enviar
                 <div style={{ paddingLeft: 6 }}>
