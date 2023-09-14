@@ -119,13 +119,16 @@ const useStyles = makeStyles(() => ({
     zIndex: 9999
   },
   iconButton: {
+    width: '3rem',
     '&:hover': {
-      backgroundColor: 'transparent' // Set the background color to transparent on hover
+      backgroundColor: 'transparent',
+      transition: 'none' // Set the background color to transparent on hover
     },
     '&:active': {
-      backgroundColor: 'transparent' // Set the background color to transparent when active (clicked)
+      backgroundColor: 'transparent',
+      transition: 'none' // Set the background color to transparent when active (clicked)
     },
-    '& .MuiIconButton-label': {
+    '&.MuiIconButton-label': {
       transition: 'none' // Remove any transitions on the label (icon) to prevent animations
     }
   }
@@ -289,68 +292,63 @@ const Entries = ({ id, props }: any) => {
                         ></TextField>
                       )}
                     />
-                    {props.emoji && <IconButton>{props.emoji}</IconButton>}
-                    <Controller
-                      name='favorite'
-                      control={control}
-                      render={({ field: { value, onChange } }) => (
-                        <MaterialUISwitch
-                          checked={value}
-                          onChange={onChange}
-                          inputRef={favoriteRef}
-                          sx={{ position: 'absolute', top: 130, left: 170 }}
-                        />
-                      )}
-                    />
-                    <Controller
-                      name='emoji'
-                      control={control}
-                      render={({ field: { value, onChange } }) => (
-                        <Select
-                          value={value}
-                          onChange={onChange}
-                          inputRef={emojiRef}
-                          id='select'
-                          variant='standard'
-                          sx={{ position: 'absolute', top: 130 }}
-                          displayEmpty
-                          renderValue={selected => {
-                            if (selected === '' || !selected) {
-                              return (
-                                <span style={{ position: 'absolute', bottom: 0, right: 50 }}>
-                                  <ArtIcon />
-                                </span>
-                              )
-                            }
+                    {props.emoji && <IconButton className={classes.iconButton}>{props.emoji}</IconButton>}
+                    <div
+                      style={{ display: 'flex', flexDirection: 'row', position: 'absolute', right: 5, top: '8.2rem' }}
+                    >
+                      <Controller
+                        name='favorite'
+                        control={control}
+                        render={({ field: { value, onChange } }) => (
+                          <MaterialUISwitch checked={value} onChange={onChange} inputRef={favoriteRef} />
+                        )}
+                      />
+                      <Controller
+                        name='emoji'
+                        control={control}
+                        render={({ field: { value, onChange } }) => (
+                          <Select
+                            value={value}
+                            onChange={onChange}
+                            inputRef={emojiRef}
+                            id='select'
+                            variant='standard'
+                            displayEmpty
+                            renderValue={selected => {
+                              if (selected === '' || !selected) {
+                                return (
+                                  <span style={{ position: 'absolute', bottom: 0, right: 50 }}>
+                                    <ArtIcon />
+                                  </span>
+                                )
+                              }
 
-                            return selected
-                          }}
-                          inputProps={{ 'aria-label': 'Without label' }}
-                        >
-                          {emotions.map(e => (
-                            <MenuItem key={e.value} value={e.value}>
-                              {e.name}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                      )}
-                    />
-
+                              return selected
+                            }}
+                            inputProps={{ 'aria-label': 'Without label' }}
+                          >
+                            {emotions.map(e => (
+                              <MenuItem key={e.value} value={e.value}>
+                                {e.name}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        )}
+                      />
+                    </div>
                     {props.photos && props.photos.length > 0 && (
                       <>
                         {fields.map((field, index) => (
                           <CardContent key={field.id}>
+                            <CardMedia component='img' height='500' image={props.photos[0]} alt='img' />
                             <IconButton onClick={() => remove(index)}>
                               <ClearIcon />
                             </IconButton>
-                            <CardMedia component='img' height='500' image={props.photos[0]} alt='img' />
                           </CardContent>
                         ))}
                       </>
                     )}
-                    <Button type='submit' sx={{ marginTop: 36 }}>
-                      Guardar
-                    </Button>
+                    <Button type='submit'>Guardar</Button>
                   </FormControl>
                 </form>
               </Box>
