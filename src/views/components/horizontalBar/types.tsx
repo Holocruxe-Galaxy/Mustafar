@@ -1,5 +1,8 @@
+import { ReactNode } from "react"
+
 export type CardLinksProps = {
-  icon: string
+  activeIcon: ReactNode
+  inactiveIcon: ReactNode
   name: string
   classType?: string
   href?: string

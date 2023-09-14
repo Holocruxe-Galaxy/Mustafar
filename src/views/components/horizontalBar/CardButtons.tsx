@@ -46,7 +46,7 @@ const CardButtons = (props: CardButtonsProps) => {
     >
       {data?.map((item: CardLinksProps, index: number) => (
         <Link key={index} href={item.href} underline="none">
-          <CardLinks classType={currentPage?.href === item.href ? 'cardActive' : 'cardInactive'} name={item.name} icon={item.icon} key={index}/>
+          <CardLinks classType={currentPage?.href === item.href ? 'cardActive' : 'cardInactive'} name={item.name} activeIcon={item.activeIcon} inactiveIcon={item.inactiveIcon} key={index}/>
         </Link>
       ))}
     </Box>

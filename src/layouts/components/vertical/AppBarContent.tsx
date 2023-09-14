@@ -5,9 +5,6 @@ import CardContent from '@mui/material/CardContent'
 import { useTheme } from '@mui/material/styles'
 import { makeStyles } from '@mui/styles'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
 // ** Type Import
 import { Settings } from 'src/@core/context/settingsContext'
 
@@ -15,8 +12,10 @@ import { Settings } from 'src/@core/context/settingsContext'
 // **import Autocomplete from 'src/layouts/components/Autocomplete'
 import CardBarLinks from 'src/views/components/horizontalBar/CardBarLinks'
 import LanguageDropdown from 'src/@core/layouts/components/shared-components/LanguageDropdown'
-import ModeToggler from 'src/@core/layouts/components/shared-components/ModeToggler'
 import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
+import { Search, Bell, Line, Conections, ActiveMetrics, InactiveMetrics, ActiveBinnacle, InactiveBinnacle } from 'src/views/components/icons/index'
+
+//import ModeToggler from 'src/@core/layouts/components/shared-components/ModeToggler'
 
 // ** Hook Import
 import { useAuth } from 'src/hooks/useAuth'
@@ -49,7 +48,11 @@ const AppBarContent = (props: Props) => {
       margin: '1.200rem', 
       borderRadius: '14px', 
       fontSize: '45px', 
-      fontWeight: 1
+      fontWeight: 1,
+      boxShadow: '4px 4px 4px 0px rgba(66, 65, 136, 0.50) inset',
+      '&:hover':{
+        background: 'linear-gradient(180deg, #00FFED -10%, rgba(248, 54, 244, 0.20) 100%)'
+      }
     },
     content: {
       display: 'flex', 
@@ -64,13 +67,13 @@ const AppBarContent = (props: Props) => {
   const cardsArr = [
     {
       page: 'home',
-      buttons: [{ name: 'TUTORIAL', icon: '', href: 'home'}]
+      buttons: [{ name: 'TUTORIAL', activeIcon: '', inactiveIcon: '', href: 'home'}]
     },
     {
       page: 'apps/diary',
       buttons: [
-        { name: 'MI BITÁCORA', icon: '', href: 'apps/diary'},
-        { name: 'TUS MÉTRICAS', icon: '', href: ''}
+        { name: 'MI BITÁCORA', activeIcon: <ActiveBinnacle />, inactiveIcon: <InactiveBinnacle />, href: 'apps/diary'},
+        { name: 'TUS MÉTRICAS', activeIcon: <ActiveMetrics />, inactiveIcon: <InactiveMetrics/>, href: ''}
       ]
     }
   ]
@@ -99,19 +102,20 @@ const AppBarContent = (props: Props) => {
     >
       {currentPage?.buttons.map((card, index) => (
         <Link key='index' href={card.href} underline="none">
-          <CardBarLinks classType={ selectedPage === card.href ? 'cardActive' : 'cardInactive' }  key={index} name={card.name} icon={card.icon} />
+          <CardBarLinks classType={ selectedPage === card.href ? 'cardActive' : 'cardInactive' }  key={index} name={card.name} activeIcon={card.activeIcon} inactiveIcon={card.inactiveIcon} />
         </Link>
       ))}
       <Card className={classes.card} >
         <CardContent className={classes.content} >
-          <Icon icon='ic:baseline-search' height='40px' />
-          {'|'}
+        <Search />
+          <Line />
           <LanguageDropdown settings={settings} saveSettings={saveSettings} />
-          <ModeToggler settings={settings} saveSettings={saveSettings} />
+          <Conections />
+{/*           <ModeToggler settings={settings} saveSettings={saveSettings} /> */}
           {auth.user && (
             <>
-              <Icon icon='ic:baseline-mail' height='40px' />
-              {'|'}
+              <Bell />
+              <Line />
               <UserDropdown settings={settings} />
             </>
           )}

@@ -12,6 +12,7 @@ import OptionsMenu from 'src/@core/components/option-menu'
 
 // ** Type Import
 import { Settings } from 'src/@core/context/settingsContext'
+import { Language } from 'src/views/components/icons/Language'
 
 interface Props {
   settings: Settings
@@ -36,7 +37,7 @@ const LanguageDropdown = ({ settings, saveSettings }: Props) => {
 
   return (
     <OptionsMenu
-      icon={<Icon icon='mdi:translate' height='35px'/>}
+      icon={<Language /> }
       menuProps={{ sx: { '& .MuiMenu-paper': { mt: 4, minWidth: 130 } } }}
       iconButtonProps={{ color: 'inherit', sx: { ...(layout === 'vertical' ? { mr: 0.75 } : { mx: 0.75 }) } }}
       options={[

@@ -35,6 +35,7 @@ import { Cloudinary } from 'src/@core/utils/cloudinary'
 
 // ** Components
 import Entries from 'src/@core/components/diary/Entries'
+import { ActiveDiary, ActiveOrganizer, InactiveDiary, InactiveOrganizer } from 'src/views/components/icons/index'
 
 // ** Redux
 import { addDiary, fetchData } from 'src/store/apps/diary'
@@ -172,12 +173,14 @@ const Diary = () => {
   const diaryCards = [
     {
       name: 'DIARIO',
-      icon: '',
+      activeIcon: <ActiveDiary />,
+      inactiveIcon: <InactiveDiary />,
       href: 'apps/diary'
     },
     {
       name: 'ORGANIZADOR',
-      icon: '',
+      activeIcon: <ActiveOrganizer />,
+      inactiveIcon: <InactiveOrganizer />,
       href: ''
     }
   ]
