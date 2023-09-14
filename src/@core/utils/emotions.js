@@ -1,6 +1,6 @@
 const emotions = [
   {
-    name: 'Ninguno',
+    name: 'Ninguna',
     value: ''
   },
   {

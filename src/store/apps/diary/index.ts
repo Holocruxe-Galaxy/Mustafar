@@ -15,6 +15,26 @@ interface EntryState {
     allData: Diary[]
 }
 
+type PostDiaryAndFile = PostDiary & {file?: FormData}
+
+async function photoUploader(token: string, _id: string, counter = 0): Promise<any> {
+  counter++
+  if(counter === 10) return
+
+  const responseWithFile = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/logbook/diary/entry/${_id}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    },
+
+  })
+  const response: Diary = await responseWithFile.json()
+  if(!response.photos?.length) return photoUploader(token, _id, counter)
+
+  return response
+}
+
 // ** Fetch Entries
 export const fetchData = createAsyncThunk('appDiary/fetchData',
   async () => {
@@ -44,24 +64,81 @@ export const fetchData = createAsyncThunk('appDiary/fetchData',
 // ** Add Entry
 export const addDiary = createAsyncThunk(
   'appDiary/addDiary',
-  async (data: PostDiary, { dispatch }: Redux) => {
-      const token = localStorage.getItem('AuthorizationToken');
+  async (data: PostDiary, { getState }: Redux) => {
+    const token = localStorage.getItem('AuthorizationToken');
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/logbook/diary`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      });
-      console.log(response)
-      if (!response.ok) {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/logbook/diary`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message);
+    }
+
+    const prevState: Diary[] = [...getState().diary.data];
+    const res: Diary = await response.json()
+
+    prevState.unshift(res)
+
+    return { data: prevState }
+  }
+)
+
+// ** Add Entry
+export const addDiaryWithPhoto = createAsyncThunk(
+  'appDiary/addDiaryWithPhoto',
+  async (data: PostDiaryAndFile, { getState }: Redux) => {
+    const token = localStorage.getItem('AuthorizationToken');
+    const file = data.file
+    delete data.file
+
+    const response = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/logbook/diary`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+
+    if (!response.ok) {
         const error = await response.json();
         throw new Error(error.message);
       }
 
-      dispatch(fetchData())
+    const { _id } = await response.json()
+
+    console.log('este es el id :)', file)
+    const fileResponse = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/logbook/diary/${_id}/upload`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: file
+    })
+
+    if (!fileResponse.ok) {
+      const error = await response.json();
+      console.log('estoy aca', error)
+      throw new Error(error.message);
+    }
+
+    const prevState: Diary[] = [...getState().diary.data];
+    if (!token) return { data: prevState }
+    const uploaded = await photoUploader(token, _id)
+    if (uploaded) {
+      prevState.unshift(uploaded)
+
+      return { data: prevState }
+    }
+
+    return { data: prevState }
   }
 )
 
@@ -123,10 +200,13 @@ export const appDiarySlice = createSlice({
   extraReducers: builder => {
     builder.addCase(fetchData.fulfilled, (state, action) => {
       state.data = action.payload.diary
-
-      // state.total = action.payload.total
-      // state.params = action.payload.params
       state.allData = action.payload.allData
+    })
+    builder.addCase(addDiary.fulfilled, (state, action) => {
+      state.data = action.payload.data
+    })
+    builder.addCase(addDiaryWithPhoto.fulfilled, (state, action) => {
+      state.data = action.payload.data
     })
   }
 })
