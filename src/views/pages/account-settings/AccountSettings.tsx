@@ -97,7 +97,7 @@ const AccountSettings = ({ tab }: { tab: string; }) => {
                   value='seguridad'
                   label={
                     <Box component='div' sx={{ display: 'flex', alignItems: 'center', ...(!hideText && { '& svg': { mr: 2 } }) }}>
-                      <Icon icon='mdi:lock-open-outline' />
+                      <Icon icon='twemoji:locked' />
                       {!hideText && 'Seguridad'}
                     </Box>
                   }
@@ -107,7 +107,7 @@ const AccountSettings = ({ tab }: { tab: string; }) => {
                   value='notificaciones'
                   label={
                     <Box component='div' sx={{ display: 'flex', alignItems: 'center', ...(!hideText && { '& svg': { mr: 2 } }) }}>
-                      <Icon icon='mdi:bell-outline' />
+                      <Icon icon='twemoji:bell' />
                       {!hideText && 'Notificaciones'}
                     </Box>
                   }

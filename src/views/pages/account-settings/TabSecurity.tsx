@@ -17,7 +17,7 @@ import TabletIcon from 'src/@core/icons/TabletIcon'
 import { Button, Checkbox, FormControl, FormControlLabel } from '@mui/material'
 import { Controller } from 'react-hook-form'
 import Negativo from 'src/@core/icons/Negativo'
-import ChangePasswordCard from './security/ChangePasswordCard'
+import LoginAlert from './security/LoginAlert'
 
 interface RecentDeviceDataType {
   date?: string
@@ -166,7 +166,7 @@ const TabSecurity = () => {
       </Grid>
 
       <Grid item xs={12}>
-        <ChangePasswordCard />
+        <LoginAlert />
       </Grid>
 
       <Grid item xs={12}>

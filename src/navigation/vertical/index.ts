@@ -28,7 +28,7 @@ const navigation = (): VerticalNavItemsType => {
     },
     {
       title: 'Configuración',
-      icon: 'mdi:settings-outline',
+      icon: 'noto:gear',
       children: [
         {
           title: 'Cuenta',
