@@ -2,15 +2,11 @@
 import { useEffect, useState } from 'react';
 
 // ** MUI Imports
-//import Badge from '@mui/material/Badge';
-import MuiAvatar from '@mui/material/Avatar';
-import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import Box, { BoxProps } from '@mui/material/Box';
-
-// ** Icon Imports
-import Icon from 'src/@core/components/icon';
+import { makeStyles } from '@mui/styles'
+import { styled } from '@mui/material/styles';
 
 // ** Custom Components Import
 import ChatLog from './ChatLog';
@@ -20,6 +16,7 @@ import SendMsgForm from 'src/views/apps/chat/SendMsgForm';
 import { ChatContentType } from 'src/types/apps/chatTypes';
 import { saveId } from 'src/store/apps/chat';
 import { socketClient } from 'src/libs/socket.io';
+import { InactiveChat, ActiveChat } from 'src/views/components/icons';
 
 // ** Styled Components
 const ChatWrapperStartChat = styled(Box)<BoxProps>(({ theme }) => ({
@@ -44,8 +41,15 @@ const ChatContent = (props: ChatContentType) => {
 
   // ** States
   const [active, setActive] = useState(false);
+  const [activeArea, setActiveArea] = useState(false)
 
   const [id, setId] = useState('');
+
+  const useStyles = makeStyles(() => ({
+    startConversation: {
+      background: 'linear-gradient(180deg, #00FFED -10%, rgba(248, 54, 244, 0.20) 100%)'
+    }
+  }))
 
   useEffect(() => {
     if (id) dispatch(saveId(id));
@@ -61,6 +65,16 @@ const ChatContent = (props: ChatContentType) => {
     setActive(true);
   };
 
+  const handleMouseEnter = () => {
+    setActiveArea(true)
+  }
+
+  const handleMouseLeaves = () => {
+    setActiveArea(false)
+  }
+
+  const classes = useStyles()
+
   const renderContent = () => {
     if (store) {
       const messages = store.messages
@@ -70,41 +84,33 @@ const ChatContent = (props: ChatContentType) => {
         return (
           <ChatWrapperStartChat
             sx={{
-              ...(mdAbove ? { borderTopLeftRadius: 0, borderBottomLeftRadius: 0 } : {})
+              ...(mdAbove ? { borderTopLeftRadius: 0, borderBottomLeftRadius: 0 } : {}),
             }}
           >
             <IconButton
-              sx={{ display: 'flex', flexDirection: 'column', height: 300, width: 300 }}
+              sx={{ display: 'flex', flexDirection: 'column', height: 217, width: 238, '&.MuiButtonBase-root:hover': { bgcolor: "transparent"}}}
               onClick={() => handleStartConversation()}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeaves}
             >
-
-              <MuiAvatar
-                sx={{
-                  mb: 5,
-                  pt: 8,
-                  pb: 7,
-                  px: 7.5,
-                  width: 110,
-                  height: 100,
-                  boxShadow: 3,
-                  '& svg': { color: 'action.active' },
-                  backgroundColor: 'background.paper'
-                }}
-              >
-                <Icon icon='mdi:message-outline' fontSize='3.125rem' />
-              </MuiAvatar>
+              {activeArea ? <ActiveChat /> : <InactiveChat />}
+              
               <Box
                 component='div'
+                className={ activeArea ? classes.startConversation : ''}
                 sx={{
                   px: 6,
-                  py: 2.25,
-                  boxShadow: 3,
-                  borderRadius: 5,
+                  py: 3,
+                  mt: 8,
+                  width:'14.813rem',
+                  height: '3.125rem',
+                  borderRadius: '5px',
+                  boxShadow: '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(66, 65, 136, 0.25) inset',
                   backgroundColor: 'background.paper',
-                  cursor: mdAbove ? 'default' : 'pointer'
+                  cursor: mdAbove ? 'pointer' : 'pointer',
                 }}
               >
-                <Typography sx={{ fontWeight: 600 }}>Iniciar Conversación</Typography>
+                <Typography sx={{ fontWeight: 500, color: '#00FFED' }}>Iniciar Conversación</Typography>
               </Box>
             </IconButton>
           </ChatWrapperStartChat>

@@ -73,7 +73,7 @@ const AnalyticsSessions = () => {
   }
 
   return (
-    <Card>
+    <Card sx={{boxShadow: '4px 4px 4px 0px rgba(255, 255, 255, 0.50)'}}>
       <CardContent>
         <Box component='div' sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
           <Typography variant='h6' sx={{ mr: 1.5 }}>

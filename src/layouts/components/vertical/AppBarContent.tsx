@@ -1,3 +1,6 @@
+// ** React Imports
+import { useState } from 'react'
+
 // ** MUI Imports
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
@@ -13,7 +16,7 @@ import { Settings } from 'src/@core/context/settingsContext'
 import CardBarLinks from 'src/views/components/horizontalBar/CardBarLinks'
 import LanguageDropdown from 'src/@core/layouts/components/shared-components/LanguageDropdown'
 import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
-import { Search, Bell, Line, Conections, ActiveMetrics, InactiveMetrics, ActiveBinnacle, InactiveBinnacle } from 'src/views/components/icons/index'
+import { Search, Bell, Line, InactiveConections, ActiveConections, ActiveMetrics, InactiveMetrics, ActiveBinnacle, InactiveBinnacle, ActiveTutorial, InactiveTutorial } from 'src/views/components/icons/index'
 
 //import ModeToggler from 'src/@core/layouts/components/shared-components/ModeToggler'
 
@@ -38,6 +41,17 @@ const AppBarContent = (props: Props) => {
   const { /* hidden, */ settings, saveSettings } = props
   const theme = useTheme()
 
+    // ** States
+    const [activeArea, setActiveArea] = useState(false)
+
+    const handleMouseEnter = () => {
+      setActiveArea(true)
+    }
+  
+    const handleMouseLeaves = () => {
+      setActiveArea(false)
+    }
+
   const useStyles = makeStyles(() => ({
     card: { 
       display: 'flex', 
@@ -49,7 +63,7 @@ const AppBarContent = (props: Props) => {
       borderRadius: '14px', 
       fontSize: '45px', 
       fontWeight: 1,
-      boxShadow: '4px 4px 4px 0px rgba(66, 65, 136, 0.50) inset',
+      boxShadow: '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(66, 65, 136, 0.50) inset',
       '&:hover':{
         background: 'linear-gradient(180deg, #00FFED -10%, rgba(248, 54, 244, 0.20) 100%)'
       }
@@ -67,7 +81,7 @@ const AppBarContent = (props: Props) => {
   const cardsArr = [
     {
       page: 'home',
-      buttons: [{ name: 'TUTORIAL', activeIcon: '', inactiveIcon: '', href: 'home'}]
+      buttons: [{ name: 'TUTORIAL', activeIcon: <ActiveTutorial />, inactiveIcon: <InactiveTutorial />, href: ''}]
     },
     {
       page: 'apps/diary',
@@ -105,12 +119,16 @@ const AppBarContent = (props: Props) => {
           <CardBarLinks classType={ selectedPage === card.href ? 'cardActive' : 'cardInactive' }  key={index} name={card.name} activeIcon={card.activeIcon} inactiveIcon={card.inactiveIcon} />
         </Link>
       ))}
-      <Card className={classes.card} >
+      <Card 
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeaves} 
+      className={classes.card} >
+
         <CardContent className={classes.content} >
         <Search />
           <Line />
           <LanguageDropdown settings={settings} saveSettings={saveSettings} />
-          <Conections />
+          { activeArea ? <ActiveConections /> : <InactiveConections />}
 {/*           <ModeToggler settings={settings} saveSettings={saveSettings} /> */}
           {auth.user && (
             <>

@@ -77,7 +77,7 @@ const AnalyticsVisitsByDay = () => {
   }
 
   return (
-    <Card>
+    <Card sx={{boxShadow: '4px 4px 4px 0px rgba(255, 255, 255, 0.50)'}}>
       <CardHeader
         title='Interacción por Día'
         subheader='Total 248.5k Visitas'

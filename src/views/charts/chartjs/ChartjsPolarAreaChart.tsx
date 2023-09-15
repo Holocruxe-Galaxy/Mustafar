@@ -66,7 +66,7 @@ const ChartjsPolarAreaChart = (props: PolarAreaProps) => {
   }
 
   return (
-    <Card>
+    <Card sx={{boxShadow: '4px 4px 4px 0px rgba(255, 255, 255, 0.50)'}}>
       <CardHeader
         title='Intereses'
         action={

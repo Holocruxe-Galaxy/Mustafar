@@ -16,7 +16,7 @@ const CardLinks = (props: CardLinksProps) => {
   const useStyles = makeStyles(() =>({
     cardInactive: {
         background: 'none',
-        boxShadow: '4px 4px 4px 0px rgba(66, 65, 136, 0.50) inset',
+        boxShadow: '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(66, 65, 136, 0.50) inset',
         '&:hover':{
           background: 'linear-gradient(180deg, #00FFED -10%, rgba(248, 54, 244, 0.20) 100%)'
         }
@@ -57,7 +57,7 @@ const CardLinks = (props: CardLinksProps) => {
             flexWrap: 'wrap'
           }}
         >
-          <IconButton className={classes.iconActive}>
+          <IconButton className={classes.iconActive} sx={{ ml: 1, "&.MuiButtonBase-root:hover": { bgcolor: "transparent"}}}>
             {classType === 'cardActive'? activeIcon : inactiveIcon }
           </IconButton>
           <Typography className={classType === 'cardActive'? classes.typoActive : classes.typoInactive} variant='h6'>{name}</Typography>
