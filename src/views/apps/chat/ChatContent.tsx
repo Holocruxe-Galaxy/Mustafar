@@ -126,7 +126,6 @@ const ChatContent = (props: ChatContentType) => {
               backgroundColor: 'action.hover'
             }}
           >
-
             <Box
             component='div'
             sx={{

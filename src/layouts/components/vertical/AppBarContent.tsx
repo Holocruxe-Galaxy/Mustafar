@@ -86,7 +86,7 @@ const AppBarContent = (props: Props) => {
     {
       page: 'apps/diary',
       buttons: [
-        { name: 'MI BITÁCORA', activeIcon: <ActiveBinnacle />, inactiveIcon: <InactiveBinnacle />, href: 'apps/diary'},
+        { name: 'MI BITÁCORA', activeIcon: <InactiveBinnacle />, inactiveIcon: <InactiveBinnacle />, href: 'apps/diary'},
         { name: 'TUS MÉTRICAS', activeIcon: <ActiveMetrics />, inactiveIcon: <InactiveMetrics/>, href: ''}
       ]
     }
@@ -128,7 +128,7 @@ const AppBarContent = (props: Props) => {
         <Search />
           <Line />
           <LanguageDropdown settings={settings} saveSettings={saveSettings} />
-          { activeArea ? <ActiveConections /> : <InactiveConections />}
+            <InactiveConections />
 {/*           <ModeToggler settings={settings} saveSettings={saveSettings} /> */}
           {auth.user && (
             <>
