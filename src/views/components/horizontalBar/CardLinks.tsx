@@ -12,6 +12,7 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 // ** Type
 import { CardLinksProps } from './types'
 
+
 // ** Styled Avatar component
 const Avatar = styled(CustomAvatar)<AvatarProps>(({ theme }) => ({
   width: 55,

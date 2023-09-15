@@ -51,6 +51,27 @@ const AppBarContent = (props: Props) => {
         { name: 'MI BITÁCORA', icon: '', href: '', active: true },
         { name: 'TUS MÉTRICAS', icon: '', href: '', active: true }
       ]
+    },
+    {
+      page: 'apps/account',
+      buttons: [
+        { name: 'TUS INTERESES', icon: '', href: '', active: true },
+        { name: 'TUS MÉTRICAS', icon: '', href: '', active: true }
+      ]
+    },
+    {
+      page: 'apps/security',
+      buttons: [
+        { name: 'TUS INTERESES', icon: '', href: '', active: true },
+        { name: 'TUS MÉTRICAS', icon: '', href: '', active: true }
+      ]
+    },
+    {
+      page: 'apps/notifications',
+      buttons: [
+        { name: 'TUS INTERESES', icon: '', href: '', active: true },
+        { name: 'TUS MÉTRICAS', icon: '', href: '', active: true }
+      ]
     }
   ]
 
