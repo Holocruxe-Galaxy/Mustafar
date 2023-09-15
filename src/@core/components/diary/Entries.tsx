@@ -305,10 +305,11 @@ const Entries = ({ id, props }: any) => {
 
   const styleEdit = {
     position: 'absolute' as const,
+    zIndex: 9999,
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 600,
+
     bgcolor: 'background.paper',
     borderRadius: 1,
     boxShadow: 24,
@@ -324,7 +325,11 @@ const Entries = ({ id, props }: any) => {
         avatar={<Avatar sx={{ bgcolor: '#59c1bd' }}>R</Avatar>}
         action={
           <>
-            {props.emoji && <IconButton className={classes.iconButton}>{props.emoji}</IconButton>}
+            {props.emoji && (
+              <IconButton className={classes.iconButton} sx={{ paddingTop: 1 }}>
+                {props.emoji}
+              </IconButton>
+            )}
             {props.favorite && (
               <Tooltip title='Tu publicación se encuentra dentro de tus favoritos' placement='top'>
                 <IconButton className={classes.iconButton}>
@@ -341,6 +346,7 @@ const Entries = ({ id, props }: any) => {
 
             <Modal open={openEdit} onClose={handleCloseEdit} sx={styleModal}>
               <Box sx={styleEdit} component='div'>
+                <Typography sx={{ textAlign: 'left', mb: 5 }}>EDITAR</Typography>
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <FormControl>
                     <Controller
@@ -350,6 +356,7 @@ const Entries = ({ id, props }: any) => {
                         <TextField
                           value={value}
                           multiline
+                          fullWidth
                           minRows={4}
                           onChange={onChange}
                           inputRef={contentRef}
@@ -378,56 +385,69 @@ const Entries = ({ id, props }: any) => {
                         ></TextField>
                       )}
                     />
-                    {props.emoji && <IconButton className={classes.iconButton}>{props.emoji}</IconButton>}
-                    <div
-                      style={{ display: 'flex', flexDirection: 'row', position: 'absolute', right: 5, top: '8.2rem' }}
+                    <Box
+                      component='div'
+                      sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}
                     >
-                      <Controller
-                        name='favorite'
-                        control={control}
-                        render={({ field: { value, onChange } }) => (
-                          <MaterialUISwitch checked={value} onChange={onChange} inputRef={favoriteRef} />
-                        )}
-                      />
-                      <input
-                        type='file'
-                        accept='image/*'
-                        onChange={fileSelected}
-                        style={{ display: 'none' }}
-                        id='uploadButton'
-                      ></input>
-                      <label htmlFor='uploadButton' style={{ marginRight: 15 }}>
-                        <UploadButton />
-                      </label>
-                      <Controller
-                        name='emoji'
-                        control={control}
-                        render={({ field: { value, onChange } }) => (
-                          <Select
-                            value={value}
-                            onChange={onChange}
-                            inputRef={emojiRef}
-                            id='select'
-                            variant='standard'
-                            displayEmpty
-                            renderValue={selected => {
-                              if (selected === '' || !selected) {
-                                return <EmojiEmotionsIcon />
-                              }
+                      {props.emoji && (
+                        <IconButton className={classes.iconButton} sx={{ pr: 5 }}>
+                          {props.emoji}
+                        </IconButton>
+                      )}
+                      <Box sx={{ display: 'flex', flexDirection: 'row', pt: 5, ml: 5 }} component='div'>
+                        <Controller
+                          name='favorite'
+                          control={control}
+                          render={({ field: { value, onChange } }) => (
+                            <MaterialUISwitch
+                              checked={value}
+                              onChange={onChange}
+                              inputRef={favoriteRef}
+                              sx={{ mr: 2 }}
+                            />
+                          )}
+                        />
+                        <input
+                          type='file'
+                          accept='image/*'
+                          onChange={fileSelected}
+                          style={{ display: 'none' }}
+                          id='uploadButton'
+                        ></input>
+                        <label htmlFor='uploadButton' style={{ marginRight: 15 }}>
+                          <UploadButton />
+                        </label>
+                        <Controller
+                          name='emoji'
+                          control={control}
+                          render={({ field: { value, onChange } }) => (
+                            <Select
+                              value={value}
+                              onChange={onChange}
+                              inputRef={emojiRef}
+                              id='select'
+                              sx={{ height: '2.5rem', paddingTop: 2 }}
+                              displayEmpty
+                              renderValue={selected => {
+                                if (selected === '' || !selected) {
+                                  return <EmojiEmotionsIcon />
+                                }
 
-                              return selected
-                            }}
-                            inputProps={{ 'aria-label': 'Without label' }}
-                          >
-                            {emotions.map(e => (
-                              <MenuItem key={e.value} value={e.value}>
-                                {e.name}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                        )}
-                      />
-                    </div>
+                                return selected
+                              }}
+                              inputProps={{ 'aria-label': 'Without label' }}
+                            >
+                              {emotions.map(e => (
+                                <MenuItem key={e.value} value={e.value}>
+                                  {e.name}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          )}
+                        />
+                      </Box>
+                    </Box>
+
                     {props.photos && props.photos.length > 0 && (
                       <>
                         {fields.map((field, index) => (
@@ -440,7 +460,7 @@ const Entries = ({ id, props }: any) => {
                         ))}
                       </>
                     )}
-                    <Button type='submit' sx={{ marginTop: 3 }}>
+                    <Button type='submit' sx={{ width: '10rem', mt: '5rem', ml: '30rem' }}>
                       Guardar
                     </Button>
                   </FormControl>

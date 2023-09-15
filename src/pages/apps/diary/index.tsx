@@ -49,7 +49,8 @@ import IconEmojiButton from 'src/@core/icons/diary/IconEmojiButton'
 const useStyles = makeStyles(() => ({
   picker: {
     position: 'absolute',
-    top: 90,
+    top: 92,
+    right: 20,
     zIndex: 9999
   },
   iconButton: {
@@ -293,7 +294,7 @@ const Diary = () => {
       <Box component='div' sx={{ mb: 5 }}>
         <CardButtons data={diaryCards} />
       </Box>
-      <Card sx={{ height: '100%' }}>
+      <Card sx={{ height: '100%', mb: 5 }}>
         <CardContent>
           <Box
             sx={
@@ -343,54 +344,58 @@ const Diary = () => {
                   )
                 }}
               ></TextField>
-              <Box display='flex' justifyContent='center' component='div'>
-                <Tooltip title='Al activarlo, se guardará como tus publicaciones favoritas' placement='top'>
-                  <MaterialUISwitch sx={{ marginRight: 3 }} onClick={handleSwitchChange} checked={diary.favorite} />
-                </Tooltip>
-
-                <input
-                  type='file'
-                  accept='image/*'
-                  onChange={fileSelected}
-                  style={{ display: 'none' }}
-                  id='uploadButton'
-                ></input>
-                <label htmlFor='uploadButton' style={{ marginRight: 15 }}>
-                  <UploadButton />
-                </label>
-
-                <Select
-                  id='select'
-                  value={diary.emoji || ''}
-                  variant='standard'
-                  sx={{ height: '3rem' }}
-                  onChange={handleChange}
-                  displayEmpty
-                  renderValue={selected => {
-                    if (selected === '' || !selected) {
-                      return <EmojiEmotionsIcon sx={{ paddingLeft: 10 }} />
-                    }
-
-                    return selected
-                  }}
+              <div>
+                <Box
+                  component='div'
+                  sx={{ display: 'flex', justifyContent: 'center', pt: 2, position: 'relative', zIndex: 1 }}
                 >
-                  {emotions.map(e => (
-                    <MenuItem key={e.value} value={e.value}>
-                      {e.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </Box>
-              <Button
-                variant='contained'
-                type='submit'
-                sx={isMultiline ? { position: 'absolute', top: '25.5rem', right: '17rem' } : { display: 'none' }}
-              >
-                Enviar
-                <div style={{ paddingLeft: 6 }}>
-                  <Rocket />
-                </div>
-              </Button>
+                  <Tooltip title='Al activarlo, se guardará como tus publicaciones favoritas' placement='top'>
+                    <MaterialUISwitch sx={{ marginRight: 3 }} onClick={handleSwitchChange} checked={diary.favorite} />
+                  </Tooltip>
+
+                  <input
+                    type='file'
+                    accept='image/*'
+                    onChange={fileSelected}
+                    style={{ display: 'none' }}
+                    id='uploadButton'
+                  ></input>
+                  <label htmlFor='uploadButton' style={{ marginRight: 15 }}>
+                    <UploadButton />
+                  </label>
+
+                  <Select
+                    id='select'
+                    value={diary.emoji || ''}
+                    sx={{ height: '2.5rem', paddingTop: 2 }}
+                    onChange={handleChange}
+                    displayEmpty
+                    renderValue={selected => {
+                      if (selected === '' || !selected) {
+                        return <EmojiEmotionsIcon sx={{ paddingLeft: 10 }} />
+                      }
+
+                      return selected
+                    }}
+                  >
+                    {emotions.map(e => (
+                      <MenuItem key={e.value} value={e.value}>
+                        {e.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </Box>
+                <Button
+                  variant='contained'
+                  type='submit'
+                  sx={isMultiline ? { mt: 4, ml: 33, position: 'relative', zIndex: 0 } : { display: 'none' }}
+                >
+                  Enviar
+                  <div style={{ paddingLeft: 9, paddingTop: 7 }}>
+                    <Rocket />
+                  </div>
+                </Button>
+              </div>
             </form>
           </Box>
         </CardContent>
