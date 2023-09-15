@@ -202,7 +202,7 @@ export const deleteDiary = createAsyncThunk(
       },
 
     });
-    console.log(response)
+
     if (!response.ok) {
       const error = await response.json();
       throw new Error(error.message);
