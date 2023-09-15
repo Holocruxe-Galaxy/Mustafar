@@ -259,7 +259,6 @@ const Entries = ({ id, props }: any) => {
   }
 
   const handleEmojiSelect = (emoji: any) => {
-    console.log(inputRef.current)
     if (inputRef.current && isPickerVisible) {
       const cursorPosition = inputRef.current.selectionStart || 0
       const inputValue = inputRef.current.value
