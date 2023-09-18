@@ -16,7 +16,8 @@ interface EntryState {
 }
 
 type PostDiaryAndFile = PostDiary & {file?: FormData}
-type DiaryAndFile = Diary & {file?: FormData}
+
+//type DiaryAndFile = Diary & {file?: FormData}
 
 async function photoUploader(token: string, _id: string, counter = 0): Promise<any> {
   counter++
@@ -166,7 +167,7 @@ export const editEntrie = createAsyncThunk('appDiary/editDiary', async ({_id, ..
 });
 
 // ** Patch Entry
-export const editEntrieWithFile = createAsyncThunk('appDiary/editDiaryWithFile', async (data: DiaryAndFile , { dispatch }: Redux) => {
+export const editEntrieWithFile = createAsyncThunk('appDiary/editDiaryWithFile', async () => {
 //   const token = localStorage.getItem('AuthorizationToken');
 
 //   const response = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/logbook/diary/${_id}`, {

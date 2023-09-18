@@ -243,7 +243,7 @@ const Entries = ({ id, props }: any) => {
 
     if (!data.photos.length && !props.photos.length) delete data.photos
     if (file) {
-      dispatch(editEntrieWithFile({ ...data, _id: id }))
+      dispatch(editEntrieWithFile())
     }
 
     dispatch(editEntrie({ ...data, _id: id }))
