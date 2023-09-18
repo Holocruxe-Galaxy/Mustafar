@@ -33,7 +33,7 @@ import Tooltip from '@mui/material/Tooltip'
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions'
 
 // ** Redux Toolkit
-import { deleteDiary, editEntrie, editEntrieWithFile } from 'src/store/apps/diary'
+import { deleteDiary, editEntrie } from 'src/store/apps/diary'
 
 // ** Emoji Picker
 import data from '@emoji-mart/data'
@@ -242,11 +242,14 @@ const Entries = ({ id, props }: any) => {
     if (data.emoji === undefined) delete data.emoji
 
     if (!data.photos.length && !props.photos.length) delete data.photos
-    if (file) {
-      dispatch(editEntrieWithFile())
-    }
 
-    dispatch(editEntrie({ ...data, _id: id }))
+    // if (file) {
+    //   dispatch(editEntrieWithFile({ ...data, _id: id }))
+    // } else {
+    //   dispatch(editEntrie({ ...data, _id: id }))
+    // }
+    if (!file) dispatch(editEntrie({ ...data, _id: id }))
+
     handleCloseEdit()
   }
 
@@ -259,7 +262,6 @@ const Entries = ({ id, props }: any) => {
   }
 
   const handleEmojiSelect = (emoji: any) => {
-    console.log(inputRef.current)
     if (inputRef.current && isPickerVisible) {
       const cursorPosition = inputRef.current.selectionStart || 0
       const inputValue = inputRef.current.value

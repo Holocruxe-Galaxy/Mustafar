@@ -17,7 +17,7 @@ interface EntryState {
 
 type PostDiaryAndFile = PostDiary & {file?: FormData}
 
-//type DiaryAndFile = Diary & {file?: FormData}
+// type DiaryAndFile = Diary & {file?: FormData}
 
 async function photoUploader(token: string, _id: string, counter = 0): Promise<any> {
   counter++
@@ -167,27 +167,25 @@ export const editEntrie = createAsyncThunk('appDiary/editDiary', async ({_id, ..
 });
 
 // ** Patch Entry
-export const editEntrieWithFile = createAsyncThunk('appDiary/editDiaryWithFile', async () => {
-//   const token = localStorage.getItem('AuthorizationToken');
+// export const editEntrieWithFile = createAsyncThunk('appDiary/editDiaryWithFile', async (data: DiaryAndFile , { dispatch }: Redux) => {
+//  const token = localStorage.getItem('AuthorizationToken');
 
-//   const response = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/logbook/diary/${_id}`, {
-//    method: 'PATCH',
-//    headers: {
-//      Authorization: `Bearer ${token}`,
-//      'Content-Type': 'application/json'
-//    },
-//    body: JSON.stringify(changes)
-//  });
+//    const response = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/logbook/diary/${_id}`, {
+//     method: 'PATCH',
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//       'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify(changes)
+//   })
+//   if (!response.ok) {
+//     const error = await response.json();
+//     throw new Error(error.message);
+//
+//   dispatch(fetchData())
+// console.log('asds')
 
-//  if (!response.ok) {
-//    const error = await response.json();
-//    throw new Error(error.message);
-//  }
-
-//  dispatch(fetchData())
-console.log('asds')
-
-});
+// });
 
 // ** Delete Entry
 export const deleteDiary = createAsyncThunk(
@@ -203,7 +201,7 @@ export const deleteDiary = createAsyncThunk(
       },
 
     });
-    console.log(response)
+
     if (!response.ok) {
       const error = await response.json();
       throw new Error(error.message);
