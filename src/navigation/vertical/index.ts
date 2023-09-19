@@ -36,7 +36,7 @@ const navigation = (): VerticalNavItemsType => {
         },
         {
           title: 'Seguridad',
-          path: '/apps/secutiry'
+          path: '/apps/security'
         },
         {
           title: 'Notificaciones',

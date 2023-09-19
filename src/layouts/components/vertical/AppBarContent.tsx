@@ -55,21 +55,27 @@ const AppBarContent = (props: Props) => {
     {
       page: 'apps/account',
       buttons: [
-        { name: 'TUS INTERESES', icon: '', href: '', active: true },
+        { name: 'TUS INTERESES',
+        // activeIcon: '', inactiveIcon: ''
+        icon: '', href: '', active: true },
         { name: 'TUS MÉTRICAS', icon: '', href: '', active: true }
       ]
     },
     {
       page: 'apps/security',
       buttons: [
-        { name: 'TUS INTERESES', icon: '', href: '', active: true },
+        { name: 'TUS INTERESES',
+        // activeIcon: '', inactiveIcon: ''
+        icon: '', href: '', active: true },
         { name: 'TUS MÉTRICAS', icon: '', href: '', active: true }
       ]
     },
     {
-      page: 'apps/notifications',
+      page: 'apps/',
       buttons: [
-        { name: 'TUS INTERESES', icon: '', href: '', active: true },
+        { name: 'TUS INTERESES',
+        // activeIcon: '', inactiveIcon: ''
+        icon: '', href: '', active: true },
         { name: 'TUS MÉTRICAS', icon: '', href: '', active: true }
       ]
     }

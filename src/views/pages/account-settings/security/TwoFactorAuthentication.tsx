@@ -21,6 +21,7 @@ import FormHelperText from '@mui/material/FormHelperText'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
+
 // ** Third Party Imports
 import { useForm, Controller } from 'react-hook-form'
 import GreenChecked from 'src/@core/icons/GreenChecked'
@@ -55,7 +56,7 @@ const TwoFactorAuthenticationCard = () => {
   }
   const closeSecondDialog = () => {
     toggleSecondDialog()
-    
+
   }
 
   return (

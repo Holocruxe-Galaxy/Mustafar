@@ -18,7 +18,7 @@ import { Button, Checkbox,
 
   // FormControl,
   FormControlLabel } from '@mui/material'
-  
+
 // import { Controller } from 'react-hook-form'
 import Negativo from 'src/@core/icons/Negativo'
 import LoginAlert from '../../../views/pages/account-settings/security/LoginAlert'
@@ -102,7 +102,7 @@ const Secutiry = () => {
     {
       name: 'SEGURIDAD',
       icon: '',
-      href: '/apps/secutiry'
+      href: '/apps/security'
     },
     {
       name: 'NOTIFICACIONES',
@@ -139,7 +139,7 @@ const Secutiry = () => {
                   </Typography>
                   <Typography sx={{ whiteSpace: 'nowrap', color: '#F836F4' }}>{row.thisDevice}</Typography>
 
-                  <Typography sx={{ whiteSpace: 'nowrap', color: 'text.secondary' }}>{row.login}</Typography>
+                  <Typography sx={{ whiteSpace: 'nowrap', color: '#6DFC73' }}>{row.login}</Typography>
                 </Box>
               </Box>
             </CardContent>
