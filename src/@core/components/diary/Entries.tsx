@@ -29,7 +29,7 @@ import { makeStyles } from '@mui/styles'
 import IconButton, { IconButtonProps } from '@mui/material/IconButton'
 import ClearIcon from '@mui/icons-material/Clear'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import Tooltip from '@mui/material/Tooltip'
+import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip'
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions'
 
 // ** Redux Toolkit
@@ -77,6 +77,14 @@ const VisuallyHiddenInput = styled('input')({
   height: 1,
   overflow: 'hidden',
   whiteSpace: 'nowrap'
+})
+
+const CustomWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))({
+  [`& .${tooltipClasses.tooltip}`]: {
+    maxWidth: 130
+  }
 })
 
 // ! Don't delete
@@ -393,18 +401,18 @@ const Entries = ({ id, props }: any) => {
         avatar={<Avatar sx={{ bgcolor: '#59c1bd' }}>R</Avatar>}
         action={
           <>
-            <Box component='div' sx={{ display: 'flex', gap: '1rem' }}>
+            <Box component='div' sx={{ height: '4rem', display: 'flex', gap: '1rem' }}>
               {props.emoji && (
-                <IconButton className={classes.iconButton} sx={{ paddingTop: 1 }}>
+                <IconButton className={classes.iconButton} sx={{ paddingTop: 0.5 }}>
                   {props.emoji}
                 </IconButton>
               )}
               {props.favorite && (
-                <Tooltip title='Tu publicación se encuentra dentro de tus favoritos' placement='top'>
-                  <IconButton className={classes.iconButton}>
+                <CustomWidthTooltip title='Tu publicación se encuentra dentro de tus favoritos' placement='top' arrow>
+                  <label>
                     <RocketFav />
-                  </IconButton>
-                </Tooltip>
+                  </label>
+                </CustomWidthTooltip>
               )}
 
               <Tooltip title='Editar publicación' placement='top'>
@@ -502,11 +510,11 @@ const Entries = ({ id, props }: any) => {
                           control={control}
                           render={({ field: { value, onChange } }) => (
                             <Select
+                              id='select'
                               value={value}
                               onChange={onChange}
                               inputRef={emojiRef}
-                              id='select'
-                              sx={{ height: '2.5rem', paddingTop: 2 }}
+                              sx={{ height: '2.5rem', pt: 2 }}
                               displayEmpty
                               renderValue={selected => {
                                 if (selected === '' || !selected) {
@@ -527,20 +535,27 @@ const Entries = ({ id, props }: any) => {
                         />
                       </Box>
                     </Box>
-
                     {props.photos && props.photos.length > 0 && (
-                      <>
+                      <Box sx={{ maxHeight: '400px', overflowY: 'auto' }} component='div'>
                         {fields.map((field, index) => (
                           <CardContent key={field.id}>
                             <IconButton onClick={() => remove(index)}>
                               <ClearIcon />
                             </IconButton>
-                            <CardMedia component='img' height='auto' image={props.photos[0]} alt='img' />
+                            <CardMedia
+                              component='img'
+                              sx={{
+                                maxWidth: '100%',
+                                maxHeight: '100%'
+                              }}
+                              image={props.photos[0]}
+                              alt='img'
+                            />
                           </CardContent>
                         ))}
-                      </>
+                      </Box>
                     )}
-                    <Button type='submit' sx={{ width: '10rem', mt: '5rem', ml: '30rem' }}>
+                    <Button variant='contained' type='submit' sx={{ width: '10rem', mt: '5rem', ml: '45rem' }}>
                       <Save />
                       Guardar
                     </Button>
