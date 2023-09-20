@@ -99,8 +99,6 @@ const UserData = () => {
   const [openEdit, setOpenEdit] = useState<boolean>(false)
   const [inputValue, setInputValue] = useState<string>('')
   const [imgSrc, setImgSrc] = useState<string>('/images/avatars/1.png')
-  const [suspendDialogOpen, setSuspendDialogOpen] = useState<boolean>(false)
-  const [subscriptionDialogOpen, setSubscriptionDialogOpen] = useState<boolean>(false)
 
   // ** Hooks
   const handleInputImageChange = (file: ChangeEvent) => {
