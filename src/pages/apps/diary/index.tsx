@@ -218,7 +218,7 @@ const Diary = () => {
 
   const classes = useStyles()
 
-  // Vars
+  // const
   const diaryCards = [
     {
       name: 'DIARIO',
@@ -242,8 +242,8 @@ const Diary = () => {
           <Box
             sx={
               isMultiline
-                ? { backgroundColor: '#0e2b42', height: '9.4rem', padding: 3, borderRadius: 1 }
-                : { backgroundColor: '#0e2b42', height: '5rem', padding: 3, borderRadius: 1 }
+                ? { backgroundColor: '#0e2b42', height: '9.4rem', p: 3, borderRadius: 1 }
+                : { backgroundColor: '#0e2b42', height: '5rem', p: 3, borderRadius: 1 }
             }
             component='div'
           >
@@ -258,7 +258,7 @@ const Diary = () => {
                 label='Qué hay de nuevo? ...'
                 inputRef={inputRef}
                 onChange={e => handleValue(e)}
-                sx={{ width: '80%', marginRight: 3, borderRadius: 2 }}
+                sx={{ width: '80%', mr: 3, borderRadius: 2 }}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position='end' sx={{ display: 'flex' }}>
@@ -326,6 +326,7 @@ const Diary = () => {
 
                       return selected
                     }}
+                    inputProps={{ 'aria-label': 'Without label' }}
                   >
                     {emotions.map(e => (
                       <MenuItem key={e.value} value={e.value}>
@@ -342,7 +343,7 @@ const Diary = () => {
                       ? {
                           height: '3.2rem',
                           width: '8.8rem',
-                          mt: 4.5,
+                          mt: 6,
                           ml: 27,
                           position: 'relative',
                           zIndex: 0,
@@ -368,7 +369,7 @@ const Diary = () => {
               </Stack>
             ))
           ) : (
-            <Container sx={{ textAlign: 'center', marginTop: 62 }} fixed>
+            <Container sx={{ textAlign: 'center', mt: 62 }} fixed>
               <SentimentVeryDissatisfiedIcon sx={{ color: '#91A7B8' }} />
               <Typography variant='h5' sx={{ color: '#91A7B8' }}>
                 No hay entradas publicadas

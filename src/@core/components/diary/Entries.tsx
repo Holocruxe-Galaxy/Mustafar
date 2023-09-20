@@ -403,7 +403,7 @@ const Entries = ({ id, props }: any) => {
           <>
             <Box component='div' sx={{ height: '4rem', display: 'flex', gap: '1rem' }}>
               {props.emoji && (
-                <IconButton className={classes.iconButton} sx={{ paddingTop: 0.5 }}>
+                <IconButton className={classes.iconButton} sx={{ pt: 0.5 }}>
                   {props.emoji}
                 </IconButton>
               )}
