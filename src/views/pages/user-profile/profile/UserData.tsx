@@ -26,8 +26,6 @@ import DialogActions from '@mui/material/DialogActions'
 // ** Custom Components
 import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
-import UserSuspendDialog from 'src/views/apps/user/view/UserSuspendDialog'
-import UserSubscriptionDialog from 'src/views/apps/user/view/UserSubscriptionDialog'
 
 // ** Types
 import { ThemeColor } from 'src/@core/layouts/types'
@@ -348,9 +346,6 @@ const UserData = () => {
                 </Button>
               </DialogActions>
             </Dialog>
-
-            <UserSuspendDialog open={suspendDialogOpen} setOpen={setSuspendDialogOpen} />
-            <UserSubscriptionDialog open={subscriptionDialogOpen} setOpen={setSubscriptionDialogOpen} />
           </Card>
         </Grid>
       </Grid>
