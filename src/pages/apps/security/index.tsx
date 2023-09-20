@@ -120,7 +120,7 @@ const Secutiry = () => {
       {/* Recent Devices Card*/}
       <Grid item xs={5}>
         <Card>
-          <CardHeader title='DISPOSITIVOS CONECTADOS' />
+          <CardHeader title='DISPOSITIVOS CONECTADOS' sx={{mt: 5}}/>
           <Typography sx={{ whiteSpace: 'nowrap', color: 'text.secondary', alignItems: 'center', ml: '2em'}}>
             Has iniciado sesión en:
           </Typography>

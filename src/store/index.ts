@@ -10,6 +10,7 @@ import calendar from 'src/store/apps/calendar'
 import permissions from 'src/store/apps/permissions'
 import countries from "src/store/apps/countries"
 import diary from 'src/store/apps/diary'
+import notifications from 'src/store/apps/notifications'
 
 export const store = configureStore({
   reducer: {
@@ -20,7 +21,8 @@ export const store = configureStore({
     calendar,
     permissions,
     countries,
-    diary
+    diary,
+    notifications
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

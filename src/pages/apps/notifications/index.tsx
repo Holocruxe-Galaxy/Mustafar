@@ -1,3 +1,9 @@
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from 'src/store'
+
+import { fetchData, editNotifications } from 'src/store/apps/notifications'
+
 // ** MUI Imports
 import { Box, FormControlLabel } from '@mui/material'
 
@@ -12,56 +18,56 @@ import Switch from '@mui/material/Switch'
 import CardButtons from 'src/views/components/horizontalBar/CardButtons'
 
 const Android12Switch = styled(Switch)(() => ({
-  width: '52px',
+  width: '50px',
   height: '24px',
   padding: '0px',
   '& .MuiSwitch-switchBase': {
-    color: '#010032',
     padding: '1px',
     '&.Mui-checked + .MuiSwitch-track': {
-      backgroundImage: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.2) 50%)',
-      backgroundSize: '200% 100%',
-      backgroundPosition: 'right center',
-
-
-    },
+      backgroundImage: 'linear-gradient(180deg, #00FFED 0%, #F836F433 50%)'
+    }
   },
   '& .MuiSwitch-thumb': {
-    color: 'white',
+    backgroundRepeat: 'no-repeat',
+    backgroundImage: 'linear-gradient(180deg, #00FFED 0%, #F836F433 50%)',
+    backgroundColor: 'transparent',
+    width: '18px',
+    height: '18px',
+    margin: '1.7px'
+  },
+  '& .Mui-checked .MuiSwitch-thumb': {
+    backgroundImage: 'none', // Elimina el gradiente cuando está en "checked" (after)
+    backgroundColor: '#010032',
     width: '22px',
     height: '22px',
-    margin: '1px',
+    margin: '0.3px' // Establece el color sólido cuando está en "checked" (after)
   },
   '& .MuiSwitch-track': {
     borderRadius: '20px',
     backgroundColor: '#010032',
     opacity: '1 !important',
-    '&:after, &:before': {
-      color: 'white',
-      fontSize: '9px',
-      position: 'absolute',
-      top: '6px',
-    },
     '&:after': {
       content: '"ON"',
-      left: '8px',
+      left: '6px',
+      color: '#010032',
+      fontSize: '9px',
+      position: 'absolute',
+      top: '6px'
     },
     '&:before': {
       content: '"OFF"',
       right: '7px',
-    },
+      color: 'white',
+      fontSize: '8.5px',
+      position: 'absolute',
+      top: '6px'
+    }
   },
   '& .Mui-checked': {
-    color: '#00FFED !important', // Cambia el color de la parte verde
-    transform: 'translateX(26px) !important',
-    '&:after': {
-      color: '#010032'
-    },
-    '&:before': {
-
-    },
-  },
-}));
+    color: 'white !important',
+    transform: 'translateX(26px) !important'
+  }
+}))
 
 
 const Notifications = () => {
@@ -84,6 +90,30 @@ const Notifications = () => {
     },
   ]
 
+  const [switchState, setSwitchState] = useState<boolean>(false)
+  const emailEnabled = useSelector((state: RootState) => state.notifications.email);
+
+  const dispatch = useDispatch<AppDispatch>()
+
+  useEffect(() => {
+    dispatch(fetchData())
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const handleChange = async(): Promise<void> => {
+    const newSwitchState = !switchState;
+    setSwitchState(newSwitchState);
+
+    try {
+      // Llama a la acción 'editNotifications' con el nuevo estado del interruptor
+      await dispatch(editNotifications(newSwitchState));
+    } catch (error) {
+      console.error('Error al editar notificaciones:', error);
+      setSwitchState(emailEnabled);
+    }
+
+  }
 
   return(
     <>
@@ -92,7 +122,7 @@ const Notifications = () => {
       </Box>
     <Card>
       <CardHeader title='ACTIVAR/DESACTIVAR NOTIFICACIONES' />
-      <CardContent>
+      {/* <CardContent>
         <Typography sx={{ color: 'text.secondary' }}>
         <strong>PAUSAR TODAS</strong>
         </Typography>
@@ -107,8 +137,8 @@ const Notifications = () => {
       />
       </Stack>
         </Box>
-      </CardContent>
-      <CardContent>
+      </CardContent> */}
+      {/* <CardContent>
       <Typography sx={{ color: 'text.secondary' }}>
         <strong>MODO SILENCIOSO</strong>
         </Typography>
@@ -123,7 +153,7 @@ const Notifications = () => {
       />
       </Stack>
         </Box>
-      </CardContent>
+      </CardContent> */}
       <CardContent>
       <Box display="flex" alignItems="center" component='div'>
       <Typography sx={{ color: 'text.secondary' }}>
@@ -131,7 +161,11 @@ const Notifications = () => {
         </Typography>
         <Stack direction="row" spacing={1} alignItems="center" sx={{ml: '76%'}}>
         <FormControlLabel
-        control={<Android12Switch defaultChecked />}
+        control={<Android12Switch
+          defaultChecked
+          checked={switchState}
+          onChange={handleChange}
+          />}
         label=""
       />
       </Stack>

@@ -99,8 +99,8 @@ const ChangePasswordCard = () => {
             py: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
           }}
         >
-          <Box component='div' sx={{ mb: 12, display: 'flex', justifyContent: 'center', width: 150 }}>
-          <Typography sx={{ color: 'text.secondary', fontWeight: 500, mt: 10 }}>
+          <Box component='div' sx={{ mb: 12, display: 'flex', justifyContent: 'center', width: 250 }}>
+          <Typography sx={{ color: 'text.secondary', fontWeight: 500, mt: 10, fontSize: 20 }}>
           Revisa tu teléfono. Te enviamos un codigo de recuperación
           </Typography>
           </Box>
@@ -108,8 +108,6 @@ const ChangePasswordCard = () => {
           <IconButton size='small' onClick={handleCloseDialog} sx={{ position: 'absolute', right: '1rem', top: '1rem' }}>
             <Icon icon='mdi:close' />
           </IconButton>
-
-
         </DialogContent>
       </Dialog>
         </div>
