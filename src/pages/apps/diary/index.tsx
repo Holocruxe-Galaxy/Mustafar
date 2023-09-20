@@ -118,6 +118,15 @@ const Android12Switch = styled(Switch)(() => ({
   }
 }))
 
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  width: 1,
+  height: 1,
+  overflow: 'hidden',
+  whiteSpace: 'nowrap'
+})
+
 interface Diary {
   _id: string
   content: string
@@ -287,26 +296,32 @@ const Diary = () => {
                     <Android12Switch sx={{ mr: 3, mt: 1.5 }} onClick={handleSwitchChange} checked={diary.favorite} />
                   </Tooltip>
 
-                  <input
-                    type='file'
-                    accept='image/*'
-                    onChange={fileSelected}
-                    style={{ display: 'none' }}
-                    id='uploadButton'
-                  ></input>
-                  <label htmlFor='uploadButton' style={{ marginRight: 15 }}>
-                    <UploadButton />
-                  </label>
+                  <Button
+                    component='label'
+                    endIcon={<UploadButton />}
+                    sx={{
+                      backgroundColor: 'transparent',
+                      borderRadius: '50%',
+                      width: '2rem',
+                      height: '2rem',
+                      minWidth: 'auto',
+                      mr: 3.2,
+                      mt: 1
+                    }}
+                    className={classes.iconButton}
+                  >
+                    <VisuallyHiddenInput type='file' accept='image/*' onChange={fileSelected} />
+                  </Button>
 
                   <Select
                     id='select'
                     value={diary.emoji || ''}
-                    sx={{ height: '2.5rem', paddingTop: 2 }}
+                    sx={{ height: '2.5rem', pt: 2 }}
                     onChange={handleChange}
                     displayEmpty
                     renderValue={selected => {
                       if (selected === '' || !selected) {
-                        return <EmojiEmotionsIcon sx={{ paddingLeft: 10 }} />
+                        return <EmojiEmotionsIcon sx={{ pl: 10 }} />
                       }
 
                       return selected
