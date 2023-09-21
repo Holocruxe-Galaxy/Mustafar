@@ -14,10 +14,17 @@ import TwoFactorAuthentication from 'src/views/pages/account-settings/security/T
 import ComputerIcon from 'src/@core/icons/ComputerIcon'
 import PhoneIcon from 'src/@core/icons/PhoneIcon'
 import TabletIcon from 'src/@core/icons/TabletIcon'
-import { Button, Checkbox,
+import {
+  Button,
+  Checkbox,
+  Dialog,
+  DialogContent,
 
   // FormControl,
-  FormControlLabel } from '@mui/material'
+  FormControlLabel,
+  IconButton
+} from '@mui/material'
+import Icon from 'src/@core/components/icon'
 
 // import { Controller } from 'react-hook-form'
 import Negativo from 'src/@core/icons/Negativo'
@@ -89,10 +96,20 @@ const recentDeviceData: RecentDeviceDataType[] = [
 ]
 const Secutiry = () => {
   const [isChecked, setIsChecked] = useState<boolean>(false)
+  const [open, setOpen] = useState<boolean>(false)
+
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setIsChecked(e.target.checked)
+    if(e.target.checked) {
+      setOpen(!open)
+    }
   }
+
+  const handleCloseDialog = () => {
+    setOpen(false)
+  }
+
   const settingsCards = [
     {
       name: 'CUENTA',
@@ -108,100 +125,118 @@ const Secutiry = () => {
       name: 'NOTIFICACIONES',
       icon: '',
       href: '/apps/notifications'
-    },
+    }
   ]
 
   return (
     <>
-    <Box component='div' sx={{ mb: 4 }}>
+      <Box component='div' sx={{ mb: 4 }}>
         <CardButtons data={settingsCards} />
       </Box>
-   <Grid container spacing={6}>
-      {/* Recent Devices Card*/}
-      <Grid item xs={5}>
-        <Card>
-          <CardHeader title='DISPOSITIVOS CONECTADOS' sx={{mt: 5}}/>
-          <Typography sx={{ whiteSpace: 'nowrap', color: 'text.secondary', alignItems: 'center', ml: '2em'}}>
-            Has iniciado sesión en:
-          </Typography>
-          {recentDeviceData.map((row, index) => (
-            <CardContent key={index}>
-              <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
-                {row.browserIcon}
-                <Box component='div' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                  <Typography sx={{ whiteSpace: 'nowrap', color: 'text.secondary' }}>
-                    Dispositivo: {row.device}
-                  </Typography>
-
-                  <Typography sx={{ whiteSpace: 'nowrap', color: 'text.secondary' }}>Lugar: {row.location}</Typography>
-                  <Typography sx={{ whiteSpace: 'nowrap', color: 'text.secondary' }}>
-                    Fecha y Hora: {row.date}
-                  </Typography>
-                  <Typography sx={{ whiteSpace: 'nowrap', color: '#F836F4' }}>{row.thisDevice}</Typography>
-
-                  <Typography sx={{ whiteSpace: 'nowrap', color: '#6DFC73' }}>{row.login}</Typography>
-                </Box>
-              </Box>
-            </CardContent>
-          ))}
-        </Card>
-      </Grid>
-      <Grid item xs={7}>
-        <Card style={{ height: '100%' }}>
-          <CardHeader title='ALERTA DE INICIO DE SESION' />
-          <CardContent>
-            <Typography sx={{ whiteSpace: 'nowrap', color: 'text.secondary' }}>
-              Administra cómo quieres que se te notifique sobre los inicios de sesión no reconocidos en tu cuenta.
+      <Grid container spacing={6}>
+        {/* Recent Devices Card*/}
+        <Grid item xs={5}>
+          <Card>
+            <CardHeader title='DISPOSITIVOS CONECTADOS' sx={{ mt: 5 }} />
+            <Typography sx={{ whiteSpace: 'nowrap', color: 'text.secondary', alignItems: 'center', ml: '2em' }}>
+              Has iniciado sesión en:
             </Typography>
-            <FormControlLabel
-        control={<Checkbox checked={isChecked} onChange={handleChange} />}
-        label="Notificación en la Web/app"
-        labelPlacement="start"
-      />
-      {isChecked && (
-        <div>
-          <p style={{ paddingLeft: '1em' }}>Intentaron iniciar sesión desde:</p>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <div>
-              <ComputerIcon />
-            </div>
-            <div style={{ paddingLeft: '2em' }}>
-              <p>Dispositivo: ejemplo</p>
-              <p>Lugar: ejemplo</p>
-              <p>IP: XXX.XXXX.XXX</p>
-              <p>Hora: 17:28 pm</p>
-            </div>
-          </div>
-          <Button variant="contained" startIcon={<Negativo />}>
-            No fui yo
-          </Button>
-        </div>
-      )}
-      <div>
-        <FormControlLabel
-          control={<Checkbox />}
-          label="Correo Electrónico"
-          labelPlacement="start"
-        />
-              <Typography sx={{ whiteSpace: 'nowrap', color: 'text.secondary', ml:'1em' }}>mailusuario@ejemplo.com</Typography>
-              <Typography sx={{ whiteSpace: 'nowrap', color: '#6DFC73', ml:'1em' }}>Siempre activado</Typography>
-      </div>
-          </CardContent>
-        </Card>
-      </Grid>
+            {recentDeviceData.map((row, index) => (
+              <CardContent key={index}>
+                <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
+                  {row.browserIcon}
+                  <Box component='div' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <Typography sx={{ whiteSpace: 'nowrap', color: 'text.secondary' }}>
+                      Dispositivo: {row.device}
+                    </Typography>
 
-      <Grid item xs={12}>
-        <LoginAlert />
-      </Grid>
+                    <Typography sx={{ whiteSpace: 'nowrap', color: 'text.secondary' }}>
+                      Lugar: {row.location}
+                    </Typography>
+                    <Typography sx={{ whiteSpace: 'nowrap', color: 'text.secondary' }}>
+                      Fecha y Hora: {row.date}
+                    </Typography>
+                    <Typography sx={{ whiteSpace: 'nowrap', color: '#F836F4' }}>{row.thisDevice}</Typography>
 
-      <Grid item xs={12}>
-        <TwoFactorAuthentication />
+                    <Typography sx={{ whiteSpace: 'nowrap', color: '#6DFC73' }}>{row.login}</Typography>
+                  </Box>
+                </Box>
+              </CardContent>
+            ))}
+          </Card>
+        </Grid>
+        <Grid item xs={7}>
+          <Card style={{ height: '100%' }}>
+            <CardHeader title='ALERTA DE INICIO DE SESION' sx={{ mt: 5 }}/>
+            <CardContent >
+              <Typography sx={{ whiteSpace: 'nowrap', color: 'text.secondary'}}>
+                Administra cómo quieres que se te notifique sobre los inicios de sesión no reconocidos en tu cuenta.
+              </Typography>
+              <FormControlLabel
+                control={
+                <Checkbox
+                checked={isChecked}
+                onChange={handleChange} />}
+                label='Notificación en la Web/app'
+                labelPlacement='start'
+              />
+              <Dialog open={open} onClose={handleCloseDialog}>
+                <DialogContent
+                  sx={{
+                    px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+                    py: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
+                  }}
+                >
+                  <Box component='div' sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <Typography sx={{ color: 'text.secondary', fontWeight: 500, mt: 10, fontSize: 20 }}>
+                      Intentaron iniciar sesión desde:
+                    </Typography>
+                  </Box>
+                  <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
+                    <Box component='div'>
+                      <ComputerIcon />
+                    </Box>
+                    <Box component='div' sx={{ paddingLeft: '2em' }}>
+                      <p>Dispositivo: ejemplo</p>
+                      <p>Lugar: ejemplo</p>
+                      <p>IP: XXX.XXXX.XXX</p>
+                      <p>Hora: 17:28 pm</p>
+                    </Box>
+                  </Box>
+                  <Button variant='contained' startIcon={<Negativo />} sx={{ ml: 15, mt: 2 }}>
+                    No fui yo
+                  </Button>
+
+                  <IconButton
+                    size='small'
+                    onClick={handleCloseDialog}
+                    sx={{ position: 'absolute', right: '1rem', top: '1rem' }}
+                  >
+                    <Icon icon='mdi:close' />
+                  </IconButton>
+                </DialogContent>
+              </Dialog>
+              <div>
+                <FormControlLabel control={<Checkbox />} label='Correo Electrónico' labelPlacement='start' />
+                <Typography sx={{ whiteSpace: 'nowrap', color: 'text.secondary', ml: '1em' }}>
+                  mailusuario@ejemplo.com
+                </Typography>
+                <Typography sx={{ whiteSpace: 'nowrap', color: '#6DFC73', ml: '1em' }}>Siempre activado</Typography>
+              </div>
+            </CardContent>
+          </Card>
+        </Grid>
+
+        <Grid item xs={12}>
+          <LoginAlert />
+        </Grid>
+
+        <Grid item xs={12}>
+          <TwoFactorAuthentication />
+        </Grid>
       </Grid>
-    </Grid>
     </>
-  );
+  )
 }
 
-
-
-export default Secutiry;
+export default Secutiry

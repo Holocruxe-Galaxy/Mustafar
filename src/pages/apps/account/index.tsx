@@ -35,13 +35,14 @@ import Checked from 'src/@core/icons/Checked'
 import Negativo from 'src/@core/icons/Negativo'
 
 import CardButtons from "src/views/components/horizontalBar/CardButtons";
-import AccountIcon from 'src/@core/icons/AccoutIcon'
+
+// import AccountIcon from 'src/@core/icons/AccoutIcon'
 
 const Account = () => {
   const settingsCards = [
     {
       name: 'CUENTA',
-      icon: <AccountIcon/>,
+      icon: '',
       href: '/apps/account'
     },
     {

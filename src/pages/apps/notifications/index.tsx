@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, RootState } from 'src/store'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from 'src/store'
 
 import { fetchData, editNotifications } from 'src/store/apps/notifications'
 
@@ -17,7 +17,7 @@ import CardContent from '@mui/material/CardContent'
 import Switch from '@mui/material/Switch'
 import CardButtons from 'src/views/components/horizontalBar/CardButtons'
 
-const Android12Switch = styled(Switch)(() => ({
+const StyledSwitch = styled(Switch)(() => ({
   width: '50px',
   height: '24px',
   padding: '0px',
@@ -33,14 +33,16 @@ const Android12Switch = styled(Switch)(() => ({
     backgroundColor: 'transparent',
     width: '18px',
     height: '18px',
-    margin: '1.7px'
+    margin: '1.7px',
+    boxShadow: '4px 4px 30px 0px #FFFFFF59' // Agrega el primer box-shadow para la opción ON
   },
   '& .Mui-checked .MuiSwitch-thumb': {
-    backgroundImage: 'none', // Elimina el gradiente cuando está en "checked" (after)
+    backgroundImage: 'none',
     backgroundColor: '#010032',
     width: '22px',
     height: '22px',
-    margin: '0.3px' // Establece el color sólido cuando está en "checked" (after)
+    margin: '0.3px',
+    boxShadow: '3px 3px 4px 0px #FFFFFF59 inset' // Agrega el segundo box-shadow para la opción ON (como un inset shadow)
   },
   '& .MuiSwitch-track': {
     borderRadius: '20px',
@@ -61,13 +63,21 @@ const Android12Switch = styled(Switch)(() => ({
       fontSize: '8.5px',
       position: 'absolute',
       top: '6px'
+
     }
   },
   '& .Mui-checked': {
     color: 'white !important',
     transform: 'translateX(26px) !important'
+  },
+  '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+    boxShadow: '4px 4px 4px 0px rgba(0, 0, 0, 0.35)'
+  },
+  '& .MuiSwitch-switchBase.Mui-checked .MuiSwitch-thumb': {
+    boxShadow: '3px 3px 4px 0px rgba(66, 65, 136, 0.35) inset'
   }
 }))
+
 
 
 const Notifications = () => {
@@ -91,7 +101,7 @@ const Notifications = () => {
   ]
 
   const [switchState, setSwitchState] = useState<boolean>(false)
-  const emailEnabled = useSelector((state: RootState) => state.notifications.email);
+
 
   const dispatch = useDispatch<AppDispatch>()
 
@@ -101,18 +111,10 @@ const Notifications = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const handleChange = async(): Promise<void> => {
+  const handleChange = ():void => {
     const newSwitchState = !switchState;
     setSwitchState(newSwitchState);
-
-    try {
-      // Llama a la acción 'editNotifications' con el nuevo estado del interruptor
-      await dispatch(editNotifications(newSwitchState));
-    } catch (error) {
-      console.error('Error al editar notificaciones:', error);
-      setSwitchState(emailEnabled);
-    }
-
+    dispatch(editNotifications(newSwitchState));
   }
 
   return(
@@ -132,7 +134,7 @@ const Notifications = () => {
         </Typography>
         <Stack direction="row" spacing={1} alignItems="center" sx={{ml: '71%'}}>
         <FormControlLabel
-        control={<Android12Switch defaultChecked />}
+        control={<StyledSwitch defaultChecked />}
         label=""
       />
       </Stack>
@@ -148,7 +150,7 @@ const Notifications = () => {
         </Typography>
         <Stack direction="row" spacing={1} alignItems="center" sx={{ml: '60%'}}>
         <FormControlLabel
-        control={<Android12Switch defaultChecked />}
+        control={<StyledSwitch defaultChecked />}
         label=""
       />
       </Stack>
@@ -161,7 +163,7 @@ const Notifications = () => {
         </Typography>
         <Stack direction="row" spacing={1} alignItems="center" sx={{ml: '76%'}}>
         <FormControlLabel
-        control={<Android12Switch
+        control={<StyledSwitch
           defaultChecked
           checked={switchState}
           onChange={handleChange}
