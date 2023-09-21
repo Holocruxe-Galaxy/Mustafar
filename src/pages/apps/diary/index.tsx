@@ -66,7 +66,7 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
-const Android12Switch = styled(Switch)(() => ({
+const CustomSwitch = styled(Switch)(() => ({
   width: '50px',
   height: '24px',
   padding: '0px',
@@ -154,6 +154,20 @@ const Diary = () => {
   const [diary, setDiary] = useState<PostDiary>({ content: '', favorite: false })
 
   useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (pickerRef.current && !pickerRef.current.contains(event.target as Node)) {
+        setPickerVisible(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
+
+  useEffect(() => {
     dispatch(fetchData())
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -196,7 +210,9 @@ const Diary = () => {
       const newValue = beforeCursor + emoji.native + afterCursor
       inputRef.current.value = newValue
     }
+  }
 
+  const handleEmojiButtonClick = () => {
     setPickerVisible(!isPickerVisible)
   }
 
@@ -281,7 +297,7 @@ const Diary = () => {
                         </Card>
                       )}
                       <IconButton
-                        onClick={() => setPickerVisible(!isPickerVisible)}
+                        onClick={handleEmojiButtonClick}
                         sx={isMultiline ? undefined : { display: 'none' }}
                         className={classes.iconButton}
                       >
@@ -297,7 +313,7 @@ const Diary = () => {
                   sx={{ display: 'flex', justifyContent: 'center', pt: 2, position: 'relative', zIndex: 1 }}
                 >
                   <Tooltip title='Al activarlo, se guardará como tus publicaciones favoritas' placement='top'>
-                    <Android12Switch sx={{ mr: 3, mt: 1.5 }} onClick={handleSwitchChange} checked={diary.favorite} />
+                    <CustomSwitch sx={{ mr: 3, mt: 1.5 }} onClick={handleSwitchChange} checked={diary.favorite} />
                   </Tooltip>
 
                   <Button
