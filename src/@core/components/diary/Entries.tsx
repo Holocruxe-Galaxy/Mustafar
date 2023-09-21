@@ -145,6 +145,7 @@ const useStyles = makeStyles(() => ({
   picker: {
     position: 'absolute',
     top: 80,
+    right: 22,
     zIndex: 9999
   },
   iconButton: {
@@ -173,9 +174,12 @@ const Entries = ({ id, props }: any) => {
   const [file, setFile] = useState<FormData>()
 
   const contentRef = useRef<HTMLInputElement>(props.content)
+
+  //const inputRef = useRef<HTMLInputElement | null>(null)
+
   const favoriteRef = useRef<HTMLElement>(props.favorite)
   const emojiRef = useRef<HTMLSelectElement>(props.emoji)
-  const inputRef = useRef<HTMLInputElement | null>(null)
+
   const pickerRef = useRef<HTMLDivElement>(null)
 
   const [isPickerVisible, setPickerVisible] = useState<boolean | null>(false)
@@ -234,14 +238,16 @@ const Entries = ({ id, props }: any) => {
   }
 
   const handleEmojiSelect = (emoji: any) => {
-    if (inputRef.current && isPickerVisible) {
-      const cursorPosition = inputRef.current.selectionStart || 0
-      const inputValue = inputRef.current.value
+    if (contentRef.current && isPickerVisible) {
+      const cursorPosition = contentRef.current.selectionStart || 0
+
+      const inputValue = contentRef.current.value
+
       const beforeCursor = inputValue.substring(0, cursorPosition)
       const afterCursor = inputValue.substring(cursorPosition)
 
       const newValue = beforeCursor + emoji.native + afterCursor
-      inputRef.current.value = newValue
+      contentRef.current.value = newValue
     }
   }
 
@@ -335,6 +341,7 @@ const Entries = ({ id, props }: any) => {
                       render={({ field: { value, onChange } }) => (
                         <TextField
                           value={value}
+                          focused
                           multiline
                           fullWidth
                           minRows={4}
@@ -348,17 +355,17 @@ const Entries = ({ id, props }: any) => {
                                 {!isPickerVisible ? (
                                   ''
                                 ) : (
-                                  <Card className={classes.picker} ref={pickerRef}>
+                                  <Card className={classes.picker} ref={pickerRef} onClick={e => e.stopPropagation()}>
                                     <Picker
                                       data={data}
-                                      perLine={6}
+                                      perLine={10}
                                       maxFrequentRows={0}
                                       searchPosition='none'
                                       onEmojiSelect={handleEmojiSelect}
                                     />
                                   </Card>
                                 )}
-                                <IconButton onClick={handleEmojiButtonClick}>
+                                <IconButton onClick={handleEmojiButtonClick} className={classes.iconButton}>
                                   <IconEmojiButton />
                                 </IconButton>
                               </InputAdornment>

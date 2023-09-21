@@ -209,6 +209,7 @@ const Diary = () => {
 
       const newValue = beforeCursor + emoji.native + afterCursor
       inputRef.current.value = newValue
+      console.log(newValue)
     }
   }
 
