@@ -2,7 +2,7 @@ const UploadButton = () => {
   return (
     <svg
       style={{ paddingRight: '0.8rem' }}
-      width='35'
+      width='34'
       height='43'
       viewBox='0 0 40 40'
       fill='none'

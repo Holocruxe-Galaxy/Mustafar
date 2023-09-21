@@ -41,10 +41,10 @@ import CardButtons from 'src/views/components/horizontalBar/CardButtons'
 
 // ** Icon Components
 import UploadButton from 'src/@core/icons/diary/UploadButton'
-import Rocket from 'src/@core/icons/diary/Rocket'
 
 //import ArtIcon from 'src/@core/icons/diary/ArtIcon'
 import IconEmojiButton from 'src/@core/icons/diary/IconEmojiButton'
+import Send from 'src/@core/icons/diary/Send'
 
 const useStyles = makeStyles(() => ({
   picker: {
@@ -258,7 +258,11 @@ const Diary = () => {
                 label='Qué hay de nuevo? ...'
                 inputRef={inputRef}
                 onChange={e => handleValue(e)}
-                sx={{ width: '80%', mr: 3, borderRadius: 2 }}
+                sx={{
+                  width: '80%',
+                  mr: 3,
+                  borderRadius: 2
+                }}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position='end' sx={{ display: 'flex' }}>
@@ -352,9 +356,9 @@ const Diary = () => {
                       : { display: 'none' }
                   }
                 >
-                  Enviar
-                  <div style={{ paddingLeft: 9, paddingTop: 7 }}>
-                    <Rocket />
+                  Publicar
+                  <div style={{ paddingLeft: 6, paddingTop: 14 }}>
+                    <Send />
                   </div>
                 </Button>
               </div>

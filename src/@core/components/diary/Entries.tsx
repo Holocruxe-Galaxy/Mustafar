@@ -67,7 +67,9 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   marginLeft: 'auto',
   transition: theme.transitions.create('transform', {
     duration: theme.transitions.duration.shortest
-  })
+  }),
+  backgroundImage: 'linear-gradient(180deg, #00FFED 0%, #D5AEE2 80%)',
+  color: '#010032'
 }))
 
 const VisuallyHiddenInput = styled('input')({
@@ -280,6 +282,9 @@ const useStyles = makeStyles(() => ({
     '&.MuiIconButton-label': {
       transition: 'none' // Remove any transitions on the label (icon) to prevent animations
     }
+  },
+  scrollbar: {
+    borderRadius: '4px'
   }
 }))
 
@@ -416,12 +421,12 @@ const Entries = ({ id, props }: any) => {
               )}
 
               <Tooltip title='Editar publicación' placement='top'>
-                <IconButton className={classes.iconButton} onClick={handleOpenEdit} sx={{ marginTop: 1 }}>
+                <IconButton onClick={handleOpenEdit} sx={{ mt: 1 }} className={classes.iconButton}>
                   <EditIcon />
                 </IconButton>
               </Tooltip>
 
-              <IconButton className={classes.iconButton} onClick={handleOpen}>
+              <IconButton onClick={handleOpen} sx={{ mt: 1 }} className={classes.iconButton}>
                 <DeleteIcon />
               </IconButton>
             </Box>
@@ -442,6 +447,11 @@ const Entries = ({ id, props }: any) => {
                           minRows={4}
                           onChange={onChange}
                           inputRef={contentRef}
+                          sx={{
+                            '&:focus': {
+                              color: '#F836F4'
+                            }
+                          }}
                           InputProps={{
                             endAdornment: (
                               <InputAdornment position='end' sx={{ display: 'flex' }}>
@@ -492,16 +502,16 @@ const Entries = ({ id, props }: any) => {
                         <Button
                           component='label'
                           endIcon={<UploadButton />}
+                          className={classes.iconButton}
                           sx={{
                             backgroundColor: 'transparent',
                             borderRadius: '50%',
-                            width: '2rem',
+                            width: '1rem',
                             height: '2rem',
-                            minWidth: 'auto',
+                            p: 0,
                             mr: 3.2,
                             mt: 1
                           }}
-                          className={classes.iconButton}
                         >
                           <VisuallyHiddenInput type='file' accept='image/*' onChange={fileSelected} />
                         </Button>
@@ -536,7 +546,26 @@ const Entries = ({ id, props }: any) => {
                       </Box>
                     </Box>
                     {props.photos && props.photos.length > 0 && (
-                      <Box sx={{ maxHeight: '400px', overflowY: 'auto' }} component='div'>
+                      <Box
+                        sx={{
+                          maxHeight: '400px',
+                          overflowY: 'auto',
+                          mt: 5,
+                          scrollbarWidth: 'thin',
+                          scrollbarColor: '#00FFED #141537',
+                          '&::-webkit-scrollbar': {
+                            width: '10px'
+                          },
+                          '&::-webkit-scrollbar-thumb': {
+                            backgroundColor: '#00FFED',
+                            borderRadius: '5px'
+                          },
+                          '&::-webkit-scrollbar-track': {
+                            backgroundColor: '#141537'
+                          }
+                        }}
+                        component='div'
+                      >
                         {fields.map((field, index) => (
                           <CardContent key={field.id}>
                             <IconButton onClick={() => remove(index)}>
@@ -555,7 +584,7 @@ const Entries = ({ id, props }: any) => {
                         ))}
                       </Box>
                     )}
-                    <Button variant='contained' type='submit' sx={{ width: '10rem', mt: '5rem', ml: '45rem' }}>
+                    <Button variant='contained' type='submit' sx={{ width: '10rem', mt: 6, ml: '48rem' }}>
                       <Save />
                       Guardar
                     </Button>
