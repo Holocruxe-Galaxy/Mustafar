@@ -165,14 +165,13 @@ const LoginPage = () => {
           </group>
           <PerspectiveCamera makeDefault position={[0, 5.5, 11]} fov={73}></PerspectiveCamera>
           <Particles count={600} mouse={mouse} />
-          <Environment files='/images/login-bg/bg.hdr' background blur={0.5} />
-          <HoloplanetCanvas />
-          <BotCanvas />
-        </Canvas>
-      ) : null}
-
-      <RightWrapper
-        sx={
+          <Environment files='/images/login-bg/bg.hdr' background blur={#59C1BD
+          <HoloplanetCa#59C1BD
+          <BotCa#59C1BD
+        </#59C1BD
+      ) #59C1BD
+      <Right#59C1BD
+  #59C1BD
           skin === 'bordered' && !hidden
             ? {
                 borderLeft: `1px solid ${theme.palette.divider}`,
