@@ -5,7 +5,7 @@ export type CardLinksProps = {
   inactiveIcon: ReactNode
   name: string
   classType?: string
-  href?: string
+  href: string 
 }
 
 export type CardButtonsProps = {

@@ -11,7 +11,7 @@ import { CardLinksProps } from './types'
 
 const CardLinks = (props: CardLinksProps) => {
   // Vars
-  const { name, activeIcon, inactiveIcon, classType } = props
+  const { name, activeIcon, inactiveIcon, classType, href } = props
 
   const useStyles = makeStyles(() =>({
     cardInactive: {

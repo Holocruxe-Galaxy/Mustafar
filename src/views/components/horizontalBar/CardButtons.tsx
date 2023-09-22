@@ -1,17 +1,17 @@
 // ** MUI Imports
 import React from 'react'
 import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import { makeStyles } from '@mui/styles'
 import { useTheme } from '@mui/material/styles'
 
 // ** Hooks Import
-import { Link } from '@mui/material'
 import { useSettings } from 'src/@core/hooks/useSettings'
 import { useRouter } from 'next/router'
 
 // ** Types Imports
 import { CardButtonsProps, CardLinksProps } from 'src/views/components/horizontalBar/types'
-
-import CardLinks from './CardLinks'
 
 const CardButtons = (props: CardButtonsProps) => {
   // ** Props
@@ -27,7 +27,35 @@ const CardButtons = (props: CardButtonsProps) => {
   // Vars
   const { skin } = settings
 
+  // Styles
+  const useStyles = makeStyles(() => ({
+    button: {
+      boxShadow: '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(66, 65, 136, 0.50) inset',
+      '&:hover':{
+        background: 'linear-gradient(180deg, #00FFED -10%, rgba(248, 54, 244, 0.20) 100%)',
+      }
+    },
+    activeButton: {
+      color: 'white',
+      background: 'linear-gradient(180deg, #00FFED -10%, rgba(248, 54, 244, 0.20) 100%)',
+      boxShadow: '4px 4px 25px 0px rgba(255, 255, 255, 0.20), 4px 4px 4px 0px rgba(255, 255, 255, 0.25) inset'
+    },
+    font: {
+      color: '#00FFED',
+      fontWeight: 1
+    },
+    fontActive: {
+      color: 'white'
+    }
+  }))
+
+  const classes = useStyles()
+
   const currentPage = data.find(item => item.href === router.pathname.slice(1))
+
+  const handleRedirect = (href: string) => {
+    router.push(`/pages/${href}`)
+  }
 
   return (
     <Box
@@ -45,9 +73,13 @@ const CardButtons = (props: CardButtonsProps) => {
     }}
     >
       {data?.map((item: CardLinksProps, index: number) => (
-        <Link key={index} href={item.href} underline="none">
-          <CardLinks classType={currentPage?.href === item.href ? 'cardActive' : 'cardInactive'} name={item.name} activeIcon={item.activeIcon} inactiveIcon={item.inactiveIcon} key={index}/>
-        </Link>
+          <Button
+          sx={{width: '20rem', height: 70, my: 2.5, mx: 6, borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'start'}}
+          className={currentPage?.href === item.href ? classes.activeButton : classes.button}
+          onClick={() => handleRedirect(item.href)}
+          startIcon={currentPage?.href ? item.activeIcon : item.inactiveIcon}>
+            <Typography className={currentPage?.href === item.href ? classes.fontActive : classes.font} variant='h6'>{item.name}</Typography>
+          </Button>
       ))}
     </Box>
   )

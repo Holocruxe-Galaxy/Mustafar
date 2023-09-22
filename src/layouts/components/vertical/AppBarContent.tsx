@@ -3,8 +3,10 @@ import { useState } from 'react'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
+import Typography from '@mui/material/Typography'
 import { useTheme } from '@mui/material/styles'
 import { makeStyles } from '@mui/styles'
 
@@ -13,7 +15,6 @@ import { Settings } from 'src/@core/context/settingsContext'
 
 // ** Components
 // **import Autocomplete from 'src/layouts/components/Autocomplete'
-import CardBarLinks from 'src/views/components/horizontalBar/CardBarLinks'
 import LanguageDropdown from 'src/@core/layouts/components/shared-components/LanguageDropdown'
 import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
 import { Search, Bell, Line, InactiveConections, ActiveConections, ActiveMetrics, InactiveMetrics, ActiveBinnacle, InactiveBinnacle, ActiveTutorial, InactiveTutorial } from 'src/views/components/icons/index'
@@ -23,7 +24,6 @@ import { Search, Bell, Line, InactiveConections, ActiveConections, ActiveMetrics
 // ** Hook Import
 import { useAuth } from 'src/hooks/useAuth'
 import { useRouter } from 'next/router'
-import { Link } from '@mui/material'
 
 interface Props {
   hidden: boolean
@@ -53,26 +53,45 @@ const AppBarContent = (props: Props) => {
     }
 
   const useStyles = makeStyles(() => ({
-    card: { 
+    card: {
       display: 'flex', 
       alignItems: 'center', 
-      justifyContent: 'center', 
-      width: '26.063rem', 
+      justifyContent: 'start', 
+      width: '25rem', 
       height: '5.313rem', 
       margin: '1.200rem', 
       borderRadius: '14px', 
-      fontSize: '45px', 
+      fontSize: '21px', 
       fontWeight: 1,
       boxShadow: '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(66, 65, 136, 0.50) inset',
       '&:hover':{
         background: 'linear-gradient(180deg, #00FFED -10%, rgba(248, 54, 244, 0.20) 100%)'
       }
     },
+    cardActive: {
+      display: 'flex',
+      fontWeight: '20px',
+      justifyContent: 'start', 
+      alignItems: 'center',
+      background: 'linear-gradient(180deg, #00FFED -10%, rgba(248, 54, 244, 0.20) 100%)',
+      boxShadow: '4px 4px 25px 0px rgba(255, 255, 255, 0.20), 4px 4px 4px 0px rgba(255, 255, 255, 0.25) inset;'
+    },
     content: {
       display: 'flex', 
       alignItems: 'center', 
       justifyContent: 'space-between', 
       width: '100%'
+    },
+    icons: {
+      width: '20px',
+      height: '20px'
+    },
+    font: {
+      color: '#00FFED',
+      fontWeight: 1
+    },
+    fontActive: {
+      color: 'white'
     }
   }))
 
@@ -81,12 +100,12 @@ const AppBarContent = (props: Props) => {
   const cardsArr = [
     {
       page: 'home',
-      buttons: [{ name: 'TUTORIAL', activeIcon: <ActiveTutorial />, inactiveIcon: <InactiveTutorial />, href: ''}]
+      buttons: [{ name: 'TUTORIAL', activeIcon: <ActiveTutorial />, inactiveIcon: <InactiveTutorial />, href: 'home'}]
     },
     {
       page: 'apps/diary',
       buttons: [
-        { name: 'MI BITÁCORA', activeIcon: <InactiveBinnacle />, inactiveIcon: <InactiveBinnacle />, href: 'apps/diary'},
+        { name: 'MI BITÁCORA', activeIcon: <ActiveBinnacle />, inactiveIcon: <InactiveBinnacle />, href: 'apps/diary'},
         { name: 'TUS MÉTRICAS', activeIcon: <ActiveMetrics />, inactiveIcon: <InactiveMetrics/>, href: ''}
       ]
     }
@@ -95,6 +114,10 @@ const AppBarContent = (props: Props) => {
   // Vars
   const currentPage = cardsArr.find(item => item.page == router.pathname.slice(1))
   const selectedPage = currentPage?.page
+
+  const handleRedirect = (href: string) => {
+    router.push(`${href}`)
+  }
 
   const { skin } = settings
 
@@ -115,9 +138,13 @@ const AppBarContent = (props: Props) => {
       }}
     >
       {currentPage?.buttons.map((card, index) => (
-        <Link key='index' href={card.href} underline="none">
-          <CardBarLinks classType={ selectedPage === card.href ? 'cardActive' : 'cardInactive' }  key={index} name={card.name} activeIcon={card.activeIcon} inactiveIcon={card.inactiveIcon} />
-        </Link>
+        <Button
+        sx={{width: '25rem', height: '5.313rem', margin: '1.200rem', pl:8, borderRadius: '14px', fontSize:'21px', fontWeight: 1 }}
+        className={selectedPage === card.href ?  classes.cardActive : classes.card}
+        onClick={() => handleRedirect(card.href)}
+        startIcon={currentPage.page === card.href ? card.activeIcon : card.inactiveIcon}>
+          <Typography className={currentPage.page === card.href ? classes.fontActive : classes.font} variant='h6'>{card.name}</Typography>
+        </Button>
       ))}
       <Card 
       onMouseEnter={handleMouseEnter}
@@ -128,7 +155,8 @@ const AppBarContent = (props: Props) => {
         <Search />
           <Line />
           <LanguageDropdown settings={settings} saveSettings={saveSettings} />
-            <InactiveConections />
+          <Button className={activeArea ? classes.icons : ''} startIcon={activeArea ? <ActiveConections /> : <InactiveConections />} />
+            
 {/*           <ModeToggler settings={settings} saveSettings={saveSettings} /> */}
           {auth.user && (
             <>
