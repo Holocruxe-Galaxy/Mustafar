@@ -26,8 +26,6 @@ import DialogActions from '@mui/material/DialogActions'
 // ** Custom Components
 import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
-import UserSuspendDialog from 'src/views/apps/user/view/UserSuspendDialog'
-import UserSubscriptionDialog from 'src/views/apps/user/view/UserSubscriptionDialog'
 
 // ** Types
 import { ThemeColor } from 'src/@core/layouts/types'
@@ -101,8 +99,6 @@ const UserData = () => {
   const [openEdit, setOpenEdit] = useState<boolean>(false)
   const [inputValue, setInputValue] = useState<string>('')
   const [imgSrc, setImgSrc] = useState<string>('/images/avatars/1.png')
-  const [suspendDialogOpen, setSuspendDialogOpen] = useState<boolean>(false)
-  const [subscriptionDialogOpen, setSubscriptionDialogOpen] = useState<boolean>(false)
 
   // ** Hooks
   const handleInputImageChange = (file: ChangeEvent) => {
@@ -348,9 +344,6 @@ const UserData = () => {
                 </Button>
               </DialogActions>
             </Dialog>
-
-            <UserSuspendDialog open={suspendDialogOpen} setOpen={setSuspendDialogOpen} />
-            <UserSubscriptionDialog open={subscriptionDialogOpen} setOpen={setSubscriptionDialogOpen} />
           </Card>
         </Grid>
       </Grid>

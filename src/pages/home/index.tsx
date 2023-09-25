@@ -11,11 +11,7 @@ import { Cruxi } from 'src/models/cruxi'
 // ** Styled Component Import
 import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 
-// ** Demo Components Imports
-import AnalyticsSessions from 'src/views/dashboards/analytics/AnalyticsSessions'
-import AnalyticsVisitsByDay from 'src/views/dashboards/analytics/AnalyticsVisitsByDay'
 import AppChat from '../apps/chat'
-import ChartjsPolarAreaChart from 'src/views/charts/chartjs/ChartjsPolarAreaChart'
 import FooterContent from 'src/layouts/components/shared-components/footer/FooterContent'
 
 // ** Hooks
@@ -32,13 +28,6 @@ const Home = () => {
 
   // Vars
   const { skin } = settings
-  const yellowColor = '#ffe802'
-  const primaryColor = '#836af9'
-  const polarChartGrey = '#4f5d70'
-  const polarChartInfo = '#299aff'
-  const polarChartGreen = '#28dac6'
-  const polarChartWarning = '#ff8131'
-  const legendColor = theme.palette.text.secondary
 
   return (
     <>
@@ -72,24 +61,6 @@ const Home = () => {
 
           <Grid item xs={12} sm={6} md={8} height={550}>
             <AppChat />
-          </Grid>
-
-          <Grid item xs={12} md={4}>
-            <AnalyticsSessions />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <AnalyticsVisitsByDay />
-          </Grid>
-          <Grid item xs={12} md={4} height={450}>
-            <ChartjsPolarAreaChart
-              info={polarChartInfo}
-              grey={polarChartGrey}
-              green={polarChartGreen}
-              yellow={yellowColor}
-              primary={primaryColor}
-              warning={polarChartWarning}
-              legendColor={legendColor}
-            />
           </Grid>
         </Grid>
       </ApexChartWrapper>
