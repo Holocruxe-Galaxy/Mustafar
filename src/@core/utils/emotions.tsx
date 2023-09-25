@@ -32,12 +32,12 @@ const emotions = [
     value: '🤢'
   },
   {
-    name: '😰 Verguenza',
-    value: '😰'
+    name: '😥 Verguenza',
+    value: '😥'
   },
   {
-    name: '😖 Culpa',
-    value: '😖'
+    name: '😕 Culpa',
+    value: '😕'
   },
   {
     name: '🤗 Gratitud',
@@ -72,8 +72,8 @@ const emotions = [
     value: '🥺'
   },
   {
-    name: '😕 Arrepentimiento',
-    value: '😕'
+    name: '😣 Arrepentimiento',
+    value: '😣'
   },
   {
     name: '😤 Frustración',
@@ -104,8 +104,8 @@ const emotions = [
     value: '🥵'
   },
   {
-    name: '😣 Impotencia',
-    value: '😣'
+    name: '😟 Impotencia',
+    value: '😟'
   },
   {
     name: '😶 Apatía',
