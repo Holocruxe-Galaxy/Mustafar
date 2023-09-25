@@ -43,8 +43,6 @@ import Picker from '@emoji-mart/react'
 import emotions from 'src/@core/utils/emotions'
 import RocketFav from 'src/@core/icons/diary/RocketFav'
 import EditIcon from 'src/@core/icons/diary/EditIcon'
-
-//import ArtIcon from 'src/@core/icons/diary/ArtIcon'
 import DeleteIcon from 'src/@core/icons/diary/DeleteIcon'
 import YesButton from 'src/@core/icons/diary/YesButton'
 import NoButton from 'src/@core/icons/diary/NoButton'
@@ -108,11 +106,11 @@ const CustomSwitch = styled(Switch)(() => ({
     margin: '1.7px'
   },
   '& .Mui-checked .MuiSwitch-thumb': {
-    backgroundImage: 'none', // Elimina el gradiente cuando está en "checked" (after)
+    backgroundImage: 'none',
     backgroundColor: '#010032',
     width: '19px',
     height: '19px',
-    margin: '1.7px' // Establece el color sólido cuando está en "checked" (after)
+    margin: '1.7px'
   },
   '& .MuiSwitch-track': {
     borderRadius: '20px',
@@ -152,17 +150,17 @@ const useStyles = makeStyles(() => ({
     width: '3rem',
     '&:hover': {
       backgroundColor: 'transparent',
-      transition: 'none' // Set the background color to transparent on hover
+      transition: 'none'
     },
     '&:active': {
       backgroundColor: 'transparent',
-      transition: 'none' // Set the background color to transparent when active (clicked)
+      transition: 'none'
     },
     '&:focus': {
       outline: 'none'
     },
     '&.MuiIconButton-label': {
-      transition: 'none' // Remove any transitions on the label (icon) to prevent animations
+      transition: 'none'
     }
   }
 }))
@@ -217,11 +215,6 @@ const Entries = ({ id, props }: any) => {
 
     if (!data.photos.length && !props.photos.length) delete data.photos
 
-    // if (file) {
-    //   dispatch(editEntrieWithFile({ ...data, _id: id }))
-    // } else {
-    //   dispatch(editEntrie({ ...data, _id: id }))
-    // }
     if (!file) dispatch(editEntrie({ ...data, _id: id }))
 
     handleCloseEdit()

@@ -41,8 +41,6 @@ import CardButtons from 'src/views/components/horizontalBar/CardButtons'
 
 // ** Icon Components
 import UploadButton from 'src/@core/icons/diary/UploadButton'
-
-//import ArtIcon from 'src/@core/icons/diary/ArtIcon'
 import IconEmojiButton from 'src/@core/icons/diary/IconEmojiButton'
 import Send from 'src/@core/icons/diary/Send'
 
@@ -55,13 +53,13 @@ const useStyles = makeStyles(() => ({
   },
   iconButton: {
     '&:hover': {
-      backgroundColor: 'transparent' // Set the background color to transparent on hover
+      backgroundColor: 'transparent'
     },
     '&:active': {
-      backgroundColor: 'transparent' // Set the background color to transparent when active (clicked)
+      backgroundColor: 'transparent'
     },
     '& .MuiIconButton-label': {
-      transition: 'none' // Remove any transitions on the label (icon) to prevent animations
+      transition: 'none'
     }
   }
 }))
@@ -216,10 +214,6 @@ const Diary = () => {
       console.log(newValue)
     }
   }
-
-  // const handleEmojiButtonClick = () => {
-  //   setPickerVisible(!isPickerVisible)
-  // }
 
   const fileSelected = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target?.files?.[0]
