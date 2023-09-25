@@ -461,20 +461,22 @@ const Entries = ({ id, props }: any) => {
                         component='div'
                       >
                         {fields.map((field, index) => (
-                          <CardContent key={field.id}>
-                            <IconButton onClick={() => remove(index)}>
+                          <>
+                            <IconButton onClick={() => remove(index)} sx={{ float: 'right', mr: 2, mb: 2 }}>
                               <ClearIcon />
                             </IconButton>
-                            <CardMedia
-                              component='img'
-                              sx={{
-                                maxWidth: '100%',
-                                maxHeight: '100%'
-                              }}
-                              image={props.photos[0]}
-                              alt='img'
-                            />
-                          </CardContent>
+                            <CardContent key={field.id}>
+                              <CardMedia
+                                component='img'
+                                sx={{
+                                  maxWidth: '100%',
+                                  maxHeight: '100%'
+                                }}
+                                image={props.photos[0]}
+                                alt='img'
+                              />
+                            </CardContent>
+                          </>
                         ))}
                       </Box>
                     )}
