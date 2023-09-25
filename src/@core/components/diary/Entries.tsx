@@ -199,6 +199,13 @@ const Entries = ({ id, props }: any) => {
     }
   }, [])
 
+  const setFocusAndPositionCursor = (inputElement: any) => {
+    if (inputElement) {
+      inputElement.focus()
+      inputElement.selectionStart = inputElement.selectionEnd = inputElement.value.length
+    }
+  }
+
   const handleClickOutside = (event: any) => {
     if (pickerRef.current && !pickerRef.current.contains(event.target)) {
       setPickerVisible(false)
@@ -231,18 +238,30 @@ const Entries = ({ id, props }: any) => {
     dispatch(deleteDiary(id))
   }
 
+  // const handleEmojiSelect = (emoji: string, onChange: (value: string) => void) => {
+  //   if (contentRef.current && isPickerVisible) {
+  //     const cursorPosition = contentRef.current.selectionStart || 0
+
+  //     const inputValue = contentRef.current.value
+
+  //     const beforeCursor = inputValue.substring(0, cursorPosition)
+  //     const afterCursor = inputValue.substring(cursorPosition)
+
+  //     const newValue = beforeCursor + emoji + afterCursor
+  //     contentRef.current.value = newValue
+
+  //     onChange(newValue)
+  //   }
+  // }
+
   const handleEmojiSelect = (emoji: string, onChange: (value: string) => void) => {
     if (contentRef.current && isPickerVisible) {
       const cursorPosition = contentRef.current.selectionStart || 0
-
       const inputValue = contentRef.current.value
-
       const beforeCursor = inputValue.substring(0, cursorPosition)
       const afterCursor = inputValue.substring(cursorPosition)
 
       const newValue = beforeCursor + emoji + afterCursor
-      contentRef.current.value = newValue
-
       onChange(newValue)
     }
   }
@@ -340,7 +359,10 @@ const Entries = ({ id, props }: any) => {
                           maxRows={4}
                           label='Inserta un texto'
                           onChange={onChange}
-                          inputRef={contentRef}
+                          inputRef={(ref: any) => {
+                            contentRef.current = ref
+                            setFocusAndPositionCursor(ref)
+                          }}
                           InputProps={{
                             endAdornment: (
                               <InputAdornment position='end' sx={{ display: 'flex' }}>
