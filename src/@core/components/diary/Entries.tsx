@@ -185,10 +185,17 @@ const Entries = ({ id, props }: any) => {
 
   const [openEdit, setOpenEdit] = useState<boolean>(false)
   const handleOpenEdit = () => setOpenEdit(true)
+
   const handleCloseEdit = () => setOpenEdit(false)
 
   const pickerToggleHandler = () => {
-    setPickerVisible(prevState => !prevState)
+    setPickerVisible(prevState => {
+      if (!prevState) {
+        setFocusAndPositionCursor(contentRef.current, false) // No muevas el cursor al abrir
+      }
+
+      return !prevState
+    })
   }
 
   useEffect(() => {
@@ -199,10 +206,12 @@ const Entries = ({ id, props }: any) => {
     }
   }, [])
 
-  const setFocusAndPositionCursor = (inputElement: any) => {
-    if (inputElement) {
+  const setFocusAndPositionCursor = (inputElement: any, moveToTheEnd = true) => {
+    if (inputElement && !inputElement.contains(document.activeElement)) {
       inputElement.focus()
-      inputElement.selectionStart = inputElement.selectionEnd = inputElement.value.length
+      if (moveToTheEnd) {
+        inputElement.selectionStart = inputElement.selectionEnd = inputElement.value.length
+      }
     }
   }
 
@@ -211,6 +220,7 @@ const Entries = ({ id, props }: any) => {
       setPickerVisible(false)
     }
   }
+
   const { control, handleSubmit } = useForm({
     defaultValues: { content: props.content, emoji: props.emoji, photos: props.photos, favorite: props.favorite }
   })
@@ -238,30 +248,29 @@ const Entries = ({ id, props }: any) => {
     dispatch(deleteDiary(id))
   }
 
-  // const handleEmojiSelect = (emoji: string, onChange: (value: string) => void) => {
-  //   if (contentRef.current && isPickerVisible) {
-  //     const cursorPosition = contentRef.current.selectionStart || 0
-
-  //     const inputValue = contentRef.current.value
-
-  //     const beforeCursor = inputValue.substring(0, cursorPosition)
-  //     const afterCursor = inputValue.substring(cursorPosition)
-
-  //     const newValue = beforeCursor + emoji + afterCursor
-  //     contentRef.current.value = newValue
-
-  //     onChange(newValue)
-  //   }
-  // }
-
   const handleEmojiSelect = (emoji: string, onChange: (value: string) => void) => {
     if (contentRef.current && isPickerVisible) {
-      const cursorPosition = contentRef.current.selectionStart || 0
-      const inputValue = contentRef.current.value
+      const inputElement = contentRef.current
+      const cursorPosition = inputElement.selectionStart || 0
+      const inputValue = inputElement.value
+
+      // Divide el valor del campo de texto en tres partes
       const beforeCursor = inputValue.substring(0, cursorPosition)
       const afterCursor = inputValue.substring(cursorPosition)
 
+      // Inserta el emoji después del cursor actual
       const newValue = beforeCursor + emoji + afterCursor
+
+      // Actualiza el valor del campo de texto con el emoji
+      inputElement.value = newValue
+
+      // Calcula la nueva posición del cursor (después del emoji)
+      const newCursorPosition = cursorPosition + emoji.length
+
+      // Ajusta la posición del cursor
+      inputElement.setSelectionRange(newCursorPosition, newCursorPosition)
+
+      // Llama a la función onChange con el nuevo valor
       onChange(newValue)
     }
   }
@@ -360,8 +369,8 @@ const Entries = ({ id, props }: any) => {
                           label='Inserta un texto'
                           onChange={onChange}
                           inputRef={(ref: any) => {
-                            contentRef.current = ref
                             setFocusAndPositionCursor(ref)
+                            contentRef.current = ref
                           }}
                           InputProps={{
                             endAdornment: (
@@ -384,7 +393,10 @@ const Entries = ({ id, props }: any) => {
                                 <IconButton
                                   onClick={e => {
                                     e.stopPropagation()
-                                    pickerToggleHandler()
+                                    pickerToggleHandler() // Abre/cierra el picker de emojis
+                                    if (isPickerVisible) {
+                                      setFocusAndPositionCursor(contentRef.current) // Mueve el cursor al abrir
+                                    }
                                   }}
                                   className={classes.iconButton}
                                 >
