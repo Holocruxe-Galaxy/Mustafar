@@ -153,13 +153,17 @@ const Diary = () => {
 
   const [diary, setDiary] = useState<PostDiary>({ content: '', favorite: false })
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (pickerRef.current && !pickerRef.current.contains(event.target as Node)) {
-        setPickerVisible(false)
-      }
-    }
+  const pickerToggleHandler = () => {
+    setPickerVisible(!isPickerVisible)
+  }
 
+  const handleClickOutside = (event: any) => {
+    if (pickerRef.current && !pickerRef.current.contains(event.target)) {
+      setPickerVisible(false)
+    }
+  }
+
+  useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside)
 
     return () => {
@@ -213,9 +217,9 @@ const Diary = () => {
     }
   }
 
-  const handleEmojiButtonClick = () => {
-    setPickerVisible(!isPickerVisible)
-  }
+  // const handleEmojiButtonClick = () => {
+  //   setPickerVisible(!isPickerVisible)
+  // }
 
   const fileSelected = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target?.files?.[0]
@@ -286,7 +290,7 @@ const Diary = () => {
                       {!isPickerVisible ? (
                         ''
                       ) : (
-                        <Card className={classes.picker} ref={pickerRef}>
+                        <div className={classes.picker} ref={pickerRef}>
                           <Picker
                             data={data}
                             emojiTooltip
@@ -295,12 +299,16 @@ const Diary = () => {
                             searchPosition='none'
                             onEmojiSelect={handleEmojiSelect}
                           />
-                        </Card>
+                        </div>
                       )}
                       <IconButton
-                        onClick={handleEmojiButtonClick}
+                        onClick={e => {
+                          e.stopPropagation()
+                          pickerToggleHandler()
+                        }}
                         sx={isMultiline ? undefined : { display: 'none' }}
                         className={classes.iconButton}
+                        aria-expanded={isPickerVisible ? 'true' : 'false'}
                       >
                         <IconEmojiButton />
                       </IconButton>

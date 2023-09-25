@@ -175,8 +175,6 @@ const Entries = ({ id, props }: any) => {
 
   const contentRef = useRef<HTMLInputElement>(props.content)
 
-  //const inputRef = useRef<HTMLInputElement | null>(null)
-
   const favoriteRef = useRef<HTMLElement>(props.favorite)
   const emojiRef = useRef<HTMLSelectElement>(props.emoji)
 
@@ -237,7 +235,7 @@ const Entries = ({ id, props }: any) => {
     dispatch(deleteDiary(id))
   }
 
-  const handleEmojiSelect = (emoji: any) => {
+  const handleEmojiSelect = (emoji: string, onChange: (value: string) => void) => {
     if (contentRef.current && isPickerVisible) {
       const cursorPosition = contentRef.current.selectionStart || 0
 
@@ -246,13 +244,11 @@ const Entries = ({ id, props }: any) => {
       const beforeCursor = inputValue.substring(0, cursorPosition)
       const afterCursor = inputValue.substring(cursorPosition)
 
-      const newValue = beforeCursor + emoji.native + afterCursor
+      const newValue = beforeCursor + emoji + afterCursor
       contentRef.current.value = newValue
-    }
-  }
 
-  const handleEmojiButtonClick = () => {
-    setPickerVisible(!isPickerVisible)
+      onChange(newValue)
+    }
   }
 
   const fileSelected = (e: ChangeEvent<HTMLInputElement>) => {
@@ -307,7 +303,7 @@ const Entries = ({ id, props }: any) => {
           <>
             <Box component='div' sx={{ height: '4rem', display: 'flex', gap: '1rem' }}>
               {props.emoji && (
-                <IconButton className={classes.iconButton} sx={{ pt: 0.5 }}>
+                <IconButton className={classes.iconButton} sx={{ pt: 0.5, pl: 5 }}>
                   {props.emoji}
                 </IconButton>
               )}
@@ -355,17 +351,22 @@ const Entries = ({ id, props }: any) => {
                                 {!isPickerVisible ? (
                                   ''
                                 ) : (
-                                  <Card className={classes.picker} ref={pickerRef} onClick={e => e.stopPropagation()}>
+                                  <Card className={classes.picker} ref={pickerRef}>
                                     <Picker
                                       data={data}
                                       perLine={10}
                                       maxFrequentRows={0}
                                       searchPosition='none'
-                                      onEmojiSelect={handleEmojiSelect}
+                                      onEmojiSelect={(emoji: { native: string }) => {
+                                        handleEmojiSelect(emoji.native, onChange)
+                                      }}
                                     />
                                   </Card>
                                 )}
-                                <IconButton onClick={handleEmojiButtonClick} className={classes.iconButton}>
+                                <IconButton
+                                  onClick={() => setPickerVisible(prevState => !prevState)}
+                                  className={classes.iconButton}
+                                >
                                   <IconEmojiButton />
                                 </IconButton>
                               </InputAdornment>
