@@ -187,20 +187,23 @@ const Entries = ({ id, props }: any) => {
   const handleOpenEdit = () => setOpenEdit(true)
   const handleCloseEdit = () => setOpenEdit(false)
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (pickerRef.current && !pickerRef.current.contains(event.target as Node)) {
-        setPickerVisible(false)
-      }
-    }
+  const pickerToggleHandler = () => {
+    setPickerVisible(prevState => !prevState)
+  }
 
-    document.addEventListener('mousedown', handleClickOutside)
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside)
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('click', handleClickOutside)
     }
   }, [])
 
+  const handleClickOutside = (event: any) => {
+    if (pickerRef.current && !pickerRef.current.contains(event.target)) {
+      setPickerVisible(false)
+    }
+  }
   const { control, handleSubmit } = useForm({
     defaultValues: { content: props.content, emoji: props.emoji, photos: props.photos, favorite: props.favorite }
   })
@@ -357,7 +360,10 @@ const Entries = ({ id, props }: any) => {
                                   </Card>
                                 )}
                                 <IconButton
-                                  onClick={() => setPickerVisible(prevState => !prevState)}
+                                  onClick={e => {
+                                    e.stopPropagation()
+                                    pickerToggleHandler()
+                                  }}
                                   className={classes.iconButton}
                                 >
                                   <IconEmojiButton />

@@ -83,11 +83,11 @@ const CustomSwitch = styled(Switch)(() => ({
     margin: '1.7px'
   },
   '& .Mui-checked .MuiSwitch-thumb': {
-    backgroundImage: 'none', // Elimina el gradiente cuando está en "checked" (after)
+    backgroundImage: 'none',
     backgroundColor: '#010032',
     width: '19px',
     height: '19px',
-    margin: '1.7px' // Establece el color sólido cuando está en "checked" (after)
+    margin: '1.7px'
   },
   '& .MuiSwitch-track': {
     borderRadius: '20px',
@@ -152,22 +152,22 @@ const Diary = () => {
   const [diary, setDiary] = useState<PostDiary>({ content: '', favorite: false })
 
   const pickerToggleHandler = () => {
-    setPickerVisible(!isPickerVisible)
+    setPickerVisible(prevState => !prevState)
   }
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside)
+    }
+  }, [])
 
   const handleClickOutside = (event: any) => {
     if (pickerRef.current && !pickerRef.current.contains(event.target)) {
       setPickerVisible(false)
     }
   }
-
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside)
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [])
 
   useEffect(() => {
     dispatch(fetchData())
@@ -211,7 +211,6 @@ const Diary = () => {
 
       const newValue = beforeCursor + emoji.native + afterCursor
       inputRef.current.value = newValue
-      console.log(newValue)
     }
   }
 
