@@ -208,15 +208,15 @@ const LoginPage = () => {
               d='M1467.46,234,1432,178.74l11.63-18A14.63,14.63,0,1,0,1419,144.86l-4.42,6.86-30.48-47.45a14.63,14.63,0,0,0-24.61,15.81l37.67,58.63-34.67,53.74a14.62,14.62,0,0,0,24.57,15.86l27.47-42.57,28.29,44A14.63,14.63,0,1,0,1467.46,234Z'
               transform='translate(-64.16 -39.63)'
             />
-            <circle fill='#349AEF' cx='170.91' cy='72.2' r='13.71' />
-            <circle fill='#349AEF' cx='641.36' cy='72.2' r='13.71' />
-            <circle fill='#349AEF' cx='1231.08' cy='72.2' r='13.71' />
-            <circle fill='#349AEF' cx='1042.81' cy='201.98' r='13.71' />
-            <circle fill='#349AEF' cx='883.79' cy='191.01' r='13.71' />
-            <circle fill='#349AEF' cx='529.17' cy='203.81' r='13.71' />
-            <circle fill='#349AEF' cx='1388.28' cy='72.2' r='13.71' />
-            <circle fill='#349AEF' cx='1543.65' cy='72.2' r='13.71' />
-            <circle fill='#349AEF' cx='312.34' cy='72.2' r='13.71' />
+            <circle fill='#59C1BD' cx='170.91' cy='72.2' r='13.71' />
+            <circle fill='#59C1BD' cx='641.36' cy='72.2' r='13.71' />
+            <circle fill='#59C1BD' cx='1231.08' cy='72.2' r='13.71' />
+            <circle fill='#59C1BD' cx='1042.81' cy='201.98' r='13.71' />
+            <circle fill='#59C1BD' cx='883.79' cy='191.01' r='13.71' />
+            <circle fill='#59C1BD' cx='529.17' cy='203.81' r='13.71' />
+            <circle fill='#59C1BD' cx='1388.28' cy='72.2' r='13.71' />
+            <circle fill='#59C1BD' cx='1543.65' cy='72.2' r='13.71' />
+            <circle fill='#59C1BD' cx='312.34' cy='72.2' r='13.71' />
             <path
               fill='#CCC7CE'
               d='M429.05,116.45v.07c-1.89-1.84-3.68-3.58-4.72-4.56-4-3.71-12.05-1.87-16.28,3-4,4.63-5.63,14.14-2.32,18.5,1.93,2.53,9,7.77,10.78,9.11a54.77,54.77,0,0,1,12.54,35c0,29.78-23.32,53.92-52.09,53.92s-52.1-24.14-52.1-53.92a54.87,54.87,0,0,1,10.85-32.9h0s8.1-9.13,11.09-11.88c4-3.7,2.74-11.89-1.83-16.45-4.33-4.33-13.7-6.65-18.28-3.66-3.07,2-10.23,10.51-10.23,10.51h0a78.94,78.94,0,0,0-22.68,55.29c0,44.42,37,80.43,82.71,80.43s82.71-36,82.71-80.43A79.4,79.4,0,0,0,429.05,116.45ZM421.9,138l1.24-1.22C422.74,137.22,422.33,137.63,421.9,138Z'
@@ -270,7 +270,7 @@ const LoginPage = () => {
         >
           <BoxWrapper>
             <Box component='div' sx={{ my: 6, textAlign: 'center' }}>
-              <TypographyStyled variant='h5'>{`Bienvenido a Holocruxe`}</TypographyStyled>
+              <TypographyStyled variant='h5'>Bienvenido a Holocruxe</TypographyStyled>
               <Icon sx={{ position: 'absolute', right: 53, top: 55 }}>
                 <svg width='50' height='44' viewBox='0 0 85 85' fill='none' xmlns='http://www.w3.org/2000/svg'>
                   <path
@@ -360,19 +360,13 @@ const LoginPage = () => {
                   />
                 </svg>
               </Icon>
-              <Typography variant='body2' sx={{ marginTop: 4 }}>
+              <Typography variant='body2' sx={{ marginTop: 4, color: 'text.secondary' }}>
                 Ingresa a tu cuenta y dale vida a tus momentos
               </Typography>
             </Box>
 
             <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
-              <Button
-                fullWidth
-                size='large'
-                href={'/api/auth/login'}
-                variant='contained'
-                sx={{ mt: 9, mb: 3, backgroundColor: '#349AEF' }}
-              >
+              <Button fullWidth size='large' href={'/api/auth/login'} variant='contained' sx={{ mt: 9, mb: 3 }}>
                 Iniciar Sesión
               </Button>
 
@@ -388,7 +382,7 @@ const LoginPage = () => {
                   }}
                   href='/api/auth/login'
                   component={Link}
-                  sx={{ color: '#349AEF', textDecoration: 'none' }}
+                  sx={{ color: '#59C1BD', textDecoration: 'none' }}
                 >
                   Regístrate
                 </Typography>
