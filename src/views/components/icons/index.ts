@@ -1,10 +1,14 @@
 // ** AppBarContent Icons
 export { Bell } from './Bell'
+export { ActiveBell } from './ActiveBell'
 export { Language } from './Language'
+export { ActiveLanguage } from './ActiveLanguage'
 export { Search } from './Search'
 export { Line } from './Line'
 export { InactiveConections } from './InactiveConections'
 export { ActiveConections } from './ActiveConections'
+export { InactiveAvatar } from './InactiveAvatar'
+export { ActiveAvatar } from './ActiveAvatar'
 
 // ** CardLinks Icons
 export { ActiveDiary } from './button-bar/ActiveDiary'

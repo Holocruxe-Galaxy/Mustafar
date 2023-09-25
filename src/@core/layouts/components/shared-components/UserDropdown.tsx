@@ -16,6 +16,7 @@ import Typography from '@mui/material/Typography'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
+import { InactiveAvatar, ActiveAvatar } from 'src/views/components/icons/index'
 
 // ** Context
 import { useAuth } from 'src/hooks/useAuth'
@@ -93,12 +94,13 @@ const UserDropdown = (props: Props) => {
           horizontal: 'right'
         }}
       >
-        <Avatar
+        <InactiveAvatar />
+{/*         <Avatar
           alt='John Doe'
           onClick={handleDropdownOpen}
           sx={{ width: 40, height: 40 }}
           src='/images/avatars/1.png'
-        />
+        /> */}
       </Badge>
       <Menu
         anchorEl={anchorEl}

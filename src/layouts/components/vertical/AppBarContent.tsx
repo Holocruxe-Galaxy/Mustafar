@@ -17,7 +17,7 @@ import { Settings } from 'src/@core/context/settingsContext'
 // **import Autocomplete from 'src/layouts/components/Autocomplete'
 import LanguageDropdown from 'src/@core/layouts/components/shared-components/LanguageDropdown'
 import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
-import { Search, Bell, Line, InactiveConections, ActiveConections, ActiveMetrics, InactiveMetrics, ActiveBinnacle, InactiveBinnacle, ActiveTutorial, InactiveTutorial } from 'src/views/components/icons/index'
+import { Search, Bell, Line, InactiveConections, ActiveMetrics, InactiveMetrics, ActiveBinnacle, InactiveBinnacle, ActiveTutorial, InactiveTutorial } from 'src/views/components/icons/index'
 
 //import ModeToggler from 'src/@core/layouts/components/shared-components/ModeToggler'
 
@@ -155,12 +155,10 @@ const AppBarContent = (props: Props) => {
         <Search />
           <Line />
           <LanguageDropdown settings={settings} saveSettings={saveSettings} />
-          <Button className={activeArea ? classes.icons : ''} startIcon={activeArea ? <ActiveConections /> : <InactiveConections />} />
-            
-{/*           <ModeToggler settings={settings} saveSettings={saveSettings} /> */}
+          <InactiveConections />            
           {auth.user && (
             <>
-              <Bell />
+              <Bell /> 
               <Line />
               <UserDropdown settings={settings} />
             </>
