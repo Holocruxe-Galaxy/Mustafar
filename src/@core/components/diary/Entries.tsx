@@ -191,7 +191,7 @@ const Entries = ({ id, props }: any) => {
   const pickerToggleHandler = () => {
     setPickerVisible(prevState => {
       if (!prevState) {
-        setFocusAndPositionCursor(contentRef.current, false) // No muevas el cursor al abrir
+        setFocusAndPositionCursor(contentRef.current, contentRef.current?.selectionStart || 0) // No muevas el cursor al abrir
       }
 
       return !prevState
@@ -205,15 +205,6 @@ const Entries = ({ id, props }: any) => {
       document.removeEventListener('click', handleClickOutside)
     }
   }, [])
-
-  const setFocusAndPositionCursor = (inputElement: any, moveToTheEnd = true) => {
-    if (inputElement && !inputElement.contains(document.activeElement)) {
-      inputElement.focus()
-      if (moveToTheEnd) {
-        inputElement.selectionStart = inputElement.selectionEnd = inputElement.value.length
-      }
-    }
-  }
 
   const handleClickOutside = (event: any) => {
     if (pickerRef.current && !pickerRef.current.contains(event.target)) {
@@ -264,14 +255,26 @@ const Entries = ({ id, props }: any) => {
       // Actualiza el valor del campo de texto con el emoji
       inputElement.value = newValue
 
+      // Llama a la función onChange con el nuevo valor
+      onChange(newValue)
+
       // Calcula la nueva posición del cursor (después del emoji)
       const newCursorPosition = cursorPosition + emoji.length
 
-      // Ajusta la posición del cursor
-      inputElement.setSelectionRange(newCursorPosition, newCursorPosition)
+      setFocusAndPositionCursor(contentRef.current, newCursorPosition)
+    }
+  }
 
-      // Llama a la función onChange con el nuevo valor
-      onChange(newValue)
+  const setFocusAndPositionCursor = (inputElement: HTMLInputElement, newCursorPosition?: number) => {
+    console.log('🚀 newCursorPosition:', newCursorPosition)
+
+    if (inputElement && !inputElement.contains(document.activeElement)) {
+      inputElement.focus()
+      if (newCursorPosition) {
+        inputElement.setSelectionRange(newCursorPosition, newCursorPosition)
+      } else {
+        inputElement.selectionStart = inputElement.selectionEnd = inputElement.value.length
+      }
     }
   }
 
@@ -369,7 +372,7 @@ const Entries = ({ id, props }: any) => {
                           label='Inserta un texto'
                           onChange={onChange}
                           inputRef={(ref: any) => {
-                            setFocusAndPositionCursor(ref)
+                            setFocusAndPositionCursor(ref, contentRef.current?.selectionStart || 0)
                             contentRef.current = ref
                           }}
                           InputProps={{
@@ -395,7 +398,10 @@ const Entries = ({ id, props }: any) => {
                                     e.stopPropagation()
                                     pickerToggleHandler() // Abre/cierra el picker de emojis
                                     if (isPickerVisible) {
-                                      setFocusAndPositionCursor(contentRef.current) // Mueve el cursor al abrir
+                                      setFocusAndPositionCursor(
+                                        contentRef.current,
+                                        contentRef.current?.selectionStart || 0
+                                      ) // Mueve el cursor al abrir
                                     }
                                   }}
                                   className={classes.iconButton}
