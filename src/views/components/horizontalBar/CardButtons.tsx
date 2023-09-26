@@ -74,10 +74,10 @@ const CardButtons = (props: CardButtonsProps) => {
     >
       {data?.map((item: CardLinksProps, index: number) => (
           <Button
-          sx={{width: '20rem', height: 70, my: 2.5, mx: 6, borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'start'}}
+          sx={{width: '20rem', height: 70, my: 2.5, mx: 6, pl:8, borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'start'}}
           className={currentPage?.href === item.href ? classes.activeButton : classes.button}
           onClick={() => handleRedirect(item.href)}
-          startIcon={currentPage?.href ? item.activeIcon : item.inactiveIcon}>
+          startIcon={currentPage?.href === item.href ? item.activeIcon : item.inactiveIcon}>
             <Typography className={currentPage?.href === item.href ? classes.fontActive : classes.font} variant='h6'>{item.name}</Typography>
           </Button>
       ))}

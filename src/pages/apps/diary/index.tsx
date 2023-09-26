@@ -198,7 +198,7 @@ const Diary = () => {
   const diaryCards = [
     {
       name: 'DIARIO',
-      activeIcon: <InactiveDiary />,
+      activeIcon: <ActiveDiary />,
       inactiveIcon: <InactiveDiary />,
       href: 'apps/diary'
     },
