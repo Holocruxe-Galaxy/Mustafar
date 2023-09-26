@@ -2,32 +2,53 @@
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
+import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
-import { AvatarProps } from '@mui/material/Avatar'
-import { styled } from '@mui/material/styles'
-
-// ** Custom Components Imports
-import CustomAvatar from 'src/@core/components/mui/avatar'
+import { makeStyles } from '@mui/styles'
 
 // ** Type
 import { CardLinksProps } from './types'
 
-// ** Styled Avatar component
-const Avatar = styled(CustomAvatar)<AvatarProps>(({ theme }) => ({
-  width: 55,
-  height: 55,
-  marginRight: theme.spacing(4)
-}))
-
 const CardLinks = (props: CardLinksProps) => {
   // Vars
-  const { name, icon } = props
+  const { name, activeIcon, inactiveIcon, classType } = props
+
+  const useStyles = makeStyles(() =>({
+    cardInactive: {
+        background: 'none',
+        boxShadow: '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(66, 65, 136, 0.50) inset',
+        '&:hover':{
+          background: 'linear-gradient(180deg, #00FFED -10%, rgba(248, 54, 244, 0.20) 100%)'
+        }
+    },
+    cardActive: {
+        background: 'linear-gradient(180deg, #00FFED -10%, rgba(248, 54, 244, 0.20) 100%)',
+        boxShadow: '4px 4px 25px 0px rgba(255, 255, 255, 0.20), 4px 4px 4px 0px rgba(255, 255, 255, 0.25) inset;'
+    },
+    typoInactive: {
+        color: 'rgba(0, 255, 237, 1)',
+        fontWeight: 1
+    },
+    typoActive: {
+        color: 'white'
+    },
+    iconActive: {
+      width: 55,
+      height: 55,
+    }
+  }))
+
+  const classes = useStyles()
 
   return (
-    <Card
-      sx={{ display: 'flex', alignItems: 'center', width: 345, height: 85, mx: '25px', my: 5, borderRadius: '14px' }}
-    >
-      <CardContent sx={{ height: 100 }}>
+    <Card className={classType === 'cardActive'? classes.cardActive : classes.cardInactive} sx={{ display: 'flex', 
+        alignItems: 'center', 
+        width: '21.563rem', 
+        height: 85, 
+        mx: '25px', 
+        my:5, 
+        borderRadius: '14px'}}>
+      <CardContent sx={{ height: 100 }} >
         <Box
           component='div'
           sx={{
@@ -36,10 +57,10 @@ const CardLinks = (props: CardLinksProps) => {
             flexWrap: 'wrap'
           }}
         >
-          <Avatar skin='light' variant='rounded'>
-            {icon}
-          </Avatar>
-          <Typography variant='h6'>{name}</Typography>
+          <IconButton className={classes.iconActive} sx={{ ml: 1, "&.MuiButtonBase-root:hover": { bgcolor: "transparent"}}}>
+            {classType === 'cardActive'? activeIcon : inactiveIcon }
+          </IconButton>
+          <Typography className={classType === 'cardActive'? classes.typoActive : classes.typoInactive} variant='h6'>{name}</Typography>
         </Box>
       </CardContent>
     </Card>

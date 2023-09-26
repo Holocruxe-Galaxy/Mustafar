@@ -47,7 +47,7 @@ const AuthProvider = ({ children }: Props) => {
       const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)!
       if (storedToken) {
         await axios
-          .get(`${process.env.NEXT_PUBLIC_MANDALORE}`, {
+          .get(`${process.env.NEXT_PUBLIC_CORUSCANT}/users/verify`, {
             headers: {
               Authorization: storedToken
             }
