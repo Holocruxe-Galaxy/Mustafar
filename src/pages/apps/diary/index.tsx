@@ -31,6 +31,7 @@ import Picker from '@emoji-mart/react'
 
 // ** Components
 import Entries from 'src/@core/components/diary/Entries'
+import { ActiveDiary, ActiveOrganizer, InactiveDiary, InactiveOrganizer } from 'src/views/components/icons/index'
 
 // ** Redux
 import { addDiary, addDiaryWithPhoto, fetchData } from 'src/store/apps/diary'
@@ -236,12 +237,14 @@ const Diary = () => {
   const diaryCards = [
     {
       name: 'DIARIO',
-      icon: '',
-      href: ''
+      activeIcon: <ActiveDiary />,
+      inactiveIcon: <InactiveDiary />,
+      href: 'apps/diary'
     },
     {
       name: 'ORGANIZADOR',
-      icon: '',
+      activeIcon: <ActiveOrganizer />,
+      inactiveIcon: <InactiveOrganizer />,
       href: ''
     }
   ]

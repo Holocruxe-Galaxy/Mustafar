@@ -22,6 +22,8 @@ const ChatFormWrapper = styled(Box)<BoxProps>(({ theme }) => ({
   boxShadow: theme.shadows[1],
   padding: theme.spacing(1.25, 4),
   justifyContent: 'space-between',
+  
+/*   border: '1px solid #00FFED', */
   backgroundColor: theme.palette.background.paper
 }));
 
@@ -35,6 +37,7 @@ const SendMsgForm = (props: SendMsgComponentType) => {
 
   // ** State
   const [msg, setMsg] = useState<string>('');
+  const hasText = msg
 
   const handleSendMsg = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -45,20 +48,24 @@ const SendMsgForm = (props: SendMsgComponentType) => {
   };
 
   return (
-    <Form onSubmit={handleSendMsg}>
-      <ChatFormWrapper>
+    <Form onSubmit={handleSendMsg} >
+      <ChatFormWrapper
+      sx={{ border: hasText.length > 0 ? '1px solid rgba(248, 54, 244, 1)' : '1px solid #00FFED' }}
+      >
         <Box component='div' sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
           <TextField
             fullWidth
             value={msg}
             size='small'
-            placeholder='Type your message here…'
+            placeholder='Mensaje'
             onChange={e => setMsg(e.target.value)}
-            sx={{ '& .MuiOutlinedInput-input': { pl: 0 }, '& fieldset': { border: '0 !important' } }}
+            sx={{ '& .MuiOutlinedInput-input': { pl: 0 }, '& fieldset': { border: '0 !important' }, '& .MuiInputBase-input::placeholder': {
+              color: 'rgba(0, 255, 237, 0.80)'
+            } }}
           />
         </Box>
         <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
-          <Button type='submit'>
+          <Button type='submit' sx={{color: !hasText.length ? null : 'rgba(248, 54, 244, 1)'}}>
             <Icon icon='majesticons:send' />
           </Button>
         </Box>
