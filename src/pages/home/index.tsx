@@ -38,13 +38,15 @@ const Home = () => {
               component='div'
               sx={{
                 width: '100%',
-                height: '100%',
+                height: '27rem' /* '100%' */,
                 display: 'flex',
                 borderRadius: 1,
                 overflow: 'hidden',
                 position: 'relative',
                 backgroundColor: 'background.paper',
-                boxShadow: skin === 'bordered' ? 0 : 6,
+                boxShadow: '4px 4px 4px 0px rgba(255, 255, 255, 0.50)',
+
+                /*                 boxShadow: skin === 'bordered' ? 0 : 6, */
                 ...(skin === 'bordered' && { border: `1px solid ${theme.palette.divider}` })
               }}
             >
@@ -59,7 +61,7 @@ const Home = () => {
             </Box>
           </Grid>
 
-          <Grid item xs={12} sm={6} md={8} height={550}>
+          <Grid item xs={12} sm={6} md={8} >
             <AppChat />
           </Grid>
         </Grid>
