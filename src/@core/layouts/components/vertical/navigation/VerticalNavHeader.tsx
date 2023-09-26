@@ -141,7 +141,7 @@ const VerticalNavHeader = (props: Props) => {
               <circle fill='#59c1bd' cx='170.91' cy='72.2' r='13.71' />
             </svg>
           ) : (
-            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1550 257.73' width='180'>
+            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1560 257.73' width='180'>
               <path
                 fill='#f7f9f9'
                 d='M235.07,144.74a16.45,16.45,0,0,0-16.46,16.45v5.48H158.29V115.49a16.45,16.45,0,1,0-32.9,0v124.3a16.45,16.45,0,1,0,32.9,0V192.26h60.32v47.53a16.46,16.46,0,0,0,32.91,0v-78.6A16.45,16.45,0,0,0,235.07,144.74Z'

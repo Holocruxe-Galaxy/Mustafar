@@ -5,12 +5,12 @@ const navigation = (): VerticalNavItemsType => {
   return [
     {
       title: 'Dashboard',
-      icon: 'mdi:home-outline',
+      icon: 'noto:rocket',
       path: '/home'
     },
     {
       title: 'Mi bitácora',
-      icon: 'mdi:archive-outline',
+      icon: 'emojione:blue-book',
       children: [
         {
           title: 'Diario',
