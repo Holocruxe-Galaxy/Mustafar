@@ -22,6 +22,7 @@ const ChatFormWrapper = styled(Box)<BoxProps>(({ theme }) => ({
   boxShadow: theme.shadows[1],
   padding: theme.spacing(1.25, 4),
   justifyContent: 'space-between',
+  
 /*   border: '1px solid #00FFED', */
   backgroundColor: theme.palette.background.paper
 }));

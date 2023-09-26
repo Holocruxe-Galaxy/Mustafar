@@ -74,6 +74,7 @@ const CardButtons = (props: CardButtonsProps) => {
     >
       {data?.map((item: CardLinksProps, index: number) => (
           <Button
+          key={index}
           sx={{width: '20rem', height: 70, my: 2.5, mx: 6, pl:8, borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'start'}}
           className={currentPage?.href === item.href ? classes.activeButton : classes.button}
           onClick={() => handleRedirect(item.href)}

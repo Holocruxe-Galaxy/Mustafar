@@ -137,8 +137,9 @@ const AppBarContent = (props: Props) => {
         ...(skin === 'bordered' && { border: `1px solid ${theme.palette.divider}` })
       }}
     >
-      {currentPage?.buttons.map((card, index) => (
+      {currentPage?.buttons.map((card, index: number) => (
         <Button
+        key={index}
         sx={{width: '25rem', height: '5.313rem', margin: '1.200rem', pl:8, borderRadius: '14px', fontSize:'21px', fontWeight: 1 }}
         className={selectedPage === card.href ?  classes.cardActive : classes.card}
         onClick={() => handleRedirect(card.href)}
@@ -149,7 +150,7 @@ const AppBarContent = (props: Props) => {
       <Card 
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeaves} 
-      className={classes.card} >
+      className={activeArea ? classes.card : classes.card} >
 
         <CardContent className={classes.content} >
         <Search />
