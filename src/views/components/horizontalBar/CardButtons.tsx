@@ -54,7 +54,7 @@ const CardButtons = (props: CardButtonsProps) => {
   const currentPage = data.find(item => item.href === router.pathname.slice(1))
 
   const handleRedirect = (href: string) => {
-    router.push(`/pages/${href}`)
+    router.push(`${href}`)
   }
 
   return (
