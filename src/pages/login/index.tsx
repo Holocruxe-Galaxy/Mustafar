@@ -221,7 +221,7 @@ const LoginPage = () => {
           <BoxWrapper>
             <Box component='div' sx={{ my: 6, textAlign: 'center' }}>
               <TypographyStyled variant='h5'>Bienvenido a Holocruxe</TypographyStyled>
-              <Icon sx={{ position: 'absolute', right: 53, top: 55 }}>
+              <Icon sx={{ position: 'absolute', right: 54, top: 100 }}>
                 <Rocket />
               </Icon>
               <Typography variant='body2' sx={{ marginTop: 4, color: 'text.secondary' }}>
