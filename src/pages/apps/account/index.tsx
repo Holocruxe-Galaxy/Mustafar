@@ -35,6 +35,12 @@ import Checked from 'src/@core/icons/Checked'
 import Negativo from 'src/@core/icons/Negativo'
 
 import CardButtons from "src/views/components/horizontalBar/CardButtons";
+import AccountIconActive from 'src/@core/icons/configuracion/AccoutIconActive'
+import AccountIconInactive from 'src/@core/icons/configuracion/AccountIconInactive'
+import PadlockActive from 'src/@core/icons/configuracion/PadlockActive'
+import PadlockInactive from 'src/@core/icons/configuracion/PadlockInactive'
+import BellActive from 'src/@core/icons/configuracion/BellActive'
+import BellInactive from 'src/@core/icons/configuracion/BellInactive'
 
 // import AccountIcon from 'src/@core/icons/AccoutIcon'
 
@@ -42,18 +48,21 @@ const Account = () => {
   const settingsCards = [
     {
       name: 'CUENTA',
-      icon: '',
-      href: '/apps/account'
+      activeIcon: <AccountIconActive />,
+      inactiveIcon: <AccountIconInactive />,
+      href: 'account'
     },
     {
       name: 'SEGURIDAD',
-      icon: '',
-      href: '/apps/security'
+      activeIcon: <PadlockActive/>,
+      inactiveIcon: <PadlockInactive />,
+      href: 'security'
     },
     {
       name: 'NOTIFICACIONES',
-      icon: '',
-      href: '/apps/notifications'
+      activeIcon: <BellActive />,
+      inactiveIcon: <BellInactive />,
+      href: 'notifications'
     },
   ]
   const [open, setOpen] = useState<boolean>(false)

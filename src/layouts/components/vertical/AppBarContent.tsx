@@ -24,6 +24,8 @@ import { Search, Bell, Line, InactiveConections, ActiveMetrics, InactiveMetrics,
 // ** Hook Import
 import { useAuth } from 'src/hooks/useAuth'
 import { useRouter } from 'next/router'
+import InteresActivo from 'src/@core/icons/configuracion/InteresActivo'
+import InteresesInactivo from 'src/@core/icons/configuracion/InteresesInactivo'
 
 interface Props {
   hidden: boolean
@@ -47,21 +49,21 @@ const AppBarContent = (props: Props) => {
     const handleMouseEnter = () => {
       setActiveArea(true)
     }
-  
+
     const handleMouseLeaves = () => {
       setActiveArea(false)
     }
 
   const useStyles = makeStyles(() => ({
     card: {
-      display: 'flex', 
-      alignItems: 'center', 
-      justifyContent: 'start', 
-      width: '25rem', 
-      height: '5.313rem', 
-      margin: '1.200rem', 
-      borderRadius: '14px', 
-      fontSize: '21px', 
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'start',
+      width: '25rem',
+      height: '5.313rem',
+      margin: '1.200rem',
+      borderRadius: '14px',
+      fontSize: '21px',
       fontWeight: 1,
       boxShadow: '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(66, 65, 136, 0.50) inset',
       '&:hover':{
@@ -71,15 +73,15 @@ const AppBarContent = (props: Props) => {
     cardActive: {
       display: 'flex',
       fontWeight: '20px',
-      justifyContent: 'start', 
+      justifyContent: 'start',
       alignItems: 'center',
       background: 'linear-gradient(180deg, #00FFED -10%, rgba(248, 54, 244, 0.20) 100%)',
       boxShadow: '4px 4px 25px 0px rgba(255, 255, 255, 0.20), 4px 4px 4px 0px rgba(255, 255, 255, 0.25) inset;'
     },
     content: {
-      display: 'flex', 
-      alignItems: 'center', 
-      justifyContent: 'space-between', 
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
       width: '100%'
     },
     icons: {
@@ -113,27 +115,30 @@ const AppBarContent = (props: Props) => {
       page: 'apps/account',
       buttons: [
         { name: 'TUS INTERESES',
-        // activeIcon: '', inactiveIcon: ''
-        icon: '', href: '', active: true },
-        { name: 'TUS MÉTRICAS', icon: '', href: '', active: true }
+        activeIcon: <InteresActivo />,
+        inactiveIcon: <InteresesInactivo />,
+        href: '',  },
+        { name: 'TUS MÉTRICAS', activeIcon: <ActiveMetrics />, inactiveIcon: <InactiveMetrics/>, href: '',  }
       ]
     },
     {
       page: 'apps/security',
       buttons: [
         { name: 'TUS INTERESES',
-        // activeIcon: '', inactiveIcon: ''
-        icon: '', href: '', active: true },
-        { name: 'TUS MÉTRICAS', icon: '', href: '', active: true }
+        activeIcon: <InteresActivo />,
+        inactiveIcon: <InteresesInactivo />,
+         href: '' },
+        { name: 'TUS MÉTRICAS', activeIcon: <ActiveMetrics />, inactiveIcon: <InactiveMetrics/>, href: '' }
       ]
     },
     {
-      page: 'apps/',
+      page: 'apps/notifications',
       buttons: [
         { name: 'TUS INTERESES',
-        // activeIcon: '', inactiveIcon: ''
-        icon: '', href: '', active: true },
-        { name: 'TUS MÉTRICAS', icon: '', href: '', active: true }
+        activeIcon: <InteresActivo />,
+        inactiveIcon: <InteresesInactivo />,
+        href: '',  },
+        { name: 'TUS MÉTRICAS', activeIcon: <ActiveMetrics />, inactiveIcon: <InactiveMetrics/>, href: '' }
       ]
     }
   ]
@@ -174,19 +179,19 @@ const AppBarContent = (props: Props) => {
           <Typography className={currentPage.page === card.href ? classes.fontActive : classes.font} variant='h6'>{card.name}</Typography>
         </Button>
       ))}
-      <Card 
+      <Card
       onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeaves} 
+      onMouseLeave={handleMouseLeaves}
       className={activeArea ? classes.card : classes.card} >
 
         <CardContent className={classes.content} >
         <Search />
           <Line />
           <LanguageDropdown settings={settings} saveSettings={saveSettings} />
-          <InactiveConections />            
+          <InactiveConections />
           {auth.user && (
             <>
-              <Bell /> 
+              <Bell />
               <Line />
               <UserDropdown settings={settings} />
             </>

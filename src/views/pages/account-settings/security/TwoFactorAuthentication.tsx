@@ -25,7 +25,7 @@ import Icon from 'src/@core/components/icon'
 // ** Third Party Imports
 import { useForm, Controller } from 'react-hook-form'
 import GreenChecked from 'src/@core/icons/GreenChecked'
-import PinkAirplane from 'src/@core/icons/PinkAirplane'
+import PinkAirplane from 'src/@core/icons/configuracion/PinkAirplane'
 
 const TwoFactorAuthenticationCard = () => {
   // ** States

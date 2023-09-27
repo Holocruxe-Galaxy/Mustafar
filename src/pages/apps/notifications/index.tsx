@@ -10,12 +10,18 @@ import { Box, FormControlLabel } from '@mui/material'
 // import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import Stack from '@mui/material/Stack'
+import Switch from '@mui/material/Switch'
 import { styled } from '@mui/material/styles';
 import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
-import Switch from '@mui/material/Switch'
 import CardButtons from 'src/views/components/horizontalBar/CardButtons'
+import AccountIconActive from 'src/@core/icons/configuracion/AccoutIconActive'
+import AccountIconInactive from 'src/@core/icons/configuracion/AccountIconInactive'
+import PadlockActive from 'src/@core/icons/configuracion/PadlockActive'
+import PadlockInactive from 'src/@core/icons/configuracion/PadlockInactive'
+import BellActive from 'src/@core/icons/configuracion/BellActive'
+import BellInactive from 'src/@core/icons/configuracion/BellInactive'
 
 const StyledSwitch = styled(Switch)(() => ({
   width: '50px',
@@ -85,18 +91,21 @@ const Notifications = () => {
   const settingsCards = [
     {
       name: 'CUENTA',
-      icon: '',
-      href: '/apps/account'
+      activeIcon: <AccountIconActive />,
+      inactiveIcon: <AccountIconInactive />,
+      href: 'account'
     },
     {
       name: 'SEGURIDAD',
-      icon: '',
-      href: '/apps/security'
+      activeIcon: <PadlockActive/>,
+      inactiveIcon: <PadlockInactive />,
+      href: 'security'
     },
     {
       name: 'NOTIFICACIONES',
-      icon: '',
-      href: '/apps/notifications'
+      activeIcon: <BellActive />,
+      inactiveIcon: <BellInactive />,
+      href: 'notifications'
     },
   ]
 

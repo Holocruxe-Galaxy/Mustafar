@@ -10,10 +10,10 @@ import Typography from '@mui/material/Typography'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 
+import ComputerIcon from 'src/@core/icons/configuracion/ComputerIcon'
+import PhoneIcon from 'src/@core/icons/configuracion/PhoneIcon'
+import TabletIcon from 'src/@core/icons/configuracion/TabletIcon'
 import TwoFactorAuthentication from 'src/views/pages/account-settings/security/TwoFactorAuthentication'
-import ComputerIcon from 'src/@core/icons/ComputerIcon'
-import PhoneIcon from 'src/@core/icons/PhoneIcon'
-import TabletIcon from 'src/@core/icons/TabletIcon'
 import {
   Button,
   Checkbox,
@@ -30,6 +30,12 @@ import Icon from 'src/@core/components/icon'
 import Negativo from 'src/@core/icons/Negativo'
 import LoginAlert from '../../../views/pages/account-settings/security/LoginAlert'
 import CardButtons from 'src/views/components/horizontalBar/CardButtons'
+import AccountIconActive from 'src/@core/icons/configuracion/AccoutIconActive'
+import AccountIconInactive from 'src/@core/icons/configuracion/AccountIconInactive'
+import PadlockActive from 'src/@core/icons/configuracion/PadlockActive'
+import PadlockInactive from 'src/@core/icons/configuracion/PadlockInactive'
+import BellActive from 'src/@core/icons/configuracion/BellActive'
+import BellInactive from 'src/@core/icons/configuracion/BellInactive'
 
 interface RecentDeviceDataType {
   date?: string
@@ -113,19 +119,22 @@ const Secutiry = () => {
   const settingsCards = [
     {
       name: 'CUENTA',
-      icon: '',
-      href: '/apps/account'
+      activeIcon: <AccountIconActive />,
+      inactiveIcon: <AccountIconInactive />,
+      href: 'account'
     },
     {
       name: 'SEGURIDAD',
-      icon: '',
-      href: '/apps/security'
+      activeIcon: <PadlockActive/>,
+      inactiveIcon: <PadlockInactive />,
+      href: 'security'
     },
     {
       name: 'NOTIFICACIONES',
-      icon: '',
-      href: '/apps/notifications'
-    }
+      activeIcon: <BellActive />,
+      inactiveIcon: <BellInactive />,
+      href: 'notifications'
+    },
   ]
 
   return (
