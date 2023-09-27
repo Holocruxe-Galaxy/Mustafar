@@ -1,4 +1,4 @@
-const ArtIcon = () => {
+const EditArtIcon = () => {
   return (
     <svg
       style={{ paddingTop: '0.8rem' }}
@@ -54,4 +54,4 @@ const ArtIcon = () => {
   )
 }
 
-export default ArtIcon
+export default EditArtIcon
