@@ -66,7 +66,7 @@ const OptionsMenu = (props: OptionsMenuType) => {
 
   return (
     <>
-      <IconButton aria-haspopup='true' onClick={handleClick} {...iconButtonProps}>
+      <IconButton aria-haspopup='true' onClick={handleClick} {...iconButtonProps} sx={{ "&.MuiButtonBase-root:hover": { bgcolor: "transparent"}}}>
         {icon ? icon : <Icon icon='mdi:dots-vertical' {...iconProps} />}
       </IconButton>
       <Menu

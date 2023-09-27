@@ -1,28 +1,29 @@
+// ** React Imports
+import { useState } from 'react'
+
 // ** MUI Imports
 import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
+import Typography from '@mui/material/Typography'
 import { useTheme } from '@mui/material/styles'
-
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
+import { makeStyles } from '@mui/styles'
 
 // ** Type Import
 import { Settings } from 'src/@core/context/settingsContext'
 
 // ** Components
 // **import Autocomplete from 'src/layouts/components/Autocomplete'
-import CardLinks from 'src/views/components/horizontalBar/CardLinks'
 import LanguageDropdown from 'src/@core/layouts/components/shared-components/LanguageDropdown'
-import ModeToggler from 'src/@core/layouts/components/shared-components/ModeToggler'
 import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
+import { Search, Bell, Line, InactiveConections, ActiveMetrics, InactiveMetrics, ActiveBinnacle, InactiveBinnacle, ActiveTutorial, InactiveTutorial } from 'src/views/components/icons/index'
+
+//import ModeToggler from 'src/@core/layouts/components/shared-components/ModeToggler'
 
 // ** Hook Import
 import { useAuth } from 'src/hooks/useAuth'
 import { useRouter } from 'next/router'
-import { Link } from '@mui/material'
-
-/* import Link from 'next/link' */
 
 interface Props {
   hidden: boolean
@@ -37,26 +38,86 @@ const AppBarContent = (props: Props) => {
   const router = useRouter()
 
   // ** Props
-  const { /* hidden, */ settings, saveSettings /* , toggleNavVisibility  */ } = props
+  const { /* hidden, */ settings, saveSettings } = props
   const theme = useTheme()
 
-  const button = [
+    // ** States
+    const [activeArea, setActiveArea] = useState(false)
+
+    const handleMouseEnter = () => {
+      setActiveArea(true)
+    }
+  
+    const handleMouseLeaves = () => {
+      setActiveArea(false)
+    }
+
+  const useStyles = makeStyles(() => ({
+    card: {
+      display: 'flex', 
+      alignItems: 'center', 
+      justifyContent: 'start', 
+      width: '25rem', 
+      height: '5.313rem', 
+      margin: '1.200rem', 
+      borderRadius: '14px', 
+      fontSize: '21px', 
+      fontWeight: 1,
+      boxShadow: '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(66, 65, 136, 0.50) inset',
+      '&:hover':{
+        background: 'linear-gradient(180deg, #00FFED -10%, rgba(248, 54, 244, 0.20) 100%)'
+      }
+    },
+    cardActive: {
+      display: 'flex',
+      fontWeight: '20px',
+      justifyContent: 'start', 
+      alignItems: 'center',
+      background: 'linear-gradient(180deg, #00FFED -10%, rgba(248, 54, 244, 0.20) 100%)',
+      boxShadow: '4px 4px 25px 0px rgba(255, 255, 255, 0.20), 4px 4px 4px 0px rgba(255, 255, 255, 0.25) inset;'
+    },
+    content: {
+      display: 'flex', 
+      alignItems: 'center', 
+      justifyContent: 'space-between', 
+      width: '100%'
+    },
+    icons: {
+      width: '20px',
+      height: '20px'
+    },
+    font: {
+      color: '#00FFED',
+      fontWeight: 1
+    },
+    fontActive: {
+      color: 'white'
+    }
+  }))
+
+  const classes = useStyles()
+
+  const cardsArr = [
     {
       page: 'home',
-      buttons: [{ name: 'Tutorial', icon: '', href: '' }]
+      buttons: [{ name: 'TUTORIAL', activeIcon: <ActiveTutorial />, inactiveIcon: <InactiveTutorial />, href: 'home'}]
     },
     {
-      page: 'apps/chat',
+      page: 'apps/diary',
       buttons: [
-        { name: 'Tus intereses', icon: '', href: '/home' },
-        { name: 'Tus métricas', icon: '', href: '' }
+        { name: 'MI BITÁCORA', activeIcon: <ActiveBinnacle />, inactiveIcon: <InactiveBinnacle />, href: 'apps/diary'},
+        { name: 'TUS MÉTRICAS', activeIcon: <ActiveMetrics />, inactiveIcon: <InactiveMetrics/>, href: ''}
       ]
     }
   ]
 
   // Vars
-  /*   const currentPath = router.pathname */
-  const currentPage = button.find(item => item.page == router.pathname.slice(1))
+  const currentPage = cardsArr.find(item => item.page == router.pathname.slice(1))
+  const selectedPage = currentPage?.page
+
+  const handleRedirect = (href: string) => {
+    router.push(`${href}`)
+  }
 
   const { skin } = settings
 
@@ -71,39 +132,40 @@ const AppBarContent = (props: Props) => {
         overflow: 'hidden',
         position: 'relative',
         backgroundColor: 'background.paper',
-        boxShadow: skin === 'bordered' ? 0 : 6,
+        boxShadow: /* skin === 'bordered' ? 0 : 6 */ '4px 4px 4px 0px rgba(255, 255, 255, 0.50)',
         mt: 8,
         ...(skin === 'bordered' && { border: `1px solid ${theme.palette.divider}` })
       }}
     >
-      {/*       <Box className='actions-left' sx={{ mr: 2, display: 'flex', alignItems: 'center' }}>
-        {hidden && !settings.navHidden ? (
-          <IconButton color='inherit' sx={{ ml: -2.75 }} onClick={toggleNavVisibility}>
-            <Icon icon='mdi:menu' />
-          </IconButton>
-        ) : null}
-        {auth.user && <Autocomplete hidden={hidden} settings={settings} />}
-      </Box> */}
-      {/*       <Box className='actions-right' sx={{ display: 'flex', alignItems: 'center' }}> */}
-      {currentPage?.buttons.map((button, index) => (
-        <Link key='index' href={button.href}>
-          <CardLinks key={index} name={button.name} icon={button.icon} />
-        </Link>
+      {currentPage?.buttons.map((card, index: number) => (
+        <Button
+        key={index}
+        sx={{width: '25rem', height: '5.313rem', margin: '1.200rem', pl:8, borderRadius: '14px', fontSize:'21px', fontWeight: 1 }}
+        className={selectedPage === card.href ?  classes.cardActive : classes.card}
+        onClick={() => handleRedirect(card.href)}
+        startIcon={currentPage.page === card.href ? card.activeIcon : card.inactiveIcon}>
+          <Typography className={currentPage.page === card.href ? classes.fontActive : classes.font} variant='h6'>{card.name}</Typography>
+        </Button>
       ))}
-      <Card sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 500, margin: 4 }}>
-        <CardContent sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '90%' }}>
-          <Icon icon='ic:baseline-search' />
+      <Card 
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeaves} 
+      className={activeArea ? classes.card : classes.card} >
+
+        <CardContent className={classes.content} >
+        <Search />
+          <Line />
           <LanguageDropdown settings={settings} saveSettings={saveSettings} />
-          <ModeToggler settings={settings} saveSettings={saveSettings} />
+          <InactiveConections />            
           {auth.user && (
             <>
-              <Icon icon='ic:baseline-mail' />
+              <Bell /> 
+              <Line />
               <UserDropdown settings={settings} />
             </>
           )}
         </CardContent>
       </Card>
-      {/*       </Box> */}
     </Box>
   )
 }

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, FormEvent } from 'react'
+import { useState, useRef, useEffect, FormEvent, ChangeEvent } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from 'src/store'
 
@@ -9,7 +9,6 @@ import {
   Card,
   CardContent,
   TextField,
-  InputAdornment,
   IconButton,
   Button,
   Select,
@@ -17,80 +16,115 @@ import {
   SelectChangeEvent,
   Stack,
   Tooltip,
-  Switch
+  Switch,
+  InputAdornment
 } from '@mui/material'
+import { Box } from '@mui/system'
 import { styled } from '@mui/material/styles'
 import { makeStyles } from '@mui/styles'
-import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions'
-import RocketLaunchIcon from '@mui/icons-material/RocketLaunch'
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied'
+import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions'
 
 // ** Emoji Picker
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
 
-// ** Cloudinary
-import { Cloudinary } from 'src/@core/utils/cloudinary'
-
 // ** Components
 import Entries from 'src/@core/components/diary/Entries'
+import { ActiveDiary, ActiveOrganizer, InactiveDiary, InactiveOrganizer } from 'src/views/components/icons/index'
 
 // ** Redux
-import { addDiary, fetchData } from 'src/store/apps/diary'
+import { addDiary, addDiaryWithPhoto, fetchData } from 'src/store/apps/diary'
 
 // ** Utils
 import emotions from 'src/@core/utils/emotions'
+import CardButtons from 'src/views/components/horizontalBar/CardButtons'
+
+// ** Icon Components
+import UploadButton from 'src/@core/icons/diary/UploadButton'
+import IconEmojiButton from 'src/@core/icons/diary/IconEmojiButton'
+import Send from 'src/@core/icons/diary/Send'
 
 const useStyles = makeStyles(() => ({
   picker: {
     position: 'absolute',
-    top: 60,
+    top: 92,
+    right: 20,
     zIndex: 9999
+  },
+  iconButton: {
+    '&:hover': {
+      backgroundColor: 'transparent'
+    },
+    '&:active': {
+      backgroundColor: 'transparent'
+    },
+    '& .MuiIconButton-label': {
+      transition: 'none'
+    }
   }
 }))
 
-const MaterialUISwitch = styled(Switch)(({ theme }) => ({
-  width: 62,
-  height: 34,
-  padding: 7,
+const CustomSwitch = styled(Switch)(() => ({
+  width: '50px',
+  height: '24px',
+  padding: '0px',
   '& .MuiSwitch-switchBase': {
-    margin: 1,
-    padding: 0,
-    transform: 'translateX(6px)',
-    '&.Mui-checked': {
-      color: '#fff',
-      transform: 'translateX(22px)',
-      '& .MuiSwitch-thumb:before': {
-        backgroundImage: `url()`
-      },
-      '& + .MuiSwitch-track': {
-        opacity: 1,
-        backgroundColor: theme.palette.mode === 'dark' ? '#8796A5' : '#aab4be'
-      }
+    padding: '1px',
+    '&.Mui-checked + .MuiSwitch-track': {
+      backgroundImage: 'linear-gradient(180deg, #00FFED 0%, #D5AEE2 80%)'
     }
   },
   '& .MuiSwitch-thumb': {
-    backgroundColor: theme.palette.mode === 'dark' ? '#59C1BD' : '#59C1BD',
-    width: 32,
-    height: 32,
-    '&:before': {
-      content: "''",
-      position: 'absolute',
-      width: '100%',
-      height: '100%',
-      left: 0,
-      top: 0,
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'center',
-      backgroundImage: `url()`
-    }
+    backgroundRepeat: 'no-repeat',
+    backgroundImage: 'linear-gradient(180deg, #00FFED 0%, #D5AEE2 80%)',
+    backgroundColor: 'transparent',
+    width: '18px',
+    height: '18px',
+    margin: '1.7px'
+  },
+  '& .Mui-checked .MuiSwitch-thumb': {
+    backgroundImage: 'none',
+    backgroundColor: '#010032',
+    width: '19px',
+    height: '19px',
+    margin: '1.7px'
   },
   '& .MuiSwitch-track': {
-    opacity: 1,
-    backgroundColor: theme.palette.mode === 'dark' ? '#8796A5' : '#aab4be',
-    borderRadius: 20 / 2
+    borderRadius: '20px',
+    backgroundColor: '#010032',
+    opacity: '1 !important',
+    '&:after': {
+      content: '"On"',
+      left: '6px',
+      color: '#010032',
+      fontSize: '11px',
+      position: 'absolute',
+      top: '3.5px'
+    },
+    '&:before': {
+      content: '"Off"',
+      right: '5px',
+      color: 'white',
+      fontSize: '11px',
+      position: 'absolute',
+      top: '3.8px'
+    }
+  },
+  '& .Mui-checked': {
+    color: 'white !important',
+    transform: 'translateX(26px) !important'
   }
 }))
+
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  width: 1,
+  height: 1,
+  overflow: 'hidden',
+  whiteSpace: 'nowrap'
+})
 
 interface Diary {
   _id: string
@@ -102,18 +136,39 @@ interface Diary {
   photos?: string[]
 }
 
-export type PostDiary = Omit<Diary, '_id' | 'createdAt' | 'updatedAt'>
+export type PostDiary = Omit<Diary, '_id' | 'createdAt' | 'updatedAt' | 'photos'>
 
 const Diary = () => {
   const { data: diaryData } = useSelector((state: RootState) => state.diary)
   const dispatch = useDispatch<AppDispatch>()
-  const [inputValue, setInputValue] = useState<string>('')
-  const [checked, setChecked] = useState<boolean>(false)
+
   const [toSend, setToSend] = useState<boolean>(false)
   const [isPickerVisible, setPickerVisible] = useState<boolean | null>(false)
+  const [isMultiline, setMultiline] = useState<boolean>(false)
+  const [file, setFile] = useState<FormData>()
+
   const inputRef = useRef<HTMLInputElement | null>(null)
+  const pickerRef = useRef<HTMLDivElement>(null)
 
   const [diary, setDiary] = useState<PostDiary>({ content: '', favorite: false })
+
+  const pickerToggleHandler = () => {
+    setPickerVisible(prevState => !prevState)
+  }
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside)
+    }
+  }, [])
+
+  const handleClickOutside = (event: any) => {
+    if (pickerRef.current && !pickerRef.current.contains(event.target)) {
+      setPickerVisible(false)
+    }
+  }
 
   useEffect(() => {
     dispatch(fetchData())
@@ -122,9 +177,13 @@ const Diary = () => {
   }, [])
 
   useEffect(() => {
-    if (diary.content.length) {
+    if (diary.content.length && !file) {
       dispatch(addDiary(diary))
       setDiary({ content: '', favorite: false })
+    } else if (diary.content.length && file) {
+      dispatch(addDiaryWithPhoto({ ...diary, file }))
+      setDiary({ content: '', favorite: false })
+      setFile(undefined)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [toSend])
@@ -133,8 +192,11 @@ const Diary = () => {
     setDiary({ ...diary, emoji: e.target.value })
   }
 
-  const handleInputChange = (event: any) => {
-    setInputValue(event.target.value)
+  const handleValue = (e: any) => {
+    if (inputRef?.current) {
+      inputRef.current.value = e.target.value
+      inputRef.current.value.length ? setMultiline(true) : setMultiline(false)
+    }
   }
 
   const handleSwitchChange = () => {
@@ -143,112 +205,196 @@ const Diary = () => {
 
   const handleEmojiSelect = (emoji: any) => {
     if (inputRef.current && isPickerVisible) {
-      console.log(inputRef.current)
-      inputRef.current.value += emoji.native
-    }
+      const cursorPosition = inputRef.current.selectionStart || 0
+      const inputValue = inputRef.current.value
+      const beforeCursor = inputValue.substring(0, cursorPosition)
+      const afterCursor = inputValue.substring(cursorPosition)
 
-    setPickerVisible(!isPickerVisible)
+      const newValue = beforeCursor + emoji.native + afterCursor
+      inputRef.current.value = newValue
+    }
   }
 
-  const handleChecked = () => {
-    setChecked(!checked)
+  const fileSelected = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target?.files?.[0]
+    const formData = new FormData()
+    formData.append('photos', file as unknown as string)
+    setFile(formData)
   }
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (inputRef.current && inputValue.length) {
+    if (inputRef.current && inputRef.current.value.length) {
       setDiary({ ...diary, content: inputRef.current.value })
       setToSend(!toSend)
+      inputRef.current.value = ''
     }
-    setInputValue('')
   }
 
   const classes = useStyles()
 
+  // const
+  const diaryCards = [
+    {
+      name: 'DIARIO',
+      activeIcon: <ActiveDiary />,
+      inactiveIcon: <InactiveDiary />,
+      href: 'apps/diary'
+    },
+    {
+      name: 'ORGANIZADOR',
+      activeIcon: <ActiveOrganizer />,
+      inactiveIcon: <InactiveOrganizer />,
+      href: ''
+    }
+  ]
+
   return (
     <>
-      <Card sx={{ height: '100%' }}>
+      <Box component='div' sx={{ mb: 5 }}>
+        <CardButtons data={diaryCards} />
+      </Box>
+      <Card sx={{ height: '100%', mb: 5 }}>
         <CardContent>
-          <form onSubmit={onSubmit}>
-            <TextField
-              fullWidth
-              label='Qué hay de nuevo? ...'
-              variant='outlined'
-              inputRef={inputRef}
-              value={inputRef.current?.value}
-              onChange={handleInputChange}
-              sx={{ marginRight: 3, borderRadius: 2 }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position='end' sx={{ display: 'flex' }}>
-                    {!isPickerVisible ? (
-                      ''
-                    ) : (
-                      <Card className={classes.picker}>
-                        <Picker
-                          data={data}
-                          emojiTooltip
-                          perLine={10}
-                          maxFrequentRows={0}
-                          searchPosition='none'
-                          onEmojiSelect={handleEmojiSelect}
-                        />
-                      </Card>
-                    )}
-                    <IconButton onClick={() => setPickerVisible(!isPickerVisible)} sx={{ marginRight: 2 }}>
-                      <EmojiEmotionsIcon />
-                    </IconButton>
+          <Box
+            sx={
+              isMultiline
+                ? { backgroundColor: '#0e2b42', height: '9.4rem', p: 3, borderRadius: 1 }
+                : { backgroundColor: '#0e2b42', height: '5rem', p: 3, borderRadius: 1 }
+            }
+            component='div'
+          >
+            <form onSubmit={onSubmit} style={{ display: 'flex', flexDirection: 'row' }}>
+              <TextField
+                focused={isMultiline ? true : false}
+                variant='outlined'
+                size='medium'
+                multiline={true}
+                minRows={isMultiline ? 4 : 0}
+                id='myInput'
+                label='Qué hay de nuevo? ...'
+                inputRef={inputRef}
+                onChange={e => handleValue(e)}
+                sx={{
+                  width: '80%',
+                  mr: 3,
+                  borderRadius: 2
+                }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position='end' sx={{ display: 'flex' }}>
+                      {!isPickerVisible ? (
+                        ''
+                      ) : (
+                        <div className={classes.picker} ref={pickerRef}>
+                          <Picker
+                            data={data}
+                            emojiTooltip
+                            perLine={10}
+                            maxFrequentRows={0}
+                            searchPosition='none'
+                            onEmojiSelect={handleEmojiSelect}
+                          />
+                        </div>
+                      )}
+                      <IconButton
+                        onClick={e => {
+                          e.stopPropagation()
+                          pickerToggleHandler()
+                        }}
+                        sx={isMultiline ? undefined : { display: 'none' }}
+                        className={classes.iconButton}
+                        aria-expanded={isPickerVisible ? 'true' : 'false'}
+                      >
+                        <IconEmojiButton />
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
+              ></TextField>
+              <div>
+                <Box
+                  component='div'
+                  sx={{ display: 'flex', justifyContent: 'center', pt: 2, position: 'relative', zIndex: 1 }}
+                >
+                  <Tooltip title='Al activarlo, se guardará como tus publicaciones favoritas' placement='top'>
+                    <CustomSwitch sx={{ mr: 3, mt: 1.5 }} onClick={handleSwitchChange} checked={diary.favorite} />
+                  </Tooltip>
 
-                    <Tooltip title='Al activarlo, se guardará como tus publicaciones favoritas' placement='top'>
-                      <MaterialUISwitch
-                        sx={{ marginRight: 3 }}
-                        onChange={handleSwitchChange}
-                        onClick={handleChecked}
-                        checked={checked}
-                      />
-                    </Tooltip>
+                  <Button
+                    component='label'
+                    endIcon={<UploadButton />}
+                    sx={{
+                      backgroundColor: 'transparent',
+                      borderRadius: '50%',
+                      width: '2rem',
+                      height: '2rem',
+                      minWidth: 'auto',
+                      mr: 3.2,
+                      mt: 1
+                    }}
+                    className={classes.iconButton}
+                  >
+                    <VisuallyHiddenInput type='file' accept='image/*' onChange={fileSelected} />
+                  </Button>
 
-                    <Cloudinary values={diary} setValues={setDiary} />
-                    <Select
-                      id='select'
-                      variant='standard'
-                      sx={{ marginRight: 5 }}
-                      value={diary.emoji || ''}
-                      onChange={handleChange}
-                      displayEmpty
-                      renderValue={selected => {
-                        if (selected === '' || !selected) {
-                          return <EmojiEmotionsIcon sx={{ paddingTop: 1, paddingLeft: 3 }} />
+                  <Select
+                    id='select'
+                    value={diary.emoji || ''}
+                    sx={{ height: '2.5rem', pt: 2 }}
+                    onChange={handleChange}
+                    displayEmpty
+                    renderValue={selected => {
+                      if (selected === '' || !selected) {
+                        return <EmojiEmotionsIcon sx={{ pl: 10 }} />
+                      }
+
+                      return selected
+                    }}
+                    inputProps={{ 'aria-label': 'Without label' }}
+                  >
+                    {emotions.map(e => (
+                      <MenuItem key={e.value} value={e.value}>
+                        {e.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </Box>
+                <Button
+                  variant='contained'
+                  type='submit'
+                  sx={
+                    isMultiline
+                      ? {
+                          height: '3.2rem',
+                          width: '8.8rem',
+                          mt: 6,
+                          ml: 27,
+                          position: 'relative',
+                          zIndex: 0,
+                          fontSize: 17
                         }
-
-                        return selected
-                      }}
-                      inputProps={{ 'aria-label': 'Without label' }}
-                    >
-                      {emotions.map(e => (
-                        <MenuItem key={e.value} value={e.value}>
-                          {e.name}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                    <Button variant='contained' type='submit'>
-                      Enviar <RocketLaunchIcon sx={{ paddingLeft: 1 }} />
-                    </Button>
-                  </InputAdornment>
-                )
-              }}
-            ></TextField>
-          </form>
+                      : { display: 'none' }
+                  }
+                >
+                  Publicar
+                  <div style={{ paddingLeft: 6, paddingTop: 14 }}>
+                    <Send />
+                  </div>
+                </Button>
+              </div>
+            </form>
+          </Box>
         </CardContent>
         <CardContent>
           {diaryData.length ? (
             diaryData.map(entrie => (
-              <Stack spacing={2} key={entrie._id} direction='column' marginTop={5}>
+              <Stack spacing={2} key={entrie._id} direction='column' marginTop={3}>
                 <Entries id={entrie._id} props={entrie} />
               </Stack>
             ))
           ) : (
-            <Container sx={{ textAlign: 'center', marginTop: 62 }} fixed>
+            <Container sx={{ textAlign: 'center', mt: 62 }} fixed>
               <SentimentVeryDissatisfiedIcon sx={{ color: '#91A7B8' }} />
               <Typography variant='h5' sx={{ color: '#91A7B8' }}>
                 No hay entradas publicadas
