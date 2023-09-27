@@ -51,8 +51,7 @@ import NoButton from 'src/@core/icons/diary/NoButton'
 import IconEmojiButton from 'src/@core/icons/diary/IconEmojiButton'
 import UploadButton from 'src/@core/icons/diary/UploadButton'
 import Save from 'src/@core/icons/diary/Save'
-import ArtIcon from 'src/@core/icons/diary/ArtIcon'
-import ArtIconSelected from 'src/@core/icons/diary/ArtIconSelected'
+import EditArtIcon from 'src/@core/icons/diary/ArtIconSelected'
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean
@@ -465,12 +464,12 @@ const Entries = ({ id, props }: any) => {
                               inputRef={emojiRef}
                               sx={{
                                 height: '2.5rem',
-                                pt: 2
+                                fontSize: '1.5rem'
                               }}
                               displayEmpty
                               renderValue={selected => {
                                 if (selected === '' || !selected) {
-                                  return <ArtIconSelected />
+                                  return <EditArtIcon />
                                 }
 
                                 return selected
