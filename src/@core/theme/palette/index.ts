@@ -19,8 +19,6 @@ const DefaultPalette = (mode: Palette['mode'], skin: Skin): Palette => {
     } else return '#0e2b42'
   }
 
-  // line 19 bg color
-
   return {
     customColors: {
       dark: darkColor,

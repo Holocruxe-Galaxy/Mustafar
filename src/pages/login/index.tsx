@@ -1,5 +1,5 @@
 // ** React Imports
-import { useEffect, useState, ReactNode, MouseEvent, useRef } from 'react'
+import { useEffect, useState, ReactNode, useRef } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
@@ -99,13 +99,13 @@ const useStyles = makeStyles(() => ({
   },
   iconButton: {
     '&:hover': {
-      backgroundColor: 'transparent' // Set the background color to transparent on hover
+      backgroundColor: 'transparent'
     },
     '&:active': {
-      backgroundColor: 'transparent' // Set the background color to transparent when active (clicked)
+      backgroundColor: 'transparent'
     },
     '& .MuiIconButton-label': {
-      transition: 'none' // Remove any transitions on the label (icon) to prevent animations
+      transition: 'none'
     }
   }
 }))
@@ -220,11 +220,11 @@ const LoginPage = () => {
         >
           <BoxWrapper>
             <Box component='div' sx={{ my: 6, textAlign: 'center' }}>
-              <TypographyStyled variant='h5'>{`Bienvenido a Holocruxe`}</TypographyStyled>
+              <TypographyStyled variant='h5'>Bienvenido a Holocruxe</TypographyStyled>
               <Icon sx={{ position: 'absolute', right: 53, top: 55 }}>
                 <Rocket />
               </Icon>
-              <Typography variant='body2' sx={{ marginTop: 4 }}>
+              <Typography variant='body2' sx={{ marginTop: 4, color: 'text.secondary' }}>
                 Ingresa a tu cuenta y dale vida a tus momentos
               </Typography>
             </Box>
@@ -270,20 +270,10 @@ const LoginPage = () => {
               </Divider>
 
               <Box component='div' sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <IconButton
-                  href='/'
-                  component={Link}
-                  onClick={(e: MouseEvent<HTMLElement>) => e.preventDefault()}
-                  className={classes.iconButton}
-                >
+                <IconButton href='/api/auth/login' component={Link} className={classes.iconButton}>
                   <FacebookIcon />
                 </IconButton>
-                <IconButton
-                  href='/'
-                  component={Link}
-                  onClick={(e: MouseEvent<HTMLElement>) => e.preventDefault()}
-                  className={classes.iconButton}
-                >
+                <IconButton href='/api/auth/login' component={Link} className={classes.iconButton}>
                   <GoogleIcon />
                 </IconButton>
                 <IconButton href='/api/auth/login' component={Link} className={classes.iconButton}>
