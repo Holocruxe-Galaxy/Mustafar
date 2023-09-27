@@ -265,20 +265,20 @@ const Entries = ({ id, props }: any) => {
       const cursorPosition = inputElement.selectionStart || 0
       const inputValue = inputElement.value
 
-      // Divide el valor del campo de texto en tres partes
+
       const beforeCursor = inputValue.substring(0, cursorPosition)
       const afterCursor = inputValue.substring(cursorPosition)
 
-      // Inserta el emoji después del cursor actual
+
       const newValue = beforeCursor + emoji + afterCursor
 
-      // Actualiza el valor del campo de texto con el emoji
+
       inputElement.value = newValue
 
-      // Llama a la función onChange con el nuevo valor
+
       onChange(newValue)
 
-      // Calcula la nueva posición del cursor (después del emoji)
+
       const newCursorPosition = cursorPosition + emoji.length
 
       setFocusAndPositionCursor(contentRef.current, newCursorPosition)
@@ -403,12 +403,12 @@ const Entries = ({ id, props }: any) => {
                                 <IconButton
                                   onClick={e => {
                                     e.stopPropagation()
-                                    pickerToggleHandler() // Abre/cierra el picker de emojis
+                                    pickerToggleHandler()
                                     if (isPickerVisible) {
                                       setFocusAndPositionCursor(
                                         contentRef.current,
                                         contentRef.current?.selectionStart || 0
-                                      ) // Mueve el cursor al abrir
+                                      )
                                     }
                                   }}
                                   className={classes.iconButton}
