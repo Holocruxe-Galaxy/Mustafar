@@ -30,7 +30,8 @@ import IconButton, { IconButtonProps } from '@mui/material/IconButton'
 import ClearIcon from '@mui/icons-material/Clear'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip'
-import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions'
+
+//import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions'
 
 // ** Redux Toolkit
 import { deleteDiary, editEntrie } from 'src/store/apps/diary'
@@ -50,6 +51,8 @@ import NoButton from 'src/@core/icons/diary/NoButton'
 import IconEmojiButton from 'src/@core/icons/diary/IconEmojiButton'
 import UploadButton from 'src/@core/icons/diary/UploadButton'
 import Save from 'src/@core/icons/diary/Save'
+import ArtIcon from 'src/@core/icons/diary/ArtIcon'
+import ArtIconSelected from 'src/@core/icons/diary/ArtIconSelected'
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean
@@ -467,7 +470,7 @@ const Entries = ({ id, props }: any) => {
                               displayEmpty
                               renderValue={selected => {
                                 if (selected === '' || !selected) {
-                                  return <EmojiEmotionsIcon />
+                                  return <ArtIconSelected />
                                 }
 
                                 return selected
@@ -582,7 +585,7 @@ const Entries = ({ id, props }: any) => {
 
           <Collapse in={expanded} timeout='auto' unmountOnExit>
             <CardContent>
-              <CardMedia component='img' height='500' image={props.photos} alt='img' />
+              <CardMedia component='img' height='auto' image={props.photos} alt='img' />
             </CardContent>
           </Collapse>
         </>
