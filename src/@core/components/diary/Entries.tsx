@@ -188,16 +188,6 @@ const Entries = ({ id, props }: any) => {
 
   const handleCloseEdit = () => setOpenEdit(false)
 
-  const pickerToggleHandler = () => {
-    setPickerVisible(prevState => {
-      if (!prevState) {
-        setFocusAndPositionCursor(contentRef.current, contentRef.current?.selectionStart || 0) // No muevas el cursor al abrir
-      }
-
-      return !prevState
-    })
-  }
-
   useEffect(() => {
     document.addEventListener('click', handleClickOutside)
 
@@ -222,9 +212,13 @@ const Entries = ({ id, props }: any) => {
   })
 
   const onSubmit = (data: any) => {
-    if (data.emoji === undefined) delete data.emoji
+    if (data.content === props.content) delete data.content
 
-    if (!data.photos.length && !props.photos.length) delete data.photos
+    if (data.emoji === undefined || data.emoji === props.emoji) delete data.emoji
+
+    if ((!data.photos.length && !props.photos.length) || data.photos.length === data.photos.length) delete data.photos
+
+    if (data.favorite === props.favorite) delete data.favorite
 
     if (!file) dispatch(editEntrie({ ...data, _id: id }))
 
@@ -237,6 +231,30 @@ const Entries = ({ id, props }: any) => {
 
   const handleDelete = () => {
     dispatch(deleteDiary(id))
+  }
+
+  const pickerToggleHandler = () => {
+    setPickerVisible(prevState => {
+      if (!prevState) {
+        setFocusAndPositionCursor(contentRef.current, contentRef.current?.selectionStart || 0)
+      }
+
+      return !prevState
+    })
+  }
+
+  const setFocusAndPositionCursor = (inputElement: HTMLInputElement, newCursorPosition?: number) => {
+    if (inputElement && !inputElement.contains(document.activeElement)) {
+      inputElement.focus()
+
+      if (newCursorPosition !== undefined) {
+        setTimeout(() => {
+          inputElement.setSelectionRange(newCursorPosition, newCursorPosition)
+        }, 10)
+      } else {
+        inputElement.selectionStart = inputElement.selectionEnd = inputElement.value.length
+      }
+    }
   }
 
   const handleEmojiSelect = (emoji: string, onChange: (value: string) => void) => {
@@ -262,19 +280,6 @@ const Entries = ({ id, props }: any) => {
       const newCursorPosition = cursorPosition + emoji.length
 
       setFocusAndPositionCursor(contentRef.current, newCursorPosition)
-    }
-  }
-
-  const setFocusAndPositionCursor = (inputElement: HTMLInputElement, newCursorPosition?: number) => {
-    console.log('🚀 newCursorPosition:', newCursorPosition)
-
-    if (inputElement && !inputElement.contains(document.activeElement)) {
-      inputElement.focus()
-      if (newCursorPosition) {
-        inputElement.setSelectionRange(newCursorPosition, newCursorPosition)
-      } else {
-        inputElement.selectionStart = inputElement.selectionEnd = inputElement.value.length
-      }
     }
   }
 
@@ -372,7 +377,7 @@ const Entries = ({ id, props }: any) => {
                           label='Inserta un texto'
                           onChange={onChange}
                           inputRef={(ref: any) => {
-                            setFocusAndPositionCursor(ref, contentRef.current?.selectionStart || 0)
+                            setFocusAndPositionCursor(ref)
                             contentRef.current = ref
                           }}
                           InputProps={{
