@@ -204,7 +204,7 @@ const LoginPage = () => {
           sx={{
             p: 9,
             marginTop: 50,
-            height: '50%',
+            height: '60%',
             width: '28rem',
             borderRadius: 2,
             display: 'flex',
