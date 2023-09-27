@@ -265,19 +265,14 @@ const Entries = ({ id, props }: any) => {
       const cursorPosition = inputElement.selectionStart || 0
       const inputValue = inputElement.value
 
-
       const beforeCursor = inputValue.substring(0, cursorPosition)
       const afterCursor = inputValue.substring(cursorPosition)
 
-
       const newValue = beforeCursor + emoji + afterCursor
-
 
       inputElement.value = newValue
 
-
       onChange(newValue)
-
 
       const newCursorPosition = cursorPosition + emoji.length
 
@@ -423,7 +418,11 @@ const Entries = ({ id, props }: any) => {
                     />
                     <Box
                       component='div'
-                      sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}
+                      sx={
+                        !props.emoji
+                          ? { display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }
+                          : { display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }
+                      }
                     >
                       {props.emoji && (
                         <IconButton className={classes.iconButton} sx={{ pr: 5 }}>
