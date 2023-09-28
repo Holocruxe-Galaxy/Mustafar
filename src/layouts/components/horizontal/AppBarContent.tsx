@@ -7,7 +7,8 @@ import { Settings } from 'src/@core/context/settingsContext'
 // ** Components
 import Autocomplete from 'src/layouts/components/Autocomplete'
 import ModeToggler from 'src/@core/layouts/components/shared-components/ModeToggler'
-import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
+
+// import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
 import LanguageDropdown from 'src/@core/layouts/components/shared-components/LanguageDropdown'
 import NotificationDropdown, {
   NotificationsType
@@ -135,7 +136,8 @@ const AppBarContent = (props: Props) => {
         <>
           <ShortcutsDropdown settings={settings} shortcuts={shortcuts} />
           <NotificationDropdown settings={settings} notifications={notifications} />
-          <UserDropdown settings={settings} />
+
+          {/* <UserDropdown settings={settings} /> */}
         </>
       )}
     </Box>
