@@ -357,7 +357,21 @@ const Entries = ({ id, props }: any) => {
 
             <Modal open={openEdit} onClose={handleCloseEdit} sx={styleModal}>
               <Box sx={styleEdit} component='div'>
-                <Typography sx={{ textAlign: 'left', mb: 5, color: '#F836F4' }}>EDITAR</Typography>
+                <Box
+                  component='div'
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    mb: 5
+                  }}
+                >
+                  <Typography sx={{ color: '#F836F4' }}>EDITAR</Typography>
+                  <IconButton onClick={handleCloseEdit} sx={{ color: '#00FFED' }}>
+                    <ClearIcon />
+                  </IconButton>
+                </Box>
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <FormControl>
                     <Controller
@@ -508,7 +522,10 @@ const Entries = ({ id, props }: any) => {
                       >
                         {fields.map((field, index) => (
                           <>
-                            <IconButton onClick={() => remove(index)} sx={{ float: 'right', mr: 2, mb: 2 }}>
+                            <IconButton
+                              onClick={() => remove(index)}
+                              sx={{ float: 'right', mr: 2, mb: 2, color: '#00FFED' }}
+                            >
                               <ClearIcon />
                             </IconButton>
                             <CardContent key={field.id}>
