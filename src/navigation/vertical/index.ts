@@ -25,7 +25,26 @@ const navigation = (): VerticalNavItemsType => {
           path: ''
         }
       ]
-    }
+    },
+    {
+      title: 'Configuración',
+      icon: 'noto:gear',
+      children: [
+        {
+          title: 'Cuenta',
+          path: '/apps/account'
+        },
+        {
+          title: 'Seguridad',
+          path: '/apps/security'
+        },
+        {
+          title: 'Notificaciones',
+          path: '/apps/notifications'
+        }
+      ]
+    },
+
   ]
 }
 

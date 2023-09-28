@@ -23,7 +23,8 @@ import { Box } from '@mui/system'
 import { styled } from '@mui/material/styles'
 import { makeStyles } from '@mui/styles'
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied'
-import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions'
+
+//import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions'
 
 // ** Emoji Picker
 import data from '@emoji-mart/data'
@@ -44,6 +45,7 @@ import CardButtons from 'src/views/components/horizontalBar/CardButtons'
 import UploadButton from 'src/@core/icons/diary/UploadButton'
 import IconEmojiButton from 'src/@core/icons/diary/IconEmojiButton'
 import Send from 'src/@core/icons/diary/Send'
+import ArtIcon from 'src/@core/icons/diary/ArtIcon'
 
 const useStyles = makeStyles(() => ({
   picker: {
@@ -341,12 +343,12 @@ const Diary = () => {
                   <Select
                     id='select'
                     value={diary.emoji || ''}
-                    sx={{ height: '2.5rem', pt: 2 }}
+                    sx={{ height: '2.5rem', fontSize: '1.5rem', textAlign: 'center' }}
                     onChange={handleChange}
                     displayEmpty
                     renderValue={selected => {
                       if (selected === '' || !selected) {
-                        return <EmojiEmotionsIcon sx={{ pl: 10 }} />
+                        return <ArtIcon />
                       }
 
                       return selected
