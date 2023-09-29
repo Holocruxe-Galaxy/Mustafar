@@ -11,6 +11,8 @@ import Badge from 'src/@core/components/mui/badge'
 import { Button, Chip, Divider } from '@mui/material'
 import EditIcon from 'src/@core/icons/diary/EditIcon'
 import ActivityTimeLine from 'src/views/pages/user-profile/profile/ActivityTimeline'
+import PendingTasks from 'src/views/pages/user-profile/profile/PendingTasks'
+import EmptyContainer from 'src/views/pages/user-profile/profile/EmptyContainer'
 
 const BadgeContentSpan = styled('span')(({ theme }) => ({
   width: 8,
@@ -19,6 +21,14 @@ const BadgeContentSpan = styled('span')(({ theme }) => ({
   backgroundColor: '#51FF8F',
   boxShadow: `0 0 0 2px ${theme.palette.background.paper}`
 }))
+
+const StyledButton = styled(Button)({
+  marginTop: '2em',
+  transition: 'background 0.3s ease',
+  '&:hover': {
+    background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.2) 100%)',
+  },
+});
 
 const Profile = () => {
   return (
@@ -29,26 +39,14 @@ const Profile = () => {
             <Box component='div'>
               <Badge
                 overlap='circular'
-                sx={{ ml: 2, cursor: 'pointer' }}
+                sx={{ml: 30, cursor: 'pointer' }}
                 badgeContent={<BadgeContentSpan />}
                 anchorOrigin={{
                   vertical: 'bottom',
                   horizontal: 'right'
                 }}
               >
-                <div
-                  style={{
-                    border: `3px solid #51FF8F`,
-                    borderRadius: '100%',
-                    overflow: 'hidden',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
-                >
-                  <Avatar />
-                  <div></div>
-                </div>
+                    <Avatar />
               </Badge>
               <Typography variant='h5' sx={{ mt: 4, color: '#00FFED', textAlign: 'center' }}>
                 Juan Perez
@@ -122,15 +120,21 @@ const Profile = () => {
               </div>
             </Box>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <Button variant='contained' startIcon={<EditIcon />} style={{ marginTop: '2em' }}>
+              <StyledButton variant='contained' startIcon={<EditIcon />}>
                 Editar
-              </Button>
+              </StyledButton>
             </div>
           </CardContent>
         </Card>
       </Grid>
       <Grid item xs={6}>
         <ActivityTimeLine />
+      </Grid>
+      <Grid item xs={6}>
+        <PendingTasks />
+      </Grid>
+      <Grid item xs={6}>
+        <EmptyContainer />
       </Grid>
     </Grid>
   )

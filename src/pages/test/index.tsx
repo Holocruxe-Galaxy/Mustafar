@@ -3,6 +3,7 @@
 import { ReactNode } from 'react'
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 
+
 // import { useDispatch, useSelector } from "react-redux";
 // import { fetchProvincias, fetchMunicipios, setSelectedProvinciaId } from "src/store/apps/countries";
 // import { useEffect } from "react";
@@ -28,27 +29,12 @@ const Test = () => {
 //     dispatch(fetchProvincias());
 //   }, [dispatch]);
 
-//   return (
-//     <section>
-//       <select onChange={handleProvinciaChange}>
-//         <option value="">Seleccione una provincia</option>
-//         {provincias.map(provincia => (
-//           <option key={provincia.id} value={provincia.id}>
-//             {provincia.nombre}
-//           </option>
-//         ))}
-//       </select>
-
-//       <select>
-//         <option value="">Seleccione un municipio</option>
-//         {municipios.map(municipio => (
-//           <option key={municipio.id} value={municipio.id}>
-//             {municipio}
-//           </option>
-//         ))}
-//       </select>
-//     </section>
-//   );
+  return (
+    <div>
+      {/* <UserViewLeft/>
+      <UserViewOverview/> */}
+    </div>
+  );
 }
 
 Test.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
