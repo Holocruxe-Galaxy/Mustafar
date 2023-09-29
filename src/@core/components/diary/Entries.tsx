@@ -34,7 +34,7 @@ import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip'
 //import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions'
 
 // ** Redux Toolkit
-import { deleteDiary, editEntrie } from 'src/store/apps/diary'
+import { deleteDiary, editEntrie, editEntrieWithFile } from 'src/store/apps/diary'
 
 // ** Emoji Picker
 import data from '@emoji-mart/data'
@@ -222,7 +222,12 @@ const Entries = ({ id, props }: any) => {
 
     if (data.favorite === props.favorite) delete data.favorite
 
+    if(file) {
+      dispatch(editEntrieWithFile({ ...data, _id: id, file }))
+      setFile(undefined)
+    }
     if (!file) dispatch(editEntrie({ ...data, _id: id }))
+    
 
     handleCloseEdit()
   }
