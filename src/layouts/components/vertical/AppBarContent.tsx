@@ -16,7 +16,8 @@ import { Settings } from 'src/@core/context/settingsContext'
 // ** Components
 // **import Autocomplete from 'src/layouts/components/Autocomplete'
 import LanguageDropdown from 'src/@core/layouts/components/shared-components/LanguageDropdown'
-import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
+
+// import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
 import { Search, Bell, Line, InactiveConections, ActiveMetrics, InactiveMetrics, ActiveBinnacle, InactiveBinnacle, ActiveTutorial, InactiveTutorial } from 'src/views/components/icons/index'
 
 //import ModeToggler from 'src/@core/layouts/components/shared-components/ModeToggler'
@@ -112,6 +113,13 @@ const AppBarContent = (props: Props) => {
       ]
     },
     {
+      page: 'profile',
+      buttons: [
+        { name: 'TUS INTERESES', activeIcon: <ActiveBinnacle />, inactiveIcon: <InactiveBinnacle />, href: 'apps/diary'},
+        { name: 'TUS MÉTRICAS', activeIcon: <ActiveMetrics />, inactiveIcon: <InactiveMetrics/>, href: ''}
+      ]
+    },
+    {
       page: 'apps/account',
       buttons: [
         { name: 'TUS INTERESES',
@@ -193,7 +201,7 @@ const AppBarContent = (props: Props) => {
             <>
               <Bell />
               <Line />
-              <UserDropdown settings={settings} />
+              {/* <UserDropdown settings={settings} /> */}
             </>
           )}
         </CardContent>
