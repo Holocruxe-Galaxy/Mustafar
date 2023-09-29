@@ -15,35 +15,35 @@ const Save = () => {
           d='M1 2.66667C1 1.74619 1.74619 1 2.66667 1H16.7119L21 5.00361V19.3333C21 20.2538 20.2538 21 19.3333 21H2.66667C1.74619 21 1 20.2538 1 19.3333V2.66667Z'
           fill='#2F88FF'
           stroke='#2F88FF'
-          stroke-width='2'
-          stroke-linejoin='round'
+          strokeWidth='2'
+          strokeLinejoin='round'
         />
         <path
-          fill-rule='evenodd'
-          clip-rule='evenodd'
+          fillRule='evenodd'
+          clipRule='evenodd'
           d='M11.0045 1L10.9999 5.10256C10.9999 5.29139 10.7512 5.44444 10.4443 5.44444H5.99989C5.69306 5.44444 5.44434 5.29139 5.44434 5.10256V1'
           fill='#43CCF8'
         />
         <path
           d='M11.0045 1L10.9999 5.10256C10.9999 5.29139 10.7512 5.44444 10.4443 5.44444H5.99989C5.69306 5.44444 5.44434 5.29139 5.44434 5.10256V1H11.0045Z'
           stroke='white'
-          stroke-width='2'
-          stroke-linejoin='round'
+          strokeWidth='2'
+          strokeLinejoin='round'
         />
-        <path d='M2.66699 1H16.7122' stroke='#2F88FF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' />
+        <path d='M2.66699 1H16.7122' stroke='#2F88FF' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' />
         <path
           d='M5.44434 12.1111H16.5554'
           stroke='white'
-          stroke-width='2'
-          stroke-linecap='round'
-          stroke-linejoin='round'
+          strokeWidth='2'
+          strokeLinecap='round'
+          strokeLinejoin='round'
         />
         <path
           d='M5.44434 16.5555H11.0045'
           stroke='white'
-          stroke-width='2'
-          stroke-linecap='round'
-          stroke-linejoin='round'
+          strokeWidth='2'
+          strokeLinecap='round'
+          strokeLinejoin='round'
         />
       </g>
       <defs>
@@ -54,9 +54,9 @@ const Save = () => {
           width='30'
           height='30'
           filterUnits='userSpaceOnUse'
-          color-interpolation-filters='sRGB'
+          colorInterpolationFilters='sRGB'
         >
-          <feFlood flood-opacity='0' result='BackgroundImageFix' />
+          <feFlood floodOpacity='0' result='BackgroundImageFix' />
           <feColorMatrix
             in='SourceAlpha'
             type='matrix'
