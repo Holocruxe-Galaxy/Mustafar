@@ -218,7 +218,7 @@ const Entries = ({ id, props }: any) => {
 
     if (data.emoji === undefined || data.emoji === props.emoji) delete data.emoji
 
-    if ((!data.photos.length && !props.photos.length) || data.photos.length === data.photos.length) delete data.photos
+    if (!data.photos.length && !props.photos.length && data.photos === data.photos) delete data.photos
 
     if (data.favorite === props.favorite) delete data.favorite
 
