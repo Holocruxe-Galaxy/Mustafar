@@ -171,6 +171,8 @@ const Entries = ({ id, props }: any) => {
   const dispatch = useDispatch<AppDispatch>()
   const [expanded, setExpanded] = useState<boolean>(false)
   const [open, setOpen] = useState<boolean>(false)
+  const [openEdit, setOpenEdit] = useState<boolean>(false)
+  const [openDeleteImg, setOpenDeleteImg] = useState<boolean>(false)
   const [file, setFile] = useState<FormData>()
 
   const contentRef = useRef<HTMLInputElement>(props.content)
@@ -185,10 +187,11 @@ const Entries = ({ id, props }: any) => {
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
-  const [openEdit, setOpenEdit] = useState<boolean>(false)
   const handleOpenEdit = () => setOpenEdit(true)
-
   const handleCloseEdit = () => setOpenEdit(false)
+
+  const handleOpenDeleteImg = () => setOpenDeleteImg(true)
+  const handleCloseDeleteImg = () => setOpenDeleteImg(false)
 
   useEffect(() => {
     document.addEventListener('click', handleClickOutside)
@@ -222,12 +225,11 @@ const Entries = ({ id, props }: any) => {
 
     if (data.favorite === props.favorite) delete data.favorite
 
-    if(file) {
+    if (file) {
       dispatch(editEntrieWithFile({ ...data, _id: id, file }))
       setFile(undefined)
     }
     if (!file) dispatch(editEntrie({ ...data, _id: id }))
-    
 
     handleCloseEdit()
   }
@@ -238,6 +240,11 @@ const Entries = ({ id, props }: any) => {
 
   const handleDelete = () => {
     dispatch(deleteDiary(id))
+  }
+
+  const handleDeleteImg = (index: any) => {
+    remove(index)
+    handleCloseDeleteImg()
   }
 
   const pickerToggleHandler = () => {
@@ -525,10 +532,10 @@ const Entries = ({ id, props }: any) => {
                         }}
                         component='div'
                       >
-                        {fields.map((field, index) => (
+                        {fields.map(field => (
                           <>
                             <IconButton
-                              onClick={() => remove(index)}
+                              onClick={() => handleOpenDeleteImg()}
                               sx={{ float: 'right', mr: 2, mb: 2, color: '#00FFED' }}
                             >
                               <ClearIcon />
@@ -575,6 +582,35 @@ const Entries = ({ id, props }: any) => {
 
                 <Button
                   onClick={handleClose}
+                  variant='contained'
+                  sx={{ marginTop: 3, width: '50%', height: '3rem', fontSize: 'large' }}
+                >
+                  <div style={{ position: 'absolute', left: 28, top: 2, marginRight: 6 }}>
+                    <NoButton />
+                  </div>
+                  No
+                </Button>
+              </Box>
+            </Modal>
+
+            <Modal open={openDeleteImg} onClose={handleCloseDeleteImg}>
+              <Box component='div' sx={style}>
+                <Typography variant='h6' component='h2'>
+                  Eliminar imagen?
+                </Typography>
+                <Button
+                  onClick={handleDeleteImg}
+                  variant='contained'
+                  sx={{ marginTop: 3, width: '50%', height: '3rem', fontSize: 'large' }}
+                >
+                  <div style={{ position: 'absolute', left: 28, top: 1, marginRight: 6 }}>
+                    <YesButton />
+                  </div>
+                  Si
+                </Button>
+
+                <Button
+                  onClick={handleCloseDeleteImg}
                   variant='contained'
                   sx={{ marginTop: 3, width: '50%', height: '3rem', fontSize: 'large' }}
                 >
