@@ -5,7 +5,7 @@ const EditIcon = () => {
         <path
           d='M7.80953 36.7567H29.7143L42.0953 22.7027V4.32432C42.0953 1.94594 40.381 0 38.2858 0H7.80953C5.71429 0 4 1.94594 4 4.32432V32.4324C4 34.8107 5.71429 36.7567 7.80953 36.7567Z'
           fill='#A5FCF6'
-          fill-opacity='0.81'
+          fillOpacity='0.81'
         />
         <path
           d='M43.7147 19.5681L41.048 16.5411C40.6671 16.1087 40.0004 16.1087 39.5242 16.5411L38.2861 17.9465L42.4766 22.7033L43.7147 21.2979C44.0957 20.8654 44.0957 20.1087 43.7147 19.5681Z'
@@ -28,9 +28,9 @@ const EditIcon = () => {
           width='48'
           height='48'
           filterUnits='userSpaceOnUse'
-          color-interpolation-filters='sRGB'
+          colorInterpolationFilters='sRGB'
         >
-          <feFlood flood-opacity='0' result='BackgroundImageFix' />
+          <feFlood floodOpacity='0' result='BackgroundImageFix' />
           <feColorMatrix
             in='SourceAlpha'
             type='matrix'
