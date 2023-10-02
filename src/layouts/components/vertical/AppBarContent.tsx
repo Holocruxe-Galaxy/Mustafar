@@ -201,7 +201,7 @@ const AppBarContent = (props: Props) => {
             <>
               <Bell />
               <Line />
-              <UserDropdown settings={settings} />
+              <UserDropdown  />
             </>
           )}
         </CardContent>

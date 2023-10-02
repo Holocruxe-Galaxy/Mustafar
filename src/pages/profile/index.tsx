@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 // ** MUI Components
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
@@ -5,14 +7,29 @@ import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import { styled } from '@mui/material/styles'
+import {
+  Button,
+  Chip,
+  Dialog,
+  DialogContent,
+  Divider,
+  FormControl,
+  IconButton,
+  InputLabel,
+  MenuItem,
+  TextField
+} from '@mui/material'
 
 import Avatar from 'src/@core/icons/profile/Avatar'
 import Badge from 'src/@core/components/mui/badge'
-import { Button, Chip, Divider } from '@mui/material'
 import EditIcon from 'src/@core/icons/diary/EditIcon'
+import Icon from 'src/@core/components/icon'
 import ActivityTimeLine from 'src/views/pages/user-profile/profile/ActivityTimeline'
 import PendingTasks from 'src/views/pages/user-profile/profile/PendingTasks'
 import EmptyContainer from 'src/views/pages/user-profile/profile/EmptyContainer'
+import Camera from 'src/@core/icons/profile/Camera'
+import Select from '@mui/material/Select'
+import Save from 'src/@core/icons/diary/Save'
 
 const BadgeContentSpan = styled('span')(({ theme }) => ({
   width: 8,
@@ -26,11 +43,20 @@ const StyledButton = styled(Button)({
   marginTop: '2em',
   transition: 'background 0.3s ease',
   '&:hover': {
-    background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.2) 100%)',
-  },
-});
+    background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.2) 100%)'
+  }
+})
 
 const Profile = () => {
+  const [open, setOpen] = useState<boolean>(false)
+
+  const handleOpenDialog = () => {
+    setOpen(!open)
+  }
+  const handleCloseDialog = () => {
+    setOpen(false)
+  }
+
   return (
     <Grid container>
       <Grid item xs={6}>
@@ -39,14 +65,14 @@ const Profile = () => {
             <Box component='div'>
               <Badge
                 overlap='circular'
-                sx={{ml: 30, cursor: 'pointer' }}
+                sx={{ ml: 30, cursor: 'pointer' }}
                 badgeContent={<BadgeContentSpan />}
                 anchorOrigin={{
                   vertical: 'bottom',
                   horizontal: 'right'
                 }}
               >
-                    <Avatar />
+                <Avatar />
               </Badge>
               <Typography variant='h5' sx={{ mt: 4, color: '#00FFED', textAlign: 'center' }}>
                 Juan Perez
@@ -120,10 +146,128 @@ const Profile = () => {
               </div>
             </Box>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <StyledButton variant='contained' startIcon={<EditIcon />}>
+              <StyledButton variant='contained' startIcon={<EditIcon />} onClick={handleOpenDialog}>
                 Editar
               </StyledButton>
             </div>
+            <Dialog open={open} onClose={handleCloseDialog}>
+              <DialogContent
+                sx={{
+                  px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+                  py: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(5)} !important`]
+                }}
+              >
+                <Box component='div' sx={{ display: 'flex', justifyContent: 'center' }}>
+                  <Avatar />
+                  <div
+                    style={{
+                      backgroundColor: '#51FF8F',
+                      borderRadius: '100%',
+                      width: '45px',
+                      height: '45px',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      position: 'absolute',
+                      top: 160,
+                      left: 155
+                    }}
+                  >
+                    <IconButton size='small' onClick={handleCloseDialog}>
+                      <Camera />
+                    </IconButton>
+                  </div>
+                  <Grid container spacing={1} sx={{ ml: 7, mt: 6 }}>
+                    <Grid item xs={12}>
+                      <Typography variant='h4' sx={{ color: 'text.primary', fontWeight: 700, fontSize: 35 }}>
+                        EDITAR
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography variant='h4' sx={{ color: 'text.primary', fontWeight: 700, fontSize: 35 }}>
+                        USUARIO
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12} sx={{ marginBottom: 20 }}>
+                      <Typography variant='h4' sx={{ color: 'text.primary', fontWeight: 700, fontSize: 35 }}>
+                        INFORMACIÓN
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Box>
+                <Box component='div' sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+                  <Box component='div'>
+                    <TextField
+                      id='outlined-basic'
+                      focused
+                      label='Apodo'
+                      variant='outlined'
+                      sx={{ width: '217px', mb: 6, mr: 5 }}
+                    />
+                    <TextField
+                      id='outlined-basic'
+                      focused
+                      label='Fecha de nac'
+                      variant='outlined'
+                      sx={{ width: '217px', mb: 6 }}
+                    />
+                    <TextField
+                      id='outlined-basic'
+                      focused
+                      label='Ciudad'
+                      variant='outlined'
+                      sx={{ width: '217px', mb: 6, mr: 5 }}
+                    />
+                    <TextField
+                      id='outlined-basic'
+                      focused
+                      label='Provincia'
+                      variant='outlined'
+                      sx={{ width: '217px', mb: 6 }}
+                    />
+                    <TextField
+                      id='outlined-basic'
+                      focused
+                      label='País'
+                      variant='outlined'
+                      sx={{ width: '217px', mb: 6, mr: 5 }}
+                    />
+                    <TextField
+                      id='outlined-basic'
+                      focused
+                      label='Teléfono'
+                      variant='outlined'
+                      sx={{ width: '217px' }}
+                    />
+                    <FormControl fullWidth>
+                      <InputLabel>Idioma</InputLabel>
+                      <Select
+
+                        // value={age}
+                        // label="Age"
+
+                        // onChange={handleChange}
+                        sx={{ width: '217px' }}
+                      >
+                        <MenuItem value={10}>Español</MenuItem>
+                        <MenuItem value={20}>Inglés</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Box>
+                </Box>
+                <StyledButton variant='contained' startIcon={<Save />} sx={{ ml: 75, mt: 2 }} onClick={handleCloseDialog}>
+                  Guardar
+                </StyledButton>
+
+                <IconButton
+                  size='small'
+                  onClick={handleCloseDialog}
+                  sx={{ position: 'absolute', right: '1rem', top: '1rem' }}
+                >
+                  <Icon icon='mdi:close' />
+                </IconButton>
+              </DialogContent>
+            </Dialog>
           </CardContent>
         </Card>
       </Grid>
