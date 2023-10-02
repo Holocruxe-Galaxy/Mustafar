@@ -2,6 +2,7 @@
 import { Dispatch } from 'redux'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import Diary, { PostDiary } from 'src/pages/apps/diary'
+import axios from 'axios';
 
 interface Redux {
   getState: any
@@ -17,7 +18,7 @@ interface EntryState {
 
 type PostDiaryAndFile = PostDiary & {file?: FormData}
 
-// type DiaryAndFile = Diary & {file?: FormData}
+type DiaryAndFile = Diary & {file?: FormData}
 
 async function photoUploader(token: string, _id: string, counter = 0): Promise<any> {
   counter++
@@ -127,7 +128,7 @@ export const addDiaryWithPhoto = createAsyncThunk(
 
     if (!fileResponse.ok) {
       const error = await response.json();
-      console.log('estoy aca', error)
+
       throw new Error(error.message);
     }
 
@@ -167,25 +168,25 @@ export const editEntrie = createAsyncThunk('appDiary/editDiary', async ({_id, ..
 });
 
 // ** Patch Entry
-// export const editEntrieWithFile = createAsyncThunk('appDiary/editDiaryWithFile', async (data: DiaryAndFile , { dispatch }: Redux) => {
-//  const token = localStorage.getItem('AuthorizationToken');
+export const editEntrieWithFile = createAsyncThunk('appDiary/editDiaryWithFile', async ({_id, ...changes }: DiaryAndFile, { dispatch }: Redux) => {
+  const token = localStorage.getItem('AuthorizationToken');
+  const file = changes.file
+  delete changes.file
 
-//    const response = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/logbook/diary/${_id}`, {
-//     method: 'PATCH',
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify(changes)
-//   })
-//   if (!response.ok) {
-//     const error = await response.json();
-//     throw new Error(error.message);
-//
-//   dispatch(fetchData())
-// console.log('asds')
+  await axios.patch(`${process.env.NEXT_PUBLIC_MANDALORE}/logbook/diary/${_id}`, changes, {
+    headers: { Authorization: `Bearer ${token}` }
+  })
+  
+  await axios.post(`${process.env.NEXT_PUBLIC_MANDALORE}/logbook/diary/${_id}/upload`, file, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    }
+  })
 
-// });
+  if(token) await photoUploader(token, _id)
+
+  dispatch(fetchData())
+});
 
 // ** Delete Entry
 export const deleteDiary = createAsyncThunk(

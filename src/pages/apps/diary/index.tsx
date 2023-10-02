@@ -261,8 +261,8 @@ const Diary = () => {
           <Box
             sx={
               isMultiline
-                ? { backgroundColor: '#0e2b42', height: '9.4rem', p: 3, borderRadius: 1 }
-                : { backgroundColor: '#0e2b42', height: '5rem', p: 3, borderRadius: 1 }
+                ? { backgroundColor: 'customColors.darkBg', height: '9.4rem', p: 3, borderRadius: 1 }
+                : { backgroundColor: 'customColors.darkBg', height: '5rem', p: 3, borderRadius: 1 }
             }
             component='div'
           >
