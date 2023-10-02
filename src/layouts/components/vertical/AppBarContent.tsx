@@ -89,7 +89,7 @@ const AppBarContent = (props: Props) => {
       height: '20px'
     },
     font: {
-/*       color: '#00FFED', */
+      color: '#00FFED',
       fontWeight: 1
     },
     fontActive: {
@@ -117,7 +117,7 @@ const AppBarContent = (props: Props) => {
         { name: 'TUS INTERESES',
         activeIcon: <InteresActivo />,
         inactiveIcon: <InteresesInactivo />,
-        href: '',  },
+        href: 'apps/account',  },
         { name: 'TUS MÉTRICAS', activeIcon: <ActiveMetrics />, inactiveIcon: <InactiveMetrics/>, href: '',  }
       ]
     },
@@ -127,7 +127,7 @@ const AppBarContent = (props: Props) => {
         { name: 'TUS INTERESES',
         activeIcon: <InteresActivo />,
         inactiveIcon: <InteresesInactivo />,
-         href: '' },
+         href: 'apps/security' },
         { name: 'TUS MÉTRICAS', activeIcon: <ActiveMetrics />, inactiveIcon: <InactiveMetrics/>, href: '' }
       ]
     },
@@ -137,7 +137,7 @@ const AppBarContent = (props: Props) => {
         { name: 'TUS INTERESES',
         activeIcon: <InteresActivo />,
         inactiveIcon: <InteresesInactivo />,
-        href: '',  },
+        href: 'apps/notifications',  },
         { name: 'TUS MÉTRICAS', activeIcon: <ActiveMetrics />, inactiveIcon: <InactiveMetrics/>, href: '' }
       ]
     }
