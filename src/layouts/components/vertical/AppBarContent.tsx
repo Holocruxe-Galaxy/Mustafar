@@ -89,7 +89,7 @@ const AppBarContent = (props: Props) => {
       height: '20px'
     },
     font: {
-      color: '#00FFED',
+/*       color: '#00FFED', */
       fontWeight: 1
     },
     fontActive: {

@@ -9,7 +9,7 @@ import OptionsMenu from 'src/@core/components/option-menu'
 
 // ** Type Import
 import { Settings } from 'src/@core/context/settingsContext'
-import { Language } from 'src/views/components/icons/Language'
+import { Language } from 'src/views/components/icons'
 
 interface Props {
   settings: Settings

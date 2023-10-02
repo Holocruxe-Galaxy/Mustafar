@@ -16,7 +16,7 @@ import Typography from '@mui/material/Typography'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
-import { InactiveAvatar, } from 'src/views/components/icons/index'
+import { InactiveAvatar } from 'src/views/components/icons'
 
 // ** Context
 import { useAuth } from 'src/hooks/useAuth'
