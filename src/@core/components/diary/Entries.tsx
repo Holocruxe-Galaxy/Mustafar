@@ -34,7 +34,7 @@ import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip'
 //import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions'
 
 // ** Redux Toolkit
-import { deleteDiary, editEntrie } from 'src/store/apps/diary'
+import { deleteDiary, editEntrie, editEntrieWithFile } from 'src/store/apps/diary'
 
 // ** Emoji Picker
 import data from '@emoji-mart/data'
@@ -217,12 +217,17 @@ const Entries = ({ id, props }: any) => {
     if (data.content === props.content) delete data.content
 
     if (data.emoji === undefined || data.emoji === props.emoji) delete data.emoji
-
-    if ((!data.photos.length && !props.photos.length) || data.photos.length === data.photos.length) delete data.photos
+    
+    if(data.photos.length) delete data.photos
 
     if (data.favorite === props.favorite) delete data.favorite
 
+    if(file) {
+      dispatch(editEntrieWithFile({ ...data, _id: id, photos: [], file }))
+      setFile(undefined)
+    }
     if (!file) dispatch(editEntrie({ ...data, _id: id }))
+    
 
     handleCloseEdit()
   }
@@ -357,21 +362,7 @@ const Entries = ({ id, props }: any) => {
 
             <Modal open={openEdit} onClose={handleCloseEdit} sx={styleModal}>
               <Box sx={styleEdit} component='div'>
-                <Box
-                  component='div'
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    mb: 5
-                  }}
-                >
-                  <Typography sx={{ color: '#F836F4' }}>EDITAR</Typography>
-                  <IconButton onClick={handleCloseEdit} sx={{ color: '#00FFED' }}>
-                    <ClearIcon />
-                  </IconButton>
-                </Box>
+                <Typography sx={{ textAlign: 'left', mb: 5, color: '#F836F4' }}>EDITAR</Typography>
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <FormControl>
                     <Controller
@@ -522,10 +513,7 @@ const Entries = ({ id, props }: any) => {
                       >
                         {fields.map((field, index) => (
                           <>
-                            <IconButton
-                              onClick={() => remove(index)}
-                              sx={{ float: 'right', mr: 2, mb: 2, color: '#00FFED' }}
-                            >
+                            <IconButton onClick={() => remove(index)} sx={{ float: 'right', mr: 2, mb: 2 }}>
                               <ClearIcon />
                             </IconButton>
                             <CardContent key={field.id}>
