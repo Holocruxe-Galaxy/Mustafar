@@ -87,8 +87,8 @@ const UserDropdown = (props: Props) => {
       <Badge
         overlap='circular'
         onClick={handleDropdownOpen}
-        sx={{ ml: 2, cursor: 'pointer' }}
-        badgeContent={<BadgeContentSpan />}
+        sx={{ ml: 2, cursor: 'pointer', border: '3px solid #51FF8F', borderRadius: '50%' }}
+        badgeContent={<BadgeContentSpan/>}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'right'
