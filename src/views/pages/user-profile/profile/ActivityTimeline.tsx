@@ -49,7 +49,8 @@ const ActivityTimeline = () => {
                   display: 'flex',
                   flexWrap: 'wrap',
                   alignItems: 'center',
-                  justifyContent: 'space-between'
+                  justifyContent: 'space-between',
+
                 }}
                 component='div'
               >
