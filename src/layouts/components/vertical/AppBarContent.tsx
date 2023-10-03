@@ -112,6 +112,13 @@ const AppBarContent = (props: Props) => {
       ]
     },
     {
+      page: 'profile',
+      buttons: [
+        { name: 'TUS INTERESES', activeIcon: <ActiveBinnacle />, inactiveIcon: <InactiveBinnacle />, href: 'apps/diary'},
+        { name: 'TUS MÉTRICAS', activeIcon: <ActiveMetrics />, inactiveIcon: <InactiveMetrics/>, href: ''}
+      ]
+    },
+    {
       page: 'apps/account',
       buttons: [
         { name: 'TUS INTERESES',

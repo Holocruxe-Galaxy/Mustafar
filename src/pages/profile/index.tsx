@@ -49,15 +49,6 @@ const StyledButton = styled(Button)({
 
 const Profile = () => {
   const [open, setOpen] = useState<boolean>(false)
-  const [isFocused, setIsFocused] = useState(false);
-
-  const handleFocus = () => {
-    setIsFocused(true);
-  };
-
-  const handleBlur = () => {
-    setIsFocused(false);
-  };
 
   const handleOpenDialog = () => {
     setOpen(!open)
@@ -209,13 +200,11 @@ const Profile = () => {
                     <TextField
                       id='outlined-basic'
 
-                      // focused
+                      focused
                       label='Apodo'
                       variant='outlined'
 
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-                      sx={{ width: '217px', mb: 6, mr: 5, border: isFocused ? '1px solid rgba(248, 54, 244, 1)' : '1px solid #00FFED' }}
+                      sx={{ width: '217px', mb: 6, mr: 5, }}
                     />
                     <TextField
                       id='outlined-basic'
