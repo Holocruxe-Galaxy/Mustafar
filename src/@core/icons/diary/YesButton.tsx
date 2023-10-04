@@ -11,10 +11,10 @@ const YesButton = () => {
         <path
           d='M21 41C26.5228 41 31.5228 38.7614 35.1421 35.1421C38.7614 31.5228 41 26.5228 41 21C41 15.4772 38.7614 10.4772 35.1421 6.85786C31.5228 3.23858 26.5228 1 21 1C15.4772 1 10.4772 3.23858 6.85786 6.85786C3.23858 10.4772 1 15.4772 1 21C1 26.5228 3.23858 31.5228 6.85786 35.1421C10.4772 38.7614 15.4772 41 21 41Z'
           stroke='#00FFED'
-          stroke-width='2'
-          stroke-linejoin='round'
+          strokeWidth='2'
+          strokeLinejoin='round'
         />
-        <path d='M13 21L19 27L31 15' stroke='#00FFED' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' />
+        <path d='M13 21L19 27L31 15' stroke='#00FFED' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' />
       </g>
       <defs>
         <filter
@@ -24,9 +24,9 @@ const YesButton = () => {
           width='50'
           height='50'
           filterUnits='userSpaceOnUse'
-          color-interpolation-filters='sRGB'
+          colorInterpolationFilters='sRGB'
         >
-          <feFlood flood-opacity='0' result='BackgroundImageFix' />
+          <feFlood floodOpacity='0' result='BackgroundImageFix' />
           <feColorMatrix
             in='SourceAlpha'
             type='matrix'
@@ -47,9 +47,9 @@ const YesButton = () => {
           width='46'
           height='46'
           filterUnits='userSpaceOnUse'
-          color-interpolation-filters='sRGB'
+          colorInterpolationFilters='sRGB'
         >
-          <feFlood flood-opacity='0' result='BackgroundImageFix' />
+          <feFlood floodOpacity='0' result='BackgroundImageFix' />
           <feBlend mode='normal' in='SourceGraphic' in2='BackgroundImageFix' result='shape' />
           <feColorMatrix
             in='SourceAlpha'
