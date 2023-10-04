@@ -54,12 +54,12 @@ const ActivityTimeline = () => {
                 }}
                 component='div'
               >
-                <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.disabled' }}>Client Meeting</Typography>
+                <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.disabled' }}>Tarea agregada con éxito</Typography>
                 <Typography variant='body2' sx={{ color: 'text.primary', fontStyle: 'italic' }}>
                   Hoy
                 </Typography>
               </Box>
-              <Typography sx={{ mb: 2, color: 'text.primary' }}>Project meeting with john @10:15am</Typography>
+              <Typography sx={{ mb: 2, color: 'text.primary' }}>Ir al supermercado </Typography>
             </TimelineContent>
           </TimelineItem>
 
@@ -79,13 +79,18 @@ const ActivityTimeline = () => {
                 component='div'
               >
                 <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.disabled' }}>
-                  Create a new project for client
+                Busqueda de recuerdos del primer cumpleaños de Emma
                 </Typography>
                 <Typography variant='body2' sx={{ color: 'text.primary', fontStyle: 'italic' }}>
                   1 día atrás
                 </Typography>
               </Box>
-              <Typography sx={{ color: 'text.primary' }}>Add files to new design folder</Typography>
+              <Typography sx={{ color: 'text.primary' }}>Resultados encontrados:
+              <br />
+              10 fotos
+              <br />
+              3 notas
+              </Typography>
             </TimelineContent>
           </TimelineItem>
 
@@ -105,13 +110,18 @@ const ActivityTimeline = () => {
                 component='div'
               >
                 <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.disabled' }}>
-                  Shared 2 New Project Files
+                Se cargaron 2 nuevas entradas en bitacora, sección diario
                 </Typography>
                 <Typography variant='body2' sx={{ color: 'text.primary', fontStyle: 'italic' }}>
                   1 día atrás
                 </Typography>
               </Box>
-              <Typography sx={{ color: 'text.primary' }}>Woocommerce iOS App Completed</Typography>
+              <Typography sx={{ color: 'text.primary', fontSize: 14 }}>Hoy conocí un lugar hermoso al cual quiero volver en unas semanas.
+              <br />
+              Se llama Café aromas.
+              <br />
+              Entrada 2
+              </Typography>
             </TimelineContent>
           </TimelineItem>
 
@@ -129,12 +139,13 @@ const ActivityTimeline = () => {
                 }}
                 component='div'
               >
-                <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.disabled' }}>Project status updated</Typography>
+                <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.disabled' }}>Creación de nuevas alertas dentro de calendario.</Typography>
                 <Typography variant='body2' sx={{ color: 'text.primary', fontStyle: 'italic' }}>
                   1 día atrás
                 </Typography>
               </Box>
-              <Typography sx={{ color: 'text.primary' }}>Woocommerce iOS App Completed</Typography>
+
+              {/* <Typography sx={{ color: 'text.primary' }}>Woocommerce iOS App Completed</Typography> */}
             </TimelineContent>
           </TimelineItem>
         </Timeline>

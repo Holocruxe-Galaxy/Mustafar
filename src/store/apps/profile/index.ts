@@ -1,6 +1,7 @@
 import { Dispatch } from 'redux'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
+
 interface Redux {
   getState: any
   dispatch: Dispatch<any>
@@ -29,6 +30,10 @@ interface Profile {
   personal?: Personal;
 }
 
+interface ProfilePatchData {
+  profileData: Profile;
+}
+
 
 
 const status = ['COMPLETE', 'INACTIVE', 'PENDING', 'BANNED'] as const;
@@ -47,7 +52,7 @@ interface ProfileData {
   city?: string;
 }
 
-// ** Fetch ProfileData
+// ** Fetch Profile data
 export const fetchData = createAsyncThunk('profile/fetchData',
   async () => {
       const token = localStorage.getItem('AuthorizationToken');
@@ -68,6 +73,27 @@ export const fetchData = createAsyncThunk('profile/fetchData',
 
       return data
 })
+
+// ** Patch Profile data
+export const editProfileData = createAsyncThunk('profile/editProfile', async (data: ProfilePatchData, { dispatch }: Redux) => {
+  const token = localStorage.getItem('AuthorizationToken');
+  const response = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/user/form/step`, {
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+   },
+   body: JSON.stringify(data)
+  });
+
+ if (!response.ok) {
+   const error = await response.json();
+   throw new Error(error.message);
+ }
+
+ dispatch(fetchData())
+
+});
 
 export const profile = createSlice({
   name: 'profile',
