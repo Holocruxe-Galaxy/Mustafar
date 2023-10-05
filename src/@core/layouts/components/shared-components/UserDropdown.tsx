@@ -23,6 +23,7 @@ import { useAuth } from 'src/hooks/useAuth'
 
 // ** Type Imports
 import { Settings } from 'src/@core/context/settingsContext'
+import Link from 'next/link'
 
 interface Props {
   settings: Settings
@@ -126,10 +127,12 @@ const UserDropdown = (props: Props) => {
         </Box>
         <Divider sx={{ mt: '0 !important' }} />
         <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
-          <Box component='div' sx={styles}>
-            <Icon icon='mdi:account-outline' />
-            Profile
-          </Box>
+         <Link href="/profile">
+           <Box component='div' sx={styles}>
+             <Icon icon='mdi:account-outline' />
+             Profile
+           </Box>
+         </Link>
         </MenuItem>
         <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
           <Box component='div' sx={styles}>
