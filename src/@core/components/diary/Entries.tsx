@@ -31,8 +31,6 @@ import ClearIcon from '@mui/icons-material/Clear'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip'
 
-//import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions'
-
 // ** Redux Toolkit
 import { deleteDiary, editEntrie, editEntrieWithFile } from 'src/store/apps/diary'
 
@@ -52,7 +50,7 @@ import IconEmojiButton from 'src/@core/icons/diary/IconEmojiButton'
 import UploadButton from 'src/@core/icons/diary/UploadButton'
 import Save from 'src/@core/icons/diary/Save'
 import EditArtIcon from 'src/@core/icons/diary/ArtIconSelected'
-import { handleKeyDownHookForm } from 'src/libs/helpers/handle-key-down';
+import { handleKeyDownHookForm } from 'src/libs/helpers/handle-key-down'
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean
@@ -327,7 +325,6 @@ const Entries = ({ id, props }: any) => {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-
     bgcolor: 'background.paper',
     borderRadius: 1,
     boxShadow: 24,
@@ -388,7 +385,7 @@ const Entries = ({ id, props }: any) => {
                       render={({ field: { value, onChange } }) => (
                         <TextField
                           value={value}
-                          onKeyDown={(e) => handleKeyDownHookForm(e, handleSubmit, onSubmit, contentRef)}
+                          onKeyDown={e => handleKeyDownHookForm(e, handleSubmit, onSubmit, contentRef)}
                           focused
                           multiline
                           fullWidth
