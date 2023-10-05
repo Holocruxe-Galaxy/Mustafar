@@ -46,6 +46,7 @@ import UploadButton from 'src/@core/icons/diary/UploadButton'
 import IconEmojiButton from 'src/@core/icons/diary/IconEmojiButton'
 import Send from 'src/@core/icons/diary/Send'
 import ArtIcon from 'src/@core/icons/diary/ArtIcon'
+import { handleKeyDown } from 'src/libs/helpers/handle-key-down';
 
 const useStyles = makeStyles(() => ({
   picker: {
@@ -224,8 +225,8 @@ const Diary = () => {
     setFile(formData)
   }
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  const onSubmit = (e?: FormEvent<HTMLFormElement>) => {
+    e && e.preventDefault()
     if (inputRef.current && inputRef.current.value.length) {
       setDiary({ ...diary, content: inputRef.current.value })
       setToSend(!toSend)
@@ -270,6 +271,7 @@ const Diary = () => {
               <TextField
                 focused={isMultiline ? true : false}
                 variant='outlined'
+                onKeyDown={(e) => handleKeyDown(e, onSubmit, inputRef)}
                 size='medium'
                 multiline={true}
                 minRows={isMultiline ? 4 : 0}
