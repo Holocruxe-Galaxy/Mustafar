@@ -52,6 +52,7 @@ import IconEmojiButton from 'src/@core/icons/diary/IconEmojiButton'
 import UploadButton from 'src/@core/icons/diary/UploadButton'
 import Save from 'src/@core/icons/diary/Save'
 import EditArtIcon from 'src/@core/icons/diary/ArtIconSelected'
+import { handleKeyDownHookForm } from 'src/libs/helpers/handle-key-down';
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean
@@ -371,6 +372,7 @@ const Entries = ({ id, props }: any) => {
                       render={({ field: { value, onChange } }) => (
                         <TextField
                           value={value}
+                          onKeyDown={(e) => handleKeyDownHookForm(e, handleSubmit, onSubmit, contentRef)}
                           focused
                           multiline
                           fullWidth
