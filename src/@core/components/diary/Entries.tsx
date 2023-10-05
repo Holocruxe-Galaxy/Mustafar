@@ -369,7 +369,16 @@ const Entries = ({ id, props }: any) => {
 
             <Modal open={openEdit} onClose={handleCloseEdit} sx={styleModal}>
               <Box sx={styleEdit} component='div'>
-                <Typography sx={{ textAlign: 'left', mb: 5, color: '#F836F4' }}>EDITAR</Typography>
+                <Box
+                  component='div'
+                  sx={{ display: 'flex', justifyContent: 'space-between', alignItems: ' center', pb: 5 }}
+                >
+                  <Typography sx={{ color: '#F836F4' }}>EDITAR</Typography>
+                  <IconButton onClick={handleCloseEdit}>
+                    <ClearIcon />
+                  </IconButton>
+                </Box>
+
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <FormControl>
                     <Controller
