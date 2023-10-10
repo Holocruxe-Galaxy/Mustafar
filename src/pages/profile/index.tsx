@@ -94,17 +94,23 @@ const Profile = () => {
     return texto.charAt(0).toUpperCase() + texto.slice(1).toLowerCase()
   }
 
-  function calcularEdad(fechaNacimiento: string): number {
-    const fechaNacimientoObj = new Date(fechaNacimiento)
-    const fechaActual = new Date()
+  function calcularEdad(fechaNacimiento: string | null | undefined): number {
+    // Verificar si la fecha de nacimiento es null o undefined
+    if (fechaNacimiento === null || fechaNacimiento === undefined) {
+        return 0; // Retorna 0 si la fecha de nacimiento no está disponible
+    }
+
+    const fechaNacimientoObj = new Date(fechaNacimiento);
+    const fechaActual = new Date();
 
     // Calcular la diferencia en años
-    const edadMilisegundos = fechaActual.getTime() - fechaNacimientoObj.getTime()
-    const edadAños = edadMilisegundos / (1000 * 60 * 60 * 24 * 365.25)
+    const edadMilisegundos = fechaActual.getTime() - fechaNacimientoObj.getTime();
+    const edadAños = edadMilisegundos / (1000 * 60 * 60 * 24 * 365.25);
 
     // Redondear la edad y devolverla como un número entero
-    return Math.floor(edadAños)
-  }
+    return Math.floor(edadAños);
+}
+
 
   const { control, handleSubmit } = useForm({
     defaultValues: {
@@ -140,7 +146,7 @@ const Profile = () => {
 
   return (
     <Grid container>
-      <Grid item xs={6}>
+      <Grid item xs={5}>
         <Card style={{ width: '505px', height: '849px', boxShadow: '4px 4px 4px 0px #FFFFFF80', marginLeft: '0.5em' }}>
           <CardContent>
             <Box component='div'>
@@ -323,6 +329,7 @@ const Profile = () => {
                                 onChange={onChange}
                                 focused
                                 label='Fecha de nac'
+                                placeholder='MM/DD/AAAA'
                                 variant='outlined'
                                 sx={{ width: '217px', mb: 6 }}
                               />
@@ -395,6 +402,7 @@ const Profile = () => {
                                 onChange={onChange}
                                 focused
                                 label='Teléfono'
+                                placeholder='+541304957502'
                                 variant='outlined'
                                 sx={{ width: '217px' }}
                               />
@@ -436,7 +444,7 @@ const Profile = () => {
           </CardContent>
         </Card>
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={6} >
         <ActivityTimeLine />
       </Grid>
       <Grid item xs={6}>

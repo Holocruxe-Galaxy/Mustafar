@@ -15,7 +15,8 @@ interface Notifications {
 
 interface NotificationState {
   data: Notifications[],
-  email: false
+  
+  // email: false
 }
 
 
@@ -73,7 +74,9 @@ export const notifications = createSlice({
   name: 'notifications',
   initialState: {
     data: [],
-    email: false,
+
+    // email: false,
+
   } as NotificationState,
   reducers: {},
   extraReducers: builder => {

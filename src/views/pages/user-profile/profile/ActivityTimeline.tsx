@@ -29,7 +29,7 @@ const Timeline = styled(MuiTimeline)<TimelineProps>({
 
 const ActivityTimeline = () => {
   return (
-    <Card style={{ width: '700px', height: '849px', boxShadow: '4px 4px 4px 0px #FFFFFF80', paddingLeft: '1em' }}>
+    <Card style={{ width: '810px', height: '849px', boxShadow: '4px 4px 4px 0px #FFFFFF80', paddingLeft: '1em' }}>
       <CardHeader
         title='Línea de tiempo'
         sx={{ '& .MuiCardHeader-avatar': { mr: 2.5 }, mt: 15 }}
