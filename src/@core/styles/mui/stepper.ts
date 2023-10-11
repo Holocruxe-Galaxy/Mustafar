@@ -24,15 +24,15 @@ const StepperWrapper = styled(Box)<BoxProps>(({ theme }) => {
         fontSize: '2.125rem',
         marginRight: theme.spacing(2.5),
         color: theme.palette.text.primary,
-        
-        
+
+
       },
       '& .step-title': {
         fontWeight: 500,
         fontSize: '0.875rem',
         letterSpacing: '0.1px',
         color: theme.palette.text.primary,
-        
+
       },
       '& .step-subtitle': {
         fontWeight: 400,
@@ -42,7 +42,7 @@ const StepperWrapper = styled(Box)<BoxProps>(({ theme }) => {
       },
       '& .MuiStepLabel-root.Mui-disabled': {
         '& .step-number': {
-          color: theme.palette.text.disabled
+          color: theme.palette.text.secondary
         }
       },
       '& .Mui-error': {
@@ -59,8 +59,8 @@ const StepperWrapper = styled(Box)<BoxProps>(({ theme }) => {
       },
       '&.Mui-active, &.Mui-completed': {
         '& .MuiStepConnector-line': {
-          borderColor: theme.palette.primary.main,
-          
+          borderColor: theme.palette.text.disabled,
+
         }
       },
       '&.Mui-disabled .MuiStepConnector-line': {
