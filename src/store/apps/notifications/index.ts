@@ -36,8 +36,7 @@ export const fetchData = createAsyncThunk('notifications/fetchData',
         throw new Error(error.message);
       }
       const data = await response.json()
-      console.log("🚀 ~ file: index.ts:40 ~ data:", data)
-
+      
       return data
 })
 

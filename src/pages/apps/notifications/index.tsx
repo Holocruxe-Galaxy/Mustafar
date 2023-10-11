@@ -109,7 +109,9 @@ const Notifications = () => {
     },
   ]
 
-  const data = useSelector((state: RootState) => state.notifications.data.email)
+  const data = useSelector((state: RootState) => state.notifications.data)
+  const values = Object.values(data)
+  const email = values[2]
 
   const [switchState, setSwitchState] = useState<boolean>(false)
 
@@ -123,8 +125,10 @@ const Notifications = () => {
   }, [])
 
   useEffect(() => {
-    setSwitchState(data);
-  }, [data]);
+    if (typeof email === 'boolean') {
+      setSwitchState(email);
+    }
+  }, [email]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>):void => {
 
@@ -179,11 +183,13 @@ const Notifications = () => {
         </Typography>
         <Stack direction="row" spacing={1} alignItems="center" sx={{ml: '76%'}}>
         <FormControlLabel
-        control={<StyledSwitch
+        control={
+        <StyledSwitch
           defaultChecked
           checked={switchState}
           onChange={handleChange}
-          />}
+          />
+        }
         label=""
       />
       </Stack>
