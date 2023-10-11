@@ -15,8 +15,6 @@ interface Notifications {
 
 interface NotificationState {
   data: Notifications[],
-  
-  // email: false
 }
 
 
@@ -58,7 +56,6 @@ export const editNotifications = createAsyncThunk('notifications/editNotificatio
    },
    body: JSON.stringify({ email: emailEnabled })
   });
-  console.log("🚀 ~ file: index.ts:59 ~ editNotifications ~ email:", emailEnabled)
 
  if (!response.ok) {
    const error = await response.json();
@@ -74,9 +71,6 @@ export const notifications = createSlice({
   name: 'notifications',
   initialState: {
     data: [],
-
-    // email: false,
-
   } as NotificationState,
   reducers: {},
   extraReducers: builder => {

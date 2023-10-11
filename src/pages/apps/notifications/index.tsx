@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { AppDispatch } from 'src/store'
+import { ChangeEvent, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from 'src/store'
 
 import { fetchData, editNotifications } from 'src/store/apps/notifications'
 
@@ -30,7 +30,7 @@ const StyledSwitch = styled(Switch)(() => ({
   '& .MuiSwitch-switchBase': {
     padding: '1px',
     '&.Mui-checked + .MuiSwitch-track': {
-      backgroundImage: 'linear-gradient(180deg, #00FFED 0%, #F836F433 50%)'
+      backgroundImage: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.6) 50%)'
     }
   },
   '& .MuiSwitch-thumb': {
@@ -109,6 +109,8 @@ const Notifications = () => {
     },
   ]
 
+  const data = useSelector((state: RootState) => state.notifications.data.email)
+
   const [switchState, setSwitchState] = useState<boolean>(false)
 
 
@@ -120,10 +122,15 @@ const Notifications = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const handleChange = ():void => {
-    const newSwitchState = !switchState;
-    setSwitchState(newSwitchState);
-    dispatch(editNotifications(newSwitchState));
+  useEffect(() => {
+    setSwitchState(data);
+  }, [data]);
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>):void => {
+
+    const { checked } = event.target;
+    setSwitchState(checked);
+    dispatch(editNotifications(checked));
   }
 
   return(
