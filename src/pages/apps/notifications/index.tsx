@@ -131,7 +131,6 @@ const Notifications = () => {
   }, [email]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>):void => {
-
     const { checked } = event.target;
     setSwitchState(checked);
     dispatch(editNotifications(checked));
