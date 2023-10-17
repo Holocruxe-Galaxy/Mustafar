@@ -30,6 +30,7 @@ const CardButtons = (props: CardButtonsProps) => {
   // Styles
   const useStyles = makeStyles(() => ({
     button: {
+      backgroundColor: 'rgba(1, 0, 50, 1)',
       boxShadow: '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(66, 65, 136, 0.50) inset',
       '&:hover':{
         background: 'linear-gradient(180deg, #00FFED -10%, rgba(248, 54, 244, 0.20) 100%)',
@@ -54,7 +55,8 @@ const CardButtons = (props: CardButtonsProps) => {
   const currentPage = data.find(item => item.href === router.pathname.slice(1))
 
   const handleRedirect = (href: string) => {
-    router.push(`${href}`)
+    const newRoute = href.slice(5)
+    router.push(newRoute)
   }
 
   return (
