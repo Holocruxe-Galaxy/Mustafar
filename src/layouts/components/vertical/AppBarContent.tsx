@@ -65,6 +65,7 @@ const AppBarContent = (props: Props) => {
       borderRadius: '14px',
       fontSize: '21px',
       fontWeight: 1,
+      backgroundColor: 'rgba(1, 0, 50, 1)',
       boxShadow: '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(66, 65, 136, 0.50) inset',
       '&:hover':{
         background: 'linear-gradient(180deg, #00FFED -10%, rgba(248, 54, 244, 0.20) 100%)'
@@ -124,7 +125,7 @@ const AppBarContent = (props: Props) => {
         { name: 'TUS INTERESES',
         activeIcon: <InteresActivo />,
         inactiveIcon: <InteresesInactivo />,
-        href: '',  },
+        href: 'apps/account',  },
         { name: 'TUS MÉTRICAS', activeIcon: <ActiveMetrics />, inactiveIcon: <InactiveMetrics/>, href: '',  }
       ]
     },
@@ -134,7 +135,7 @@ const AppBarContent = (props: Props) => {
         { name: 'TUS INTERESES',
         activeIcon: <InteresActivo />,
         inactiveIcon: <InteresesInactivo />,
-         href: '' },
+         href: 'apps/security' },
         { name: 'TUS MÉTRICAS', activeIcon: <ActiveMetrics />, inactiveIcon: <InactiveMetrics/>, href: '' }
       ]
     },
@@ -144,7 +145,7 @@ const AppBarContent = (props: Props) => {
         { name: 'TUS INTERESES',
         activeIcon: <InteresActivo />,
         inactiveIcon: <InteresesInactivo />,
-        href: '',  },
+        href: 'apps/notifications',  },
         { name: 'TUS MÉTRICAS', activeIcon: <ActiveMetrics />, inactiveIcon: <InactiveMetrics/>, href: '' }
       ]
     }
@@ -179,7 +180,7 @@ const AppBarContent = (props: Props) => {
       {currentPage?.buttons.map((card, index: number) => (
         <Button
         key={index}
-        sx={{width: '25rem', height: '5.313rem', margin: '1.200rem', pl:8, borderRadius: '14px', fontSize:'21px', fontWeight: 1 }}
+        sx={{width: '25rem', height: '5.313rem', margin: '1.200rem', pl:8, borderRadius: '14px', fontSize:'21px', fontWeight: 1, backgroundColor: 'rgba(1, 0, 50, 1)' }}
         className={selectedPage === card.href ?  classes.cardActive : classes.card}
         onClick={() => handleRedirect(card.href)}
         startIcon={currentPage.page === card.href ? card.activeIcon : card.inactiveIcon}>
@@ -191,7 +192,7 @@ const AppBarContent = (props: Props) => {
       onMouseLeave={handleMouseLeaves}
       className={activeArea ? classes.card : classes.card} >
 
-        <CardContent className={classes.content} >
+        <CardContent className={classes.content}>
         <Search />
           <Line />
           <LanguageDropdown settings={settings} saveSettings={saveSettings} />
