@@ -40,7 +40,7 @@ const DefaultPalette = (mode: Palette['mode'], skin: Skin): Palette => {
     primary: {
       // button colors
       light: '#00FFED',
-      main: '#00FFED',
+      main: '#010032',
       dark: '#00FFED',
       contrastText: whiteColor
     },
@@ -91,9 +91,9 @@ const DefaultPalette = (mode: Palette['mode'], skin: Skin): Palette => {
       A700: '#616161'
     },
     text: {
-      primary: '#00FFED',
+      primary: whiteColor,
       secondary: whiteColor,
-      disabled: '#F836F4'
+      disabled: whiteColor,
     },
     divider: `rgba(${mainColor}, 0.12)`,
     background: {
