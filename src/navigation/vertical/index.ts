@@ -44,7 +44,11 @@ const navigation = (): VerticalNavItemsType => {
         }
       ]
     },
-
+    {
+      title: 'Admin',
+      icon: 'noto:computer-mouse',
+      path: '/admin'
+    },
   ]
 }
 
