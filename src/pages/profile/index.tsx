@@ -187,7 +187,7 @@ const Profile = () => {
               <div style={{ textAlign: 'center', paddingTop: '1em' }}>
                 <Typography sx={{ mt: 4, color: '#00FFED', display: 'inline' }}>Fecha de nac.:</Typography>
                 <Typography sx={{ mt: 4, color: '#F836F4', display: 'inline', ml: 2 }}>
-                  {data.birthdate?.length < 0 ? 'No se encuentra fecha de nacimiento' : formatearFecha(data.birthdate)}
+                  {!data.birthdate ? 'No existe fecha de nacimiento' : formatearFecha(data.birthdate)}
                 </Typography>
               </div>
               <div style={{ textAlign: 'center', paddingTop: '1em' }}>
