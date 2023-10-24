@@ -119,7 +119,7 @@ const Profile = () => {
       },
       location: {
         country: data.country,
-        province: data.provinceOrState,
+        provinceOrState: data.provinceOrState,
         city: data.city,
         language: data.language
       },
@@ -135,7 +135,7 @@ const Profile = () => {
     if (val.location.city === undefined) delete val.location.city
     if (val.personal.birthdate === undefined) delete val.personal.birthdate
     if (val.location.country === undefined) delete val.location.country
-    if (val.location.province === undefined) delete val.location.province
+    if (val.location.provinceOrState === undefined) delete val.location.provinceOrState
     if (val.location.language === undefined) delete val.location.language
     if (val.contactInfo.phone === undefined) delete val.contactInfo.phone
     if (!Object.keys(val.personal).length) delete val.personal
@@ -187,7 +187,7 @@ const Profile = () => {
               <div style={{ textAlign: 'center', paddingTop: '1em' }}>
                 <Typography sx={{ mt: 4, color: '#00FFED', display: 'inline' }}>Fecha de nac.:</Typography>
                 <Typography sx={{ mt: 4, color: '#F836F4', display: 'inline', ml: 2 }}>
-                  {formatearFecha(data.birthdate)}
+                  {!data.birthdate ? 'No existe fecha de nacimiento' : formatearFecha(data.birthdate)}
                 </Typography>
               </div>
               <div style={{ textAlign: 'center', paddingTop: '1em' }}>
@@ -356,9 +356,9 @@ const Profile = () => {
                         </FormControl>
                       </Grid>
                       <Grid item>
-                        <FormControl>
+                      <FormControl>
                           <Controller
-                            name='location.province'
+                            name='location.provinceOrState'
                             control={control}
                             render={({ field: { value, onChange } }) => (
                               <TextField
