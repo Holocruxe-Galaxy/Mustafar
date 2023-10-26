@@ -69,7 +69,8 @@ export const fetchData = createAsyncThunk('profile/fetchData',
         throw new Error(error.message);
       }
       const data = await response.json()
-      console.log("🚀 ~ file: index.ts:40 ~ data:", data)
+
+      // console.log("🚀 ~ file: index.ts:40 ~ data:", data)
 
       return data
 })
@@ -85,6 +86,8 @@ export const editProfileData = createAsyncThunk('profile/editProfile', async (da
    },
    body: JSON.stringify(data)
   });
+  
+  // console.log("🚀 ~ file: index.ts:87 ~ editProfileData ~ data:", data)
 
  if (!response.ok) {
    const error = await response.json();
