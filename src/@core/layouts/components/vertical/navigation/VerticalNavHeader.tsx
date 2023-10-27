@@ -78,14 +78,14 @@ const VerticalNavHeader = (props: Props) => {
     if (mode === 'semi-dark') {
       return `rgba(${theme.palette.customColors.dark}, 0.6)`
     } else {
-      return theme.palette.text.secondary
+      return theme.palette.primary.dark
     }
   }
   const svgFillDisabled = () => {
     if (mode === 'semi-dark') {
       return `rgba(${theme.palette.customColors.dark}, 0.38)`
     } else {
-      return theme.palette.text.disabled
+      return theme.palette.primary.dark
     }
   }
 

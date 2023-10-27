@@ -50,14 +50,15 @@ const MenuNavLink = styled(ListItemButton)<
   transition: 'padding-left .25s ease-in-out',
   '&.active': {
     '&, &:hover': {
-      backgroundColor: theme.palette.primary.light,
+      backgroundColor: '#010032',
+      boxShadow: '4px 4px 4px 0px rgba(255, 255, 255, 0.25)',
       '&.Mui-focusVisible': {
         backgroundColor: theme.palette.primary.main
       }
     },
     '& .MuiTypography-root': {
       fontWeight: 500,
-      color: `${theme.palette.common.white} !important`
+      color: '#00FFED'
     },
     '& .MuiListItemIcon-root': {
       color: `${theme.palette.common.white} !important`
