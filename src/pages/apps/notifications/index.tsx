@@ -93,19 +93,19 @@ const Notifications = () => {
       name: 'CUENTA',
       activeIcon: <AccountIconActive />,
       inactiveIcon: <AccountIconInactive />,
-      href: 'account'
+      href: 'apps/account'
     },
     {
       name: 'SEGURIDAD',
       activeIcon: <PadlockActive/>,
       inactiveIcon: <PadlockInactive />,
-      href: 'security'
+      href: 'apps/security'
     },
     {
       name: 'NOTIFICACIONES',
       activeIcon: <BellActive />,
       inactiveIcon: <BellInactive />,
-      href: 'notifications'
+      href: 'apps/notifications'
     },
   ]
 
@@ -131,7 +131,6 @@ const Notifications = () => {
   }, [email]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>):void => {
-
     const { checked } = event.target;
     setSwitchState(checked);
     dispatch(editNotifications(checked));
