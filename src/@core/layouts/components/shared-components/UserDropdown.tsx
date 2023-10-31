@@ -135,6 +135,14 @@ const UserDropdown = (props: Props) => {
          </Link>
         </MenuItem>
         <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
+         <Link href="/admin">
+           <Box component='div' sx={styles}>
+             <Icon icon='mdi:account-outline' />
+             Admin
+           </Box>
+         </Link>
+        </MenuItem>
+        <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
           <Box component='div' sx={styles}>
             <Icon icon='mdi:email-outline' />
             Inbox

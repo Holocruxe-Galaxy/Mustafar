@@ -43,12 +43,7 @@ const navigation = (): VerticalNavItemsType => {
           path: '/apps/notifications'
         }
       ]
-    },
-    {
-      title: 'Admin',
-      icon: 'noto:computer-mouse',
-      path: '/admin'
-    },
+    }
   ]
 }
 
