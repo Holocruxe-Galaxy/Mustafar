@@ -57,7 +57,8 @@ const MenuNavLink = styled(ListItemButton)<
       }
     },
     '& .MuiTypography-root': {
-      fontWeight: 500,
+      fontWeight: 700,
+      textShadow: '0px 4px 20px rgba(0, 255, 237, 0.50)',
       color: '#00FFED'
     },
     '& .MuiListItemIcon-root': {
