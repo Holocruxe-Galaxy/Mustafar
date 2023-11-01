@@ -14,11 +14,11 @@ const RolesComponent = () => {
   return (
     <Grid container spacing={6}>
       <Grid item md={12} sx={{mt: 4}}>
+      <PageHeader
+        title={<Typography variant='h5'>Lista de Roles</Typography>}
+      />
       <Box component='div'
-      sx={{ backgroundColor: 'background.paper', p: 4 }}>
-        <PageHeader
-          title={<Typography variant='h5'>Lista de Roles</Typography>}
-          />
+      sx={{ backgroundColor: 'background.paper', p: 4, boxShadow: '4px 4px 4px 0px rgba(255, 255, 255, 0.50)', borderRadius: '14px', mt: 5 }}>
         <Grid item xs={12} sx={{ mb: 5 }}>
           <RoleCards />
         </Grid>
