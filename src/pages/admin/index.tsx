@@ -1,4 +1,5 @@
 // ** MUI Imports
+import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
@@ -12,25 +13,20 @@ import RoleCards from 'src/views/apps/roles/RoleCards'
 const RolesComponent = () => {
   return (
     <Grid container spacing={6}>
-      <PageHeader
-        title={<Typography variant='h5'>Roles List</Typography>}
-        subtitle={
-          <Typography variant='body2'>
-            A role provided access to predefined menus and features so that depending on assigned role an administrator
-            can have access to what he need
-          </Typography>
-        }
-      />
-      <Grid item xs={12} sx={{ mb: 5 }}>
-        <RoleCards />
+      <Grid item md={12} sx={{mt: 4}}>
+      <Box component='div'
+      sx={{ backgroundColor: 'background.paper', p: 4 }}>
+        <PageHeader
+          title={<Typography variant='h5'>Lista de Roles</Typography>}
+          />
+        <Grid item xs={12} sx={{ mb: 5 }}>
+          <RoleCards />
+        </Grid>
+      </Box>
       </Grid>
+
       <PageHeader
-        title={<Typography variant='h5'>Total users with their roles</Typography>}
-        subtitle={
-          <Typography variant='body2'>
-            Find all of your company’s administrator accounts and their associate roles.
-          </Typography>
-        }
+        title={<Typography variant='h5'>Lista de Usuarios</Typography>}
       />
       <Grid item xs={12}>
         <Table />

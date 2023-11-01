@@ -7,6 +7,7 @@ import countries from "src/store/apps/countries"
 import diary from 'src/store/apps/diary'
 import notifications from 'src/store/apps/notifications'
 import profile from "src/store/apps/profile"
+import admin from 'src/store/apps/admin'
 
 export const store = configureStore({
   reducer: {
@@ -14,7 +15,8 @@ export const store = configureStore({
     countries,
     diary,
     notifications,
-    profile
+    profile,
+    admin
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
