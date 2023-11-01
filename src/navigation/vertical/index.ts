@@ -18,7 +18,9 @@ const navigation = (): VerticalNavItemsType => {
         },
         {
           title: 'Organizador',
-          path: ''
+
+          // !! Acá se prueban las distintas rutas para poder visualizar los archivos .tsx de los errores 
+          path: '/404'
         },
         {
           title: 'Recuerdos',

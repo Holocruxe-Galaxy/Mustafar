@@ -20,18 +20,19 @@ const BoxWrapper = styled(Box)<BoxProps>(({ theme }) => ({
   }
 }))
 
-const Img = styled('img')(({ theme }) => ({
-  marginTop: theme.spacing(15),
-  marginBottom: theme.spacing(15),
-  [theme.breakpoints.down('lg')]: {
-    height: 450,
-    marginTop: theme.spacing(10),
-    marginBottom: theme.spacing(10)
-  },
-  [theme.breakpoints.down('md')]: {
-    height: 400
-  }
-}))
+// TODO: Descomentar lo de abajo para darle estilos al PNG
+// const Img = styled('img')(({ theme }) => ({
+//   marginTop: theme.spacing(15),
+//   marginBottom: theme.spacing(15),
+//   [theme.breakpoints.down('lg')]: {
+//     height: 450,
+//     marginTop: theme.spacing(10),
+//     marginBottom: theme.spacing(10)
+//   },
+//   [theme.breakpoints.down('md')]: {
+//     height: 400
+//   }
+// }))
 
 const Error401 = () => {
   return (
@@ -49,7 +50,8 @@ const Error401 = () => {
           </Typography>
           <Typography variant='body2'>You don&prime;t have permission to access this page. Go Home!</Typography>
         </BoxWrapper>
-        <Img alt='error-illustration' src='/images/pages/401.png' />
+        {/* <Img alt='error-illustration' src='/images/pages/401.png' /> */}
+        {/* Acá va el Canvas */}
         <Button href='/' component={Link} variant='contained' sx={{ px: 5.5 }}>
           Back to Home
         </Button>
