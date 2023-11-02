@@ -203,12 +203,13 @@ const VerticalNavGroup = (props: Props) => {
             sx={{
               py: 2.25,
               width: '100%',
-              borderRadius: '15px 0px 0px 15px',
+              borderRadius: '8px 0px 0px 8px',
               transition: 'padding-left .25s ease-in-out',
               pr: navCollapsed && !navHover ? (collapsedNavWidth - navigationBorderWidth - 24 - 16) / 8 : 3,
               pl: navCollapsed && !navHover ? (collapsedNavWidth - navigationBorderWidth - 24 - 16) / 8 : 4,
               '&.Mui-selected': {
                 backgroundColor: '#010032',
+                borderLeft: '7px solid #00FFED',
                 boxShadow: '4px 4px 4px 0px rgba(255, 255, 255, 0.25)',
                 '&:hover': {
                   backgroundColor: 'action.selected'

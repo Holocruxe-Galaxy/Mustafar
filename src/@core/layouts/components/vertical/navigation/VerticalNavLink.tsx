@@ -49,6 +49,7 @@ const MenuNavLink = styled(ListItemButton)<
   borderRadius: 8,
   transition: 'padding-left .25s ease-in-out',
   '&.active': {
+    borderLeft: `7px solid #00FFED`,
     '&, &:hover': {
       backgroundColor: '#010032',
       boxShadow: '4px 4px 4px 0px rgba(255, 255, 255, 0.25)',
@@ -62,7 +63,7 @@ const MenuNavLink = styled(ListItemButton)<
       color: '#00FFED'
     },
     '& .MuiListItemIcon-root': {
-      color: `${theme.palette.common.white} !important`
+      color: '#FEB526'
     }
   }
 }))
@@ -142,7 +143,7 @@ const VerticalNavLink = ({
             <ListItemIcon
               sx={{
                 transition: 'margin .25s ease-in-out',
-                color: parent ? 'text.secondary' : 'text.primary',
+                color: '#9D00C6',
                 ...(navCollapsed && !navHover ? { mr: 0 } : { mr: 2 }),
                 ...(parent ? { ml: 2, mr: 4 } : {}), // This line should be after (navCollapsed && !navHover) condition for proper styling
                 '& svg': {
