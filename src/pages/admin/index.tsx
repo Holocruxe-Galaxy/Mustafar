@@ -1,3 +1,8 @@
+import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from 'src/store'
+import { fetchAllUsers } from 'src/store/apps/admin'
+
 // ** MUI Imports
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
@@ -11,6 +16,13 @@ import Table from 'src/views/apps/roles/Table'
 import RoleCards from 'src/views/apps/roles/RoleCards'
 
 const RolesComponent = () => {
+  const dispatch = useDispatch<AppDispatch>()
+  const data = useSelector((state: RootState) => state.admin.data)
+
+  useEffect(() => {
+    dispatch(fetchAllUsers())
+  }, [])
+
   return (
     <Grid container spacing={6}>
       <Grid item md={12} sx={{mt: 4}}>

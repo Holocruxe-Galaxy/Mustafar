@@ -27,7 +27,7 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 import { getInitials } from 'src/@core/utils/get-initials'
 
 // ** Actions Imports
-// import { fetchData } from 'src/store/apps/user'
+ import { fetchAllUsers } from 'src/store/apps/admin'
 
 // ** Types Imports
 import { RootState, AppDispatch } from 'src/store'
@@ -66,7 +66,9 @@ const userStatusObj: UserStatusType = {
 
 // ** renders client column
 const renderClient = (row: UsersType) => {
-  if (row.avatar.length) {
+
+/*  ESTE CÓDIGO RENDERIZA LOS AVATARES QUE ACOMPAÑAL AL NOMBRE DEL USUARIO 
+    if (row.avatar.length) {
     return <CustomAvatar src={row.avatar} sx={{ mr: 3, width: 34, height: 34 }} />
   } else {
     return (
@@ -74,7 +76,7 @@ const renderClient = (row: UsersType) => {
         {getInitials(row.fullName ? row.fullName : 'John Doe')}
       </CustomAvatar>
     )
-  }
+  } */
 }
 
 const columns: GridColDef[] = [
@@ -84,11 +86,14 @@ const columns: GridColDef[] = [
     field: 'fullName',
     headerName: 'User',
     renderCell: ({ row }: CellType) => {
-      const { fullName, username } = row
+      console.log("Esto es row: ", row)
+      const { fullName } = row
+      let id = row.id
+      console.log("Esto es row.id: ", row.id)
 
       return (
         <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
-          {renderClient(row)}
+          {/* {renderClient(row)} */}
           <Box component='div' sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
             <Typography
               noWrap
@@ -104,9 +109,9 @@ const columns: GridColDef[] = [
             >
               {fullName}
             </Typography>
-            <Typography noWrap variant='caption'>
+{/*             <Typography noWrap variant='caption'>
               {`@${username}`}
-            </Typography>
+            </Typography> */}
           </Box>
         </Box>
       )
@@ -132,10 +137,10 @@ const columns: GridColDef[] = [
     headerName: 'Role',
     renderCell: ({ row }: CellType) => {
       return (
-        <Box component='div' sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 3, color: userRoleObj[row.role].color } }}>
-          <Icon icon={userRoleObj[row.role].icon} fontSize={20} />
+        <Box component='div' sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 3, /* color: userRoleObj[row.role].color */ } }}>
+          {/* <Icon icon={userRoleObj[row.role].icon} fontSize={20} /> */}
           <Typography noWrap sx={{ color: 'text.secondary', textTransform: 'capitalize' }}>
-            {row.role}
+            {!row.role ? 'USER' : row.role}
           </Typography>
         </Box>
       )
@@ -149,7 +154,7 @@ const columns: GridColDef[] = [
     renderCell: ({ row }: CellType) => {
       return (
         <Typography noWrap variant='subtitle1' sx={{ textTransform: 'capitalize' }}>
-          {row.currentPlan}
+          {!row.plan? 'FREE' : row.plan}
         </Typography>
       )
     }
@@ -192,8 +197,10 @@ const UserList = () => {
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
 
   // ** Hooks
-  // const dispatch = useDispatch<AppDispatch>()
-  const store = useSelector((state: RootState) => state.profile)
+  //const dispatch = useDispatch<AppDispatch>()
+  
+  const store = useSelector((state: RootState) => state.admin)
+  console.log("Table - Store: ", store)
 
   // useEffect(() => {
   //   dispatch(
@@ -223,6 +230,7 @@ const UserList = () => {
           <DataGrid
             autoHeight
             rows={store.data}
+            getRowId={(row) => row.id}
             columns={columns}
             checkboxSelection
             disableRowSelectionOnClick
