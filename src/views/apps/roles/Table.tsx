@@ -21,13 +21,11 @@ import { useDispatch, useSelector } from 'react-redux'
 
 // ** Custom Components Imports
 import CustomChip from 'src/@core/components/mui/chip'
-import CustomAvatar from 'src/@core/components/mui/avatar'
 
 // ** Utils Import
 import { getInitials } from 'src/@core/utils/get-initials'
 
 // ** Actions Imports
- import { fetchAllUsers } from 'src/store/apps/admin'
 
 // ** Types Imports
 import { RootState, AppDispatch } from 'src/store'
@@ -51,11 +49,11 @@ interface CellType {
 
 // ** Vars
 const userRoleObj: UserRoleType = {
-  admin: { icon: 'mdi:laptop', color: 'error.main' },
-  author: { icon: 'mdi:cog-outline', color: 'warning.main' },
-  editor: { icon: 'mdi:pencil-outline', color: 'info.main' },
-  maintainer: { icon: 'mdi:chart-donut', color: 'success.main' },
-  subscriber: { icon: 'mdi:account-outline', color: 'primary.main' }
+  admin: { icon: 'mdi:laptop', color: 'red'/* 'error.main' */ },
+  author: { icon: 'mdi:cog-outline', color: 'yellow' /* 'warning.main' */ },
+  editor: { icon: 'mdi:pencil-outline', color: 'green' /* 'info.main' */ },
+  maintainer: { icon: 'mdi:chart-donut', color: 'pink' /* 'success.main' */ },
+  subscriber: { icon: 'mdi:account-outline', color: 'white' /* 'primary.main' */ }
 }
 
 const userStatusObj: UserStatusType = {
@@ -64,10 +62,9 @@ const userStatusObj: UserStatusType = {
   inactive: 'secondary'
 }
 
-// ** renders client column
+// ** renders client column ESTE CÓDIGO RENDERIZA LOS AVATARES QUE ACOMPAÑAL AL NOMBRE DEL USUARIO 
 const renderClient = (row: UsersType) => {
-
-/*  ESTE CÓDIGO RENDERIZA LOS AVATARES QUE ACOMPAÑAL AL NOMBRE DEL USUARIO 
+/*  
     if (row.avatar.length) {
     return <CustomAvatar src={row.avatar} sx={{ mr: 3, width: 34, height: 34 }} />
   } else {
@@ -109,7 +106,8 @@ const columns: GridColDef[] = [
             >
               {fullName}
             </Typography>
-{/*             <Typography noWrap variant='caption'>
+{/*         Este código renderiza el apodo o username    
+            <Typography noWrap variant='caption'>
               {`@${username}`}
             </Typography> */}
           </Box>
@@ -137,10 +135,10 @@ const columns: GridColDef[] = [
     headerName: 'Role',
     renderCell: ({ row }: CellType) => {
       return (
-        <Box component='div' sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 3, /* color: userRoleObj[row.role].color */ } }}>
-          {/* <Icon icon={userRoleObj[row.role].icon} fontSize={20} /> */}
+        <Box component='div' sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 3, /* color: userRoleObj[row.role].color */ }}}>
+         {/*  <Icon icon={userRoleObj[row.role].icon} fontSize={20} /> */}
           <Typography noWrap sx={{ color: 'text.secondary', textTransform: 'capitalize' }}>
-            {!row.role ? 'USER' : row.role}
+            {!row.role ? 'User' : row.role}
           </Typography>
         </Box>
       )
@@ -154,7 +152,7 @@ const columns: GridColDef[] = [
     renderCell: ({ row }: CellType) => {
       return (
         <Typography noWrap variant='subtitle1' sx={{ textTransform: 'capitalize' }}>
-          {!row.plan? 'FREE' : row.plan}
+          {!row.plan? 'Free' : row.plan}
         </Typography>
       )
     }
@@ -200,7 +198,6 @@ const UserList = () => {
   //const dispatch = useDispatch<AppDispatch>()
   
   const store = useSelector((state: RootState) => state.admin)
-  console.log("Table - Store: ", store)
 
   // useEffect(() => {
   //   dispatch(

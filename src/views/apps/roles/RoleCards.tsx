@@ -35,16 +35,16 @@ import Icon from 'src/@core/components/icon'
 
 interface CardDataType {
   title: string
-  avatars: string[]
+  avatars?: string[]
   totalUsers: number
 }
 
 const cardData: CardDataType[] = [
-  { totalUsers: 4, title: 'Administrator', avatars: ['1.png', '2.png', '3.png', '4.png'] },
-  { totalUsers: 7, title: 'Manager', avatars: ['5.png', '6.png', '7.png', '8.png', '1.png', '2.png', '3.png'] },
-  { totalUsers: 5, title: 'Users', avatars: ['4.png', '5.png', '6.png', '7.png', '8.png'] },
-  { totalUsers: 3, title: 'Support', avatars: ['1.png', '2.png', '3.png'] },
-  { totalUsers: 2, title: 'Restricted User', avatars: ['4.png', '5.png'] }
+  { totalUsers: 4, title: 'Administrator' },
+  { totalUsers: 7, title: 'Manager' },
+  { totalUsers: 5, title: 'Users' },
+  { totalUsers: 3, title: 'Support' },
+  { totalUsers: 2, title: 'Restricted User' }
 ]
 
 const rolesArr: string[] = [
@@ -109,12 +109,12 @@ const RolesCards = () => {
   const renderCards = () =>
     cardData.map((item, index: number) => (
       <Grid item xs={12} sm={6} lg={4} key={index}>
-        <Card>
+        <Card sx={{background: 'rgba(1, 0, 50, 1)' }}>
           <CardContent>
             <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <Typography variant='body2'>{`Total ${item.totalUsers} users`}</Typography>
               <AvatarGroup max={4} sx={{ '& .MuiAvatar-root': { width: 40, height: 40, fontSize: '0.875rem' } }}>
-                {item.avatars.map((img, index: number) => (
+                { !item.avatar ? " " : item.avatars.map((img, index: number) => (
                   <Avatar key={index} alt={item.title} src={`/images/avatars/${img}`} />
                 ))}
               </AvatarGroup>
@@ -133,7 +133,7 @@ const RolesCards = () => {
                     setDialogTitle('Edit')
                   }}
                 >
-                  Edit Role
+                  Edita el Rol
                 </Typography>
               </Box>
               <IconButton sx={{ color: 'text.secondary' }}>
@@ -146,7 +146,7 @@ const RolesCards = () => {
     ))
 
   return (
-    <Grid container spacing={6} className='match-height'>
+    <Grid container spacing={6} className='match-height' >
       {renderCards()}
       <Grid item xs={12} sm={6} lg={4}>
         <Card
@@ -158,12 +158,14 @@ const RolesCards = () => {
         >
           <Grid container sx={{ height: '100%' }}>
             <Grid item xs={5}>
-              <Box sx={{ height: '100%', display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}>
-                <img width={65} height={130} alt='add-role' src='/images/pages/add-new-role-illustration.png' />
+              <Box sx={{ height: '100%', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', background: 'rgba(1, 0, 50, 1)'}}>
+                {/* PREGUNTAR SI SE PUEDE AGREGAR UN GIF O IMAGEN DE CRUXI
+                <img width={65} height={130} alt='add-role' src='/images/pages/add-new-role-illustration.png' /> 
+                */}
               </Box>
             </Grid>
             <Grid item xs={7}>
-              <CardContent>
+              <CardContent  sx={{background: 'rgba(1, 0, 50, 1)', height: '100%' }}>
                 <Box sx={{ textAlign: 'right' }}>
                   <Button
                     variant='contained'
@@ -175,7 +177,7 @@ const RolesCards = () => {
                   >
                     Add Role
                   </Button>
-                  <Typography variant='body2'>Add role, if it doesn't exist.</Typography>
+                  <Typography variant='body2'>Agrega un rol, si no existe.</Typography>
                 </Box>
               </CardContent>
             </Grid>
