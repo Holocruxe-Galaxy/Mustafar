@@ -83,10 +83,7 @@ const columns: GridColDef[] = [
     field: 'fullName',
     headerName: 'User',
     renderCell: ({ row }: CellType) => {
-      console.log("Esto es row: ", row)
       const { fullName } = row
-      let id = row.id
-      console.log("Esto es row.id: ", row.id)
 
       return (
         <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>

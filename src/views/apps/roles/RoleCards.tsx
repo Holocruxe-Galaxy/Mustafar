@@ -33,19 +33,17 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
+// ** Store Imports
+import { useSelector } from 'react-redux'
+
+// ** Types Imports
+import { RootState } from 'src/store'
+
 interface CardDataType {
   title: string
   avatars?: string[]
   totalUsers: number
 }
-
-const cardData: CardDataType[] = [
-  { totalUsers: 4, title: 'Administrator' },
-  { totalUsers: 7, title: 'Manager' },
-  { totalUsers: 5, title: 'Users' },
-  { totalUsers: 3, title: 'Support' },
-  { totalUsers: 2, title: 'Restricted User' }
-]
 
 const rolesArr: string[] = [
   'User Management',
@@ -65,6 +63,41 @@ const RolesCards = () => {
   const [dialogTitle, setDialogTitle] = useState<'Add' | 'Edit'>('Add')
   const [selectedCheckbox, setSelectedCheckbox] = useState<string[]>([])
   const [isIndeterminateCheckbox, setIsIndeterminateCheckbox] = useState<boolean>(false)
+  const [newRole, setNewRole] = useState<string[]>([])
+
+  const adminData = useSelector((state: RootState) => state.admin.data)
+
+// Inicializa un objeto para almacenar el recuento de usuarios y avatares por rol
+  const roleCounts: Record<string, number> = {};
+  const roleAvatars: Record<string, string[]> = {};
+
+  // Itera a través de los datos para contar los roles y almacenar los avatares
+adminData.forEach(user => {
+  const userRole = user.role || 'USER'; 
+  if (userRole) {
+    // Contabiliza el rol
+    if (roleCounts[userRole]) {
+      roleCounts[userRole] += 1;
+    } else {
+      roleCounts[userRole] = 1;
+    }
+
+    // Almacena los avatares
+    if (!roleAvatars[userRole]) {
+      roleAvatars[userRole] = [];
+    }
+    // Agrega el avatar específico de este usuario (a definir cuando estén disponibles)
+    roleAvatars[userRole].push(/* Añade el avatar específico */);
+  }
+});
+
+// Crea un arreglo de objetos CardDataType a partir de los datos recopilados
+const cardData: CardDataType[] = Object.entries(roleCounts).map(([role, count]) => ({
+  title: role,
+  avatars: roleAvatars[role] || [],
+  totalUsers: count,
+}));
+
 
   const handleClickOpen = () => setOpen(true)
 
@@ -107,12 +140,12 @@ const RolesCards = () => {
   }, [selectedCheckbox])
 
   const renderCards = () =>
-    cardData.map((item, index: number) => (
+  cardData.map((item, index: number) => (
       <Grid item xs={12} sm={6} lg={4} key={index}>
         <Card sx={{background: 'rgba(1, 0, 50, 1)' }}>
           <CardContent>
             <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <Typography variant='body2'>{`Total ${item.totalUsers} users`}</Typography>
+              <Typography variant='body2'>{`Total: ${item.totalUsers} usuarios`}</Typography>
               <AvatarGroup max={4} sx={{ '& .MuiAvatar-root': { width: 40, height: 40, fontSize: '0.875rem' } }}>
                 { !item.avatar ? " " : item.avatars.map((img, index: number) => (
                   <Avatar key={index} alt={item.title} src={`/images/avatars/${img}`} />
@@ -175,7 +208,7 @@ const RolesCards = () => {
                       setDialogTitle('Add')
                     }}
                   >
-                    Add Role
+                    Agrega un Rol
                   </Button>
                   <Typography variant='body2'>Agrega un rol, si no existe.</Typography>
                 </Box>
@@ -184,6 +217,8 @@ const RolesCards = () => {
           </Grid>
         </Card>
       </Grid>
+
+      {/* EDICIÓN DE ROLES Y PERMISOS ------------------------------------------------------------------------- */}
       <Dialog fullWidth maxWidth='md' scroll='body' onClose={handleClose} open={open}>
         <DialogTitle
           sx={{
