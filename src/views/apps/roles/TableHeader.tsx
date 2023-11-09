@@ -13,31 +13,45 @@ import Icon from 'src/@core/components/icon'
 interface TableHeaderProps {
   plan: string
   value: string
+  redactar: string
   handleFilter: (val: string) => void
   handlePlanChange: (e: SelectChangeEvent) => void
+  handleActionButtonClick: (e: string) => void
 }
 
 const TableHeader = (props: TableHeaderProps) => {
   // ** Props
-  const { plan, handlePlanChange, handleFilter, value } = props
+  const { value, redactar, plan, handlePlanChange, handleFilter, handleActionButtonClick } = props
 
   return (
     <Box sx={{ p: 5, pb: 3, display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
-      <Button sx={{ mr: 4, mb: 2 }} color='secondary' variant='outlined' startIcon={<Icon icon='mdi:export-variant' />}>
-        Export
-      </Button>
+      <FormControl sx={{ mb: 2 }}>
+        <InputLabel id='redactar'>REDACTAR</InputLabel>
+        <Select
+          value={redactar}
+          id='redactar'
+          label="Redactar"
+          inputProps={{ placeholder: 'Redactar' }}
+        >
+          <MenuItem>Mail</MenuItem>
+          <MenuItem>Notificaciones</MenuItem>
+        </Select>
+      </FormControl>
+      <Box sx={{mb: 2, display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
+        <Button data-action='reactivar' onClick={() => handleActionButtonClick('reactivar')} color='success' variant='contained' sx={{ mx: 3, height: '50px' }}>Reactivar</Button>
+        <Button data-action='suspender' onClick={() => handleActionButtonClick('suspender')} color='warning' variant='contained' sx={{ mx: 3, height: '50px' }}>Suspender</Button>
+        <Button data-action='banear' onClick={() => handleActionButtonClick('banear')} color='error' variant='contained' sx={{ mx: 3, height: '50px' }}>Banear</Button>
+      </Box>
       <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
         <TextField
-          size='small'
           value={value}
-          placeholder='Search User'
+          placeholder='SEARCH USER'
           sx={{ mr: 6, mb: 2 }}
           onChange={e => handleFilter(e.target.value)}
         />
-        <FormControl size='small' sx={{ mb: 2 }}>
+        <FormControl sx={{ mb: 2 }}>
           <InputLabel id='plan-select'>Select Plan</InputLabel>
           <Select
-            size='small'
             value={plan}
             id='select-plan'
             label='Select Plan'

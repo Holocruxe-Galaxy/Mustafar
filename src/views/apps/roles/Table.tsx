@@ -25,15 +25,17 @@ import CustomChip from 'src/@core/components/mui/chip'
 // ** Utils Import
 import { getInitials } from 'src/@core/utils/get-initials'
 
-// ** Actions Imports
+// ** Redux
+import { updateStatus } from 'src/store/apps/admin'
 
 // ** Types Imports
 import { RootState, AppDispatch } from 'src/store'
-import { UsersType } from 'src/types/apps/userTypes'
+import { UsersData, UsersType } from 'src/types/apps/userTypes'
 import { ThemeColor } from 'src/@core/layouts/types'
 
 // ** Custom Components Imports
 import TableHeader from 'src/views/apps/roles/TableHeader'
+import { computeSlots } from '@mui/x-data-grid/internals'
 
 interface UserRoleType {
   [key: string]: { icon: string; color: string }
@@ -53,27 +55,13 @@ const userRoleObj: UserRoleType = {
   author: { icon: 'mdi:cog-outline', color: 'yellow' /* 'warning.main' */ },
   editor: { icon: 'mdi:pencil-outline', color: 'green' /* 'info.main' */ },
   maintainer: { icon: 'mdi:chart-donut', color: 'pink' /* 'success.main' */ },
-  subscriber: { icon: 'mdi:account-outline', color: 'white' /* 'primary.main' */ }
+  user: { icon: 'mdi:account-outline', color: 'primary.main' }
 }
 
 const userStatusObj: UserStatusType = {
-  active: 'success',
-  pending: 'warning',
-  inactive: 'secondary'
-}
-
-// ** renders client column ESTE CÓDIGO RENDERIZA LOS AVATARES QUE ACOMPAÑAL AL NOMBRE DEL USUARIO 
-const renderClient = (row: UsersType) => {
-/*  
-    if (row.avatar.length) {
-    return <CustomAvatar src={row.avatar} sx={{ mr: 3, width: 34, height: 34 }} />
-  } else {
-    return (
-      <CustomAvatar skin='light' color={row.avatarColor} sx={{ mr: 3, width: 34, height: 34, fontSize: '1rem' }}>
-        {getInitials(row.fullName ? row.fullName : 'John Doe')}
-      </CustomAvatar>
-    )
-  } */
+  COMPLETE: 'success',
+  PENDING: 'warning',
+  INACTIVE: 'secondary'
 }
 
 const columns: GridColDef[] = [
@@ -87,7 +75,6 @@ const columns: GridColDef[] = [
 
       return (
         <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
-          {/* {renderClient(row)} */}
           <Box component='div' sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
             <Typography
               noWrap
@@ -103,10 +90,6 @@ const columns: GridColDef[] = [
             >
               {fullName}
             </Typography>
-{/*         Este código renderiza el apodo o username    
-            <Typography noWrap variant='caption'>
-              {`@${username}`}
-            </Typography> */}
           </Box>
         </Box>
       )
@@ -189,14 +172,16 @@ const UserList = () => {
   // ** State
   const [plan, setPlan] = useState<string>('')
   const [value, setValue] = useState<string>('')
+  const [redactar, setRedactar] = useState<string>('')
+  const [selectedUsers, setSelectedUsers] = useState<string>('')
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
 
-  // ** Hooks
-  //const dispatch = useDispatch<AppDispatch>()
-  
   const store = useSelector((state: RootState) => state.admin)
-
-  // useEffect(() => {
+  
+  // ** Hooks
+  const dispatch = useDispatch<AppDispatch>()
+  
+  //useEffect(() => {
   //   dispatch(
 
   //     // fetchData({
@@ -207,6 +192,19 @@ const UserList = () => {
   //     // })
   //   )
   // }, [dispatch, plan, value])
+  
+  const handleSelectionChange = (id: string) => {
+    setSelectedUsers(id)
+  };
+
+  const handleActionButtonClick = (val: string) => {
+    console.log(typeof selectedUsers)
+    if (selectedUsers.length > 0) {
+      if (val === 'reactivar') dispatch(updateStatus({ type: 'reactivar', users: selectedUsers }))
+      if (val === 'suspender') dispatch(updateStatus({ type: 'suspender', users: selectedUsers}))
+      if (val === 'banear') dispatch(updateStatus({ type: 'banear', users: selectedUsers}))
+    }
+  }
 
   const handleFilter = useCallback((val: string) => {
     setValue(val)
@@ -220,7 +218,7 @@ const UserList = () => {
     <Grid container spacing={6}>
       <Grid item xs={12}>
         <Card>
-          <TableHeader plan={plan} value={value} handleFilter={handleFilter} handlePlanChange={handlePlanChange} />
+          <TableHeader redactar={redactar} plan={plan} value={value} handleFilter={handleFilter} handlePlanChange={handlePlanChange} handleActionButtonClick={handleActionButtonClick} />
           <DataGrid
             autoHeight
             rows={store.data}
@@ -228,6 +226,7 @@ const UserList = () => {
             columns={columns}
             checkboxSelection
             disableRowSelectionOnClick
+            onRowSelectionModelChange={(id) => handleSelectionChange(id)}
             pageSizeOptions={[10, 25, 50]}
             paginationModel={paginationModel}
             onPaginationModelChange={setPaginationModel}
@@ -238,5 +237,6 @@ const UserList = () => {
     </Grid>
   )
 }
+
 
 export default UserList

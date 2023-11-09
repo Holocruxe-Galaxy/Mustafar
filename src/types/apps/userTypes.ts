@@ -1,6 +1,10 @@
 // ** Types
 import { ThemeColor } from 'src/@core/layouts/types'
 
+export type UsersData = {
+  data: UsersType[]
+}
+
 export type UsersType = {
   id: number
   fullName: string

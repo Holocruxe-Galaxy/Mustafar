@@ -6,6 +6,31 @@ interface Redux {
     dispatch: Dispatch<any>
   }
 
+interface AdminDataFromServer {
+    _id: number,
+    role: string,
+    status: string,
+    email: string,
+    plan: string,
+    personal: {
+    name: string
+    }
+}
+  
+interface AdminData {
+    id: string,
+    fullName: string,
+    email: string,
+    status: string,
+    role?: string,
+    plan?: string,
+}
+
+interface userStatus {
+  type: string,
+  users: string
+}
+
 //** Fetch Users data
 export const fetchAllUsers = createAsyncThunk('admin/fetchAllUsers',
   async () => {
@@ -26,25 +51,23 @@ export const fetchAllUsers = createAsyncThunk('admin/fetchAllUsers',
       return data
   })
 
-interface AdminDataFromServer {
-    _id: number,
-    role: string,
-    status: string,
-    email: string,
-    plan: string,
-    personal: {
-        name: string
-    }
-}
-
-interface AdminData {
-    id: number,
-    fullName: string,
-    email: string,
-    status: string,
-    role?: string,
-    plan?: string,
-}
+// ** Patch Profile status
+export const updateStatus = createAsyncThunk('admin/updateStatus', async ({ type, users }: userStatus) => {
+  const token = localStorage.getItem('AuthorizationToken');
+  const response = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/user/status`, {
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json' 
+    },
+    body: JSON.stringify({ type, users })
+});
+  
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message);
+  } 
+})
 
 export const admin = createSlice({
     name: 'admin',
