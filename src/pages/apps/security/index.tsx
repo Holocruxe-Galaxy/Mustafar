@@ -208,7 +208,17 @@ const Secutiry = () => {
                       <p>Hora: 17:28 pm</p>
                     </Box>
                   </Box>
-                  <Button variant='contained' startIcon={<Negativo />} sx={{ ml: 15, mt: 2 }}>
+                  <Button
+                    variant='contained'
+                    startIcon={<Negativo />}
+                    sx={{
+                      ml: 15,
+                      mt: 2,
+                      '&:hover': {
+                        background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.20) 100%)'
+                      }
+                    }}
+                  >
                     No fui yo
                   </Button>
 
