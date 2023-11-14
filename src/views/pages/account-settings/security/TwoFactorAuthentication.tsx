@@ -8,7 +8,7 @@ import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import InputLabel from '@mui/material/InputLabel'
 import IconButton from '@mui/material/IconButton'
-import TextField from '@mui/material/TextField';
+import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
@@ -20,7 +20,6 @@ import FormHelperText from '@mui/material/FormHelperText'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
-
 
 // ** Third Party Imports
 import { useForm, Controller } from 'react-hook-form'
@@ -56,7 +55,6 @@ const TwoFactorAuthenticationCard = () => {
   }
   const closeSecondDialog = () => {
     toggleSecondDialog()
-
   }
 
   return (
@@ -71,7 +69,16 @@ const TwoFactorAuthenticationCard = () => {
             La autenticación de dos factores añade una capa adicional de seguridad a tu cuenta al requerir algo más que
             una contraseña para iniciar sesión.
           </Typography>
-          <Button variant='contained' onClick={toggle2FADialog} startIcon={<GreenChecked />}>
+          <Button
+            variant='contained'
+            onClick={toggle2FADialog}
+            startIcon={<GreenChecked />}
+            sx={{
+              '&:hover': {
+                background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.20) 100%)'
+              }
+            }}
+          >
             ACTIVAR LA AUTENTICACION DE DOS FACTORES
           </Button>
         </CardContent>
@@ -119,7 +126,13 @@ const TwoFactorAuthenticationCard = () => {
                     id='opt-phone-number'
                     placeholder='+54 245731135'
                     error={Boolean(errors.phoneNumber)}
-                    endAdornment={<InputAdornment position='start'><IconButton onClick={toggleSecondDialog}><PinkAirplane/></IconButton></InputAdornment>}
+                    endAdornment={
+                      <InputAdornment position='start'>
+                        <IconButton onClick={toggleSecondDialog}>
+                          <PinkAirplane />
+                        </IconButton>
+                      </InputAdornment>
+                    }
                   />
                 )}
               />
@@ -139,7 +152,7 @@ const TwoFactorAuthenticationCard = () => {
         </DialogContent>
       </Dialog>
       <Dialog fullWidth open={openSec} onClose={toggleSecondDialog}>
-      <DialogContent
+        <DialogContent
           sx={{
             px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
             py: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
@@ -147,69 +160,73 @@ const TwoFactorAuthenticationCard = () => {
         >
           <Box component='div' sx={{ mb: 12, display: 'flex', justifyContent: 'center' }}>
             <Typography variant='h5' sx={{ fontSize: '1.625rem' }}>
-            VERIFICACION SEGUNDO PASO
+              VERIFICACION SEGUNDO PASO
             </Typography>
           </Box>
-          <IconButton size='small' onClick={closeSecondDialog} sx={{ position: 'absolute', right: '1rem', top: '1rem' }}>
+          <IconButton
+            size='small'
+            onClick={closeSecondDialog}
+            sx={{ position: 'absolute', right: '1rem', top: '1rem' }}
+          >
             <Icon icon='mdi:close' />
           </IconButton>
           <Typography sx={{ mt: 4, mb: 6 }}>
-          Introduzca el número de 6 digitos que se envió en su telefono como SMS
+            Introduzca el número de 6 digitos que se envió en su telefono como SMS
           </Typography>
           <TextField
-          id="standard-number"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          sx={{ width: 0.1, mr: 8 }}
-          variant="standard"
-        />
+            id='standard-number'
+            type='number'
+            InputLabelProps={{
+              shrink: true
+            }}
+            sx={{ width: 0.1, mr: 8 }}
+            variant='standard'
+          />
           <TextField
-          id="standard-number"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          sx={{ width: 0.1, mr: 8 }}
-          variant="standard"
-        />
+            id='standard-number'
+            type='number'
+            InputLabelProps={{
+              shrink: true
+            }}
+            sx={{ width: 0.1, mr: 8 }}
+            variant='standard'
+          />
           <TextField
-          id="standard-number"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          sx={{ width: 0.1, mr: 8 }}
-          variant="standard"
-        />
+            id='standard-number'
+            type='number'
+            InputLabelProps={{
+              shrink: true
+            }}
+            sx={{ width: 0.1, mr: 8 }}
+            variant='standard'
+          />
           <TextField
-          id="standard-number"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          sx={{ width: 0.1, mr: 8 }}
-          variant="standard"
-        />
+            id='standard-number'
+            type='number'
+            InputLabelProps={{
+              shrink: true
+            }}
+            sx={{ width: 0.1, mr: 8 }}
+            variant='standard'
+          />
           <TextField
-          id="standard-number"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          sx={{ width: 0.1, mr: 8 }}
-          variant="standard"
-        />
+            id='standard-number'
+            type='number'
+            InputLabelProps={{
+              shrink: true
+            }}
+            sx={{ width: 0.1, mr: 8 }}
+            variant='standard'
+          />
           <TextField
-          id="standard-number"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          sx={{ width: 0.1, mr: 8 }}
-          variant="standard"
-        />
+            id='standard-number'
+            type='number'
+            InputLabelProps={{
+              shrink: true
+            }}
+            sx={{ width: 0.1, mr: 8 }}
+            variant='standard'
+          />
         </DialogContent>
       </Dialog>
     </>
