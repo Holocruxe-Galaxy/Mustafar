@@ -1,4 +1,3 @@
-
 // ** React Imports
 import { useState } from 'react'
 
@@ -34,7 +33,7 @@ import Eliminar from 'src/@core/icons/Eliminar'
 import Checked from 'src/@core/icons/Checked'
 import Negativo from 'src/@core/icons/Negativo'
 
-import CardButtons from "src/views/components/horizontalBar/CardButtons";
+import CardButtons from 'src/views/components/horizontalBar/CardButtons'
 import AccountIconActive from 'src/@core/icons/configuracion/AccoutIconActive'
 import AccountIconInactive from 'src/@core/icons/configuracion/AccountIconInactive'
 import PadlockActive from 'src/@core/icons/configuracion/PadlockActive'
@@ -54,7 +53,7 @@ const Account = () => {
     },
     {
       name: 'SEGURIDAD',
-      activeIcon: <PadlockActive/>,
+      activeIcon: <PadlockActive />,
       inactiveIcon: <PadlockInactive />,
       href: 'apps/security'
     },
@@ -63,7 +62,7 @@ const Account = () => {
       activeIcon: <BellActive />,
       inactiveIcon: <BellInactive />,
       href: 'apps/notifications'
-    },
+    }
   ]
   const [open, setOpen] = useState<boolean>(false)
 
@@ -99,120 +98,142 @@ const Account = () => {
 
   return (
     <>
-    <Box component='div' sx={{ mb: 4 }}>
+      <Box component='div' sx={{ mb: 4 }}>
         <CardButtons data={settingsCards} />
-
       </Box>
       <Grid container spacing={6}>
-      {/* Delete Account Card */}
-      <Grid item xs={12}>
-        <Card>
-          <CardHeader title='ELIMINAR CUENTA' />
-          <CardContent>
-            <Typography>
-              Se borran todos los datos y la información asociada a esa cuenta de forma permanente.
-            </Typography>
-            <Button variant='contained' style={{marginTop: '3em'}} startIcon={<Eliminar />} onClick={handleClick}>
-              ELIMINAR CUENTA
-            </Button>
-          </CardContent>
-        </Card>
-      </Grid>
+        {/* Delete Account Card */}
+        <Grid item xs={12}>
+          <Card>
+            <CardHeader title='ELIMINAR CUENTA' />
+            <CardContent>
+              <Typography>
+                Se borran todos los datos y la información asociada a esa cuenta de forma permanente.
+              </Typography>
+              <Button
+                variant='contained'
+                style={{ marginTop: '3em' }}
+                startIcon={<Eliminar />}
+                onClick={handleClick}
+                sx={{
+                  '&:hover': {
+                    background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.20) 100%)'
+                  }
+                }}
+              >
+                ELIMINAR CUENTA
+              </Button>
+            </CardContent>
+          </Card>
+        </Grid>
 
-      {/* Deactivate Account Dialogs */}
-      <Dialog fullWidth maxWidth='xs' open={open} onClose={handleClose}>
-        <DialogContent
-          sx={{
-            pb: theme => `${theme.spacing(6)} !important`,
-            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-            pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
-          }}
-        >
-          <Box
-            component='div'
+        {/* Deactivate Account Dialogs */}
+        <Dialog fullWidth maxWidth='xs' open={open} onClose={handleClose}>
+          <DialogContent
             sx={{
-              display: 'flex',
-              textAlign: 'center',
-              alignItems: 'center',
-              flexDirection: 'column',
+              pb: theme => `${theme.spacing(6)} !important`,
+              px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+              pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
+            }}
+          >
+            <Box
+              component='div'
+              sx={{
+                display: 'flex',
+                textAlign: 'center',
+                alignItems: 'center',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                '& svg': { mb: 6, color: 'warning.main' }
+              }}
+            >
+              {/* <Icon icon='mdi:alert-circle-outline' fontSize='5.5rem' /> */}
+              <Typography>Seguro que Deseas eliminar?</Typography>
+            </Box>
+          </DialogContent>
+          <DialogActions
+            sx={{
               justifyContent: 'center',
-              '& svg': { mb: 6, color: 'warning.main' }
-            }}
-          >
-            {/* <Icon icon='mdi:alert-circle-outline' fontSize='5.5rem' /> */}
-            <Typography>Seguro que Deseas eliminar?</Typography>
-          </Box>
-        </DialogContent>
-        <DialogActions
-          sx={{
-            justifyContent: 'center',
-            flexDirection: 'column',
-            alignItems: 'center',
-            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-            pb: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
-          }}
-        >
-          <Button variant='contained' sx={{ mb: 4 }} onClick={() => handleConfirmation('yes')} startIcon={<Checked />}>
-            Si
-          </Button>
-          <Button
-            variant='contained'
-            color='secondary'
-            onClick={() => handleConfirmation('cancel')}
-            startIcon={<Negativo />}
-          >
-            No
-          </Button>
-        </DialogActions>
-      </Dialog>
-
-      <Dialog fullWidth maxWidth='xs' open={secondDialogOpen} onClose={handleSecondDialogClose}>
-        <DialogContent
-          sx={{
-            pb: theme => `${theme.spacing(6)} !important`,
-            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-            pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
-          }}
-        >
-          <Box
-            component='div'
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
               flexDirection: 'column',
-              '& svg': {
-                mb: 8,
-                color: userInput === 'yes' ? 'success.main' : 'error.main'
-              }
+              alignItems: 'center',
+              px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+              pb: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
             }}
           >
-            <Icon
-              fontSize='5.5rem'
-              icon={userInput === 'yes' ? 'mdi:check-circle-outline' : 'mdi:close-circle-outline'}
-            />
-            <Typography variant='h4' sx={{ mb: 5 }}>
-              {userInput === 'yes' ? 'Eliminado!' : 'Cancelado'}
-            </Typography>
-            <Typography>{userInput === 'yes' ? 'Tu cuenta fue eliminada.' : 'Eliminación cancelada!!'}</Typography>
-          </Box>
-        </DialogContent>
-        <DialogActions
-          sx={{
-            justifyContent: 'center',
-            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-            pb: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
-          }}
-        >
-          <Button variant='contained' color='success' onClick={handleSecondDialogClose}>
-            OK
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </Grid>
+            <Button
+              variant='contained'
+              onClick={() => handleConfirmation('yes')}
+              startIcon={<Checked />}
+              sx={{
+                mb: 4,
+                '&:hover': {
+                  background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.20) 100%)'
+                }
+              }}
+            >
+              Si
+            </Button>
+            <Button
+              variant='contained'
+              onClick={() => handleConfirmation('cancel')}
+              startIcon={<Negativo />}
+              sx={{
+                mb: 4,
+                '&:hover': {
+                  background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.20) 100%)'
+                }
+              }}
+            >
+              No
+            </Button>
+          </DialogActions>
+        </Dialog>
+
+        <Dialog fullWidth maxWidth='xs' open={secondDialogOpen} onClose={handleSecondDialogClose}>
+          <DialogContent
+            sx={{
+              pb: theme => `${theme.spacing(6)} !important`,
+              px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+              pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
+            }}
+          >
+            <Box
+              component='div'
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                flexDirection: 'column',
+                '& svg': {
+                  mb: 8,
+                  color: userInput === 'yes' ? 'success.main' : 'error.main'
+                }
+              }}
+            >
+              <Icon
+                fontSize='5.5rem'
+                icon={userInput === 'yes' ? 'mdi:check-circle-outline' : 'mdi:close-circle-outline'}
+              />
+              <Typography variant='h4' sx={{ mb: 5 }}>
+                {userInput === 'yes' ? 'Eliminado!' : 'Cancelado'}
+              </Typography>
+              <Typography>{userInput === 'yes' ? 'Tu cuenta fue eliminada.' : 'Eliminación cancelada!!'}</Typography>
+            </Box>
+          </DialogContent>
+          <DialogActions
+            sx={{
+              justifyContent: 'center',
+              px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+              pb: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
+            }}
+          >
+            <Button variant='contained' color='success' onClick={handleSecondDialogClose}>
+              OK
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Grid>
     </>
-  );
+  )
 }
 
-
-
-export default Account;
+export default Account
