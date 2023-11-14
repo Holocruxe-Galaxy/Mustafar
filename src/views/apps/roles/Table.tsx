@@ -6,6 +6,7 @@ import Link from 'next/link'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
 import Grid from '@mui/material/Grid'
 import IconButton from '@mui/material/IconButton'
@@ -170,11 +171,13 @@ const columns: GridColDef[] = [
 
 const UserList = () => {
   // ** State
+  const [actionMessage, setActionMessage] = useState<string>("");
+
+  const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
   const [plan, setPlan] = useState<string>('')
-  const [value, setValue] = useState<string>('')
   const [redactar, setRedactar] = useState<string>('')
   const [selectedUsers, setSelectedUsers] = useState<string>('')
-  const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
+  const [value, setValue] = useState<string>('')
 
   const store = useSelector((state: RootState) => state.admin)
   
@@ -198,13 +201,27 @@ const UserList = () => {
   };
 
   const handleActionButtonClick = (val: string) => {
-    console.log(typeof selectedUsers)
     if (selectedUsers.length > 0) {
       if (val === 'reactivar') dispatch(updateStatus({ type: 'reactivar', users: selectedUsers }))
-      if (val === 'suspender') dispatch(updateStatus({ type: 'suspender', users: selectedUsers}))
-      if (val === 'banear') dispatch(updateStatus({ type: 'banear', users: selectedUsers}))
+      if (val === 'suspender') {
+        setActionMessage("Ud suspenderá esta cuenta por")
+      }
+      if (val === 'banear') {
+        setActionMessage("¿Está seguro que desea bannear al usuario?")
     }
   }
+}
+
+  const handleActionConfirm = (val: string) => {
+    console.log("Entramos al handleActionConfirm")
+    if (val === 'suspender') {
+      dispatch(updateStatus({ type: 'suspender', users: selectedUsers}))
+      setActionMessage("");
+    } else {
+      dispatch(updateStatus({ type: 'banear', users: selectedUsers }))
+      setActionMessage("");
+    }
+    }
 
   const handleFilter = useCallback((val: string) => {
     setValue(val)
@@ -218,7 +235,8 @@ const UserList = () => {
     <Grid container spacing={6}>
       <Grid item xs={12}>
         <Card>
-          <TableHeader redactar={redactar} plan={plan} value={value} handleFilter={handleFilter} handlePlanChange={handlePlanChange} handleActionButtonClick={handleActionButtonClick} />
+          <TableHeader redactar={redactar} plan={plan} value={value} handleFilter={handleFilter} handlePlanChange={handlePlanChange} handleActionButtonClick={handleActionButtonClick} actionMessage={actionMessage} selectedUsers={selectedUsers} setActionMessage={setActionMessage} handleActionConfirm={handleActionConfirm} />
+
           <DataGrid
             autoHeight
             rows={store.data}
