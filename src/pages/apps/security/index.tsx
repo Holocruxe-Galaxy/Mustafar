@@ -104,10 +104,9 @@ const Secutiry = () => {
   const [isChecked, setIsChecked] = useState<boolean>(false)
   const [open, setOpen] = useState<boolean>(false)
 
-
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setIsChecked(e.target.checked)
-    if(e.target.checked) {
+    if (e.target.checked) {
       setOpen(!open)
     }
   }
@@ -125,7 +124,7 @@ const Secutiry = () => {
     },
     {
       name: 'SEGURIDAD',
-      activeIcon: <PadlockActive/>,
+      activeIcon: <PadlockActive />,
       inactiveIcon: <PadlockInactive />,
       href: 'apps/security'
     },
@@ -134,7 +133,7 @@ const Secutiry = () => {
       activeIcon: <BellActive />,
       inactiveIcon: <BellInactive />,
       href: 'apps/notifications'
-    },
+    }
   ]
 
   return (
@@ -147,14 +146,14 @@ const Secutiry = () => {
         <Grid item xs={5}>
           <Card>
             <CardHeader title='DISPOSITIVOS CONECTADOS' sx={{ mt: 5 }} />
-            <Typography sx={{ whiteSpace: 'nowrap', color: 'text.secondary', alignItems: 'center', ml: '2em' }}>
+            <Typography sx={{ whiteSpace: 'nowrap', color: 'text.secondary', ml: '2em' }}>
               Has iniciado sesión en:
             </Typography>
             {recentDeviceData.map((row, index) => (
               <CardContent key={index}>
-                <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
+                <Box component='div' sx={{ display: 'flex', alignItems: 'flex-start', ml: '3rem' }}>
                   {row.browserIcon}
-                  <Box component='div' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                  <Box component='div' sx={{ display: 'flex', flexDirection: 'column' }}>
                     <Typography sx={{ whiteSpace: 'nowrap', color: 'text.secondary' }}>
                       Dispositivo: {row.device}
                     </Typography>
@@ -176,16 +175,13 @@ const Secutiry = () => {
         </Grid>
         <Grid item xs={7}>
           <Card style={{ height: '100%' }}>
-            <CardHeader title='ALERTA DE INICIO DE SESION' sx={{ mt: 5 }}/>
-            <CardContent >
-              <Typography sx={{ whiteSpace: 'nowrap', color: 'text.secondary'}}>
+            <CardHeader title='ALERTA DE INICIO DE SESION' sx={{ mt: 5 }} />
+            <CardContent>
+              <Typography sx={{ whiteSpace: 'nowrap', color: 'text.secondary' }}>
                 Administra cómo quieres que se te notifique sobre los inicios de sesión no reconocidos en tu cuenta.
               </Typography>
               <FormControlLabel
-                control={
-                <Checkbox
-                checked={isChecked}
-                onChange={handleChange} />}
+                control={<Checkbox checked={isChecked} onChange={handleChange} />}
                 label='Notificación en la Web/app'
                 labelPlacement='start'
               />
