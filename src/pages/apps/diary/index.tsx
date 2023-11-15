@@ -46,7 +46,7 @@ import UploadButton from 'src/@core/icons/diary/UploadButton'
 import IconEmojiButton from 'src/@core/icons/diary/IconEmojiButton'
 import Send from 'src/@core/icons/diary/Send'
 import ArtIcon from 'src/@core/icons/diary/ArtIcon'
-import { handleKeyDown } from 'src/libs/helpers/handle-key-down';
+import { handleKeyDown } from 'src/libs/helpers/handle-key-down'
 
 const useStyles = makeStyles(() => ({
   picker: {
@@ -271,7 +271,7 @@ const Diary = () => {
               <TextField
                 focused={isMultiline ? true : false}
                 variant='outlined'
-                onKeyDown={(e) => handleKeyDown(e, onSubmit, inputRef)}
+                onKeyDown={e => handleKeyDown(e, onSubmit, inputRef)}
                 size='medium'
                 multiline={true}
                 minRows={isMultiline ? 4 : 0}
@@ -367,8 +367,13 @@ const Diary = () => {
                 <Button
                   variant='contained'
                   type='submit'
-                  sx={
-                    isMultiline
+                  sx={{
+                    '&:hover': {
+                      color: '#00FFED',
+                      background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.20) 100%)',
+                      boxShadow: '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(255, 255, 255, 0.25) inset'
+                    },
+                    ...(isMultiline
                       ? {
                           height: '3.2rem',
                           width: '8.8rem',
@@ -378,8 +383,8 @@ const Diary = () => {
                           zIndex: 0,
                           fontSize: 17
                         }
-                      : { display: 'none' }
-                  }
+                      : { display: 'none' })
+                  }}
                 >
                   Publicar
                   <div style={{ paddingLeft: 6, paddingTop: 14 }}>
