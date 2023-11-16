@@ -15,7 +15,6 @@ const CardLinks = (props: CardLinksProps) => {
 
   const useStyles = makeStyles(() =>({
     cardInactive: {
-        background: 'none',
         boxShadow: '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(66, 65, 136, 0.50) inset',
         '&:hover':{
           background: 'linear-gradient(180deg, #00FFED -10%, rgba(248, 54, 244, 0.20) 100%)'

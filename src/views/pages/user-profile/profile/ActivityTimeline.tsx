@@ -1,7 +1,6 @@
 // ** MUI Imports
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
-import Avatar from '@mui/material/Avatar'
 import { styled } from '@mui/material/styles'
 import TimelineDot from '@mui/lab/TimelineDot'
 import TimelineItem from '@mui/lab/TimelineItem'
@@ -15,9 +14,6 @@ import MuiTimeline, { TimelineProps } from '@mui/lab/Timeline'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
-
-// ** Custom Components Import
-import OptionsMenu from 'src/@core/components/option-menu'
 
 // Styled Timeline component
 const Timeline = styled(MuiTimeline)<TimelineProps>({
@@ -33,25 +29,19 @@ const Timeline = styled(MuiTimeline)<TimelineProps>({
 
 const ActivityTimeline = () => {
   return (
-    <Card>
+    <Card style={{ width: '810px', height: '849px', boxShadow: '4px 4px 4px 0px #FFFFFF80', paddingLeft: '1em' }}>
       <CardHeader
-        title='Actividades'
-        sx={{ '& .MuiCardHeader-avatar': { mr: 2.5 } }}
+        title='Línea de tiempo'
+        sx={{ '& .MuiCardHeader-avatar': { mr: 2.5 }, mt: 15 }}
         avatar={<Icon icon='mdi:format-list-bulleted' />}
         titleTypographyProps={{ sx: { color: 'text.primary' } }}
-        action={
-          <OptionsMenu
-            iconButtonProps={{ size: 'small' }}
-            options={['Share timeline', 'Suggest edits', { divider: true }, 'Report bug']}
-          />
-        }
       />
       <CardContent>
         <Timeline sx={{ my: 0, py: 0 }}>
           <TimelineItem>
             <TimelineSeparator>
               <TimelineDot color='warning' />
-              <TimelineConnector />
+              <TimelineConnector sx={{ height: 120 }} />
             </TimelineSeparator>
             <TimelineContent sx={{ mt: 0, mb: theme => `${theme.spacing(2)} !important` }}>
               <Box
@@ -59,30 +49,24 @@ const ActivityTimeline = () => {
                   display: 'flex',
                   flexWrap: 'wrap',
                   alignItems: 'center',
-                  justifyContent: 'space-between'
+                  justifyContent: 'space-between',
+
                 }}
                 component='div'
               >
-                <Typography sx={{ mr: 2, fontWeight: 500 }}>Client Meeting</Typography>
-                <Typography variant='body2' sx={{ color: 'text.disabled' }}>
-                  Today
+                <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.disabled' }}>Tarea agregada con éxito</Typography>
+                <Typography variant='body2' sx={{ color: 'text.primary', fontStyle: 'italic' }}>
+                  Hoy
                 </Typography>
               </Box>
-              <Typography sx={{ mb: 2, color: 'text.secondary' }}>Project meeting with john @10:15am</Typography>
-              <Box sx={{ display: 'flex', alignItems: 'center' }} component='div'>
-                <Avatar src='/images/avatars/2.png' sx={{ mr: 4, width: 38, height: 38 }} />
-                <div>
-                  <Typography sx={{ fontWeight: 500 }}>Lester McCarthy (Client)</Typography>
-                  <Typography sx={{ color: 'text.secondary' }}>CEO of Infibeam</Typography>
-                </div>
-              </Box>
+              <Typography sx={{ mb: 2, color: 'text.primary' }}>Ir al supermercado </Typography>
             </TimelineContent>
           </TimelineItem>
 
           <TimelineItem>
             <TimelineSeparator>
-              <TimelineDot color='info' />
-              <TimelineConnector />
+              <TimelineDot color='error' />
+              <TimelineConnector sx={{ height: 120 }} />
             </TimelineSeparator>
             <TimelineContent sx={{ mt: 0 }}>
               <Box
@@ -94,19 +78,26 @@ const ActivityTimeline = () => {
                 }}
                 component='div'
               >
-                <Typography sx={{ mr: 2, fontWeight: 500 }}>Create a new project for client</Typography>
-                <Typography variant='body2' sx={{ color: 'text.disabled' }}>
-                  2 Days Ago
+                <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.disabled' }}>
+                Busqueda de recuerdos del primer cumpleaños de Emma
+                </Typography>
+                <Typography variant='body2' sx={{ color: 'text.primary', fontStyle: 'italic' }}>
+                  1 día atrás
                 </Typography>
               </Box>
-              <Typography sx={{ color: 'text.secondary' }}>Add files to new design folder</Typography>
+              <Typography sx={{ color: 'text.primary' }}>Resultados encontrados:
+              <br />
+              10 fotos
+              <br />
+              3 notas
+              </Typography>
             </TimelineContent>
           </TimelineItem>
 
           <TimelineItem>
             <TimelineSeparator>
-              <TimelineDot color='primary' />
-              <TimelineConnector />
+              <TimelineDot color='info' />
+              <TimelineConnector sx={{ height: 120 }} />
             </TimelineSeparator>
             <TimelineContent sx={{ mt: 0, mb: theme => `${theme.spacing(2)} !important` }}>
               <Box
@@ -118,25 +109,19 @@ const ActivityTimeline = () => {
                 }}
                 component='div'
               >
-                <Typography sx={{ mr: 2, fontWeight: 500 }}>Shared 2 New Project Files</Typography>
-                <Typography variant='body2' sx={{ color: 'text.disabled' }}>
-                  6 Days Ago
+                <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.disabled' }}>
+                Se cargaron 2 nuevas entradas en bitacora, sección diario
+                </Typography>
+                <Typography variant='body2' sx={{ color: 'text.primary', fontStyle: 'italic' }}>
+                  1 día atrás
                 </Typography>
               </Box>
-              <Box sx={{ mb: 2.5, display: 'flex', alignItems: 'center' }} component='div'>
-                <Typography sx={{ color: 'text.secondary' }}>Sent by Mollie Dixon</Typography>
-                <Avatar src='/images/avatars/3.png' sx={{ ml: 5, width: 20, height: 20 }} />
-              </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center' }} component='div'>
-                <Box sx={{ mr: 6, display: 'flex', alignItems: 'center' }} component='div'>
-                  <img width={20} height={20} alt='app-guidelines' src='/images/icons/file-icons/pdf.png' />
-                  <Typography sx={{ ml: 3, fontWeight: 500 }}>App Guidelines</Typography>
-                </Box>
-                <Box sx={{ display: 'flex', alignItems: 'center' }} component='div'>
-                  <img width={20} height={20} alt='testing-results' src='/images/icons/file-icons/doc.png' />
-                  <Typography sx={{ ml: 3, fontWeight: 500 }}>Testing Results</Typography>
-                </Box>
-              </Box>
+              <Typography sx={{ color: 'text.primary', fontSize: 14 }}>Hoy conocí un lugar hermoso al cual quiero volver en unas semanas.
+              <br />
+              Se llama Café aromas.
+              <br />
+              Entrada 2
+              </Typography>
             </TimelineContent>
           </TimelineItem>
 
@@ -154,12 +139,13 @@ const ActivityTimeline = () => {
                 }}
                 component='div'
               >
-                <Typography sx={{ mr: 2, fontWeight: 500 }}>Project status updated</Typography>
-                <Typography variant='body2' sx={{ color: 'text.disabled' }}>
-                  10 Days Ago
+                <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.disabled' }}>Creación de nuevas alertas dentro de calendario.</Typography>
+                <Typography variant='body2' sx={{ color: 'text.primary', fontStyle: 'italic' }}>
+                  1 día atrás
                 </Typography>
               </Box>
-              <Typography sx={{ color: 'text.secondary' }}>Woocommerce iOS App Completed</Typography>
+
+              {/* <Typography sx={{ color: 'text.primary' }}>Woocommerce iOS App Completed</Typography> */}
             </TimelineContent>
           </TimelineItem>
         </Timeline>

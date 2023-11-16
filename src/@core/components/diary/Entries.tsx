@@ -30,10 +30,9 @@ import IconButton, { IconButtonProps } from '@mui/material/IconButton'
 import ClearIcon from '@mui/icons-material/Clear'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip'
-import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions'
 
 // ** Redux Toolkit
-import { deleteDiary, editEntrie } from 'src/store/apps/diary'
+import { deleteDiary, editEntrie, editEntrieWithFile } from 'src/store/apps/diary'
 
 // ** Emoji Picker
 import data from '@emoji-mart/data'
@@ -50,6 +49,8 @@ import NoButton from 'src/@core/icons/diary/NoButton'
 import IconEmojiButton from 'src/@core/icons/diary/IconEmojiButton'
 import UploadButton from 'src/@core/icons/diary/UploadButton'
 import Save from 'src/@core/icons/diary/Save'
+import EditArtIcon from 'src/@core/icons/diary/ArtIconSelected'
+import { handleKeyDownHookForm } from 'src/libs/helpers/handle-key-down'
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean
@@ -169,6 +170,8 @@ const Entries = ({ id, props }: any) => {
   const dispatch = useDispatch<AppDispatch>()
   const [expanded, setExpanded] = useState<boolean>(false)
   const [open, setOpen] = useState<boolean>(false)
+  const [openEdit, setOpenEdit] = useState<boolean>(false)
+  const [openDeleteImg, setOpenDeleteImg] = useState<boolean>(false)
   const [file, setFile] = useState<FormData>()
 
   const contentRef = useRef<HTMLInputElement>(props.content)
@@ -183,13 +186,11 @@ const Entries = ({ id, props }: any) => {
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
-  const [openEdit, setOpenEdit] = useState<boolean>(false)
   const handleOpenEdit = () => setOpenEdit(true)
   const handleCloseEdit = () => setOpenEdit(false)
 
-  const pickerToggleHandler = () => {
-    setPickerVisible(prevState => !prevState)
-  }
+  const handleOpenDeleteImg = () => setOpenDeleteImg(true)
+  const handleCloseDeleteImg = () => setOpenDeleteImg(false)
 
   useEffect(() => {
     document.addEventListener('click', handleClickOutside)
@@ -204,6 +205,7 @@ const Entries = ({ id, props }: any) => {
       setPickerVisible(false)
     }
   }
+
   const { control, handleSubmit } = useForm({
     defaultValues: { content: props.content, emoji: props.emoji, photos: props.photos, favorite: props.favorite }
   })
@@ -214,10 +216,18 @@ const Entries = ({ id, props }: any) => {
   })
 
   const onSubmit = (data: any) => {
-    if (data.emoji === undefined) delete data.emoji
+    if (data.content === props.content) delete data.content
 
-    if (!data.photos.length && !props.photos.length) delete data.photos
+    if (data.emoji === undefined || data.emoji === props.emoji) delete data.emoji
 
+    if (data.photos.length) delete data.photos
+
+    if (data.favorite === props.favorite) delete data.favorite
+
+    if (file) {
+      dispatch(editEntrieWithFile({ ...data, _id: id, photos: [], file }))
+      setFile(undefined)
+    }
     if (!file) dispatch(editEntrie({ ...data, _id: id }))
 
     handleCloseEdit()
@@ -231,19 +241,53 @@ const Entries = ({ id, props }: any) => {
     dispatch(deleteDiary(id))
   }
 
+  const handleDeleteImg = (index: any) => {
+    remove(index)
+    handleCloseDeleteImg()
+  }
+
+  const pickerToggleHandler = () => {
+    setPickerVisible(prevState => {
+      if (!prevState) {
+        setFocusAndPositionCursor(contentRef.current, contentRef.current?.selectionStart || 0)
+      }
+
+      return !prevState
+    })
+  }
+
+  const setFocusAndPositionCursor = (inputElement: HTMLInputElement, newCursorPosition?: number) => {
+    if (inputElement && !inputElement.contains(document.activeElement)) {
+      inputElement.focus()
+
+      if (newCursorPosition !== undefined) {
+        setTimeout(() => {
+          inputElement.setSelectionRange(newCursorPosition, newCursorPosition)
+        }, 10)
+      } else {
+        inputElement.selectionStart = inputElement.selectionEnd = inputElement.value.length
+      }
+    }
+  }
+
   const handleEmojiSelect = (emoji: string, onChange: (value: string) => void) => {
     if (contentRef.current && isPickerVisible) {
-      const cursorPosition = contentRef.current.selectionStart || 0
-
-      const inputValue = contentRef.current.value
+      const inputElement = contentRef.current
+      const cursorPosition = inputElement.selectionStart || 0
+      const inputValue = inputElement.value
 
       const beforeCursor = inputValue.substring(0, cursorPosition)
       const afterCursor = inputValue.substring(cursorPosition)
 
       const newValue = beforeCursor + emoji + afterCursor
-      contentRef.current.value = newValue
+
+      inputElement.value = newValue
 
       onChange(newValue)
+
+      const newCursorPosition = cursorPosition + emoji.length
+
+      setFocusAndPositionCursor(contentRef.current, newCursorPosition)
     }
   }
 
@@ -281,7 +325,6 @@ const Entries = ({ id, props }: any) => {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-
     bgcolor: 'background.paper',
     borderRadius: 1,
     boxShadow: 24,
@@ -324,7 +367,16 @@ const Entries = ({ id, props }: any) => {
 
             <Modal open={openEdit} onClose={handleCloseEdit} sx={styleModal}>
               <Box sx={styleEdit} component='div'>
-                <Typography sx={{ textAlign: 'left', mb: 5, color: '#F836F4' }}>EDITAR</Typography>
+                <Box
+                  component='div'
+                  sx={{ display: 'flex', justifyContent: 'space-between', alignItems: ' center', pb: 5 }}
+                >
+                  <Typography sx={{ color: '#F836F4' }}>EDITAR</Typography>
+                  <IconButton onClick={handleCloseEdit}>
+                    <ClearIcon />
+                  </IconButton>
+                </Box>
+
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <FormControl>
                     <Controller
@@ -333,6 +385,7 @@ const Entries = ({ id, props }: any) => {
                       render={({ field: { value, onChange } }) => (
                         <TextField
                           value={value}
+                          onKeyDown={e => handleKeyDownHookForm(e, handleSubmit, onSubmit, contentRef)}
                           focused
                           multiline
                           fullWidth
@@ -340,7 +393,10 @@ const Entries = ({ id, props }: any) => {
                           maxRows={4}
                           label='Inserta un texto'
                           onChange={onChange}
-                          inputRef={contentRef}
+                          inputRef={(ref: any) => {
+                            setFocusAndPositionCursor(ref)
+                            contentRef.current = ref
+                          }}
                           InputProps={{
                             endAdornment: (
                               <InputAdornment position='end' sx={{ display: 'flex' }}>
@@ -363,6 +419,12 @@ const Entries = ({ id, props }: any) => {
                                   onClick={e => {
                                     e.stopPropagation()
                                     pickerToggleHandler()
+                                    if (isPickerVisible) {
+                                      setFocusAndPositionCursor(
+                                        contentRef.current,
+                                        contentRef.current?.selectionStart || 0
+                                      )
+                                    }
                                   }}
                                   className={classes.iconButton}
                                 >
@@ -376,7 +438,11 @@ const Entries = ({ id, props }: any) => {
                     />
                     <Box
                       component='div'
-                      sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}
+                      sx={
+                        !props.emoji
+                          ? { display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }
+                          : { display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }
+                      }
                     >
                       {props.emoji && (
                         <IconButton className={classes.iconButton} sx={{ pr: 5 }}>
@@ -417,12 +483,12 @@ const Entries = ({ id, props }: any) => {
                               inputRef={emojiRef}
                               sx={{
                                 height: '2.5rem',
-                                pt: 2
+                                fontSize: '1.5rem'
                               }}
                               displayEmpty
                               renderValue={selected => {
                                 if (selected === '' || !selected) {
-                                  return <EmojiEmotionsIcon />
+                                  return <EditArtIcon />
                                 }
 
                                 return selected
@@ -460,21 +526,26 @@ const Entries = ({ id, props }: any) => {
                         }}
                         component='div'
                       >
-                        {fields.map((field, index) => (
-                          <CardContent key={field.id}>
-                            <IconButton onClick={() => remove(index)}>
+                        {fields.map(field => (
+                          <>
+                            <IconButton
+                              onClick={() => handleOpenDeleteImg()}
+                              sx={{ float: 'right', mr: 2, mb: 2, color: '#00FFED' }}
+                            >
                               <ClearIcon />
                             </IconButton>
-                            <CardMedia
-                              component='img'
-                              sx={{
-                                maxWidth: '100%',
-                                maxHeight: '100%'
-                              }}
-                              image={props.photos[0]}
-                              alt='img'
-                            />
-                          </CardContent>
+                            <CardContent key={field.id}>
+                              <CardMedia
+                                component='img'
+                                sx={{
+                                  maxWidth: '100%',
+                                  maxHeight: '100%'
+                                }}
+                                image={props.photos[0]}
+                                alt='img'
+                              />
+                            </CardContent>
+                          </>
                         ))}
                       </Box>
                     )}
@@ -515,6 +586,35 @@ const Entries = ({ id, props }: any) => {
                 </Button>
               </Box>
             </Modal>
+
+            <Modal open={openDeleteImg} onClose={handleCloseDeleteImg}>
+              <Box component='div' sx={style}>
+                <Typography variant='h6' component='h2'>
+                  Eliminar imagen?
+                </Typography>
+                <Button
+                  onClick={handleDeleteImg}
+                  variant='contained'
+                  sx={{ marginTop: 3, width: '50%', height: '3rem', fontSize: 'large' }}
+                >
+                  <div style={{ position: 'absolute', left: 28, top: 1, marginRight: 6 }}>
+                    <YesButton />
+                  </div>
+                  Si
+                </Button>
+
+                <Button
+                  onClick={handleCloseDeleteImg}
+                  variant='contained'
+                  sx={{ marginTop: 3, width: '50%', height: '3rem', fontSize: 'large' }}
+                >
+                  <div style={{ position: 'absolute', left: 28, top: 2, marginRight: 6 }}>
+                    <NoButton />
+                  </div>
+                  No
+                </Button>
+              </Box>
+            </Modal>
           </>
         }
         title={'Tú'}
@@ -535,7 +635,7 @@ const Entries = ({ id, props }: any) => {
 
           <Collapse in={expanded} timeout='auto' unmountOnExit>
             <CardContent>
-              <CardMedia component='img' height='500' image={props.photos} alt='img' />
+              <CardMedia component='img' height='auto' image={props.photos} alt='img' />
             </CardContent>
           </Collapse>
         </>

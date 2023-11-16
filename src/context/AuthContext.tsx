@@ -49,7 +49,7 @@ const AuthProvider = ({ children }: Props) => {
         await axios
           .get(`${process.env.NEXT_PUBLIC_CORUSCANT}/users/verify`, {
             headers: {
-              Authorization: storedToken
+              authorization: storedToken
             }
           })
           .then(async response => {

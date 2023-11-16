@@ -1,7 +1,7 @@
 // ** MUI Imports
 import MuiBox, { BoxProps } from '@mui/material/Box'
 import { StepIconProps } from '@mui/material/StepIcon'
-import { alpha, styled, useTheme } from '@mui/material/styles'
+import { styled, useTheme } from '@mui/material/styles'
 
 // ** Custom Icon Import
 import Icon from 'src/@core/components/icon'
@@ -39,7 +39,7 @@ const StepperCustomDot = (props: StepIconProps) => {
     return (
       <Box
         sx={{
-          borderColor: active ? 'primary.main' : alpha(theme.palette.primary.main, 0.3)
+          borderColor: active ? 'primary.main' : 'customColors.lightBg'
         }}
       />
     )

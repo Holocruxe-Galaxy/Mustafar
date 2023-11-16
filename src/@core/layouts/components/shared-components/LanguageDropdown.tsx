@@ -9,7 +9,7 @@ import OptionsMenu from 'src/@core/components/option-menu'
 
 // ** Type Import
 import { Settings } from 'src/@core/context/settingsContext'
-import { Language } from 'src/views/components/icons/Language'
+import { Language } from 'src/views/components/icons'
 
 interface Props {
   settings: Settings
@@ -23,7 +23,7 @@ const LanguageDropdown = ({ settings, saveSettings }: Props) => {
   // ** Vars
   const { layout } = settings
 
-  const handleLangItemClick = (lang: 'en' | 'fr' | 'ar') => {
+  const handleLangItemClick = (lang: 'en' | 'es' ) => {
     i18n.changeLanguage(lang)
   }
 
@@ -39,35 +39,24 @@ const LanguageDropdown = ({ settings, saveSettings }: Props) => {
       iconButtonProps={{ color: 'inherit', sx: { ...(layout === 'vertical' ? { mr: 0.75 } : { mx: 0.75 }) } }}
       options={[
         {
-          text: 'English',
+          text: 'Español',
+          menuItemProps: {
+            sx: { py: 2 },
+            selected: i18n.language === 'es',
+            onClick: () => {
+              handleLangItemClick('es')
+              saveSettings({ ...settings, direction: 'ltr' })
+            }
+          }
+        },
+        {
+          text: 'Inglés',
           menuItemProps: {
             sx: { py: 2 },
             selected: i18n.language === 'en',
             onClick: () => {
               handleLangItemClick('en')
               saveSettings({ ...settings, direction: 'ltr' })
-            }
-          }
-        },
-        {
-          text: 'French',
-          menuItemProps: {
-            sx: { py: 2 },
-            selected: i18n.language === 'fr',
-            onClick: () => {
-              handleLangItemClick('fr')
-              saveSettings({ ...settings, direction: 'ltr' })
-            }
-          }
-        },
-        {
-          text: 'Arabic',
-          menuItemProps: {
-            sx: { py: 2 },
-            selected: i18n.language === 'ar',
-            onClick: () => {
-              handleLangItemClick('ar')
-              saveSettings({ ...settings, direction: 'rtl' })
             }
           }
         }

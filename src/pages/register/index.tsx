@@ -53,23 +53,25 @@ import AstSit from '../../@core/components/holocruxe-model/AstronautSit'
 import AstWave from '../../@core/components/holocruxe-model/AstronautWave'
 import AstBeyond from '../../@core/components/holocruxe-model/AstronautBeyond'
 import AstVolt from '../../@core/components/holocruxe-model/AstronautVoltereta'
-import Deportes from '../../@core/icons/Deportes'
-import Musica from '../../@core/icons/Musica'
-import Arte from '../../@core/icons/Arte'
-import Juegos from '../../@core/icons/Juegos'
-import Salado from '../../@core/icons/Salado'
-import Dulce from '../../@core/icons/Dulce'
-import Viajes from '../../@core/icons/Viajes'
-import Fotografia from '../../@core/icons/Fotografia'
-import Fitness from '../../@core/icons/Fitness'
-import Moda from '../../@core/icons/Moda'
-import Series from '../../@core/icons/Series'
-import Ciencia from '../../@core/icons/Ciencia'
-import Astronomia from '../../@core/icons/Astronomia'
-import Ecologia from '../../@core/icons/Ecologia'
-import Crianza from '../../@core/icons/Crianza'
-import Psic from '../../@core/icons/Psic'
+import Deportes from '../../@core/icons/OnBoardingStep/Deportes'
+import Musica from '../../@core/icons/OnBoardingStep/Musica'
+import Arte from '../../@core/icons/OnBoardingStep/Arte'
+import Juegos from '../../@core/icons/OnBoardingStep/Juegos'
+import Salado from '../../@core/icons/OnBoardingStep/Salado'
+import Dulce from '../../@core/icons/OnBoardingStep/Dulce'
+import Viajes from '../../@core/icons/OnBoardingStep/Viajes'
+import Fotografia from '../../@core/icons/OnBoardingStep/Fotografia'
+import Fitness from '../../@core/icons/OnBoardingStep/Fitness'
+import Moda from '../../@core/icons/OnBoardingStep/Moda'
+import Series from '../../@core/icons/OnBoardingStep/Series'
+import Ciencia from '../../@core/icons/OnBoardingStep/Ciencia'
+import Astronomia from '../../@core/icons/OnBoardingStep/Astronomia'
+import Ecologia from '../../@core/icons/OnBoardingStep/Ecologia'
+import Crianza from '../../@core/icons/OnBoardingStep/Crianza'
+import Psic from '../../@core/icons/OnBoardingStep/Psic'
 import { AppDispatch, RootState } from 'src/store'
+import RightBlueAirplane from 'src/@core/icons/OnBoardingStep/RightBlueAirplane'
+import LeftBlueAirplane from 'src/@core/icons/OnBoardingStep/LeftBlueAirplane'
 
 const steps = [
   {
@@ -850,7 +852,7 @@ const Register = () => {
                   )}
                 </FormControl>
               </Grid>
-              <Grid item xs={12} sm={11.8}>
+              <Grid item xs={12} sm={12}>
                 <FormControl fullWidth>
                   <Controller
                     name='contactInfo.zipCode'
@@ -874,11 +876,8 @@ const Register = () => {
                   )}
                 </FormControl>
               </Grid>
-              <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '5em' }}>
-                <Button size='large' variant='outlined' color='secondary' disabled>
-                  atrás
-                </Button>
-                <Button size='large' type='submit' variant='contained'>
+              <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'end', paddingBottom: '5em',  }}>
+                <Button size='large' type='submit' variant='contained' startIcon={<RightBlueAirplane/>} >
                   siguiente
                 </Button>
               </Grid>
@@ -1015,10 +1014,10 @@ const Register = () => {
                         labelId='stepper-linear-personal-civilStatus'
                         aria-describedby='stepper-linear-personal-civilStatus-helper'
                       >
-                        <MenuItem value='SINGLE'>Soltero</MenuItem>
-                        <MenuItem value='MARRIED'>Casado</MenuItem>
-                        <MenuItem value='WIDOWED'>Viudo</MenuItem>
-                        <MenuItem value='DIVORCED'>Divorciado</MenuItem>
+                        <MenuItem value='SINGLE'>Soltero/a</MenuItem>
+                        <MenuItem value='MARRIED'>Casado/a</MenuItem>
+                        <MenuItem value='WIDOWED'>Viudo/a</MenuItem>
+                        <MenuItem value='DIVORCED'>Divorciado/a</MenuItem>
                         <MenuItem value='PREFER-NOT-TO-SAY'>Prefiero no decir</MenuItem>
                       </Select>
                     )}
@@ -1031,11 +1030,14 @@ const Register = () => {
                 </FormControl>
               </Grid>
               <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '5em' }}>
-                <Button size='large' variant='outlined' color='secondary' onClick={handleBack}>
+                <Button size='large' variant='contained' startIcon={<LeftBlueAirplane/>} onClick={handleBack}>
                   ATRÁS
                 </Button>
-                <Button size='large' type='submit' variant='contained'>
-                  siguiente
+                <Button size='large' type='submit' variant='contained' startIcon={<RightBlueAirplane/>}
+                
+                // sx={{ color:'text.primary' }}
+                >
+                  Siguiente
                 </Button>
               </Grid>
               <Canvas shadows>
@@ -1202,10 +1204,10 @@ const Register = () => {
               </Grid>
 
               <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '5em' }}>
-                <Button size='large' variant='outlined' color='secondary' onClick={handleBack}>
+                <Button size='large' variant='contained' startIcon={<LeftBlueAirplane/>} onClick={handleBack}>
                   atrás
                 </Button>
-                <Button size='large' type='submit' variant='contained'>
+                <Button size='large' type='submit' variant='contained' startIcon={<RightBlueAirplane/>}>
                   siguiente
                 </Button>
               </Grid>
@@ -1222,7 +1224,7 @@ const Register = () => {
           <form key={3} onSubmit={handleGeneralInsterestsSubmit(onSubmit)}>
             <Grid container spacing={5}>
               <Grid item xs={12} marginTop={10}>
-                <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.primary' }}>
+                <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.secondary' }}>
                   {steps[3].title}
                 </Typography>
               </Grid>
@@ -1262,11 +1264,11 @@ const Register = () => {
                   </Grid>
                 ))}
 
-                <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '5em' }}>
-                  <Button size='large' variant='outlined' color='secondary' onClick={handleBack}>
+                <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '5em', mt: 15 }}>
+                  <Button size='large' variant='contained' startIcon={<LeftBlueAirplane/>} onClick={handleBack}>
                     atrás
                   </Button>
-                  <Button size='large' type='submit' variant='contained'>
+                  <Button size='large' type='submit' variant='contained' startIcon={<RightBlueAirplane/>}>
                     enviar
                   </Button>
                 </Grid>

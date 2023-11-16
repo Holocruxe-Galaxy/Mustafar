@@ -24,6 +24,8 @@ import { Search, Bell, Line, InactiveConections, ActiveMetrics, InactiveMetrics,
 // ** Hook Import
 import { useAuth } from 'src/hooks/useAuth'
 import { useRouter } from 'next/router'
+import InteresActivo from 'src/@core/icons/configuracion/InteresActivo'
+import InteresesInactivo from 'src/@core/icons/configuracion/InteresesInactivo'
 
 interface Props {
   hidden: boolean
@@ -47,22 +49,23 @@ const AppBarContent = (props: Props) => {
     const handleMouseEnter = () => {
       setActiveArea(true)
     }
-  
+
     const handleMouseLeaves = () => {
       setActiveArea(false)
     }
 
   const useStyles = makeStyles(() => ({
     card: {
-      display: 'flex', 
-      alignItems: 'center', 
-      justifyContent: 'start', 
-      width: '25rem', 
-      height: '5.313rem', 
-      margin: '1.200rem', 
-      borderRadius: '14px', 
-      fontSize: '21px', 
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'start',
+      width: '25rem',
+      height: '5.313rem',
+      margin: '1.200rem',
+      borderRadius: '14px',
+      fontSize: '21px',
       fontWeight: 1,
+      backgroundColor: 'rgba(1, 0, 50, 1)',
       boxShadow: '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(66, 65, 136, 0.50) inset',
       '&:hover':{
         background: 'linear-gradient(180deg, #00FFED -10%, rgba(248, 54, 244, 0.20) 100%)'
@@ -71,15 +74,15 @@ const AppBarContent = (props: Props) => {
     cardActive: {
       display: 'flex',
       fontWeight: '20px',
-      justifyContent: 'start', 
+      justifyContent: 'start',
       alignItems: 'center',
       background: 'linear-gradient(180deg, #00FFED -10%, rgba(248, 54, 244, 0.20) 100%)',
       boxShadow: '4px 4px 25px 0px rgba(255, 255, 255, 0.20), 4px 4px 4px 0px rgba(255, 255, 255, 0.25) inset;'
     },
     content: {
-      display: 'flex', 
-      alignItems: 'center', 
-      justifyContent: 'space-between', 
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
       width: '100%'
     },
     icons: {
@@ -107,6 +110,43 @@ const AppBarContent = (props: Props) => {
       buttons: [
         { name: 'MI BITÁCORA', activeIcon: <ActiveBinnacle />, inactiveIcon: <InactiveBinnacle />, href: 'apps/diary'},
         { name: 'TUS MÉTRICAS', activeIcon: <ActiveMetrics />, inactiveIcon: <InactiveMetrics/>, href: ''}
+      ]
+    },
+    {
+      page: 'profile',
+      buttons: [
+        { name: 'TUS INTERESES', activeIcon: <ActiveBinnacle />, inactiveIcon: <InactiveBinnacle />, href: 'apps/diary'},
+        { name: 'TUS MÉTRICAS', activeIcon: <ActiveMetrics />, inactiveIcon: <InactiveMetrics/>, href: ''}
+      ]
+    },
+    {
+      page: 'apps/account',
+      buttons: [
+        { name: 'TUS INTERESES',
+        activeIcon: <InteresActivo />,
+        inactiveIcon: <InteresesInactivo />,
+        href: 'apps/account',  },
+        { name: 'TUS MÉTRICAS', activeIcon: <ActiveMetrics />, inactiveIcon: <InactiveMetrics/>, href: '',  }
+      ]
+    },
+    {
+      page: 'apps/security',
+      buttons: [
+        { name: 'TUS INTERESES',
+        activeIcon: <InteresActivo />,
+        inactiveIcon: <InteresesInactivo />,
+         href: 'apps/security' },
+        { name: 'TUS MÉTRICAS', activeIcon: <ActiveMetrics />, inactiveIcon: <InactiveMetrics/>, href: '' }
+      ]
+    },
+    {
+      page: 'apps/notifications',
+      buttons: [
+        { name: 'TUS INTERESES',
+        activeIcon: <InteresActivo />,
+        inactiveIcon: <InteresesInactivo />,
+        href: 'apps/notifications',  },
+        { name: 'TUS MÉTRICAS', activeIcon: <ActiveMetrics />, inactiveIcon: <InactiveMetrics/>, href: '' }
       ]
     }
   ]
@@ -140,26 +180,26 @@ const AppBarContent = (props: Props) => {
       {currentPage?.buttons.map((card, index: number) => (
         <Button
         key={index}
-        sx={{width: '25rem', height: '5.313rem', margin: '1.200rem', pl:8, borderRadius: '14px', fontSize:'21px', fontWeight: 1 }}
+        sx={{width: '25rem', height: '5.313rem', margin: '1.200rem', pl:8, borderRadius: '14px', fontSize:'21px', fontWeight: 1, backgroundColor: 'rgba(1, 0, 50, 1)' }}
         className={selectedPage === card.href ?  classes.cardActive : classes.card}
         onClick={() => handleRedirect(card.href)}
         startIcon={currentPage.page === card.href ? card.activeIcon : card.inactiveIcon}>
           <Typography className={currentPage.page === card.href ? classes.fontActive : classes.font} variant='h6'>{card.name}</Typography>
         </Button>
       ))}
-      <Card 
+      <Card
       onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeaves} 
+      onMouseLeave={handleMouseLeaves}
       className={activeArea ? classes.card : classes.card} >
 
-        <CardContent className={classes.content} >
+        <CardContent className={classes.content}>
         <Search />
           <Line />
           <LanguageDropdown settings={settings} saveSettings={saveSettings} />
-          <InactiveConections />            
+          <InactiveConections />
           {auth.user && (
             <>
-              <Bell /> 
+              <Bell />
               <Line />
               <UserDropdown settings={settings} />
             </>

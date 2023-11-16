@@ -16,13 +16,14 @@ import Typography from '@mui/material/Typography'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
-import { InactiveAvatar, } from 'src/views/components/icons/index'
+import { InactiveAvatar } from 'src/views/components/icons'
 
 // ** Context
 import { useAuth } from 'src/hooks/useAuth'
 
 // ** Type Imports
 import { Settings } from 'src/@core/context/settingsContext'
+import Link from 'next/link'
 
 interface Props {
   settings: Settings
@@ -87,8 +88,8 @@ const UserDropdown = (props: Props) => {
       <Badge
         overlap='circular'
         onClick={handleDropdownOpen}
-        sx={{ ml: 2, cursor: 'pointer' }}
-        badgeContent={<BadgeContentSpan />}
+        sx={{ ml: 2, cursor: 'pointer', border: '3px solid #51FF8F', borderRadius: '50%' }}
+        badgeContent={<BadgeContentSpan/>}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'right'
@@ -126,10 +127,12 @@ const UserDropdown = (props: Props) => {
         </Box>
         <Divider sx={{ mt: '0 !important' }} />
         <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
-          <Box component='div' sx={styles}>
-            <Icon icon='mdi:account-outline' />
-            Profile
-          </Box>
+         <Link href="/profile">
+           <Box component='div' sx={styles}>
+             <Icon icon='mdi:account-outline' />
+             Profile
+           </Box>
+         </Link>
         </MenuItem>
         <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
           <Box component='div' sx={styles}>

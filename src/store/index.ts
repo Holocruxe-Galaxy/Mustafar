@@ -5,12 +5,16 @@ import { configureStore } from '@reduxjs/toolkit'
 import chat from 'src/store/apps/chat'
 import countries from "src/store/apps/countries"
 import diary from 'src/store/apps/diary'
+import notifications from 'src/store/apps/notifications'
+import profile from "src/store/apps/profile"
 
 export const store = configureStore({
   reducer: {
     chat,
     countries,
-    diary
+    diary,
+    notifications,
+    profile
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
