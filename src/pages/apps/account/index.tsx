@@ -133,6 +133,9 @@ const Account = () => {
         <Dialog fullWidth maxWidth='xs' open={open} onClose={handleClose}>
           <DialogContent
             sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
               pb: theme => `${theme.spacing(6)} !important`,
               px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
               pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
@@ -155,6 +158,7 @@ const Account = () => {
           </DialogContent>
           <DialogActions
             sx={{
+              display: 'flex',
               justifyContent: 'center',
               flexDirection: 'column',
               alignItems: 'center',
@@ -167,9 +171,11 @@ const Account = () => {
               onClick={() => handleConfirmation('yes')}
               startIcon={<Checked />}
               sx={{
+                width: '40%',
                 mb: 4,
                 '&:hover': {
-                  background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.20) 100%)'
+                  background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.20) 100%)',
+                  boxShadow: '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(255, 255, 255, 0.25) inset'
                 }
               }}
             >
@@ -180,9 +186,11 @@ const Account = () => {
               onClick={() => handleConfirmation('cancel')}
               startIcon={<Negativo />}
               sx={{
+                width: '40%',
                 mb: 4,
                 '&:hover': {
-                  background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.20) 100%)'
+                  background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.20) 100%)',
+                  boxShadow: '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(255, 255, 255, 0.25) inset'
                 }
               }}
             >
