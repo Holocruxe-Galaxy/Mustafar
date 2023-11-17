@@ -566,7 +566,17 @@ const Entries = ({ id, props }: any) => {
                 <Button
                   onClick={handleDelete}
                   variant='contained'
-                  sx={{ marginTop: 3, width: '50%', height: '3rem', fontSize: 'large' }}
+                  sx={{
+                    marginTop: 3,
+                    width: '50%',
+                    height: '3rem',
+                    fontSize: 'large',
+                    '&:hover': {
+                      color: '#00FFED',
+                      background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.20) 100%)',
+                      boxShadow: '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(255, 255, 255, 0.25) inset'
+                    }
+                  }}
                 >
                   <div style={{ position: 'absolute', left: 28, top: 1, marginRight: 6 }}>
                     <YesButton />
@@ -577,7 +587,17 @@ const Entries = ({ id, props }: any) => {
                 <Button
                   onClick={handleClose}
                   variant='contained'
-                  sx={{ marginTop: 3, width: '50%', height: '3rem', fontSize: 'large' }}
+                  sx={{
+                    marginTop: 3,
+                    width: '50%',
+                    height: '3rem',
+                    fontSize: 'large',
+                    '&:hover': {
+                      color: '#00FFED',
+                      background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.20) 100%)',
+                      boxShadow: '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(255, 255, 255, 0.25) inset'
+                    }
+                  }}
                 >
                   <div style={{ position: 'absolute', left: 28, top: 2, marginRight: 6 }}>
                     <NoButton />
