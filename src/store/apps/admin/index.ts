@@ -72,9 +72,14 @@ export const updateStatus = createAsyncThunk('admin/updateStatus', async ({ type
 export const admin = createSlice({
     name: 'admin',
     initialState: {
-      data: [] as AdminData[]
+      data: [] as AdminData[],
+      filteredUsers: [] as AdminData[]
     },
-    reducers: {},
+    reducers: {
+      setFilteredUsers: (state, action) => {
+        state.filteredUsers = action.payload.slice()
+      }
+    },
     extraReducers: builder => {
         builder.addCase(fetchAllUsers.fulfilled, (state, action) => {
             // Maps the data from the back to adjust it for the front 
@@ -91,4 +96,5 @@ export const admin = createSlice({
     }
 })
 
+export const { setFilteredUsers } = admin.actions;
 export default admin.reducer

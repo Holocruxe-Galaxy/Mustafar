@@ -6,13 +6,31 @@ import TextField from '@mui/material/TextField'
 import InputLabel from '@mui/material/InputLabel'
 import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
-
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
+import { makeStyles } from '@mui/styles'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 import { DialogActions } from '@mui/material'
+
+const useStyles = makeStyles(() => ({
+  formControl: {
+    width: '12rem', 
+    position: 'absolute', 
+    top: '10rem', 
+    left: '33%'
+  },
+  buttons: {
+    left: '33%',
+    bottom: '2rem',
+    width: '12rem', 
+    height: '4rem', 
+    mb: '3rem', 
+    backgroundColor: 'rgba(1, 0, 50, 1)',
+    boxShadow: '4px 4px 25px 0px rgba(0, 0, 0, 0.70)'
+  }
+}))
 
 interface TableHeaderProps {
   plan: string
@@ -29,7 +47,9 @@ interface TableHeaderProps {
 
 const TableHeader = (props: TableHeaderProps) => {
   // ** Props
-  const { value, redactar, plan, actionMessage, selectedUsers, setActionMessage, handlePlanChange, handleFilter, handleActionButtonClick, handleActionConfirm /* ,handleBanConfirm */ } = props
+  const { value, redactar, plan, actionMessage, selectedUsers, setActionMessage, handlePlanChange, handleFilter, handleActionButtonClick, handleActionConfirm } = props
+
+  const classes = useStyles()
 
   return (
     <Box sx={{ p: 5, pb: 3, display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -82,8 +102,8 @@ const TableHeader = (props: TableHeaderProps) => {
         actionMessage.includes('suspenderá') ? 
         <Box component='div'>
         <Dialog open={Boolean(actionMessage)} onClose={() => setActionMessage("")}>
-          <DialogTitle sx={{ py: '4rem', px: '8rem' }}>{actionMessage}</DialogTitle>
-          <FormControl sx={{ width: '12rem', mb: '3em'}}>
+          <DialogTitle sx={{ py: '6rem', px: '8rem', mb:'3rem' }}>{actionMessage}</DialogTitle>
+          <FormControl className={classes.formControl}>
             <InputLabel id='time-select'>TIEMPO</InputLabel>
             <Select>
               <MenuItem value='1hora'>1 Hora</MenuItem>
@@ -91,7 +111,7 @@ const TableHeader = (props: TableHeaderProps) => {
               <MenuItem value='24horas'>24 Horas</MenuItem>
             </Select>
           </FormControl>
-          <Button sx={{ width: '8rem', mb: '3rem', display: 'flex', justifyContent: 'center'}} onClick={() => handleActionConfirm('suspender')}>
+          <Button className={classes.buttons} onClick={() => handleActionConfirm('suspender')}>
             Suspender
           </Button>
         </Dialog>
@@ -100,7 +120,7 @@ const TableHeader = (props: TableHeaderProps) => {
         <Box component='div' >
         <Dialog open={Boolean(actionMessage)} onClose={() => setActionMessage("")}>
           <DialogTitle sx={{ p: '6rem' }}>{actionMessage}</DialogTitle>
-          <Button sx={{ width: '8rem', mb: '3rem', display: 'flex', justifyContent: 'center'}} onClick={() => handleActionConfirm('bannear')}>
+          <Button className={classes.buttons} onClick={() => handleActionConfirm('bannear')}>
             BANNEAR
           </Button>
         </Dialog>
@@ -113,18 +133,3 @@ const TableHeader = (props: TableHeaderProps) => {
 }
 
 export default TableHeader
-
-
-/* 
-      
-
-      <Dialog open={Boolean(actionMessage)} onClose={() => setActionMessage("")}>
-        <DialogTitle>{actionMessage}</DialogTitle>
-        <DialogActions>
-          <Button onClick={() => handleActionConfirm()}></Button>
-          </DialogActions>
-          </Dialog>
-    
-    
-
-*/

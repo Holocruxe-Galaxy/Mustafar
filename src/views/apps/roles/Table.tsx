@@ -6,7 +6,6 @@ import Link from 'next/link'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
 import Grid from '@mui/material/Grid'
 import IconButton from '@mui/material/IconButton'
@@ -23,11 +22,8 @@ import { useDispatch, useSelector } from 'react-redux'
 // ** Custom Components Imports
 import CustomChip from 'src/@core/components/mui/chip'
 
-// ** Utils Import
-import { getInitials } from 'src/@core/utils/get-initials'
-
 // ** Redux
-import { updateStatus } from 'src/store/apps/admin'
+import { updateStatus, setFilteredUsers } from 'src/store/apps/admin'
 
 // ** Types Imports
 import { RootState, AppDispatch } from 'src/store'
@@ -36,7 +32,6 @@ import { ThemeColor } from 'src/@core/layouts/types'
 
 // ** Custom Components Imports
 import TableHeader from 'src/views/apps/roles/TableHeader'
-import { computeSlots } from '@mui/x-data-grid/internals'
 
 interface UserRoleType {
   [key: string]: { icon: string; color: string }
@@ -172,7 +167,6 @@ const columns: GridColDef[] = [
 const UserList = () => {
   // ** State
   const [actionMessage, setActionMessage] = useState<string>("");
-
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
   const [plan, setPlan] = useState<string>('')
   const [redactar, setRedactar] = useState<string>('')
@@ -184,27 +178,25 @@ const UserList = () => {
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
   
-  //useEffect(() => {
-  //   dispatch(
-
-  //     // fetchData({
-  //     //   role: '',
-  //     //   q: value,
-  //     //   status: '',
-  //     //   currentPlan: plan
-  //     // })
-  //   )
-  // }, [dispatch, plan, value])
+  useEffect(() => {
+    const filteredUsers = store.data.filter((user) => {
+      return user.fullName && user.fullName.toLowerCase().includes(value.toLowerCase())
+    })
+    dispatch(setFilteredUsers(filteredUsers))
+   }, [dispatch, plan, value])
   
+
+  // ** Selección de usuarios
   const handleSelectionChange = (id: string) => {
     setSelectedUsers(id)
   };
 
+  // ** Manejador de las acciones de los botones
   const handleActionButtonClick = (val: string) => {
     if (selectedUsers.length > 0) {
       if (val === 'reactivar') dispatch(updateStatus({ type: 'reactivar', users: selectedUsers }))
       if (val === 'suspender') {
-        setActionMessage("Ud suspenderá esta cuenta por")
+        setActionMessage("Ud suspenderá esta cuenta por: ")
       }
       if (val === 'banear') {
         setActionMessage("¿Está seguro que desea bannear al usuario?")
@@ -212,8 +204,8 @@ const UserList = () => {
   }
 }
 
+// ** Confirmación de las acciones de los botones
   const handleActionConfirm = (val: string) => {
-    console.log("Entramos al handleActionConfirm")
     if (val === 'suspender') {
       dispatch(updateStatus({ type: 'suspender', users: selectedUsers}))
       setActionMessage("");
@@ -221,8 +213,9 @@ const UserList = () => {
       dispatch(updateStatus({ type: 'banear', users: selectedUsers }))
       setActionMessage("");
     }
-    }
+  }
 
+// ** Filtrado
   const handleFilter = useCallback((val: string) => {
     setValue(val)
   }, [])
@@ -239,7 +232,7 @@ const UserList = () => {
 
           <DataGrid
             autoHeight
-            rows={store.data}
+            rows={!store.filteredUsers.length ? store.data : store.filteredUsers}
             getRowId={(row) => row.id}
             columns={columns}
             checkboxSelection
