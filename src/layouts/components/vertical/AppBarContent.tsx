@@ -14,12 +14,10 @@ import { makeStyles } from '@mui/styles'
 import { Settings } from 'src/@core/context/settingsContext'
 
 // ** Components
-// **import Autocomplete from 'src/layouts/components/Autocomplete'
 import LanguageDropdown from 'src/@core/layouts/components/shared-components/LanguageDropdown'
 import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
 import { Search, Bell, Line, InactiveConections, ActiveMetrics, InactiveMetrics, ActiveBinnacle, InactiveBinnacle, ActiveTutorial, InactiveTutorial } from 'src/views/components/icons/index'
-
-//import ModeToggler from 'src/@core/layouts/components/shared-components/ModeToggler'
+import AccountIconInactive from 'src/@core/icons/configuracion/AccountIconInactive'
 
 // ** Hook Import
 import { useAuth } from 'src/hooks/useAuth'
@@ -55,6 +53,10 @@ const AppBarContent = (props: Props) => {
     }
 
   const useStyles = makeStyles(() => ({
+    box: {
+      display: 'flex',
+      flexDirection: 'row-reverse'
+    },
     card: {
       display: 'flex',
       alignItems: 'center',
@@ -103,7 +105,7 @@ const AppBarContent = (props: Props) => {
   const cardsArr = [
     {
       page: 'home',
-      buttons: [{ name: 'TUTORIAL', activeIcon: <ActiveTutorial />, inactiveIcon: <InactiveTutorial />, href: 'home'}]
+      buttons: [{ name: 'TUTORIAL', activeIcon: <ActiveTutorial />, inactiveIcon: <InactiveTutorial />, href: ''}]
     },
     {
       page: 'apps/diary',
@@ -154,7 +156,9 @@ const AppBarContent = (props: Props) => {
   // Vars
   const currentPage = cardsArr.find(item => item.page == router.pathname.slice(1))
   const selectedPage = currentPage?.page
+  const isOnAdmin = router.pathname.includes('admin')
 
+// ** Redirección de la botonera
   const handleRedirect = (href: string) => {
     router.push(`${href}`)
   }
@@ -164,6 +168,7 @@ const AppBarContent = (props: Props) => {
   return (
     <Box
       component='div'
+      className={isOnAdmin ? classes.box : ''}
       sx={{
         width: '100%',
         display: 'flex',
@@ -187,13 +192,35 @@ const AppBarContent = (props: Props) => {
           <Typography className={currentPage.page === card.href ? classes.fontActive : classes.font} variant='h6'>{card.name}</Typography>
         </Button>
       ))}
-      <Card
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeaves}
-      className={activeArea ? classes.card : classes.card} >
 
-        <CardContent className={classes.content}>
-        <Search />
+      {
+        isOnAdmin ? 
+        <Card           
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeaves}
+        className={activeArea ? classes.card : classes.card}
+        >
+          <CardContent className={classes.content}>
+          {auth.user && (
+            <>
+            <AccountIconInactive />
+            <Line />
+            <Bell />
+            <InactiveMetrics />
+            <Line />
+            <UserDropdown settings={settings} />
+            </>
+          )}
+          </CardContent>
+        </Card> :
+
+        <Card
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeaves}
+          className={activeArea ? classes.card : classes.card} >
+
+          <CardContent className={classes.content}>
+          <Search />
           <Line />
           <LanguageDropdown settings={settings} saveSettings={saveSettings} />
           <InactiveConections />
@@ -204,8 +231,10 @@ const AppBarContent = (props: Props) => {
               <UserDropdown settings={settings} />
             </>
           )}
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      }
+
     </Box>
   )
 }

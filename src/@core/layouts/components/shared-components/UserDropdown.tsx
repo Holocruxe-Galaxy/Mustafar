@@ -142,37 +142,6 @@ const UserDropdown = (props: Props) => {
            </Box>
          </Link>
         </MenuItem>
-        <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
-          <Box component='div' sx={styles}>
-            <Icon icon='mdi:email-outline' />
-            Inbox
-          </Box>
-        </MenuItem>
-        <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
-          <Box component='div' sx={styles}>
-            <Icon icon='mdi:message-outline' />
-            Chat
-          </Box>
-        </MenuItem>
-        <Divider />
-        <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
-          <Box component='div' sx={styles}>
-            <Icon icon='mdi:cog-outline' />
-            Settings
-          </Box>
-        </MenuItem>
-        <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
-          <Box component='div' sx={styles}>
-            <Icon icon='mdi:currency-usd' />
-            Pricing
-          </Box>
-        </MenuItem>
-        <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
-          <Box component='div' sx={styles}>
-            <Icon icon='mdi:help-circle-outline' />
-            FAQ
-          </Box>
-        </MenuItem>
         <Divider />
         <MenuItem
           onClick={handleLogout}
