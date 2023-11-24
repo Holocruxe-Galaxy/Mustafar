@@ -329,7 +329,8 @@ const Entries = ({ id, props }: any) => {
     borderRadius: 1,
     boxShadow: 24,
     p: 4,
-    textAlign: 'center'
+    textAlign: 'center',
+    height: '100%'
   }
 
   const classes = useStyles()
@@ -508,7 +509,7 @@ const Entries = ({ id, props }: any) => {
                     {props.photos && props.photos.length > 0 && (
                       <Box
                         sx={{
-                          maxHeight: '400px',
+                          maxHeight: '300px',
                           overflowY: 'auto',
                           mt: 5,
                           scrollbarWidth: 'thin',
@@ -539,7 +540,8 @@ const Entries = ({ id, props }: any) => {
                                 component='img'
                                 sx={{
                                   maxWidth: '100%',
-                                  maxHeight: '100%'
+                                  maxHeight: '100%',
+                                  borderRadius: '32px'
                                 }}
                                 image={props.photos[0]}
                                 alt='img'
@@ -549,7 +551,21 @@ const Entries = ({ id, props }: any) => {
                         ))}
                       </Box>
                     )}
-                    <Button variant='contained' type='submit' sx={{ width: '10rem', mt: 6, ml: '48rem' }}>
+                    <Button
+                      variant='contained'
+                      type='submit'
+                      sx={{
+                        width: '10rem',
+                        mt: 6,
+                        ml: '48rem',
+                        '&:hover': {
+                          color: '#00FFED',
+                          background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.20) 100%)',
+                          boxShadow:
+                            '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(255, 255, 255, 0.25) inset'
+                        }
+                      }}
+                    >
                       <Save />
                       Guardar
                     </Button>
@@ -615,7 +631,17 @@ const Entries = ({ id, props }: any) => {
                 <Button
                   onClick={handleDeleteImg}
                   variant='contained'
-                  sx={{ marginTop: 3, width: '50%', height: '3rem', fontSize: 'large' }}
+                  sx={{
+                    marginTop: 3,
+                    width: '50%',
+                    height: '3rem',
+                    fontSize: 'large',
+                    '&:hover': {
+                      color: '#00FFED',
+                      background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.20) 100%)',
+                      boxShadow: '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(255, 255, 255, 0.25) inset'
+                    }
+                  }}
                 >
                   <div style={{ position: 'absolute', left: 28, top: 1, marginRight: 6 }}>
                     <YesButton />
@@ -626,7 +652,17 @@ const Entries = ({ id, props }: any) => {
                 <Button
                   onClick={handleCloseDeleteImg}
                   variant='contained'
-                  sx={{ marginTop: 3, width: '50%', height: '3rem', fontSize: 'large' }}
+                  sx={{
+                    marginTop: 3,
+                    width: '50%',
+                    height: '3rem',
+                    fontSize: 'large',
+                    '&:hover': {
+                      color: '#00FFED',
+                      background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.20) 100%)',
+                      boxShadow: '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(255, 255, 255, 0.25) inset'
+                    }
+                  }}
                 >
                   <div style={{ position: 'absolute', left: 28, top: 2, marginRight: 6 }}>
                     <NoButton />
