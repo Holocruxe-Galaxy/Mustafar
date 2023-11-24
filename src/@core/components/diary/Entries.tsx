@@ -690,8 +690,16 @@ const Entries = ({ id, props }: any) => {
           </CardActions>
 
           <Collapse in={expanded} timeout='auto' unmountOnExit>
-            <CardContent>
-              <CardMedia component='img' height='auto' image={props.photos} alt='img' />
+            <CardContent sx={{ backgroundImage: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.20) 80%)' }}>
+              <CardMedia
+                component='img'
+                height='auto'
+                image={props.photos}
+                alt='img'
+                sx={{
+                  borderRadius: '32px'
+                }}
+              />
             </CardContent>
           </Collapse>
         </>
