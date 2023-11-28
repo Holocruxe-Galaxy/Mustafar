@@ -25,12 +25,12 @@ import {
 } from '@mui/material'
 
 import Avatar from 'src/@core/icons/profile/Avatar'
-import Badge from 'src/@core/components/mui/badge'
 import EditIcon from 'src/@core/icons/diary/EditIcon'
 import Icon from 'src/@core/components/icon'
 import ActivityTimeLine from 'src/views/pages/user-profile/profile/ActivityTimeline'
 import PendingTasks from 'src/views/pages/user-profile/profile/PendingTasks'
 import EmptyContainer from 'src/views/pages/user-profile/profile/EmptyContainer'
+import ProfileData from 'src/views/pages/user-profile/profile/ProfileData'
 
 // import Camera from 'src/@core/icons/profile/Camera'
 import Select from '@mui/material/Select'
@@ -70,48 +70,6 @@ const Profile = () => {
     setOpen(false)
   }
 
-  function formatearFecha(fecha: string): string {
-    const fechaObj = new Date(fecha)
-    const dia = fechaObj.getDate().toString().padStart(2, '0') // Obtener el día y asegurar que tenga dos dígitos
-    const mes = (fechaObj.getMonth() + 1).toString().padStart(2, '0') // Obtener el mes (los meses comienzan desde 0 en JavaScript)
-    const año = fechaObj.getFullYear().toString() // Obtener el año
-
-    return `${dia}/${mes}/${año}`
-  }
-
-  function formatearNumeroTelefono(numero: string): string {
-    // Eliminar el prefijo "AR+" usando expresiones regulares
-    const numeroSinPrefijo = numero.replace(/^AR/, '')
-
-    // Ocultar los últimos 5 dígitos con 'x' usando expresiones regulares
-    const numeroOculto = numeroSinPrefijo.replace(/\d{7}$/, 'xxxxxxx')
-
-    return numeroOculto
-  }
-
-  function capitalizarPrimeraLetra(texto: string): string {
-    // Convertir el primer carácter a mayúscula y el resto a minúsculas
-    return texto.charAt(0).toUpperCase() + texto.slice(1).toLowerCase()
-  }
-
-  function calcularEdad(fechaNacimiento: string | null | undefined): number {
-    // Verificar si la fecha de nacimiento es null o undefined
-    if (fechaNacimiento === null || fechaNacimiento === undefined) {
-        return 0; // Retorna 0 si la fecha de nacimiento no está disponible
-    }
-
-    const fechaNacimientoObj = new Date(fechaNacimiento);
-    const fechaActual = new Date();
-
-    // Calcular la diferencia en años
-    const edadMilisegundos = fechaActual.getTime() - fechaNacimientoObj.getTime();
-    const edadAños = edadMilisegundos / (1000 * 60 * 60 * 24 * 365.25);
-
-    // Redondear la edad y devolverla como un número entero
-    return Math.floor(edadAños);
-}
-
-
   const { control, handleSubmit } = useForm({
     defaultValues: {
       contactInfo: {
@@ -145,112 +103,18 @@ const Profile = () => {
   }
 
   return (
-    <Grid container>
-      <Grid item xs={5}>
-        <Card style={{ width: '505px', height: '849px', boxShadow: '4px 4px 4px 0px #FFFFFF80', marginLeft: '0.5em' }}>
+    <Grid container spacing={6} className='match-height'>
+      <Grid item xs={12} sm={6} md={4}>
+        <Card style={{ boxShadow: '4px 4px 4px 0px #FFFFFF80', marginLeft: '0.5em' }}>
           <CardContent>
-            <Box component='div'>
-              <Badge
-                overlap='circular'
-                sx={{ ml: 30, cursor: 'pointer' }}
-                badgeContent={<BadgeContentSpan />}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'right'
-                }}
-              >
-                <div
-                  style={{
-                    border: '3px solid #51FF8F',
-                    borderRadius: '100%',
-                    width: '100%',
-                    height: '100%',
-                    display: 'flex',
-                    justifyContent: 'center'
-                  }}
-                >
-                  <Avatar />
-                </div>
-              </Badge>
+            <ProfileData />
 
-              <Typography variant='h5' sx={{ mt: 4, color: '#00FFED', textAlign: 'center' }}>
-                {data?.name}
-              </Typography>
-              <Typography variant='h6' sx={{ mt: 4, color: '#F836F4', textAlign: 'center', pb: 4 }}>
-                {calcularEdad(data.birthdate)} años
-              </Typography>
-              <Divider variant='middle' sx={{ backgroundColor: '#00FFED', boxShadow: '0px 0px 10px 0px #00FFED' }} />
-              <div style={{ textAlign: 'center', paddingTop: '1em' }}>
-                <Typography sx={{ mt: 4, color: '#00FFED', display: 'inline' }}>Apodo:</Typography>
-                <Typography sx={{ mt: 4, color: '#F836F4', display: 'inline', ml: 2 }}>{data.name}</Typography>
-              </div>
-              <div style={{ textAlign: 'center', paddingTop: '1em' }}>
-                <Typography sx={{ mt: 4, color: '#00FFED', display: 'inline' }}>Fecha de nac.:</Typography>
-                <Typography sx={{ mt: 4, color: '#F836F4', display: 'inline', ml: 2 }}>
-                  {!data.birthdate ? 'No existe fecha de nacimiento' : formatearFecha(data.birthdate)}
-                </Typography>
-              </div>
-              <div style={{ textAlign: 'center', paddingTop: '1em' }}>
-                <Typography sx={{ mt: 4, color: '#00FFED', display: 'inline' }}>Ciudad:</Typography>
-                <Typography sx={{ mt: 4, color: '#F836F4', display: 'inline', ml: 2 }}>{data.city}</Typography>
-              </div>
-              <div style={{ textAlign: 'center', paddingTop: '1em' }}>
-                <Typography sx={{ mt: 4, color: '#00FFED', display: 'inline' }}>Provincia:</Typography>
-                <Typography sx={{ mt: 4, color: '#F836F4', display: 'inline', ml: 2, textAlign: 'center' }}>
-                  {data.provinceOrState}
-                </Typography>
-              </div>
-              <div style={{ textAlign: 'center', paddingTop: '1em' }}>
-                <Typography sx={{ mt: 4, color: '#00FFED', display: 'inline', textAlign: 'center' }}>País:</Typography>
-                <Typography sx={{ mt: 4, color: '#F836F4', display: 'inline', ml: 2, textAlign: 'center' }}>
-                  {data.country}
-                </Typography>
-              </div>
-              <div style={{ textAlign: 'center', paddingTop: '1em' }}>
-                <Typography sx={{ mt: 4, color: '#00FFED', display: 'inline', textAlign: 'center' }}>
-                  Teléfono:
-                </Typography>
-                <Typography sx={{ mt: 4, color: '#F836F4', display: 'inline', ml: 2, textAlign: 'center' }}>
-                  {data?.phone && formatearNumeroTelefono(data?.phone)}
-                </Typography>
-              </div>
-              <div style={{ textAlign: 'center', paddingTop: '1em' }}>
-                <Typography sx={{ mt: 4, color: '#00FFED', display: 'inline', textAlign: 'center' }}>
-                  E-mail:
-                </Typography>
-                <Typography sx={{ mt: 4, color: '#F836F4', display: 'inline', ml: 2, textAlign: 'center' }}>
-                  {data.email}
-                </Typography>
-              </div>
-              <div style={{ textAlign: 'center', paddingTop: '1em' }}>
-                <Typography sx={{ mt: 4, color: '#00FFED', display: 'inline', textAlign: 'center' }}>
-                  Idioma:
-                </Typography>
-                <Typography sx={{ mt: 4, color: '#F836F4', display: 'inline', ml: 2, textAlign: 'center' }}>
-                  {data?.language && capitalizarPrimeraLetra(data?.language)}
-                </Typography>
-              </div>
-              <div style={{ textAlign: 'center', paddingTop: '1em' }}>
-                <Typography sx={{ mt: 4, color: '#00FFED', display: 'inline', textAlign: 'center' }}>
-                  Estado:
-                </Typography>
-                <Chip
-                  label='Activo'
-                  sx={{
-                    backgroundColor: '#F836F4',
-                    color: '#000000',
-                    boxShadow: '0px 0px 10px 0px #F836F4',
-                    display: 'inline',
-                    ml: 2
-                  }}
-                />
-              </div>
-            </Box>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <StyledButton variant='contained' startIcon={<EditIcon />} onClick={handleOpenDialog}>
                 Editar
               </StyledButton>
             </div>
+
             <Dialog open={open} onClose={handleCloseDialog}>
               <DialogContent
                 sx={{
@@ -260,25 +124,6 @@ const Profile = () => {
               >
                 <Box component='div' sx={{ display: 'flex', justifyContent: 'center' }}>
                   <Avatar />
-
-                  {/* <div
-                    style={{
-                      backgroundColor: '#51FF8F',
-                      borderRadius: '100%',
-                      width: '45px',
-                      height: '45px',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      position: 'absolute',
-                      top: 160,
-                      left: 155
-                    }}
-                  >
-                    <IconButton size='small' onClick={handleCloseDialog}>
-                      <Camera />
-                    </IconButton>
-                  </div> */}
                   <Grid container spacing={1} sx={{ ml: 7, mt: 6 }}>
                     <Grid item xs={12}>
                       <Typography variant='h4' sx={{ color: 'text.primary', fontWeight: 700, fontSize: 35 }}>
@@ -444,9 +289,11 @@ const Profile = () => {
           </CardContent>
         </Card>
       </Grid>
-      <Grid item xs={6} >
-        <ActivityTimeLine />
-      </Grid>
+      
+        <Grid item xs={12} sm={4} md={8} >
+          <ActivityTimeLine  />
+         </Grid>
+         
       <Grid item xs={6}>
         <PendingTasks />
       </Grid>

@@ -5,19 +5,18 @@ const EmptyContainer = () => {
   return (
     <Card
       style={{
-        width: '502px',
-        height: '476px',
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center',
         boxShadow: '4px 4px 4px 0px #FFFFFF80',
-        paddingLeft: '1em',
-        marginTop: 50
+        paddingLeft: '1em'
       }}
     >
       {/* <Image src="/images/logos/logocruxie" alt=""/> */}
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop:'8em' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <img
           src='/images/logos/logocruxie.png'
           alt=''
-
         />
       </div>
     </Card>
