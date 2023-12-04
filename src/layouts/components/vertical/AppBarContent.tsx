@@ -17,7 +17,18 @@ import { Settings } from 'src/@core/context/settingsContext'
 // **import Autocomplete from 'src/layouts/components/Autocomplete'
 import LanguageDropdown from 'src/@core/layouts/components/shared-components/LanguageDropdown'
 import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
-import { Search, Bell, Line, InactiveConections, ActiveMetrics, InactiveMetrics, ActiveBinnacle, InactiveBinnacle, ActiveTutorial, InactiveTutorial } from 'src/views/components/icons/index'
+import {
+  Search,
+  Bell,
+  Line,
+  InactiveConections,
+  ActiveMetrics,
+  InactiveMetrics,
+  ActiveBinnacle,
+  InactiveBinnacle,
+  ActiveTutorial,
+  InactiveTutorial
+} from 'src/views/components/icons/index'
 
 //import ModeToggler from 'src/@core/layouts/components/shared-components/ModeToggler'
 
@@ -43,16 +54,16 @@ const AppBarContent = (props: Props) => {
   const { /* hidden, */ settings, saveSettings } = props
   const theme = useTheme()
 
-    // ** States
-    const [activeArea, setActiveArea] = useState(false)
+  // ** States
+  const [activeArea, setActiveArea] = useState(false)
 
-    const handleMouseEnter = () => {
-      setActiveArea(true)
-    }
+  const handleMouseEnter = () => {
+    setActiveArea(true)
+  }
 
-    const handleMouseLeaves = () => {
-      setActiveArea(false)
-    }
+  const handleMouseLeaves = () => {
+    setActiveArea(false)
+  }
 
   const useStyles = makeStyles(() => ({
     card: {
@@ -67,7 +78,7 @@ const AppBarContent = (props: Props) => {
       fontWeight: 1,
       backgroundColor: 'rgba(1, 0, 50, 1)',
       boxShadow: '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(66, 65, 136, 0.50) inset',
-      '&:hover':{
+      '&:hover': {
         background: 'linear-gradient(180deg, #00FFED -10%, rgba(248, 54, 244, 0.20) 100%)'
       }
     },
@@ -103,50 +114,98 @@ const AppBarContent = (props: Props) => {
   const cardsArr = [
     {
       page: 'home',
-      buttons: [{ name: 'TUTORIAL', activeIcon: <ActiveTutorial />, inactiveIcon: <InactiveTutorial />, href: 'home'}]
+      buttons: [
+        {
+          name: 'TUTORIAL',
+          activeIcon: <ActiveTutorial />,
+          inactiveIcon: <InactiveTutorial />,
+          href: 'home'
+        }
+      ]
     },
     {
       page: 'apps/diary',
       buttons: [
-        { name: 'MI BITÁCORA', activeIcon: <ActiveBinnacle />, inactiveIcon: <InactiveBinnacle />, href: 'apps/diary'},
-        { name: 'TUS MÉTRICAS', activeIcon: <ActiveMetrics />, inactiveIcon: <InactiveMetrics/>, href: ''}
+        {
+          name: 'MI BITÁCORA',
+          activeIcon: <ActiveBinnacle />,
+          inactiveIcon: <InactiveBinnacle />,
+          href: 'apps/diary'
+        },
+        {
+          name: 'TUS MÉTRICAS',
+          activeIcon: <ActiveMetrics />,
+          inactiveIcon: <InactiveMetrics />,
+          href: ''
+        }
       ]
     },
     {
       page: 'profile',
       buttons: [
-        { name: 'TUS INTERESES', activeIcon: <ActiveBinnacle />, inactiveIcon: <InactiveBinnacle />, href: 'apps/diary'},
-        { name: 'TUS MÉTRICAS', activeIcon: <ActiveMetrics />, inactiveIcon: <InactiveMetrics/>, href: ''}
+        {
+          name: 'TUS INTERESES',
+          activeIcon: <ActiveBinnacle />,
+          inactiveIcon: <InactiveBinnacle />,
+          href: 'apps/diary'
+        },
+        {
+          name: 'TUS MÉTRICAS',
+          activeIcon: <ActiveMetrics />,
+          inactiveIcon: <InactiveMetrics />,
+          href: ''
+        }
       ]
     },
     {
       page: 'apps/account',
       buttons: [
-        { name: 'TUS INTERESES',
-        activeIcon: <InteresActivo />,
-        inactiveIcon: <InteresesInactivo />,
-        href: 'apps/account',  },
-        { name: 'TUS MÉTRICAS', activeIcon: <ActiveMetrics />, inactiveIcon: <InactiveMetrics/>, href: '',  }
+        {
+          name: 'TUS INTERESES',
+          activeIcon: <InteresActivo />,
+          inactiveIcon: <InteresesInactivo />,
+          href: 'apps/account'
+        },
+        {
+          name: 'TUS MÉTRICAS',
+          activeIcon: <ActiveMetrics />,
+          inactiveIcon: <InactiveMetrics />,
+          href: ''
+        }
       ]
     },
     {
       page: 'apps/security',
       buttons: [
-        { name: 'TUS INTERESES',
-        activeIcon: <InteresActivo />,
-        inactiveIcon: <InteresesInactivo />,
-         href: 'apps/security' },
-        { name: 'TUS MÉTRICAS', activeIcon: <ActiveMetrics />, inactiveIcon: <InactiveMetrics/>, href: '' }
+        {
+          name: 'TUS INTERESES',
+          activeIcon: <InteresActivo />,
+          inactiveIcon: <InteresesInactivo />,
+          href: 'apps/security'
+        },
+        {
+          name: 'TUS MÉTRICAS',
+          activeIcon: <ActiveMetrics />,
+          inactiveIcon: <InactiveMetrics />,
+          href: ''
+        }
       ]
     },
     {
       page: 'apps/notifications',
       buttons: [
-        { name: 'TUS INTERESES',
-        activeIcon: <InteresActivo />,
-        inactiveIcon: <InteresesInactivo />,
-        href: 'apps/notifications',  },
-        { name: 'TUS MÉTRICAS', activeIcon: <ActiveMetrics />, inactiveIcon: <InactiveMetrics/>, href: '' }
+        {
+          name: 'TUS INTERESES',
+          activeIcon: <InteresActivo />,
+          inactiveIcon: <InteresesInactivo />,
+          href: 'apps/notifications'
+        },
+        {
+          name: 'TUS MÉTRICAS',
+          activeIcon: <ActiveMetrics />,
+          inactiveIcon: <InactiveMetrics />,
+          href: ''
+        }
       ]
     }
   ]
@@ -156,7 +215,7 @@ const AppBarContent = (props: Props) => {
   const selectedPage = currentPage?.page
 
   const handleRedirect = (href: string) => {
-    router.push(`${href}`)
+    router.push(`/${href}`)
   }
 
   const { skin } = settings
@@ -179,21 +238,33 @@ const AppBarContent = (props: Props) => {
     >
       {currentPage?.buttons.map((card, index: number) => (
         <Button
-        key={index}
-        sx={{width: '25rem', height: '5.313rem', margin: '1.200rem', pl:8, borderRadius: '14px', fontSize:'21px', fontWeight: 1, backgroundColor: 'rgba(1, 0, 50, 1)' }}
-        className={selectedPage === card.href ?  classes.cardActive : classes.card}
-        onClick={() => handleRedirect(card.href)}
-        startIcon={currentPage.page === card.href ? card.activeIcon : card.inactiveIcon}>
-          <Typography className={currentPage.page === card.href ? classes.fontActive : classes.font} variant='h6'>{card.name}</Typography>
+          key={index}
+          sx={{
+            width: '25rem',
+            height: '5.313rem',
+            margin: '1.200rem',
+            pl: 8,
+            borderRadius: '14px',
+            fontSize: '21px',
+            fontWeight: 1,
+            backgroundColor: 'rgba(1, 0, 50, 1)'
+          }}
+          className={selectedPage === card.href ? classes.cardActive : classes.card}
+          onClick={() => handleRedirect(card.href)}
+          startIcon={currentPage.page === card.href ? card.activeIcon : card.inactiveIcon}
+        >
+          <Typography className={currentPage.page === card.href ? classes.fontActive : classes.font} variant='h6'>
+            {card.name}
+          </Typography>
         </Button>
       ))}
       <Card
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeaves}
-      className={activeArea ? classes.card : classes.card} >
-
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeaves}
+        className={activeArea ? classes.card : classes.card}
+      >
         <CardContent className={classes.content}>
-        <Search />
+          <Search />
           <Line />
           <LanguageDropdown settings={settings} saveSettings={saveSettings} />
           <InactiveConections />
