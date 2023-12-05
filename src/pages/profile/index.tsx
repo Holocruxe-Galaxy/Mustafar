@@ -48,7 +48,9 @@ const StyledButton = styled(Button)({
   marginTop: '2em',
   transition: 'background 0.3s ease',
   '&:hover': {
-    background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.2) 100%)'
+    color: '#00FFED',
+    background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.20) 100%)',
+    boxShadow: '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(255, 255, 255, 0.25) inset'
   }
 })
 
@@ -97,20 +99,19 @@ const Profile = () => {
   function calcularEdad(fechaNacimiento: string | null | undefined): number {
     // Verificar si la fecha de nacimiento es null o undefined
     if (fechaNacimiento === null || fechaNacimiento === undefined) {
-        return 0; // Retorna 0 si la fecha de nacimiento no está disponible
+      return 0 // Retorna 0 si la fecha de nacimiento no está disponible
     }
 
-    const fechaNacimientoObj = new Date(fechaNacimiento);
-    const fechaActual = new Date();
+    const fechaNacimientoObj = new Date(fechaNacimiento)
+    const fechaActual = new Date()
 
     // Calcular la diferencia en años
-    const edadMilisegundos = fechaActual.getTime() - fechaNacimientoObj.getTime();
-    const edadAños = edadMilisegundos / (1000 * 60 * 60 * 24 * 365.25);
+    const edadMilisegundos = fechaActual.getTime() - fechaNacimientoObj.getTime()
+    const edadAños = edadMilisegundos / (1000 * 60 * 60 * 24 * 365.25)
 
     // Redondear la edad y devolverla como un número entero
-    return Math.floor(edadAños);
-}
-
+    return Math.floor(edadAños)
+  }
 
   const { control, handleSubmit } = useForm({
     defaultValues: {
@@ -356,7 +357,7 @@ const Profile = () => {
                         </FormControl>
                       </Grid>
                       <Grid item>
-                      <FormControl>
+                        <FormControl>
                           <Controller
                             name='location.provinceOrState'
                             control={control}
@@ -426,7 +427,13 @@ const Profile = () => {
                         </FormControl>
                       </Grid>
                     </Grid>
-                    <StyledButton variant='contained' type='submit' startIcon={<Save />} sx={{ ml: 75, mt: 2 }} onClick={handleCloseDialog}>
+                    <StyledButton
+                      variant='contained'
+                      type='submit'
+                      startIcon={<Save />}
+                      sx={{ ml: 75, mt: 2 }}
+                      onClick={handleCloseDialog}
+                    >
                       Guardar
                     </StyledButton>
                   </form>
@@ -444,7 +451,7 @@ const Profile = () => {
           </CardContent>
         </Card>
       </Grid>
-      <Grid item xs={6} >
+      <Grid item xs={6}>
         <ActivityTimeLine />
       </Grid>
       <Grid item xs={6}>
