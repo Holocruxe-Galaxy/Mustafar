@@ -34,8 +34,6 @@ interface ProfilePatchData {
   profileData: Profile;
 }
 
-
-
 const status = ['COMPLETE', 'INACTIVE', 'PENDING', 'BANNED'] as const;
 type StatusType = (typeof status)[number];
 

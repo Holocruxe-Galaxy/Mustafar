@@ -98,18 +98,7 @@ return (
               horizontal: 'right'
             }}
         >
-{/*             <div
-              style={{
-                border: '3px solid #51FF8F',
-                borderRadius: '100%',
-                width: '100%',
-                height: '100%',
-                display: 'flex',
-                justifyContent: 'center'
-              }}
-            >
-            </div> */}
-                <Avatar />
+          <Avatar />
         </Badge>
 
           <Typography variant='h5' sx={{ mt: 4, color: '#00FFED', textAlign: 'center' }}>

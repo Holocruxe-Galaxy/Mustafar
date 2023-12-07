@@ -157,6 +157,7 @@ const AppBarContent = (props: Props) => {
   const currentPage = cardsArr.find(item => item.page == router.pathname.slice(1))
   const selectedPage = currentPage?.page
   const isOnAdmin = router.pathname.includes('admin')
+  const isOnAdminUserProfile = router.pathname.includes('user')
 
 // ** Redirección de la botonera
   const handleRedirect = (href: string) => {
@@ -194,7 +195,7 @@ const AppBarContent = (props: Props) => {
       ))}
 
       {
-        isOnAdmin ? 
+        isOnAdmin || isOnAdminUserProfile ? 
         <Card           
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeaves}

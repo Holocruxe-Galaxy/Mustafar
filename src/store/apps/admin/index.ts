@@ -31,7 +31,11 @@ interface userStatus {
   users: string
 }
 
-//** Fetch Users data
+interface userData {
+  userEmail: string
+}
+
+//** Fetch All Users data
 export const fetchAllUsers = createAsyncThunk('admin/fetchAllUsers',
   async () => {
     const token = localStorage.getItem('AuthorizationToken');
@@ -51,10 +55,28 @@ export const fetchAllUsers = createAsyncThunk('admin/fetchAllUsers',
       return data
   })
 
+// ** Fetch User Profile
+export const fetchUserProfile = createAsyncThunk('admin/fetchUserProfile', async ({ userEmail }: userData) => {
+  const token = localStorage.getItem('AuthorizationToken');
+  const response = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/user/data/email`, {
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json' 
+    },
+    body: JSON.stringify({ userEmail })
+});
+console.log("Esto es response en fetchUserProfile: ", response)
+if (!response.ok) {
+  const error = await response.json();
+  throw new Error(error.message);
+} 
+})
+
 // ** Patch Profile status
 export const updateStatus = createAsyncThunk('admin/updateStatus', async ({ type, users }: userStatus) => {
   const token = localStorage.getItem('AuthorizationToken');
-  const response = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/user/status`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/user/data`, {
     method: 'PATCH',
     headers: {
       Authorization: `Bearer ${token}`,
