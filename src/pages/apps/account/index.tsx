@@ -153,7 +153,7 @@ const Account = () => {
               }}
             >
               {/* <Icon icon='mdi:alert-circle-outline' fontSize='5.5rem' /> */}
-              <Typography>Seguro que Deseas eliminar?</Typography>
+              <Typography>Seguro que deseas eliminar?</Typography>
             </Box>
           </DialogContent>
           <DialogActions
@@ -171,7 +171,7 @@ const Account = () => {
               onClick={() => handleConfirmation('yes')}
               startIcon={<Checked />}
               sx={{
-                width: '40%',
+                width: '50%',
                 mb: 4,
                 '&:hover': {
                   background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.20) 100%)',
@@ -186,7 +186,7 @@ const Account = () => {
               onClick={() => handleConfirmation('cancel')}
               startIcon={<Negativo />}
               sx={{
-                width: '40%',
+                width: '50%',
                 mb: 4,
                 '&:hover': {
                   background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.20) 100%)',
@@ -226,7 +226,7 @@ const Account = () => {
               <Typography variant='h4' sx={{ mb: 5 }}>
                 {userInput === 'yes' ? 'Eliminado!' : 'Cancelado'}
               </Typography>
-              <Typography>{userInput === 'yes' ? 'Tu cuenta fue eliminada.' : 'Eliminación cancelada!!'}</Typography>
+              <Typography>{userInput === 'yes' ? 'Tu cuenta fue eliminada.' : 'Eliminación cancelada!'}</Typography>
             </Box>
           </DialogContent>
           <DialogActions
