@@ -40,42 +40,42 @@ const [subscriptionDialogOpen, setSubscriptionDialogOpen] = useState<boolean>(fa
 
   return (
 <Grid item xs={12}>
-        <Card>
-          <CardHeader
-            title='Billing Address'
-            action={
-              <Button variant='contained' onClick={() => setOpenAddressCard(true)}>
-                Edit Address
-              </Button>
-            }
-          />
-          <CardContent>
-            <Grid container spacing={6}>
-              <Grid item xs={12} lg={6}>
-                <TableContainer>
-                  <Table size='small' sx={{ width: '95%' }}>
-                    <TableBody
-                      sx={{
-                        '& .MuiTableCell-root': {
-                          border: 0,
-                          pt: 2,
-                          pb: 2,
-                          pl: '0 !important',
-                          pr: '0 !important',
-                          '&:first-of-type': {
-                            width: 148
-                          }
-                        }
-                      }}
-                    >
-                      <TableRow>
-                        <TableCell>
-                          <Typography
-                            sx={{
-                              fontWeight: 500,
-                              fontSize: '0.875rem',
-                              whiteSpace: 'nowrap',
-                              lineHeight: '22px',
+  <Card>
+    <CardHeader
+      title='Billing Address'
+/*       action={
+        <Button variant='contained' onClick={() => setOpenAddressCard(true)}>
+          Edit Address
+        </Button>
+      } */
+    />
+    <CardContent>
+      <Grid container spacing={6}>
+        <Grid item xs={12} lg={6}>
+          <TableContainer>
+            <Table size='small' sx={{ width: '95%' }}>
+              <TableBody
+                sx={{
+                  '& .MuiTableCell-root': {
+                      border: 0,
+                      pt: 2,
+                      pb: 2,
+                      pl: '0 !important',
+                      pr: '0 !important',
+                      '&:first-of-type': {
+                        width: 148
+                      }
+                    }
+                    }}
+                >
+              <TableRow>
+                <TableCell>
+                  <Typography
+                    sx={{
+                      fontWeight: 500,
+                      fontSize: '0.875rem',
+                      whiteSpace: 'nowrap',
+                      lineHeight: '22px',
                               letterSpacing: '0.1px'
                             }}
                           >

@@ -9,10 +9,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select'
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import { makeStyles } from '@mui/styles'
-
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-import { DialogActions } from '@mui/material'
+import StatusButtons from 'src/views/components/adminButtons/StatusButtons'
 
 const useStyles = makeStyles(() => ({
   formControl: {
@@ -37,7 +34,7 @@ interface TableHeaderProps {
   value: string
   redactar: string
   actionMessage: string
-  selectedUsers: string
+  selectedUsers: string[]
   setActionMessage: (e: string) => void
   handleActionConfirm:(val: string) => void
   handleFilter: (val: string) => void
@@ -68,9 +65,34 @@ const TableHeader = (props: TableHeaderProps) => {
       { 
         !selectedUsers.length ? null :
         <Box sx={{mb: 2, display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
-        <Button data-action='reactivar' onClick={() => handleActionButtonClick('reactivar')} color='success' variant='outlined' sx={{ mx: 3, height: '50px' }}>Reactivar</Button>
-        <Button data-action='suspender' onClick={() => handleActionButtonClick('suspender')} color='warning' variant='outlined' sx={{ mx: 3, height: '50px' }}>Suspender</Button>
-        <Button data-action='banear' onClick={() => handleActionButtonClick('banear')} color='error' variant='outlined' sx={{ mx: 3, height: '50px' }}>Banear</Button>
+        <Button data-action='reactivar' 
+          onClick={() => handleActionButtonClick('reactivar')} 
+          color='success' 
+          variant='outlined' 
+          sx={{ mx: 3, height: '50px' }}>
+            Reactivar
+        </Button>
+        <Button data-action='suspender' 
+          onClick={() => handleActionButtonClick('suspender')} 
+          color='warning' 
+          variant='outlined' 
+          sx={{ mx: 3, height: '50px' }}>
+            Suspender
+        </Button>
+        <StatusButtons
+          data-action='banear'
+          label='banear'
+          onClick={() => handleActionButtonClick('banear')}
+          color='error'
+          variant='outlined'
+        />
+{/*         <Button data-action='banear' 
+          onClick={() => handleActionButtonClick('banear')} 
+          color='error' 
+          variant='outlined' 
+          sx={{ mx: 3, height: '50px' }}>
+            Banear
+        </Button> */}
       </Box>
       }
       <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>

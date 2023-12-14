@@ -26,13 +26,30 @@ interface AdminData {
     plan?: string,
 }
 
-interface userStatus {
-  type: string,
-  users: string
+interface changeUsersStatus {
+  statusType: string,
+  users: string[],
+  timeLapse?: string
 }
 
 interface userData {
-  userEmail: string
+  userId: string
+}
+
+const status = ['COMPLETE', 'INACTIVE', 'PENDING', 'BANNED', 'SUSPENDED'] as const;
+type StatusType = (typeof status)[number];
+
+interface ProfileData {
+  name: string;
+  birthdate: string;
+  provinceOrState: string;
+  country: string;
+  phone: string;
+  email: string;
+  language: string;
+  status: StatusType;
+  step?: number;
+  city?: string;
 }
 
 //** Fetch All Users data
@@ -56,34 +73,36 @@ export const fetchAllUsers = createAsyncThunk('admin/fetchAllUsers',
   })
 
 // ** Fetch User Profile
-export const fetchUserProfile = createAsyncThunk('admin/fetchUserProfile', async ({ userEmail }: userData) => {
+export const fetchUserProfile = createAsyncThunk('admin/fetchUserProfile', async ({ userId }: userData) => {
   const token = localStorage.getItem('AuthorizationToken');
-  const response = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/user/data/email`, {
-    method: 'PATCH',
+
+  const response = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/user/data/${userId}`, {
+    method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json' 
     },
-    body: JSON.stringify({ userEmail })
 });
-console.log("Esto es response en fetchUserProfile: ", response)
 if (!response.ok) {
   const error = await response.json();
   throw new Error(error.message);
 } 
+  const userData = await response.json()
+  return userData
 })
 
-// ** Patch Profile status
-export const updateStatus = createAsyncThunk('admin/updateStatus', async ({ type, users }: userStatus) => {
+
+// ** Reactivate Profile status
+export const reactivateUsers = createAsyncThunk('admin/reactivateUsers', async ({ statusType, users }: changeUsersStatus) => {
   const token = localStorage.getItem('AuthorizationToken');
-  const response = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/user/data`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/user/status-reactivate`, {
     method: 'PATCH',
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json' 
     },
-    body: JSON.stringify({ type, users })
-});
+    body: JSON.stringify({ statusType, users })
+  });
   
   if (!response.ok) {
     const error = await response.json();
@@ -91,15 +110,46 @@ export const updateStatus = createAsyncThunk('admin/updateStatus', async ({ type
   } 
 })
 
+// ** Suspend Profile status
+export const suspendUsers = createAsyncThunk('admin/suspendUsers', async ({ statusType, users, timeLapse} : changeUsersStatus) => {
+
+})
+
+// ** Ban Profile status
+export const banUsers = createAsyncThunk('admin/banUsers', async ({ statusType, users } : changeUsersStatus) => {
+
+  const token = localStorage.getItem('AuthorizationToken');
+  const response = await fetch(`${process.env.NEXT_PUBLIC_MANDALORE}/user/status-ban`, {
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json' 
+    },
+    body: JSON.stringify({ statusType, users })
+});
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message);
+  }
+})
+
 export const admin = createSlice({
     name: 'admin',
     initialState: {
       data: [] as AdminData[],
-      filteredUsers: [] as AdminData[]
+      userData: {} as ProfileData,
+      userIdProfile: '',
+      filteredUsers: [] as AdminData[],
+      loading: true,
+      complete: true
     },
     reducers: {
       setFilteredUsers: (state, action) => {
         state.filteredUsers = action.payload.slice()
+      },
+      setUserIdProfile: (state, action) => {
+        state.userIdProfile = action.payload;
+        console.log("Esto es state.userIdProfile: ", state.userIdProfile)
       }
     },
     extraReducers: builder => {
@@ -114,9 +164,18 @@ export const admin = createSlice({
                 plan: dataFromServer.plan
             }))
             state.data = adminData;
+        }),
+        builder.addCase(fetchUserProfile.fulfilled, (state, action) => {
+          state.userData = action.payload
+        }),
+        builder.addCase(banUsers.pending, (state) => {
+          state.loading = true
+        }),
+        builder.addCase(reactivateUsers.fulfilled, (state) => {
+          state.complete = true
         })
     }
 })
 
-export const { setFilteredUsers } = admin.actions;
+export const { setFilteredUsers, setUserIdProfile } = admin.actions;
 export default admin.reducer

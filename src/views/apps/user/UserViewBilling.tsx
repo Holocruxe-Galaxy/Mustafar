@@ -9,7 +9,7 @@ import BillingAdress from './BillingAdress'
 const UserViewBilling = () => {
   
   return (
-    <Grid container spacing={6}>
+    <Grid container spacing={6} className='match-height'>
       <CurrentPlan />
       <PaymentMethods />
       <BillingAdress />

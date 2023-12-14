@@ -25,11 +25,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import CustomChip from 'src/@core/components/mui/chip'
 
 // ** Redux
-import { updateStatus, setFilteredUsers, fetchUserProfile } from 'src/store/apps/admin'
+import { reactivateUsers, suspendUsers, banUsers, setFilteredUsers, fetchUserProfile, setUserIdProfile } from 'src/store/apps/admin'
 
 // ** Types Imports
 import { RootState, AppDispatch } from 'src/store'
-import { UsersData, UsersType } from 'src/types/apps/userTypes'
+import { UsersType } from 'src/types/apps/userTypes'
 import { ThemeColor } from 'src/@core/layouts/types'
 
 // ** Custom Components Imports
@@ -62,12 +62,15 @@ const userStatusObj: UserStatusType = {
   INACTIVE: 'secondary'
 }
 
+// Redireccionamiento hacia el perfil de usuario seleccionado 
 const UserProfileLink = ({ userId }: { userId: string }) => {
   const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>()
   
-  const handleClick = () => {
-/*     router.push(`/apps/user/${userId}`); */
-    router.push(`/apps/user/`)
+   const handleClick = () => {
+    dispatch(setUserIdProfile(userId))
+    dispatch(fetchUserProfile({userId}))
+    router.push(`/apps/user/${userId}`);
   };
 
   return (
@@ -90,8 +93,8 @@ const UserProfileLink = ({ userId }: { userId: string }) => {
             <Box component='div' sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
               <Typography
                 noWrap
-                /* component={Link} */
-                /* href={`/apps/user/${row.id}`} */
+                component={Link}
+                href={`/apps/user/${row.id}`}
                 variant='subtitle2'
                 sx={{
                   fontWeight: 600,
@@ -180,12 +183,13 @@ const UserProfileLink = ({ userId }: { userId: string }) => {
 
   const UserList = () => {
     // ** State
-    const [actionMessage, setActionMessage] = useState<string>("");
-    const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
     const [plan, setPlan] = useState<string>('')
-    const [redactar, setRedactar] = useState<string>('')
-    const [selectedUsers, setSelectedUsers] = useState<string>('')
     const [value, setValue] = useState<string>('')
+    const [redactar, setRedactar] = useState<string>('')
+    const [confirm, setConfirm] = useState<boolean>(false)
+    const [actionMessage, setActionMessage] = useState<string>("");
+    const [selectedUsers, setSelectedUsers] = useState<string[]>([])
+    const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
   
     const store = useSelector((state: RootState) => state.admin)
     
@@ -194,21 +198,24 @@ const UserProfileLink = ({ userId }: { userId: string }) => {
     
     useEffect(() => {
       const filteredUsers = store.data.filter((user) => {
-        return user.fullName && user.fullName.toLowerCase().includes(value.toLowerCase())
+        return user.fullName && user.fullName.toLowerCase().includes(value.toLowerCase()) 
       })
       dispatch(setFilteredUsers(filteredUsers))
      }, [dispatch, plan, value])
     
   
     // ** Selección de usuarios
-    const handleSelectionChange = (id: string) => {
+    const handleSelectionChange = (id: string[]) => {
       setSelectedUsers(id)
     };
   
     // ** Manejador de las acciones de los botones
     const handleActionButtonClick = (val: string) => {
       if (selectedUsers.length > 0) {
-        if (val === 'reactivar') dispatch(updateStatus({ type: 'reactivar', users: selectedUsers }))
+        if (val === 'reactivar') {
+          setConfirm(true)
+          dispatch(reactivateUsers({ statusType: 'COMPLETE', users: selectedUsers })) 
+        }
         if (val === 'suspender') {
           setActionMessage("Ud suspenderá esta cuenta por: ")
         }
@@ -221,10 +228,12 @@ const UserProfileLink = ({ userId }: { userId: string }) => {
   // ** Confirmación de las acciones de los botones
     const handleActionConfirm = (val: string) => {
       if (val === 'suspender') {
-        dispatch(updateStatus({ type: 'SUSPENDED', users: selectedUsers}))
+        dispatch(suspendUsers({ statusType: 'SUSPENDED', users: selectedUsers, timeLapse: ''}))
+        setConfirm(true)
         setActionMessage("");
       } else {
-        dispatch(updateStatus({ type: 'BANNED', users: selectedUsers }))
+        dispatch(banUsers({ statusType: 'BANNED', users: selectedUsers }))
+        setConfirm(true)
         setActionMessage("");
       }
     }

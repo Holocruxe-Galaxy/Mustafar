@@ -11,6 +11,8 @@ export { InactiveAvatar } from './InactiveAvatar'
 export { ActiveAvatar } from './ActiveAvatar'
 
 // ** CardLinks Icons
+export { InactiveRedirect } from './button-bar/InactiveRedirect'
+export { ActiveRedirect } from './button-bar/ActiveRedirect'
 export { ActiveDiary } from './button-bar/ActiveDiary'
 export { InactiveDiary } from './button-bar/InactiveDiary'
 export { ActiveMetrics } from './button-bar/ActiveMetrics'

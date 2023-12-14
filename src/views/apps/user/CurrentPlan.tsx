@@ -102,18 +102,20 @@ return (
             </Typography>
           </Grid>
 
-          <Grid item xs={12} sx={{ mt: 4, display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+{/*   ANALIZAR CON ANI SI ESTA INTERFAZ TAMBIÉN LA VA A TENER EL USUARIO O SÓLO CORRESPONDE AL ADMINISTRADOR, PARA CAMBIAR LOS TEXTOS PARA QUE QUEDE ACORDE        
+
+            <Grid item xs={12} sx={{ mt: 4, display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start' }}>
             <Button variant='contained' onClick={handleUpgradePlansClickOpen} sx={{ mr: 3, mb: [3, 0] }}>
               Upgrade Plan
             </Button>
             <Button variant='outlined' color='error' onClick={() => setSubscriptionDialogOpen(true)}>
               Cancel Subscription
             </Button>
-          </Grid>
+          </Grid> */}
         </Grid>
       </CardContent>
 
-      <UserSubscriptionDialog open={subscriptionDialogOpen} setOpen={setSubscriptionDialogOpen} />
+{/*       <UserSubscriptionDialog open={subscriptionDialogOpen} setOpen={setSubscriptionDialogOpen} />
 
       <Dialog
         open={openUpgradePlans}
@@ -209,7 +211,7 @@ return (
             </Button>
           </Box>
         </DialogContent>
-      </Dialog>
+      </Dialog> */}
     </Card>
   </Grid>
   )

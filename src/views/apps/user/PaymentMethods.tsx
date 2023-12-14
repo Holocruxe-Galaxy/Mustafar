@@ -30,7 +30,6 @@ import { ThemeColor } from 'src/@core/layouts/types'
 
 // ** Custom Components
 import CustomChip from 'src/@core/components/mui/chip'
-/* import UserSubscriptionDialog from 'src/views/apps/user/UserSubscriptionDialog' */
 
 // ** Styled Component Imports
 import CardWrapper from 'src/@core/styles/libs/react-credit-cards'
@@ -142,12 +141,12 @@ const PaymentMethods = () => {
     <Card>
       <CardHeader
         title='Payment Methods'
-        action={
+        /* action={
           <Button variant='contained' onClick={handleAddCardClickOpen} sx={{ '& svg': { mr: 1 } }}>
             <Icon icon='mdi:plus' fontSize='1.125rem' />
             Add Card
           </Button>
-        }
+        } */
       />
       <CardContent>
         {data.map((item: DataType, index: number) => (
@@ -184,12 +183,12 @@ const PaymentMethods = () => {
             </div>
 
             <Box sx={{ mt: [3, 0], textAlign: ['start', 'end'] }}>
-              <Button variant='outlined' sx={{ mr: 3 }} onClick={() => handleEditCardClickOpen(index)}>
+{/*               <Button variant='outlined' sx={{ mr: 3 }} onClick={() => handleEditCardClickOpen(index)}>
                 Edit
               </Button>
               <Button variant='outlined' color='secondary'>
                 Delete
-              </Button>
+              </Button> */}
               <Typography variant='body2' sx={{ mt: 5 }}>
                 Card expires at {item.expiryDate}
               </Typography>

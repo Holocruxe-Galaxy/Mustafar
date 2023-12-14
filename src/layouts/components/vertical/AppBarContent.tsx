@@ -16,7 +16,7 @@ import { Settings } from 'src/@core/context/settingsContext'
 // ** Components
 import LanguageDropdown from 'src/@core/layouts/components/shared-components/LanguageDropdown'
 import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
-import { Search, Bell, Line, InactiveConections, ActiveMetrics, InactiveMetrics, ActiveBinnacle, InactiveBinnacle, ActiveTutorial, InactiveTutorial } from 'src/views/components/icons/index'
+import { Search, Bell, Line, InactiveConections, ActiveMetrics, InactiveMetrics, ActiveBinnacle, InactiveBinnacle, ActiveTutorial, InactiveTutorial, ActiveRedirect, InactiveRedirect } from 'src/views/components/icons/index'
 import AccountIconInactive from 'src/@core/icons/configuracion/AccountIconInactive'
 
 // ** Hook Import
@@ -81,15 +81,20 @@ const AppBarContent = (props: Props) => {
       background: 'linear-gradient(180deg, #00FFED -10%, rgba(248, 54, 244, 0.20) 100%)',
       boxShadow: '4px 4px 25px 0px rgba(255, 255, 255, 0.20), 4px 4px 4px 0px rgba(255, 255, 255, 0.25) inset;'
     },
+    profileCard: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'start',
+      '&:hover':{
+        background: 'linear-gradient(180deg, #00FFED -10%, rgba(248, 54, 244, 0.20) 100%)',
+        color: 'white'
+      }
+    },
     content: {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
       width: '100%'
-    },
-    icons: {
-      width: '20px',
-      height: '20px'
     },
     font: {
       color: '#00FFED',
@@ -150,6 +155,20 @@ const AppBarContent = (props: Props) => {
         href: 'apps/notifications',  },
         { name: 'TUS MÉTRICAS', activeIcon: <ActiveMetrics />, inactiveIcon: <InactiveMetrics/>, href: '' }
       ]
+    },
+  ]
+  
+  const adminCardsArr = [
+    { 
+      page: '/apps/user/[userId]',
+      buttons: [
+        {
+          name: 'ATRÁS',
+          activeIcon: '',
+          inactiveIcon: <InactiveRedirect />,
+          href: '/admin/'
+        }
+      ]
     }
   ]
 
@@ -158,6 +177,7 @@ const AppBarContent = (props: Props) => {
   const selectedPage = currentPage?.page
   const isOnAdmin = router.pathname.includes('admin')
   const isOnAdminUserProfile = router.pathname.includes('user')
+  const userProfile = adminCardsArr.find(item => item.page == router.pathname)
 
 // ** Redirección de la botonera
   const handleRedirect = (href: string) => {
@@ -183,7 +203,24 @@ const AppBarContent = (props: Props) => {
         ...(skin === 'bordered' && { border: `1px solid ${theme.palette.divider}` })
       }}
     >
-      {currentPage?.buttons.map((card, index: number) => (
+      {
+      userProfile ? 
+      userProfile?.buttons.map((card, index: number) => (
+        <Button
+        key={index}
+        sx={{width: '15rem', height: '5.313rem', margin: '1.200rem', pl:8, borderRadius: '14px', fontSize:'21px', fontWeight: 1, backgroundColor: 'rgba(1, 0, 50, 1)' }}
+        className={classes.profileCard}
+        onClick={() => handleRedirect(card.href)}
+        startIcon={card.inactiveIcon}>
+          <Typography 
+          variant='h6'
+          sx={{ml:'1em'}}>
+            {card.name}
+          </Typography>
+        </Button>
+      ))
+      :
+      currentPage?.buttons.map((card, index: number) => (
         <Button
         key={index}
         sx={{width: '25rem', height: '5.313rem', margin: '1.200rem', pl:8, borderRadius: '14px', fontSize:'21px', fontWeight: 1, backgroundColor: 'rgba(1, 0, 50, 1)' }}
@@ -192,7 +229,8 @@ const AppBarContent = (props: Props) => {
         startIcon={currentPage.page === card.href ? card.activeIcon : card.inactiveIcon}>
           <Typography className={currentPage.page === card.href ? classes.fontActive : classes.font} variant='h6'>{card.name}</Typography>
         </Button>
-      ))}
+      ))  
+      }
 
       {
         isOnAdmin || isOnAdminUserProfile ? 
