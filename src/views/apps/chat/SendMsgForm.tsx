@@ -1,18 +1,19 @@
 // ** React Imports
-import { useState, SyntheticEvent } from 'react'
+import { useState, SyntheticEvent } from 'react';
 
 // ** MUI Imports
-import Button from '@mui/material/Button'
-import { styled } from '@mui/material/styles'
-import TextField from '@mui/material/TextField'
-import IconButton from '@mui/material/IconButton'
-import Box, { BoxProps } from '@mui/material/Box'
+import Button from '@mui/material/Button';
+import { styled } from '@mui/material/styles';
+import TextField from '@mui/material/TextField';
+import Box, { BoxProps } from '@mui/material/Box';
 
 // ** Icon Imports
-import Icon from 'src/@core/components/icon'
+import Icon from 'src/@core/components/icon';
 
 // ** Types
-import { SendMsgComponentType } from 'src/types/apps/chatTypes'
+import { SendMsgComponentType } from 'src/types/apps/chatTypes';
+import { socketClient } from 'src/libs/socket.io';
+import RecorderComponent from 'src/libs/react-audio-voice-recorder';
 
 // ** Styled Components
 const ChatFormWrapper = styled(Box)<BoxProps>(({ theme }) => ({
@@ -22,56 +23,60 @@ const ChatFormWrapper = styled(Box)<BoxProps>(({ theme }) => ({
   boxShadow: theme.shadows[1],
   padding: theme.spacing(1.25, 4),
   justifyContent: 'space-between',
+  
+/*   border: '1px solid #00FFED', */
   backgroundColor: theme.palette.background.paper
-}))
+}));
 
 const Form = styled('form')(({ theme }) => ({
   padding: theme.spacing(0, 5, 5)
-}))
+}));
 
 const SendMsgForm = (props: SendMsgComponentType) => {
   // ** Props
-  const { store, dispatch, sendMsg } = props
+  const { store } = props;
 
   // ** State
-  const [msg, setMsg] = useState<string>('')
+  const [msg, setMsg] = useState<string>('');
+  const hasText = msg
 
   const handleSendMsg = (e: SyntheticEvent) => {
-    e.preventDefault()
-    if (store && store.selectedChat && msg.trim().length) {
-      dispatch(sendMsg({ ...store.selectedChat, message: msg }))
+    e.preventDefault();
+    if (store && msg.trim().length) {
+      socketClient.sendMessage(msg);
+      setMsg('');
     }
-    setMsg('')
-  }
+  };
 
   return (
-    <Form onSubmit={handleSendMsg}>
-      <ChatFormWrapper>
+    <Form onSubmit={handleSendMsg} >
+      <ChatFormWrapper
+      sx={{ border: hasText.length > 0 ? '1px solid rgba(248, 54, 244, 1)' : '1px solid #00FFED' }}
+      >
         <Box component='div' sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
           <TextField
             fullWidth
             value={msg}
             size='small'
-            placeholder='Type your message here…'
+            placeholder='Mensaje'
             onChange={e => setMsg(e.target.value)}
-            sx={{ '& .MuiOutlinedInput-input': { pl: 0 }, '& fieldset': { border: '0 !important' } }}
+            sx={{ '& .MuiOutlinedInput-input': { pl: 0 }, '& fieldset': { border: '0 !important' }, '& .MuiInputBase-input::placeholder': {
+              color: 'rgba(0, 255, 237, 0.80)'
+            } }}
           />
         </Box>
         <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
-          <IconButton size='small' sx={{ mr: 1.5, color: 'text.primary' }}>
-            <Icon icon='mdi:microphone' fontSize='1.375rem' />
-          </IconButton>
-          <IconButton size='small' component='label' htmlFor='upload-img' sx={{ mr: 2.75, color: 'text.primary' }}>
-            <Icon icon='mdi:attachment' fontSize='1.375rem' />
-            <input hidden type='file' id='upload-img' />
-          </IconButton>
-          <Button type='submit' variant='contained'>
-            Send
-          </Button>
+          {hasText?.length ? 
+            <Button type='submit' sx={{ color: !hasText.length ? null : 'rgba(248, 54, 244, 1)'}}>
+              <Icon icon='majesticons:send' />
+            </Button>
+            :
+            <RecorderComponent />
+          }
         </Box>
       </ChatFormWrapper>
     </Form>
-  )
-}
+  );
+};
 
-export default SendMsgForm
+export default SendMsgForm;

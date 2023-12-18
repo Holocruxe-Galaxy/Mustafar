@@ -4,9 +4,23 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 // ** Axios Imports
 import axios from 'axios'
 
-// ** Types
-import { Dispatch } from 'redux'
-import { SendMsgParamsType } from 'src/types/apps/chatTypes'
+interface Messages {
+  messages: Message[]
+}
+
+interface Message {
+  message: string;
+  id?: string;
+  time: Date | string;
+  isBroadcasted?: boolean;
+}
+
+interface ChatReducer {
+  id: string;
+  selectedChat: null
+  messages: /* null | */ Message[];
+  chats: null | any[];
+}
 
 // ** Fetch User Profile
 export const fetchUserProfile = createAsyncThunk('appChat/fetchUserProfile', async () => {
@@ -22,59 +36,47 @@ export const fetchChatsContacts = createAsyncThunk('appChat/fetchChatsContacts',
   return response.data
 })
 
-// ** Select Chat
-export const selectChat = createAsyncThunk(
-  'appChat/selectChat',
-  async (id: number | string, { dispatch }: { dispatch: Dispatch<any> }) => {
-    const response = await axios.get('/apps/chat/get-chat', {
-      params: {
-        id
-      }
-    })
-    await dispatch(fetchChatsContacts())
+export const addMessageToChat = createAsyncThunk('appChat/addMsgs', (messages: Messages): Message => {  
+  return messages.messages.slice(-1)[0]
+})
 
-    return response.data
+export const addAudioToChat = createAsyncThunk('appChat/addAudios', async (messages: Messages) => {
+  return messages.messages
+  })
+
+// ** Select Chat
+export const saveId = createAsyncThunk(
+  'appChat/saveId',
+  async (id: string) => {    
+  return id
   }
 )
-
-// ** Send Msg
-export const sendMsg = createAsyncThunk('appChat/sendMsg', async (obj: SendMsgParamsType, { dispatch }) => {
-  const response = await axios.post('/apps/chat/send-msg', {
-    data: {
-      obj
-    }
-  })
-  if (obj.contact) {
-    await dispatch(selectChat(obj.contact.id))
-  }
-  await dispatch(fetchChatsContacts())
-
-  return response.data
-})
 
 export const appChatSlice = createSlice({
   name: 'appChat',
   initialState: {
+    id: '',
     chats: null,
-    contacts: null,
-    userProfile: null,
-    selectedChat: null
-  },
+    selectedChat: null,
+    messages: []
+  } as ChatReducer,
   reducers: {
     removeSelectedChat: state => {
       state.selectedChat = null
     }
   },
   extraReducers: builder => {
-    builder.addCase(fetchUserProfile.fulfilled, (state, action) => {
-      state.userProfile = action.payload
-    })
     builder.addCase(fetchChatsContacts.fulfilled, (state, action) => {
-      state.contacts = action.payload.contacts
       state.chats = action.payload.chatsContacts
     })
-    builder.addCase(selectChat.fulfilled, (state, action) => {
-      state.selectedChat = action.payload
+    builder.addCase(saveId.fulfilled, (state, action) => {
+      state.id = action.payload
+    })
+    builder.addCase(addAudioToChat.fulfilled, (state, action) => {
+      state.messages = action.payload
+    })
+    builder.addCase(addMessageToChat.fulfilled, (state, action) => {
+      state.messages = [ ...state.messages, action.payload ]
     })
   }
 })

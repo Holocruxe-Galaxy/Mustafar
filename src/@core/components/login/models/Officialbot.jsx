@@ -12,7 +12,7 @@ const Bot = props => {
   }, [])
 
   return (
-    <group ref={group} {...props} dispose={null} position={[0, 5, 4.5]}>
+    <group ref={group} {...props} dispose={null} position={[0, 4.5, 4]}>
       <group name='Scene'>
         <group name='Armature' rotation={[Math.PI / 2, 0, 0]} scale={0.02}>
           <primitive object={nodes.mixamorigHips} />

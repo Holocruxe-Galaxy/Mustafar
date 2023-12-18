@@ -1,19 +1,19 @@
 // ** React Imports
-import { createContext, useEffect, useState, ReactNode } from 'react';
+import { createContext, useEffect, useState, ReactNode } from 'react'
 
 // ** Next Import
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/router'
 
 // ** Axios
-import axios from 'axios';
+import axios from 'axios'
 
 // ** Config
-import authConfig from 'src/configs/auth';
+import authConfig from 'src/configs/auth'
 
 // ** Types
-import { AuthValuesType, LoginParams, UserDataType } from './types';
-import { useUser } from '@auth0/nextjs-auth0/client';
-import { afterLogin, afterSignup } from './functions';
+import { AuthValuesType, LoginParams, UserDataType } from './types'
+import { useUser } from '@auth0/nextjs-auth0/client'
+import { afterLogin, afterSignup } from './functions'
 
 // ** Defaults
 const defaultProvider: AuthValuesType = {
@@ -24,56 +24,56 @@ const defaultProvider: AuthValuesType = {
   login: () => Promise.resolve(),
   logout: () => Promise.resolve(),
   handleRegister: () => Promise.resolve()
-};
+}
 
-const AuthContext = createContext(defaultProvider);
+const AuthContext = createContext(defaultProvider)
 
 type Props = {
-  children: ReactNode;
-};
+  children: ReactNode
+}
 
 const AuthProvider = ({ children }: Props) => {
   // ** States
 
-  const [user, setUser] = useState<UserDataType | null>(defaultProvider.user);
-  const [loading, setLoading] = useState<boolean>(defaultProvider.loading);
-  const { user: userAuht0 } = useUser();
+  const [user, setUser] = useState<UserDataType | null>(defaultProvider.user)
+  const [loading, setLoading] = useState<boolean>(defaultProvider.loading)
+  const { user: userAuht0 } = useUser()
 
   // ** Hooks
-  const router = useRouter();
+  const router = useRouter()
 
   useEffect(() => {
     const initAuth = async () => {
-      const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)!;
+      const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)!
       if (storedToken) {
         await axios
-          .get(authConfig.meEndpoint, {
+          .get(`${process.env.NEXT_PUBLIC_CORUSCANT}/users/verify`, {
             headers: {
-              Authorization: storedToken
+              authorization: storedToken
             }
           })
           .then(async response => {
-            setLoading(false);
-            setUser({ ...response.data.userData });
+            setLoading(false)
+            setUser({ ...response.data.userData })
           })
           .catch(() => {
-            localStorage.removeItem('userData');
-            localStorage.removeItem('refreshToken');
-            localStorage.removeItem('accessToken');
-            setUser(null);
-            setLoading(false);
+            localStorage.removeItem('userData')
+            localStorage.removeItem('refreshToken')
+            localStorage.removeItem('accessToken')
+            setUser(null)
+            setLoading(false)
             if (authConfig.onTokenExpiration === 'logout' && !router.pathname.includes('login')) {
-              router.replace('/login');
+              router.replace('/login')
             }
-          });
+          })
       } else {
-        setLoading(false);
+        setLoading(false)
       }
-    };
+    }
 
-    initAuth();
+    initAuth()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   const handleRegister = async () => {
     const options = {
@@ -87,14 +87,14 @@ const AuthProvider = ({ children }: Props) => {
         lastname: userAuht0?.family_name,
         email: userAuht0?.email
       })
-    };
+    }
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_CORUSCANT}/users/register`, options);
-    const res = await response.json();
-    const AuthorizationToken = response.headers.get('Authorization');
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CORUSCANT}/users/register`, options)
+    const res = await response.json()
+    const AuthorizationToken = response.headers.get('Authorization')
     if (AuthorizationToken !== null) {
-      window.localStorage.setItem('AuthorizationToken', AuthorizationToken);
-      await afterSignup();
+      window.localStorage.setItem('AuthorizationToken', AuthorizationToken)
+      await afterSignup()
     }
 
     if (response.status === 201) {
@@ -105,26 +105,21 @@ const AuthProvider = ({ children }: Props) => {
         id: res.id,
         role: !res.admin ? 'admin' : 'client',
         username: res.username
-      };
-      window.localStorage.setItem(
-        authConfig.storageTokenKeyName,
-        'eJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg3ODA3MDMzLCJleHAiOjE2ODc4MDczMzN9.CvgFyVYPaSCrVUdFi-EbLmlWV2yttExHcltc0ok7naE'
-      );
+      }
 
-      const returnUrl = router.query.returnUrl;
+      const returnUrl = router.query.returnUrl
 
-      setUser(microservice_user);
-      window.localStorage.removeItem('createAccount');
+      setUser(microservice_user)
+      window.localStorage.removeItem('createAccount')
 
-
-      const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/register';
-      window.location.href = redirectURL.toString();
+      const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/register'
+      window.location.href = redirectURL.toString()
     } else {
-      window.alert(res.message);
-      window.localStorage.removeItem('createAccount');
-      router.push('/api/auth/logout');
+      window.alert(res.message)
+      window.localStorage.removeItem('createAccount')
+      router.push('/api/auth/logout')
     }
-  };
+  }
   const handleLogin = async (params: LoginParams) => {
     const options = {
       method: 'POST',
@@ -134,12 +129,12 @@ const AuthProvider = ({ children }: Props) => {
       body: JSON.stringify({
         email: userAuht0?.email
       })
-    };
-    const response = await fetch(`${process.env.NEXT_PUBLIC_CORUSCANT}/users/login`, options);
-    const res = await response.json();
-    const AuthorizationToken = response.headers.get('Authorization');
+    }
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CORUSCANT}/users/login`, options)
+    const res = await response.json()
+    const AuthorizationToken = response.headers.get('Authorization')
     if (AuthorizationToken !== null) {
-      window.localStorage.setItem('AuthorizationToken', AuthorizationToken);
+      window.localStorage.setItem('AuthorizationToken', AuthorizationToken)
     }
     if (response.status === 202) {
       const microservice_user: UserDataType = {
@@ -149,38 +144,38 @@ const AuthProvider = ({ children }: Props) => {
         id: res.id,
         role: !res.admin ? 'admin' : 'client',
         username: res.username
-      };
+      }
       params.rememberMe
         ? window.localStorage.setItem(
-          authConfig.storageTokenKeyName,
-          'eJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg3ODA3MDMzLCJleHAiOjE2ODc4MDczMzN9.CvgFyVYPaSCrVUdFi-EbLmlWV2yttExHcltc0ok7naE'
-        )
-        : null;
+            authConfig.storageTokenKeyName,
+            'eJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg3ODA3MDMzLCJleHAiOjE2ODc4MDczMzN9.CvgFyVYPaSCrVUdFi-EbLmlWV2yttExHcltc0ok7naE'
+          )
+        : null
 
       // const returnUrl = router.query.returnUrl
 
-      setUser(microservice_user);
+      setUser(microservice_user)
 
-      const status = await afterLogin();
-      const redirectURL = status === 'COMPLETE' ? '/home' : '/register';
+      const status = await afterLogin()
+      const redirectURL = status === 'COMPLETE' ? '/home' : '/register'
 
-      redirectURL === '/home' ? router.replace(redirectURL) : (window.location.href = redirectURL);
+      redirectURL === '/home' ? router.replace(redirectURL) : (window.location.href = redirectURL)
     } else {
-      window.alert(res.message);
-      router.push('/api/auth/logout');
+      window.alert(res.message)
+      router.push('/api/auth/logout')
     }
-  };
+  }
 
   const handleLogout = async () => {
-    setUser(null);
-    window.localStorage.removeItem('AuthorizationToken');
-    window.localStorage.removeItem('userData');
-    window.localStorage.removeItem(authConfig.storageTokenKeyName);
-    window.localStorage.removeItem('step');
-    window.localStorage.removeItem('status');
-    router.push('/api/auth/logout');
-    router.push('/login');
-  };
+    setUser(null)
+    window.localStorage.removeItem('AuthorizationToken')
+    window.localStorage.removeItem('userData')
+    window.localStorage.removeItem(authConfig.storageTokenKeyName)
+    window.localStorage.removeItem('step')
+    window.localStorage.removeItem('status')
+    router.push('/api/auth/logout')
+    router.push('/login')
+  }
 
   const values = {
     user,
@@ -190,9 +185,9 @@ const AuthProvider = ({ children }: Props) => {
     login: handleLogin,
     logout: handleLogout,
     handleRegister
-  };
+  }
 
-  return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
-};
+  return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>
+}
 
-export { AuthContext, AuthProvider };
+export { AuthContext, AuthProvider }
