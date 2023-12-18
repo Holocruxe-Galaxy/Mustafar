@@ -37,6 +37,7 @@ export type MessageType = {
   time: string | Date
   id?: string
   isBroadcasted?: boolean
+  isAudio?: boolean
 }
 
 export type MessageGroupType = {
@@ -60,6 +61,7 @@ export type ChatLogChatType = {
   time: Date | string;
   senderId?: string;
   isBroadcasted?: boolean
+  isAudio?: boolean
 }
 
 export type ChatsArrType = {

@@ -55,6 +55,7 @@ const ChatContent = (props: ChatContentType) => {
     if (id) dispatch(saveId(id));
     socketClient.recieveMessages(dispatch);
     socketClient.recieveBroadcast(dispatch);
+    socketClient.recieveAudio(dispatch);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
