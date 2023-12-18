@@ -60,23 +60,24 @@ const ChatLog = (props: ChatLogType) => {
     const formattedChatLog: FormattedChatsType[] = [];
     const chatMessageSenderId = store.id 
     
-      const msgGroup: MessageGroupType = {
-        messages: [],
-        senderId: chatMessageSenderId,
-      };
+    const msgGroup: MessageGroupType = {
+      messages: [],
+      senderId: chatMessageSenderId,
+    };
       
-        chatLog.forEach((msg: MessageType, index: number) => {
-          if (chatMessageSenderId === msg.id || msg.isBroadcasted === true) {
-            msgGroup.messages.push({
-              time: msg.time,
-              msg: msg.message,
-              senderId: msg.id,
-              isBroadcasted: msg.isBroadcasted,
-            })
-          }
-
-          if (index === chatLog.length - 1) formattedChatLog.push(msgGroup)
+    chatLog.forEach((msg: MessageType, index: number) => {
+      if (chatMessageSenderId === msg.id || msg.isBroadcasted === true) {
+        msgGroup.messages.push({
+          time: msg.time,
+          msg: msg.message,
+          senderId: msg.id,
+          isBroadcasted: msg.isBroadcasted,
+          isAudio: msg.isAudio
         })
+      }
+
+      if (index === chatLog.length - 1) formattedChatLog.push(msgGroup)
+    })
 
     return formattedChatLog;
   };
@@ -90,7 +91,7 @@ const ChatLog = (props: ChatLogType) => {
 
   // ** Renders user chat
   const renderChats = () => {
-    return formattedChatData().map((item: FormattedChatsType, index: number) => {    
+    return formattedChatData().map((item: FormattedChatsType, index: number) => {
 
       return (
         <Box
@@ -104,6 +105,25 @@ const ChatLog = (props: ChatLogType) => {
           <Box component='div' className='chat-body' sx={{ width: ['calc(100% - 5.75rem)', '100%', '100%'] }}>
             {item.messages.map((chat: ChatLogChatType, index: number, { length }: { length: number }) => {
               const isSender = chat.senderId
+              
+              if(chat.isAudio) {
+              return (
+                <Box
+                component='div'
+                key= {index}
+                  sx={{
+                    display: 'flex', 
+                    flexDirection: !isSender ? 'row' : 'row-reverse',
+                    mb: index !== formattedChatData().length - 1 ? /* 9.75 */ 2 : 2
+                  }}
+                >
+                  <audio key={index} controls>
+                    <source src={chat.msg} type="audio/webm"/>
+                    Your browser does not support the audio element.
+                  </audio>
+                </Box>
+                )
+              }
 
               return (
                 <Box
