@@ -13,6 +13,7 @@ import Icon from 'src/@core/components/icon';
 // ** Types
 import { SendMsgComponentType } from 'src/types/apps/chatTypes';
 import { socketClient } from 'src/libs/socket.io';
+import RecorderComponent from 'src/libs/react-audio-voice-recorder';
 
 // ** Styled Components
 const ChatFormWrapper = styled(Box)<BoxProps>(({ theme }) => ({
@@ -65,9 +66,13 @@ const SendMsgForm = (props: SendMsgComponentType) => {
           />
         </Box>
         <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
-          <Button type='submit' sx={{color: !hasText.length ? null : 'rgba(248, 54, 244, 1)'}}>
-            <Icon icon='majesticons:send' />
-          </Button>
+          {hasText?.length ? 
+            <Button type='submit' sx={{ color: !hasText.length ? null : 'rgba(248, 54, 244, 1)'}}>
+              <Icon icon='majesticons:send' />
+            </Button>
+            :
+            <RecorderComponent />
+          }
         </Box>
       </ChatFormWrapper>
     </Form>

@@ -36,9 +36,13 @@ export const fetchChatsContacts = createAsyncThunk('appChat/fetchChatsContacts',
   return response.data
 })
 
-export const addMessageToChat = createAsyncThunk('appChat/addMsgs', async (messages: Messages) => {
-return messages.messages
+export const addMessageToChat = createAsyncThunk('appChat/addMsgs', (messages: Messages): Message => {  
+  return messages.messages.slice(-1)[0]
 })
+
+export const addAudioToChat = createAsyncThunk('appChat/addAudios', async (messages: Messages) => {
+  return messages.messages
+  })
 
 // ** Select Chat
 export const saveId = createAsyncThunk(
@@ -68,8 +72,11 @@ export const appChatSlice = createSlice({
     builder.addCase(saveId.fulfilled, (state, action) => {
       state.id = action.payload
     })
-    builder.addCase(addMessageToChat.fulfilled, (state, action) => {
+    builder.addCase(addAudioToChat.fulfilled, (state, action) => {
       state.messages = action.payload
+    })
+    builder.addCase(addMessageToChat.fulfilled, (state, action) => {
+      state.messages = [ ...state.messages, action.payload ]
     })
   }
 })
