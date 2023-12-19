@@ -1,6 +1,7 @@
 import { Manager } from "socket.io-client";
 import { Dispatch } from 'redux'
 import { addMessageToChat } from "src/store/apps/chat";
+import axios from "axios";
 
 type SetFunction = (arg: any) => void
 
@@ -24,8 +25,20 @@ class SocketClient {
     this.socket?.emit('clientChat', { message })
   }
 
+  async sendAudio(audio: FormData) {
+    await axios.post(`${process.env.NEXT_PUBLIC_MANDALORE}/chat/${this.socket.id}`, audio, {
+      headers: {
+        authorization: localStorage.getItem('AuthorizationToken')
+      }
+    })
+  }
+
   recieveMessages(dispatch: Dispatch<any>) {
     this.socket?.on('clientChat', (res: any) => dispatch(addMessageToChat(res)))
+  }
+
+  recieveAudio(dispatch: Dispatch<any>) {
+    this.socket?.on('audio', (res: any) => dispatch(addMessageToChat(res)))
   }
 
   recieveBroadcast(dispatch: Dispatch<any>) {
