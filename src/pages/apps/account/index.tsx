@@ -6,6 +6,7 @@ import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import Dialog from '@mui/material/Dialog'
+import Modal from '@mui/material/Modal'
 
 // import { styled } from '@mui/material/styles
 
@@ -96,6 +97,21 @@ const Account = () => {
     setOpen(true)
   }
 
+  const style = {
+    position: 'absolute' as const,
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 300,
+    bgcolor: 'background.paper',
+    borderRadius: 1,
+    boxShadow: 24,
+    p: 4
+  }
+
   return (
     <>
       <Box component='div' sx={{ mb: 4 }}>
@@ -130,74 +146,53 @@ const Account = () => {
         </Grid>
 
         {/* Deactivate Account Dialogs */}
-        <Dialog fullWidth maxWidth='xs' open={open} onClose={handleClose}>
-          <DialogContent
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              pb: theme => `${theme.spacing(6)} !important`,
-              px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-              pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
-            }}
-          >
-            <Box
-              component='div'
-              sx={{
-                display: 'flex',
-                textAlign: 'center',
-                alignItems: 'center',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                '& svg': { mb: 6, color: 'warning.main' }
-              }}
-            >
-              {/* <Icon icon='mdi:alert-circle-outline' fontSize='5.5rem' /> */}
-              <Typography>Seguro que deseas eliminar?</Typography>
-            </Box>
-          </DialogContent>
-          <DialogActions
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              flexDirection: 'column',
-              alignItems: 'center',
-              px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-              pb: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
-            }}
-          >
+        <Modal open={open} onClose={handleClose}>
+          <Box component='div' sx={style}>
+            <Typography variant='h6' component='h2'>
+              Seguro que deseas eliminar?
+            </Typography>
             <Button
               variant='contained'
               onClick={() => handleConfirmation('yes')}
-              startIcon={<Checked />}
               sx={{
+                marginTop: 3,
                 width: '50%',
-                mb: 4,
+                height: '3rem',
+                fontSize: 'large',
                 '&:hover': {
+                  color: '#00FFED',
                   background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.20) 100%)',
                   boxShadow: '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(255, 255, 255, 0.25) inset'
                 }
               }}
             >
+              <div style={{ position: 'absolute', left: 28, top: 1, marginRight: 6 }}>
+                <Checked />
+              </div>
               Si
             </Button>
             <Button
               variant='contained'
               onClick={() => handleConfirmation('cancel')}
-              startIcon={<Negativo />}
               sx={{
+                marginTop: 3,
                 width: '50%',
-                mb: 4,
+                height: '3rem',
+                fontSize: 'large',
                 '&:hover': {
+                  color: '#00FFED',
                   background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.20) 100%)',
                   boxShadow: '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(255, 255, 255, 0.25) inset'
                 }
               }}
             >
+              <div style={{ position: 'absolute', left: 28, top: 1, marginRight: 6 }}>
+                <Negativo />
+              </div>
               No
             </Button>
-          </DialogActions>
-        </Dialog>
+          </Box>
+        </Modal>
 
         <Dialog fullWidth maxWidth='xs' open={secondDialogOpen} onClose={handleSecondDialogClose}>
           <DialogContent
