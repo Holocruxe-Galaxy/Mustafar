@@ -1,6 +1,6 @@
 const Checked = () => {
   return (
-    <svg width='48' height='48' viewBox='0 0 48 48' fill='none' xmlns='http://www.w3.org/2000/svg'>
+    <svg width='19' height='50' viewBox='0 0 49 49' fill='none' xmlns='http://www.w3.org/2000/svg'>
       <g filter='url(#filter0_d_849_49960)'>
         <g filter='url(#filter1_i_849_49960)'>
           <path
@@ -21,8 +21,8 @@ const Checked = () => {
           id='filter0_d_849_49960'
           x='0'
           y='0'
-          width='48'
-          height='48'
+          width='50'
+          height='50'
           filterUnits='userSpaceOnUse'
           colorInterpolationFilters='sRGB'
         >
