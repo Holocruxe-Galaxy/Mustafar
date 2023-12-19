@@ -148,7 +148,14 @@ const Account = () => {
         {/* Deactivate Account Dialogs */}
         <Modal open={open} onClose={handleClose}>
           <Box component='div' sx={style}>
-            <Typography variant='h6' component='h2'>
+            <Typography
+              variant='h6'
+              component='h2'
+              sx={{
+                textAlign: 'center',
+                color: '#00FFED'
+              }}
+            >
               Seguro que deseas eliminar?
             </Typography>
             <Button
