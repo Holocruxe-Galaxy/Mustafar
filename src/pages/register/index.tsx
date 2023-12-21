@@ -629,7 +629,7 @@ const Register = () => {
                         error={Boolean(contactErrors.contactInfo?.altEmail)}
                         placeholder='carlosperez@gmail.com'
                         aria-describedby='stepper-linear-contact-alternative-mail'
-                        InputProps={{ style: { color: '#00FFED', borderBottomColor: '#00FFED' } }}
+                        InputProps={{ style: { color: '#00FFED' } }}
                         InputLabelProps={{ style: { color: '#00FFED' } }}
                       />
                     )}
@@ -879,7 +879,19 @@ const Register = () => {
                 </FormControl>
               </Grid>
               <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'end', paddingBottom: '5em' }}>
-                <Button size='large' type='submit' variant='contained' startIcon={<RightBlueAirplane />}>
+                <Button
+                  size='large'
+                  type='submit'
+                  variant='contained'
+                  startIcon={<RightBlueAirplane />}
+                  sx={{
+                    '&:hover': {
+                      color: '#00FFED',
+                      background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.20) 100%)',
+                      boxShadow: '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(255, 255, 255, 0.25) inset'
+                    }
+                  }}
+                >
                   siguiente
                 </Button>
               </Grid>
@@ -896,7 +908,7 @@ const Register = () => {
           <form key={1} onSubmit={handlePersonalSubmit(onSubmit)}>
             <Grid container spacing={5}>
               <Grid item xs={12} marginTop={10}>
-                <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.primary' }}>
+                <Typography variant='body2' sx={{ fontWeight: 600, color: '#00FFED' }}>
                   {steps[1].title}
                 </Typography>
               </Grid>
@@ -948,7 +960,7 @@ const Register = () => {
                       >
                         <MenuItem value='MALE'>Hombre</MenuItem>
                         <MenuItem value='FEMALE'>Mujer</MenuItem>
-                        <MenuItem value='NON-BINARY'>No binario</MenuItem>
+                        {/* <MenuItem value='NON-BINARY'>No binario</MenuItem> */}
                         <MenuItem value='OTHER'>Otro</MenuItem>
                         <MenuItem value='PREFER-NOT-TO-SAY'>Prefiero no decir</MenuItem>
                       </Select>
@@ -1032,16 +1044,33 @@ const Register = () => {
                 </FormControl>
               </Grid>
               <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '5em' }}>
-                <Button size='large' variant='contained' startIcon={<LeftBlueAirplane />} onClick={handleBack}>
-                  ATRÁS
+                <Button
+                  size='large'
+                  variant='contained'
+                  startIcon={<LeftBlueAirplane />}
+                  onClick={handleBack}
+                  sx={{
+                    '&:hover': {
+                      color: '#00FFED',
+                      background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.20) 100%)',
+                      boxShadow: '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(255, 255, 255, 0.25) inset'
+                    }
+                  }}
+                >
+                  Atrás
                 </Button>
                 <Button
                   size='large'
                   type='submit'
                   variant='contained'
                   startIcon={<RightBlueAirplane />}
-
-                  // sx={{ color:'text.primary' }}
+                  sx={{
+                    '&:hover': {
+                      color: '#00FFED',
+                      background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.20) 100%)',
+                      boxShadow: '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(255, 255, 255, 0.25) inset'
+                    }
+                  }}
                 >
                   Siguiente
                 </Button>
@@ -1059,7 +1088,7 @@ const Register = () => {
           <form key={2} onSubmit={handleProfessionalSubmit(onSubmit)}>
             <Grid container spacing={5}>
               <Grid item xs={12} marginTop={10}>
-                <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.primary' }}>
+                <Typography variant='body2' sx={{ fontWeight: 600, color: '#00FFED' }}>
                   {steps[2].title}
                 </Typography>
               </Grid>
@@ -1210,11 +1239,35 @@ const Register = () => {
               </Grid>
 
               <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '5em' }}>
-                <Button size='large' variant='contained' startIcon={<LeftBlueAirplane />} onClick={handleBack}>
-                  atrás
+                <Button
+                  size='large'
+                  variant='contained'
+                  startIcon={<LeftBlueAirplane />}
+                  onClick={handleBack}
+                  sx={{
+                    '&:hover': {
+                      color: '#00FFED',
+                      background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.20) 100%)',
+                      boxShadow: '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(255, 255, 255, 0.25) inset'
+                    }
+                  }}
+                >
+                  Atrás
                 </Button>
-                <Button size='large' type='submit' variant='contained' startIcon={<RightBlueAirplane />}>
-                  siguiente
+                <Button
+                  size='large'
+                  type='submit'
+                  variant='contained'
+                  startIcon={<RightBlueAirplane />}
+                  sx={{
+                    '&:hover': {
+                      color: '#00FFED',
+                      background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.20) 100%)',
+                      boxShadow: '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(255, 255, 255, 0.25) inset'
+                    }
+                  }}
+                >
+                  Siguiente
                 </Button>
               </Grid>
               <Canvas shadows>
@@ -1230,7 +1283,7 @@ const Register = () => {
           <form key={3} onSubmit={handleGeneralInsterestsSubmit(onSubmit)}>
             <Grid container spacing={5}>
               <Grid item xs={12} marginTop={10}>
-                <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.secondary' }}>
+                <Typography variant='body2' sx={{ fontWeight: 600, color: '#00FFED' }}>
                   {steps[3].title}
                 </Typography>
               </Grid>
@@ -1275,11 +1328,37 @@ const Register = () => {
                   xs={12}
                   sx={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '5em', mt: 15 }}
                 >
-                  <Button size='large' variant='contained' startIcon={<LeftBlueAirplane />} onClick={handleBack}>
-                    atrás
+                  <Button
+                    size='large'
+                    variant='contained'
+                    startIcon={<LeftBlueAirplane />}
+                    onClick={handleBack}
+                    sx={{
+                      '&:hover': {
+                        color: '#00FFED',
+                        background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.20) 100%)',
+                        boxShadow:
+                          '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(255, 255, 255, 0.25) inset'
+                      }
+                    }}
+                  >
+                    Atrás
                   </Button>
-                  <Button size='large' type='submit' variant='contained' startIcon={<RightBlueAirplane />}>
-                    enviar
+                  <Button
+                    size='large'
+                    type='submit'
+                    variant='contained'
+                    startIcon={<RightBlueAirplane />}
+                    sx={{
+                      '&:hover': {
+                        color: '#00FFED',
+                        background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.20) 100%)',
+                        boxShadow:
+                          '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(255, 255, 255, 0.25) inset'
+                      }
+                    }}
+                  >
+                    Enviar
                   </Button>
                 </Grid>
               </Grid>
@@ -1448,9 +1527,23 @@ const Register = () => {
                 <Step key={index}>
                   <StepLabel {...labelProps} StepIconComponent={StepperCustomDot}>
                     <div className='step-label'>
-                      <Typography className='step-number'>{`0${index + 1}`}</Typography>
+                      <Typography
+                        className='step-number'
+                        style={{
+                          color: index === activeStep ? '#00FFED' : 'white'
+                        }}
+                      >
+                        {`0${index + 1}`}
+                      </Typography>
                       <div>
-                        <Typography className='step-title'>{step.title}</Typography>
+                        <Typography
+                          className='step-title'
+                          style={{
+                            color: index === activeStep ? '#00FFED' : 'white'
+                          }}
+                        >
+                          {step.title}
+                        </Typography>
                         {/* <Typography className='step-subtitle'>{step.subtitle}</Typography> */}
                       </div>
                     </div>
