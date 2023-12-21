@@ -610,7 +610,7 @@ const Register = () => {
           <form key={0} onSubmit={handleContactSubmit(onSubmit)}>
             <Grid container spacing={5}>
               <Grid item xs={12} marginTop={10}>
-                <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.primary' }}>
+                <Typography variant='body2' sx={{ fontWeight: 600, color: '#00FFED' }}>
                   {steps[0].title}
                 </Typography>
               </Grid>
@@ -629,6 +629,8 @@ const Register = () => {
                         error={Boolean(contactErrors.contactInfo?.altEmail)}
                         placeholder='carlosperez@gmail.com'
                         aria-describedby='stepper-linear-contact-alternative-mail'
+                        InputProps={{ style: { color: '#00FFED', borderBottomColor: '#00FFED' } }}
+                        InputLabelProps={{ style: { color: '#00FFED' } }}
                       />
                     )}
                   />
@@ -876,8 +878,8 @@ const Register = () => {
                   )}
                 </FormControl>
               </Grid>
-              <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'end', paddingBottom: '5em',  }}>
-                <Button size='large' type='submit' variant='contained' startIcon={<RightBlueAirplane/>} >
+              <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'end', paddingBottom: '5em' }}>
+                <Button size='large' type='submit' variant='contained' startIcon={<RightBlueAirplane />}>
                   siguiente
                 </Button>
               </Grid>
@@ -1030,12 +1032,16 @@ const Register = () => {
                 </FormControl>
               </Grid>
               <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '5em' }}>
-                <Button size='large' variant='contained' startIcon={<LeftBlueAirplane/>} onClick={handleBack}>
+                <Button size='large' variant='contained' startIcon={<LeftBlueAirplane />} onClick={handleBack}>
                   ATRÁS
                 </Button>
-                <Button size='large' type='submit' variant='contained' startIcon={<RightBlueAirplane/>}
-                
-                // sx={{ color:'text.primary' }}
+                <Button
+                  size='large'
+                  type='submit'
+                  variant='contained'
+                  startIcon={<RightBlueAirplane />}
+
+                  // sx={{ color:'text.primary' }}
                 >
                   Siguiente
                 </Button>
@@ -1204,10 +1210,10 @@ const Register = () => {
               </Grid>
 
               <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '5em' }}>
-                <Button size='large' variant='contained' startIcon={<LeftBlueAirplane/>} onClick={handleBack}>
+                <Button size='large' variant='contained' startIcon={<LeftBlueAirplane />} onClick={handleBack}>
                   atrás
                 </Button>
-                <Button size='large' type='submit' variant='contained' startIcon={<RightBlueAirplane/>}>
+                <Button size='large' type='submit' variant='contained' startIcon={<RightBlueAirplane />}>
                   siguiente
                 </Button>
               </Grid>
@@ -1264,11 +1270,15 @@ const Register = () => {
                   </Grid>
                 ))}
 
-                <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '5em', mt: 15 }}>
-                  <Button size='large' variant='contained' startIcon={<LeftBlueAirplane/>} onClick={handleBack}>
+                <Grid
+                  item
+                  xs={12}
+                  sx={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '5em', mt: 15 }}
+                >
+                  <Button size='large' variant='contained' startIcon={<LeftBlueAirplane />} onClick={handleBack}>
                     atrás
                   </Button>
-                  <Button size='large' type='submit' variant='contained' startIcon={<RightBlueAirplane/>}>
+                  <Button size='large' type='submit' variant='contained' startIcon={<RightBlueAirplane />}>
                     enviar
                   </Button>
                 </Grid>
