@@ -32,14 +32,14 @@ const StepperCustomDot = (props: StepIconProps) => {
   } else if (completed) {
     return (
       <div style={{ marginTop: '2em' }}>
-        <Icon icon='mdi:check-circle' fontSize={10} color={theme.palette.primary.main} transform='scale(1.2)' />
+        <Icon icon='mdi:check-circle' fontSize={10} color='#00FFED' transform='scale(2)' />
       </div>
     )
   } else {
     return (
       <Box
         sx={{
-          borderColor: active ? 'primary.main' : 'customColors.lightBg'
+          borderColor: active ? '#00FFED' : 'customColors.lightBg'
         }}
       />
     )
