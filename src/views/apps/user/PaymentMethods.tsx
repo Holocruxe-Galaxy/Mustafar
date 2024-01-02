@@ -138,9 +138,10 @@ const PaymentMethods = () => {
 
   return (
     <Grid item xs={12}>
-    <Card>
+    <Card sx={{ boxShadow: '4px 4px 4px 0px #FFFFFF80', py: '1.5em'}}>
       <CardHeader
         title='Payment Methods'
+        sx={{mt: '1em'}}
         /* action={
           <Button variant='contained' onClick={handleAddCardClickOpen} sx={{ '& svg': { mr: 1 } }}>
             <Icon icon='mdi:plus' fontSize='1.125rem' />

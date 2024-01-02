@@ -129,6 +129,7 @@ export const banUsers = createAsyncThunk('admin/banUsers', async ({ statusType, 
 });
   if (!response.ok) {
     const error = await response.json();
+    console.log("Esto es error.message: ", error.message)
     throw new Error(error.message);
   }
 })
@@ -149,7 +150,6 @@ export const admin = createSlice({
       },
       setUserIdProfile: (state, action) => {
         state.userIdProfile = action.payload;
-        console.log("Esto es state.userIdProfile: ", state.userIdProfile)
       }
     },
     extraReducers: builder => {

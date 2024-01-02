@@ -25,7 +25,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import CustomChip from 'src/@core/components/mui/chip'
 
 // ** Redux
-import { reactivateUsers, suspendUsers, banUsers, setFilteredUsers, fetchUserProfile, setUserIdProfile } from 'src/store/apps/admin'
+import { reactivateUsers, suspendUsers, banUsers, setFilteredUsers, fetchUserProfile, setUserIdProfile, fetchAllUsers } from 'src/store/apps/admin'
 
 // ** Types Imports
 import { RootState, AppDispatch } from 'src/store'
@@ -186,35 +186,49 @@ const UserProfileLink = ({ userId }: { userId: string }) => {
     const [plan, setPlan] = useState<string>('')
     const [value, setValue] = useState<string>('')
     const [redactar, setRedactar] = useState<string>('')
-    const [confirm, setConfirm] = useState<boolean>(false)
     const [actionMessage, setActionMessage] = useState<string>("");
     const [selectedUsers, setSelectedUsers] = useState<string[]>([])
     const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
-  
+
+    const [secondDialogOpen, setSecondDialogOpen] = useState<boolean>(false)
+    const [confirmationMessage, setConfirmationMessage] = useState<string>("");
+
     const store = useSelector((state: RootState) => state.admin)
     
     // ** Hooks
     const dispatch = useDispatch<AppDispatch>()
     
-    useEffect(() => {
+/*     useEffect(() => {
       const filteredUsers = store.data.filter((user) => {
         return user.fullName && user.fullName.toLowerCase().includes(value.toLowerCase()) 
       })
       dispatch(setFilteredUsers(filteredUsers))
-     }, [dispatch, plan, value])
+     }, [dispatch, plan, value]) */
+
+     useEffect(() => {
+      const filteredUsers = !value
+        ? store.data
+        : store.data.filter((user) => user.fullName && user.fullName.toLowerCase().includes(value.toLowerCase())
+        );
+        
+      dispatch(setFilteredUsers(filteredUsers));
+    }, [dispatch, value, store.data]);
     
   
     // ** Selección de usuarios
     const handleSelectionChange = (id: string[]) => {
       setSelectedUsers(id)
     };
-  
+
+    const handleSecondDialogClose = () => setSecondDialogOpen(false)
+
     // ** Manejador de las acciones de los botones
     const handleActionButtonClick = (val: string) => {
       if (selectedUsers.length > 0) {
         if (val === 'reactivar') {
-          setConfirm(true)
           dispatch(reactivateUsers({ statusType: 'COMPLETE', users: selectedUsers })) 
+          setConfirmationMessage("Usuario reactivado con éxito.");
+          setSecondDialogOpen(true)
         }
         if (val === 'suspender') {
           setActionMessage("Ud suspenderá esta cuenta por: ")
@@ -226,19 +240,21 @@ const UserProfileLink = ({ userId }: { userId: string }) => {
   }
    
   // ** Confirmación de las acciones de los botones
-    const handleActionConfirm = (val: string) => {
-      if (val === 'suspender') {
+  const handleActionConfirm = (val: string) => {
+    if (val === 'suspender') {
         dispatch(suspendUsers({ statusType: 'SUSPENDED', users: selectedUsers, timeLapse: ''}))
-        setConfirm(true)
+        setConfirmationMessage("Usuario suspendido con éxito.");
+        setSecondDialogOpen(true)
         setActionMessage("");
       } else {
         dispatch(banUsers({ statusType: 'BANNED', users: selectedUsers }))
-        setConfirm(true)
+        setConfirmationMessage("Usuario banneado con éxito.");
+        setSecondDialogOpen(true)  
         setActionMessage("");
       }
     }
-  
-  // ** Filtrado
+
+    // ** Filtrado
     const handleFilter = useCallback((val: string) => {
       setValue(val)
     }, [])
@@ -251,7 +267,7 @@ const UserProfileLink = ({ userId }: { userId: string }) => {
       <Grid container spacing={6}>
         <Grid item xs={12}>
           <Card>
-            <TableHeader redactar={redactar} plan={plan} value={value} handleFilter={handleFilter} handlePlanChange={handlePlanChange} handleActionButtonClick={handleActionButtonClick} actionMessage={actionMessage} selectedUsers={selectedUsers} setActionMessage={setActionMessage} handleActionConfirm={handleActionConfirm} />
+            <TableHeader redactar={redactar} plan={plan} value={value} handleFilter={handleFilter} handlePlanChange={handlePlanChange} handleActionButtonClick={handleActionButtonClick} actionMessage={actionMessage} selectedUsers={selectedUsers} setActionMessage={setActionMessage} handleActionConfirm={handleActionConfirm} confirmationMessage={confirmationMessage} secondDialogOpen={secondDialogOpen} setSecondDialogOpen={setSecondDialogOpen} />
   
             <DataGrid
               autoHeight

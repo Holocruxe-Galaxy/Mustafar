@@ -40,7 +40,7 @@ const [subscriptionDialogOpen, setSubscriptionDialogOpen] = useState<boolean>(fa
 
   return (
 <Grid item xs={12}>
-  <Card>
+  <Card sx={{ boxShadow: '4px 4px 4px 0px #FFFFFF80'}}>
     <CardHeader
       title='Billing Address'
 /*       action={
@@ -50,9 +50,9 @@ const [subscriptionDialogOpen, setSubscriptionDialogOpen] = useState<boolean>(fa
       } */
     />
     <CardContent>
-      <Grid container spacing={6}>
+      <Grid container spacing={6} sx={{py: '1.5em'}}>
         <Grid item xs={12} lg={6}>
-          <TableContainer>
+          <TableContainer sx={{ ml: '1em'}}>
             <Table size='small' sx={{ width: '95%' }}>
               <TableBody
                 sx={{

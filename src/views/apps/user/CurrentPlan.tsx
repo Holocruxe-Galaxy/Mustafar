@@ -52,13 +52,13 @@ const [subscriptionDialogOpen, setSubscriptionDialogOpen] = useState(false)
   const handleUpgradePlansClose = () => setOpenUpgradePlans(false)
 
 return (
-    <Grid item xs={12}>
-    <Card>
-      <CardHeader title='Current plan' />
+    <Grid item xs={12} >
+    <Card sx={{ boxShadow: '4px 4px 4px 0px #FFFFFF80'}}>
+      <CardHeader title='Current plan' sx={{mt:'1em'}} />
       <CardContent>
         <Grid container spacing={6}>
-          <Grid item xs={12} md={6}>
-            <Box sx={{ mb: 4 }}>
+          <Grid item xs={12} md={6} sx={{py: '1.5em'}}>
+            <Box sx={{ my: 4 }}>
               <Typography sx={{ fontWeight: 500, mb: 1, fontSize: '0.875rem' }}>
                 Your Current Plan is <strong>Basic</strong>
               </Typography>
