@@ -1,26 +1,31 @@
+// ** React Imports
+import { useState } from 'react'
+
 // ** MUI Imports
 import Box from '@mui/material/Box'
-import IconButton from '@mui/material/IconButton'
-
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
+import Button from '@mui/material/Button'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import Typography from '@mui/material/Typography'
+import { useTheme } from '@mui/material/styles'
+import { makeStyles } from '@mui/styles'
 
 // ** Type Import
 import { Settings } from 'src/@core/context/settingsContext'
 
 // ** Components
-import Autocomplete from 'src/layouts/components/Autocomplete'
-import ModeToggler from 'src/@core/layouts/components/shared-components/ModeToggler'
-import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
+// **import Autocomplete from 'src/layouts/components/Autocomplete'
 import LanguageDropdown from 'src/@core/layouts/components/shared-components/LanguageDropdown'
-import NotificationDropdown, {
-  NotificationsType
-} from 'src/@core/layouts/components/shared-components/NotificationDropdown'
+import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
+import { Search, Bell, Line, InactiveConections, ActiveMetrics, InactiveMetrics, ActiveBinnacle, InactiveBinnacle, ActiveTutorial, InactiveTutorial } from 'src/views/components/icons/index'
 
-// ** import  ShortcutsDropdown,{ ShortcutsType } from 'src/@core/layouts/components/shared-components/ShortcutsDropdown'
+//import ModeToggler from 'src/@core/layouts/components/shared-components/ModeToggler'
 
 // ** Hook Import
 import { useAuth } from 'src/hooks/useAuth'
+import { useRouter } from 'next/router'
+import InteresActivo from 'src/@core/icons/configuracion/InteresActivo'
+import InteresesInactivo from 'src/@core/icons/configuracion/InteresesInactivo'
 
 interface Props {
   hidden: boolean
@@ -29,130 +34,178 @@ interface Props {
   saveSettings: (values: Settings) => void
 }
 
-const notifications: NotificationsType[] = [
-  {
-    meta: 'Today',
-    avatarAlt: 'Flora',
-    title: 'Congratulation Flora! 🎉',
-    avatarImg: '/images/avatars/4.png',
-    subtitle: 'Won the monthly best seller badge'
-  },
-  {
-    meta: 'Yesterday',
-    avatarColor: 'primary',
-    subtitle: '5 hours ago',
-    avatarText: 'Robert Austin',
-    title: 'New user registered.'
-  },
-  {
-    meta: '11 Aug',
-    avatarAlt: 'message',
-    title: 'New message received 👋🏻',
-    avatarImg: '/images/avatars/5.png',
-    subtitle: 'You have 10 unread messages'
-  },
-  {
-    meta: '25 May',
-    title: 'Paypal',
-    avatarAlt: 'paypal',
-    subtitle: 'Received Payment',
-    avatarImg: '/images/misc/paypal.png'
-  },
-  {
-    meta: '19 Mar',
-    avatarAlt: 'order',
-    title: 'Received Order 📦',
-    avatarImg: '/images/avatars/3.png',
-    subtitle: 'New order received from John'
-  },
-  {
-    meta: '27 Dec',
-    avatarAlt: 'chart',
-    subtitle: '25 hrs ago',
-    avatarImg: '/images/misc/chart.png',
-    title: 'Finance report has been generated'
-  }
-]
-
-// ** const shortcuts: ShortcutsType[] = [
-//   {
-//     title: 'Calendar',
-//     url: '/apps/calendar',
-//     subtitle: 'Appointments',
-//     icon: 'mdi:calendar-month-outline'
-//   },
-//   {
-//     title: 'Invoice App',
-//     url: '/apps/invoice/list',
-//     subtitle: 'Manage Accounts',
-//     icon: 'mdi:receipt-text-outline'
-//   },
-//   {
-//     title: 'Users',
-//     url: '/apps/user/list',
-//     subtitle: 'Manage Users',
-//     icon: 'mdi:account-outline'
-//   },
-//   {
-//     url: '/apps/roles',
-//     title: 'Role Management',
-//     subtitle: 'Permissions',
-//     icon: 'mdi:shield-check-outline'
-//   },
-//   {
-//     url: '/',
-//     title: 'Dashboard',
-//     icon: 'mdi:chart-pie',
-//     subtitle: 'User Dashboard'
-//   },
-//   {
-//     title: 'Settings',
-//     icon: 'mdi:cog-outline',
-//     subtitle: 'Account Settings',
-//     url: '/pages/account-settings/account'
-//   },
-//   {
-//     title: 'Help Center',
-//     subtitle: 'FAQs & Articles',
-//     icon: 'mdi:help-circle-outline',
-//     url: '/pages/help-center'
-//   },
-//   {
-//     title: 'Dialogs',
-//     subtitle: 'Useful Dialogs',
-//     icon: 'mdi:window-maximize',
-//     url: '/pages/dialog-examples'
-//   }
-// ]
-
 const AppBarContent = (props: Props) => {
-  // ** Props
-  const { hidden, settings, saveSettings, toggleNavVisibility } = props
-
   // ** Hook
   const auth = useAuth()
+  const router = useRouter()
+
+  // ** Props
+  const { /* hidden, */ settings, saveSettings } = props
+  const theme = useTheme()
+
+    // ** States
+    const [activeArea, setActiveArea] = useState(false)
+
+    const handleMouseEnter = () => {
+      setActiveArea(true)
+    }
+
+    const handleMouseLeaves = () => {
+      setActiveArea(false)
+    }
+
+  const useStyles = makeStyles(() => ({
+    card: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'start',
+      width: '25rem',
+      height: '5.313rem',
+      margin: '1.200rem',
+      borderRadius: '14px',
+      fontSize: '21px',
+      fontWeight: 1,
+      backgroundColor: 'rgba(1, 0, 50, 1)',
+      boxShadow: '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(66, 65, 136, 0.50) inset',
+      '&:hover':{
+        background: 'linear-gradient(180deg, #00FFED -10%, rgba(248, 54, 244, 0.20) 100%)'
+      }
+    },
+    cardActive: {
+      display: 'flex',
+      fontWeight: '20px',
+      justifyContent: 'start',
+      alignItems: 'center',
+      background: 'linear-gradient(180deg, #00FFED -10%, rgba(248, 54, 244, 0.20) 100%)',
+      boxShadow: '4px 4px 25px 0px rgba(255, 255, 255, 0.20), 4px 4px 4px 0px rgba(255, 255, 255, 0.25) inset;'
+    },
+    content: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      width: '100%'
+    },
+    icons: {
+      width: '20px',
+      height: '20px'
+    },
+    font: {
+      color: '#00FFED',
+      fontWeight: 1
+    },
+    fontActive: {
+      color: 'white'
+    }
+  }))
+
+  const classes = useStyles()
+
+  const cardsArr = [
+    {
+      page: 'home',
+      buttons: [{ name: 'TUTORIAL', activeIcon: <ActiveTutorial />, inactiveIcon: <InactiveTutorial />, href: 'home'}]
+    },
+    {
+      page: 'apps/diary',
+      buttons: [
+        { name: 'MI BITÁCORA', activeIcon: <ActiveBinnacle />, inactiveIcon: <InactiveBinnacle />, href: 'apps/diary'},
+        { name: 'TUS MÉTRICAS', activeIcon: <ActiveMetrics />, inactiveIcon: <InactiveMetrics/>, href: ''}
+      ]
+    },
+    {
+      page: 'profile',
+      buttons: [
+        { name: 'TUS INTERESES', activeIcon: <ActiveBinnacle />, inactiveIcon: <InactiveBinnacle />, href: 'apps/diary'},
+        { name: 'TUS MÉTRICAS', activeIcon: <ActiveMetrics />, inactiveIcon: <InactiveMetrics/>, href: ''}
+      ]
+    },
+    {
+      page: 'apps/account',
+      buttons: [
+        { name: 'TUS INTERESES',
+        activeIcon: <InteresActivo />,
+        inactiveIcon: <InteresesInactivo />,
+        href: 'apps/account',  },
+        { name: 'TUS MÉTRICAS', activeIcon: <ActiveMetrics />, inactiveIcon: <InactiveMetrics/>, href: '',  }
+      ]
+    },
+    {
+      page: 'apps/security',
+      buttons: [
+        { name: 'TUS INTERESES',
+        activeIcon: <InteresActivo />,
+        inactiveIcon: <InteresesInactivo />,
+         href: 'apps/security' },
+        { name: 'TUS MÉTRICAS', activeIcon: <ActiveMetrics />, inactiveIcon: <InactiveMetrics/>, href: '' }
+      ]
+    },
+    {
+      page: 'apps/notifications',
+      buttons: [
+        { name: 'TUS INTERESES',
+        activeIcon: <InteresActivo />,
+        inactiveIcon: <InteresesInactivo />,
+        href: 'apps/notifications',  },
+        { name: 'TUS MÉTRICAS', activeIcon: <ActiveMetrics />, inactiveIcon: <InactiveMetrics/>, href: '' }
+      ]
+    }
+  ]
+
+  // Vars
+  const currentPage = cardsArr.find(item => item.page == router.pathname.slice(1))
+  const selectedPage = currentPage?.page
+
+  const handleRedirect = (href: string) => {
+    router.push(`${href}`)
+  }
+
+  const { skin } = settings
 
   return (
-    <Box component='div' sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-      <Box component='div' className='actions-left' sx={{ mr: 2, display: 'flex', alignItems: 'center' }}>
-        {hidden && !settings.navHidden ? (
-          <IconButton color='inherit' sx={{ ml: -2.75 }} onClick={toggleNavVisibility}>
-            <Icon icon='mdi:menu' />
-          </IconButton>
-        ) : null}
-        {auth.user && <Autocomplete hidden={hidden} settings={settings} />}
-      </Box>
-      <Box component='div' className='actions-right' sx={{ display: 'flex', alignItems: 'center' }}>
-        <LanguageDropdown settings={settings} saveSettings={saveSettings} />
-        <ModeToggler settings={settings} saveSettings={saveSettings} />
-        {auth.user && (
-          <>
-            {/* <ShortcutsDropdown settings={settings} shortcuts={shortcuts} /> */}
-            <NotificationDropdown settings={settings} notifications={notifications} />
-            <UserDropdown settings={settings} />
-          </>
-        )}
-      </Box>
+    <Box
+      component='div'
+      sx={{
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'space-between',
+        borderRadius: 1,
+        overflow: 'hidden',
+        position: 'relative',
+        backgroundColor: 'background.paper',
+        boxShadow: /* skin === 'bordered' ? 0 : 6 */ '4px 4px 4px 0px rgba(255, 255, 255, 0.50)',
+        mt: 8,
+        ...(skin === 'bordered' && { border: `1px solid ${theme.palette.divider}` })
+      }}
+    >
+      {currentPage?.buttons.map((card, index: number) => (
+        <Button
+        key={index}
+        sx={{width: '25rem', height: '5.313rem', margin: '1.200rem', pl:8, borderRadius: '14px', fontSize:'21px', fontWeight: 1, backgroundColor: 'rgba(1, 0, 50, 1)' }}
+        className={selectedPage === card.href ?  classes.cardActive : classes.card}
+        onClick={() => handleRedirect(card.href)}
+        startIcon={currentPage.page === card.href ? card.activeIcon : card.inactiveIcon}>
+          <Typography className={currentPage.page === card.href ? classes.fontActive : classes.font} variant='h6'>{card.name}</Typography>
+        </Button>
+      ))}
+      <Card
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeaves}
+      className={activeArea ? classes.card : classes.card} >
+
+        <CardContent className={classes.content}>
+        <Search />
+          <Line />
+          <LanguageDropdown settings={settings} saveSettings={saveSettings} />
+          <InactiveConections />
+          {auth.user && (
+            <>
+              <Bell />
+              <Line />
+              <UserDropdown settings={settings} />
+            </>
+          )}
+        </CardContent>
+      </Card>
     </Box>
   )
 }

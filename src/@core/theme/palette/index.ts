@@ -4,7 +4,7 @@ import { Skin } from 'src/@core/layouts/types'
 
 const DefaultPalette = (mode: Palette['mode'], skin: Skin): Palette => {
   // ** Vars
-  const whiteColor = '#FFF'
+  const whiteColor = '#FFFFFF'
   const lightColor = '76, 78, 100'
   const darkColor = '234, 234, 255'
   const mainColor = mode === 'light' ? lightColor : darkColor
@@ -13,13 +13,11 @@ const DefaultPalette = (mode: Palette['mode'], skin: Skin): Palette => {
     if (skin === 'bordered' && mode === 'light') {
       return whiteColor
     } else if (skin === 'bordered' && mode === 'dark') {
-      return '#0e2b42'
+      return '#010032'
     } else if (mode === 'light') {
       return '#F7F9F9'
-    } else return '#0e2b42'
+    } else return '#010032'
   }
-
-  // line 19 bg color
 
   return {
     customColors: {
@@ -31,7 +29,7 @@ const DefaultPalette = (mode: Palette['mode'], skin: Skin): Palette => {
       bodyBg: mode === 'light' ? '#F7F9F9' : '#20435e', // Same as palette.background.default but doesn't consider bordered skin
       trackBg: mode === 'light' ? '#F2F2F4' : '#20435e',
       avatarBg: mode === 'light' ? '#F1F1F3' : '#20435e',
-      tooltipBg: mode === 'light' ? '#20435e' : '#20435e',
+      tooltipBg: mode === 'light' ? '#142B3D' : '#20435e',
       tableHeaderBg: mode === 'light' ? '#F5F5F7' : '#20435e'
     },
     mode: mode,
@@ -41,9 +39,9 @@ const DefaultPalette = (mode: Palette['mode'], skin: Skin): Palette => {
     },
     primary: {
       // button colors
-      light: '#59c1bd',
-      main: '#59c1bd',
-      dark: '#59c1bd',
+      light: '#00FFED',
+      main: '#00FFED',
+      dark: '#00FFED',
       contrastText: whiteColor
     },
     secondary: {
@@ -65,9 +63,9 @@ const DefaultPalette = (mode: Palette['mode'], skin: Skin): Palette => {
       contrastText: whiteColor
     },
     info: {
-      light: '#59c1bd',
-      main: '#59c1bd',
-      dark: '#59c1bd',
+      light: '#59C1BD',
+      main: '#59C1BD',
+      dark: '#2B2C4B',
       contrastText: whiteColor
     },
     success: {
@@ -93,14 +91,13 @@ const DefaultPalette = (mode: Palette['mode'], skin: Skin): Palette => {
       A700: '#616161'
     },
     text: {
-      primary: `rgba(${mainColor}, 0.87)`,
-      secondary: `rgba(${mainColor}, 0.6)`,
-      disabled: `rgba(${mainColor}, 0.38)`
+      primary: '#00FFED',
+      secondary: whiteColor,
+      disabled: '#F836F4'
     },
     divider: `rgba(${mainColor}, 0.12)`,
     background: {
-      // components bg color
-      paper: mode === 'light' ? whiteColor : '#20435e',
+      paper: mode === 'light' ? whiteColor : '#2B2C4B',
       default: defaultBgColor()
     },
     action: {
