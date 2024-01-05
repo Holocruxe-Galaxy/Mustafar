@@ -28,7 +28,7 @@ class SocketClient {
   async sendAudio(audio: FormData) {
     await axios.post(`${process.env.NEXT_PUBLIC_MANDALORE}/chat/${this.socket.id}`, audio, {
       headers: {
-        authorization: localStorage.getItem('AuthorizationToken')
+        authorization: `Bearer ${localStorage.getItem('AuthorizationToken')}`
       }
     })
   }
