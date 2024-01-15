@@ -296,9 +296,15 @@ const Diary = () => {
                     '& .MuiOutlinedInput-root': {
                       '& fieldset': {
                         borderColor: '#00FFED'
+                      },
+                      '&.Mui-focused fieldset': {
+                        borderColor: '#00FFED'
                       }
                     },
                     '& label': {
+                      color: '#00FFED'
+                    },
+                    '& .MuiInputLabel-outlined.MuiInputLabel-shrink': {
                       color: '#00FFED'
                     }
                   }}
