@@ -282,7 +282,14 @@ const Diary = () => {
                 sx={{
                   width: '80%',
                   mr: 3,
-                  borderRadius: 2
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                      borderColor: '#00FFED'
+                    }
+                  },
+                  '& label': {
+                    color: '#00FFED'
+                  }
                 }}
                 InputProps={{
                   endAdornment: (
