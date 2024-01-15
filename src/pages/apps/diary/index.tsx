@@ -298,14 +298,14 @@ const Diary = () => {
                         borderColor: '#00FFED'
                       },
                       '&.Mui-focused fieldset': {
-                        borderColor: '#00FFED'
+                        borderColor: '#F836F4'
                       }
                     },
                     '& label': {
                       color: '#00FFED'
                     },
                     '& .MuiInputLabel-outlined.MuiInputLabel-shrink': {
-                      color: '#00FFED'
+                      color: '#F836F4'
                     }
                   }}
                   InputProps={{
