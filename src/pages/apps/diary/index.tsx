@@ -260,146 +260,165 @@ const Diary = () => {
       <Card sx={{ height: '100%', mb: 5 }}>
         <CardContent>
           <Box
-            sx={
-              isMultiline
-                ? { backgroundColor: 'customColors.darkBg', height: '9.4rem', p: 3, borderRadius: 1 }
-                : { backgroundColor: 'customColors.darkBg', height: '5rem', p: 3, borderRadius: 1 }
-            }
+            sx={{
+              backgroundColor: 'customColors.darkBg',
+              borderRadius: 1,
+              display: 'flex',
+              height: '9.4 rem',
+              justifyContent: 'center',
+              p: 3
+            }}
             component='div'
           >
-            <form onSubmit={onSubmit} style={{ display: 'flex', flexDirection: 'row' }}>
-              <TextField
-                focused={isMultiline ? true : false}
-                variant='outlined'
-                onKeyDown={e => handleKeyDown(e, onSubmit, inputRef)}
-                size='medium'
-                multiline={true}
-                minRows={isMultiline ? 4 : 0}
-                id='myInput'
-                label='Qué hay de nuevo? ...'
-                inputRef={inputRef}
-                onChange={e => handleValue(e)}
-                sx={{
-                  width: '80%',
-                  mr: 3,
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': {
-                      borderColor: '#00FFED'
-                    }
-                  },
-                  '& label': {
-                    color: '#00FFED'
-                  }
-                }}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position='end' sx={{ display: 'flex' }}>
-                      {!isPickerVisible ? (
-                        ''
-                      ) : (
-                        <div className={classes.picker} ref={pickerRef}>
-                          <Picker
-                            data={data}
-                            emojiTooltip
-                            perLine={10}
-                            maxFrequentRows={0}
-                            searchPosition='none'
-                            onEmojiSelect={handleEmojiSelect}
-                          />
-                        </div>
-                      )}
-                      <IconButton
-                        onClick={e => {
-                          e.stopPropagation()
-                          pickerToggleHandler()
-                        }}
-                        sx={isMultiline ? undefined : { display: 'none' }}
-                        className={classes.iconButton}
-                        aria-expanded={isPickerVisible ? 'true' : 'false'}
-                      >
-                        <IconEmojiButton />
-                      </IconButton>
-                    </InputAdornment>
-                  )
-                }}
-              ></TextField>
-              <div>
-                <Box
-                  component='div'
-                  sx={{ display: 'flex', justifyContent: 'center', pt: 2, position: 'relative', zIndex: 1 }}
-                >
-                  <Tooltip title='Al activarlo, se guardará como tus publicaciones favoritas' placement='top'>
-                    <CustomSwitch sx={{ mr: 3, mt: 1.5 }} onClick={handleSwitchChange} checked={diary.favorite} />
-                  </Tooltip>
-
-                  <Button
-                    component='label'
-                    endIcon={<UploadButton />}
-                    sx={{
-                      backgroundColor: 'transparent',
-                      borderRadius: '50%',
-                      width: '2rem',
-                      height: '2rem',
-                      minWidth: 'auto',
-                      mr: 3.2,
-                      mt: 1
-                    }}
-                    className={classes.iconButton}
-                  >
-                    <VisuallyHiddenInput type='file' accept='image/*' onChange={fileSelected} />
-                  </Button>
-
-                  <Select
-                    id='select'
-                    value={diary.emoji || ''}
-                    sx={{ height: '2.5rem', fontSize: '1.5rem', textAlign: 'center' }}
-                    onChange={handleChange}
-                    displayEmpty
-                    renderValue={selected => {
-                      if (selected === '' || !selected) {
-                        return <ArtIcon />
-                      }
-
-                      return selected
-                    }}
-                    inputProps={{ 'aria-label': 'Without label' }}
-                  >
-                    {emotions.map(e => (
-                      <MenuItem key={e.value} value={e.value}>
-                        {e.name}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </Box>
-                <Button
-                  variant='contained'
-                  type='submit'
+            <Box
+              sx={
+                isMultiline
+                  ? { backgroundColor: 'background.paper', height: '9.4rem', p: 3, borderRadius: 1, width: '100%' }
+                  : { backgroundColor: 'background.paper', height: '5rem', p: 3, borderRadius: 1, width: '100%' }
+              }
+              component='div'
+            >
+              <form onSubmit={onSubmit} style={{ display: 'flex', flexDirection: 'row' }}>
+                <TextField
+                  focused={isMultiline ? true : false}
+                  variant='outlined'
+                  onKeyDown={e => handleKeyDown(e, onSubmit, inputRef)}
+                  size='medium'
+                  multiline={true}
+                  minRows={isMultiline ? 4 : 0}
+                  id='myInput'
+                  label='Qué hay de nuevo? ...'
+                  inputRef={inputRef}
+                  onChange={e => handleValue(e)}
                   sx={{
-                    '&:hover': {
-                      color: '#00FFED',
-                      background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.20) 100%)',
-                      boxShadow: '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(255, 255, 255, 0.25) inset'
+                    width: '80%',
+                    mr: 3,
+                    '& .MuiOutlinedInput-root': {
+                      '& fieldset': {
+                        borderColor: '#00FFED'
+                      }
                     },
-                    ...(isMultiline
-                      ? {
-                          height: '3.2rem',
-                          width: '8.8rem',
-                          mt: 6,
-                          ml: 27,
-                          position: 'relative',
-                          zIndex: 0,
-                          fontSize: 17
-                        }
-                      : { display: 'none' })
+                    '& label': {
+                      color: '#00FFED'
+                    }
                   }}
-                >
-                  Publicar
-                  <div style={{ paddingLeft: 6, paddingTop: 14 }}>
-                    <Send />
-                  </div>
-                </Button>
-              </div>
-            </form>
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position='end' sx={{ display: 'flex' }}>
+                        {!isPickerVisible ? (
+                          ''
+                        ) : (
+                          <div className={classes.picker} ref={pickerRef}>
+                            <Picker
+                              data={data}
+                              emojiTooltip
+                              perLine={10}
+                              maxFrequentRows={0}
+                              searchPosition='none'
+                              onEmojiSelect={handleEmojiSelect}
+                            />
+                          </div>
+                        )}
+                        <IconButton
+                          onClick={e => {
+                            e.stopPropagation()
+                            pickerToggleHandler()
+                          }}
+                          sx={isMultiline ? undefined : { display: 'none' }}
+                          className={classes.iconButton}
+                          aria-expanded={isPickerVisible ? 'true' : 'false'}
+                        >
+                          <IconEmojiButton />
+                        </IconButton>
+                      </InputAdornment>
+                    )
+                  }}
+                ></TextField>
+                <div>
+                  <Box
+                    component='div'
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      pt: 2,
+                      position: 'relative',
+                      zIndex: 1
+                    }}
+                  >
+                    <Tooltip title='Al activarlo, se guardará como tus publicaciones favoritas' placement='top'>
+                      <CustomSwitch sx={{ mr: 3, mt: 1.5 }} onClick={handleSwitchChange} checked={diary.favorite} />
+                    </Tooltip>
+
+                    <Button
+                      component='label'
+                      endIcon={<UploadButton />}
+                      sx={{
+                        backgroundColor: 'transparent',
+                        borderRadius: '50%',
+                        width: '2rem',
+                        height: '2rem',
+                        minWidth: 'auto',
+                        mr: 3.2,
+                        mt: 1
+                      }}
+                      className={classes.iconButton}
+                    >
+                      <VisuallyHiddenInput type='file' accept='image/*' onChange={fileSelected} />
+                    </Button>
+
+                    <Select
+                      id='select'
+                      value={diary.emoji || ''}
+                      sx={{ height: '2.5rem', fontSize: '1.5rem', textAlign: 'center' }}
+                      onChange={handleChange}
+                      displayEmpty
+                      renderValue={selected => {
+                        if (selected === '' || !selected) {
+                          return <ArtIcon />
+                        }
+
+                        return selected
+                      }}
+                      inputProps={{ 'aria-label': 'Without label' }}
+                    >
+                      {emotions.map(e => (
+                        <MenuItem key={e.value} value={e.value}>
+                          {e.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </Box>
+                  <Button
+                    variant='contained'
+                    type='submit'
+                    sx={{
+                      '&:hover': {
+                        color: '#00FFED',
+                        background: 'linear-gradient(180deg, #00FFED 0%, rgba(248, 54, 244, 0.20) 100%)',
+                        boxShadow:
+                          '4px 4px 25px 0px rgba(0, 0, 0, 0.70), 4px 4px 4px 0px rgba(255, 255, 255, 0.25) inset'
+                      },
+                      ...(isMultiline
+                        ? {
+                            height: '3.2rem',
+                            width: '8.8rem',
+                            mt: 6,
+                            ml: 27,
+                            position: 'relative',
+                            zIndex: 0,
+                            fontSize: 17
+                          }
+                        : { display: 'none' })
+                    }}
+                  >
+                    Publicar
+                    <div style={{ paddingLeft: 6, paddingTop: 14 }}>
+                      <Send />
+                    </div>
+                  </Button>
+                </div>
+              </form>
+            </Box>
           </Box>
         </CardContent>
         <CardContent>
