@@ -257,11 +257,12 @@ const Diary = () => {
       <Box component='div' sx={{ mb: 5 }}>
         <CardButtons data={diaryCards} />
       </Box>
-      <Card sx={{ height: '100%', mb: 5 }}>
+      <Card sx={{ height: '100%', mb: 5, boxShadow: '4px 4px 4px 0px rgba(255, 255, 255, 0.50)' }}>
         <CardContent>
           <Box
             sx={{
               backgroundColor: 'customColors.darkBg',
+              boxShadow: '4px 4px 4px 0px rgba(255, 255, 255, 0.50)',
               borderRadius: 1,
               display: 'flex',
               height: '9.4 rem',
