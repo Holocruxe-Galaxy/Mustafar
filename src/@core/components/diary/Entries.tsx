@@ -336,7 +336,7 @@ const Entries = ({ id, props }: any) => {
   const classes = useStyles()
 
   return (
-    <Card sx={{ backgroundColor: 'background.default' }}>
+    <Card sx={{ backgroundColor: 'background.default', boxShadow: '4px 4px 4px 0px rgba(255, 255, 255, 0.50)' }}>
       <CardHeader
         avatar={<Avatar sx={{ bgcolor: '#59c1bd' }}>R</Avatar>}
         action={
