@@ -72,6 +72,8 @@ import Psic from '../../@core/icons/OnBoardingStep/Psic'
 import { AppDispatch, RootState } from 'src/store'
 import RightBlueAirplane from 'src/@core/icons/OnBoardingStep/RightBlueAirplane'
 import LeftBlueAirplane from 'src/@core/icons/OnBoardingStep/LeftBlueAirplane'
+import ChatBotIcon from 'src/@core/components/Chat-Icon/Chat-Icon'
+import Chat from 'src/@core/components/ChatComponent/ChatComponent'
 
 const steps = [
   {
@@ -604,9 +606,11 @@ const Register = () => {
   }
 
   const getStepContent = (step: number) => {
-    switch (step) {
-      case 0:
-        return (
+    return (
+      <div>
+        <ChatBotIcon></ChatBotIcon>
+        <Chat></Chat>
+        {step === 0 && (
           <form key={0} onSubmit={handleContactSubmit(onSubmit)}>
             <Grid container spacing={5}>
               <Grid item xs={12} marginTop={10}>
@@ -876,8 +880,8 @@ const Register = () => {
                   )}
                 </FormControl>
               </Grid>
-              <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'end', paddingBottom: '5em',  }}>
-                <Button size='large' type='submit' variant='contained' startIcon={<RightBlueAirplane/>} >
+              <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'end', paddingBottom: '5em' }}>
+                <Button size='large' type='submit' variant='contained' startIcon={<RightBlueAirplane />}>
                   siguiente
                 </Button>
               </Grid>
@@ -888,9 +892,8 @@ const Register = () => {
               </Canvas>
             </Grid>
           </form>
-        )
-      case 1:
-        return (
+        )}
+        {step === 1 && (
           <form key={1} onSubmit={handlePersonalSubmit(onSubmit)}>
             <Grid container spacing={5}>
               <Grid item xs={12} marginTop={10}>
@@ -1030,12 +1033,16 @@ const Register = () => {
                 </FormControl>
               </Grid>
               <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '5em' }}>
-                <Button size='large' variant='contained' startIcon={<LeftBlueAirplane/>} onClick={handleBack}>
+                <Button size='large' variant='contained' startIcon={<LeftBlueAirplane />} onClick={handleBack}>
                   ATRÁS
                 </Button>
-                <Button size='large' type='submit' variant='contained' startIcon={<RightBlueAirplane/>}
-                
-                // sx={{ color:'text.primary' }}
+                <Button
+                  size='large'
+                  type='submit'
+                  variant='contained'
+                  startIcon={<RightBlueAirplane />}
+
+                  // sx={{ color:'text.primary' }}
                 >
                   Siguiente
                 </Button>
@@ -1047,9 +1054,8 @@ const Register = () => {
               </Canvas>
             </Grid>
           </form>
-        )
-      case 2:
-        return (
+        )}
+        {step === 2 && (
           <form key={2} onSubmit={handleProfessionalSubmit(onSubmit)}>
             <Grid container spacing={5}>
               <Grid item xs={12} marginTop={10}>
@@ -1204,10 +1210,10 @@ const Register = () => {
               </Grid>
 
               <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '5em' }}>
-                <Button size='large' variant='contained' startIcon={<LeftBlueAirplane/>} onClick={handleBack}>
+                <Button size='large' variant='contained' startIcon={<LeftBlueAirplane />} onClick={handleBack}>
                   atrás
                 </Button>
-                <Button size='large' type='submit' variant='contained' startIcon={<RightBlueAirplane/>}>
+                <Button size='large' type='submit' variant='contained' startIcon={<RightBlueAirplane />}>
                   siguiente
                 </Button>
               </Grid>
@@ -1218,9 +1224,8 @@ const Register = () => {
               </Canvas>
             </Grid>
           </form>
-        )
-      case 3:
-        return (
+        )}
+        {step === 3 && (
           <form key={3} onSubmit={handleGeneralInsterestsSubmit(onSubmit)}>
             <Grid container spacing={5}>
               <Grid item xs={12} marginTop={10}>
@@ -1264,11 +1269,15 @@ const Register = () => {
                   </Grid>
                 ))}
 
-                <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '5em', mt: 15 }}>
-                  <Button size='large' variant='contained' startIcon={<LeftBlueAirplane/>} onClick={handleBack}>
+                <Grid
+                  item
+                  xs={12}
+                  sx={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '5em', mt: 15 }}
+                >
+                  <Button size='large' variant='contained' startIcon={<LeftBlueAirplane />} onClick={handleBack}>
                     atrás
                   </Button>
-                  <Button size='large' type='submit' variant='contained' startIcon={<RightBlueAirplane/>}>
+                  <Button size='large' type='submit' variant='contained' startIcon={<RightBlueAirplane />}>
                     enviar
                   </Button>
                 </Grid>
@@ -1280,10 +1289,9 @@ const Register = () => {
               </Canvas>
             </Grid>
           </form>
-        )
-      default:
-        return null
-    }
+        )}
+      </div>
+    )
   }
 
   const renderContent = () => {
